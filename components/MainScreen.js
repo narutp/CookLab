@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'native-base'
+import { TabNavigator } from 'react-navigation'
+import NewfeedTab from './AppTabNavigator/NewfeedTab'
+import ProfileTab from './AppTabNavigator/ProfileTab'
+import SearchTab from './AppTabNavigator/SearchTab'
+import TopfeedTab from './AppTabNavigator/TopfeedTab'
 
 class MainScreen extends Component {
 
@@ -11,9 +16,7 @@ class MainScreen extends Component {
     }
     render() {
         return (
-            <View style={styles.container}>
-                <Text> Hello wedqwdqw </Text>
-            </View>
+            <AppTabNavigator />
         );
     }
 }
@@ -23,7 +26,7 @@ export default MainScreen;
 const AppTabNavigator = TabNavigator({
 
     TopfeedTab: {
-        screen: TopTab
+        screen: TopfeedTab
     },
     NewfeedTab: {
         screen: NewfeedTab
@@ -35,6 +38,7 @@ const AppTabNavigator = TabNavigator({
         screen: ProfileTab
     }
 })
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
