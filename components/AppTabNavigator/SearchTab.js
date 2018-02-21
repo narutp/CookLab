@@ -6,7 +6,7 @@ class SearchTab extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text> Hell </Text>
+                <Text> Search </Text>
             </View>
         );
     }

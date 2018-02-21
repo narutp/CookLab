@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Icon } from 'native-base'
-// import { TabNavigator } from 'react-navigation'
+import Icon from 'react-native-vector-icons/FontAwesome';
 import TabNavigator from 'react-native-tab-navigator';
 import NewfeedTab from './AppTabNavigator/NewfeedTab'
 import ProfileTab from './AppTabNavigator/ProfileTab'
@@ -13,29 +12,40 @@ class MainScreen extends Component {
         selectedTab: 'home'
     };
 
-    // static navigationOptions = {
-    //     headerLeft: <Icon name="person" style={{paddingLeft:10}} />,
-    //     title: "Cooklab",
-    //     headerRight: <Icon ios='ios-camera' android="md-camera" />
-    // }
     render() {
         return (
             <TabNavigator style={styles.container}>
                 <TabNavigator.Item
                     selected={this.state.selectedTab === 'home'}
                     title="Home"
-                    renderIcon={() => <Icon name="person" />}
-                    renderSelectedIcon={() => <Icon name="person" />}
+                    renderIcon={() => <Icon name="star" />}
+                    renderSelectedIcon={() => <Icon name="star" color="#3496f0" />}
                     onPress={() => this.setState({ selectedTab: 'home' })}>
                     <TopfeedTab />
                 </TabNavigator.Item>
-                <TabNavigator.Item
+                <TabNavigator.Item 
                     selected={this.state.selectedTab === 'newfeed'}
                     title="NewFeed"
-                    renderIcon={() => <Icon ios='ios-camera' android="md-camera" />}
-                    renderSelectedIcon={() => <Icon ios='ios-camera' android="md-camera" />}
+                    renderIcon={() => <Icon name="newspaper-o" />}
+                    renderSelectedIcon={() => <Icon name="newspaper-o" color="#3496f0" />}
                     onPress={() => this.setState({ selectedTab: 'newfeed' })}>
                     <NewfeedTab />
+                </TabNavigator.Item>
+                <TabNavigator.Item
+                    selected={this.state.selectedTab === 'search'}
+                    title="Search"
+                    renderIcon={() => <Icon name="search" />}
+                    renderSelectedIcon={() => <Icon name="search" color="#3496f0" />}
+                    onPress={() => this.setState({ selectedTab: 'search' })}>
+                    <SearchTab />
+                </TabNavigator.Item>
+                <TabNavigator.Item
+                    selected={this.state.selectedTab === 'profile'}
+                    title="Profile"
+                    renderIcon={() => <Icon name="user" color="#666"/>}
+                    renderSelectedIcon={() => <Icon name="user" color="#3496f0" />}
+                    onPress={() => this.setState({ selectedTab: 'profile' })}>
+                    <ProfileTab />
                 </TabNavigator.Item>
             </TabNavigator>
         );
@@ -43,22 +53,6 @@ class MainScreen extends Component {
 }
 
 export default MainScreen;
-
-// const AppTabNavigator = TabNavigator({
-
-//     TopfeedTab: {
-//         screen: TopfeedTab
-//     },
-//     NewfeedTab: {
-//         screen: NewfeedTab
-//     },
-//     SearchTab: {
-//         screen: SearchTab
-//     },
-//     ProfileTab: {
-//         screen: ProfileTab
-//     }
-// })
 
 const styles = StyleSheet.create({
   container: {

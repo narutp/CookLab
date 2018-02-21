@@ -6,7 +6,7 @@ class NewfeedTab extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text> Hell </Text>
+                <Text> Newfeed </Text>
             </View>
         );
     }

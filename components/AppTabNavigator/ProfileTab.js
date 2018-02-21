@@ -6,7 +6,7 @@ class ProfileTab extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text> Hell </Text>
+                <Text> Profile </Text>
             </View>
         );
     }
