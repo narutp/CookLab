@@ -10,14 +10,14 @@ class TopfeedTab extends Component {
                 <View style={styles.user_wrapper}>
                   <Image
                   style={styles.profilepic}
-                  source={require('src/assets/image/tan.jpg')}
+                  source={require('src/assets/image/Profile/profilePic1.jpg')}
                   />
                   <Text style={styles.username}> NatanonP </Text>
                 </View>
                 <View style={styles.image_wrapper}>
                   <Image
                   style={styles.postpic}
-                  source={require('src/assets/image/food.jpg')}/>
+                  source={require('src/assets/image/Food/food1.jpeg')}/>
                 </View>
                 <View style={styles.action_wrapper}>
                   <IconIonicons name='md-heart-outline' style={styles.action_icon}/>
