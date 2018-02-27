@@ -16,7 +16,11 @@ class CardComponent extends Component {
             '2': require('../assets/image/Food/food2.jpeg'),
             '3': require('../assets/image/Food/food3.jpeg'),
             '4': require('../assets/image/Food/food4.jpeg'),
-            '5': require('../assets/image/Food/food5.jpg')
+            '5': require('../assets/image/Food/food5.jpg'),
+            '6': require('../assets/image/Food/food6.jpeg'),
+            '7': require('../assets/image/Food/food7.jpeg'),
+            '8': require('../assets/image/Food/food8.jpg'),
+            '9': require('../assets/image/Food/food9.jpg'),
         }
 
         return (
