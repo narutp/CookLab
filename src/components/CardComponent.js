@@ -7,13 +7,24 @@ import IconIonicons from 'react-native-vector-icons/Ionicons';
 class CardComponent extends Component {
 
     render() {
+        const profileImage = {
+            '1': require('../assets/image/Profile/profilePic1.jpg'),
+            '2': require('../assets/image/Profile/profilePic2.jpg')
+        }
+        const foodImage = {
+            '1': require('../assets/image/Food/food1.jpeg'),
+            '2': require('../assets/image/Food/food2.jpeg'),
+            '3': require('../assets/image/Food/food3.jpeg'),
+            '4': require('../assets/image/Food/food4.jpeg'),
+            '5': require('../assets/image/Food/food5.jpg')
+        }
+
         return (
             <View style={ styles.container }>
                 <Card>
                     <CardItem header style={styles.headerCard}>
                         <Left>
-                            <Thumbnail source={require
-                            ('../assets/image/Profile/profilePic1.jpg')} style={{ width: 30, height: 30 }}/>
+                            <Thumbnail source={image[this.props.profilePic]} style={{ width: 30, height: 30 }}/>
                             <Body>
                                 <Text>Natanon </Text>
                                 <Text note style={{ fontSize: 9 }}>April 27, 2018</Text>
@@ -21,7 +32,7 @@ class CardComponent extends Component {
                         </Left>
                     </CardItem>
                     <CardItem cardBody>
-                        <Image source={require('../assets/image/Food/food1.jpeg')} style={styles.imageCard}/>
+                        <Image source={image[this.props.foodPic]} style={styles.imageCard}/>
                     </CardItem>
                     <CardItem style={styles.footerCard}>
                         <Left>
