@@ -24,7 +24,7 @@ class CardComponent extends Component {
                 <Card>
                     <CardItem header style={styles.headerCard}>
                         <Left>
-                            <Thumbnail source={image[this.props.profilePic]} style={{ width: 30, height: 30 }}/>
+                            <Thumbnail source={profileImage[this.props.profilePic]} style={{ width: 30, height: 30 }}/>
                             <Body>
                                 <Text>Natanon </Text>
                                 <Text note style={{ fontSize: 9 }}>April 27, 2018</Text>
@@ -32,7 +32,7 @@ class CardComponent extends Component {
                         </Left>
                     </CardItem>
                     <CardItem cardBody>
-                        <Image source={image[this.props.foodPic]} style={styles.imageCard}/>
+                        <Image source={foodImage[this.props.foodPic]} style={styles.imageCard}/>
                     </CardItem>
                     <CardItem style={styles.footerCard}>
                         <Left>
@@ -48,7 +48,7 @@ class CardComponent extends Component {
                         </Left>
                     </CardItem>
                     <CardItem style={{ height: 10 }}>
-                        <Text style={{ fontSize: 12, fontWeight: '500' }}> 102 love</Text>
+                        <Text style={{ fontSize: 12, fontWeight: '500' }}>{this.props.love} love </Text>
                     </CardItem>
                     <CardItem>
                         <Body>

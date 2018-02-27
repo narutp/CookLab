@@ -9,7 +9,11 @@ class NewfeedTab extends Component {
         return (
             <Container style={styles.container}>
                 <Content>
-                    <CardComponent />
+                    <CardComponent love='176' profilePic='1' foodPic='1' />
+                    <CardComponent love='71' profilePic='2' foodPic='2' />
+                    <CardComponent love='26' profilePic='1' foodPic='3' />
+                    <CardComponent love='34' profilePic='2' foodPic='4' />
+                    <CardComponent love='102' profilePic='2' foodPic='5' />
                 </Content>
             </Container>
         );
