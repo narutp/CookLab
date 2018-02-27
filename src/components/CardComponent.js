@@ -12,7 +12,7 @@ class CardComponent extends Component {
                     <CardItem header style={styles.headerCard}>
                         <Left>
                             <Thumbnail source={require
-                            ('../assets/image/tan.jpg')} style={{ width: 35, height: 35 }}/>
+                            ('../assets/image/Profile/profilePic1.jpg')} style={{ width: 35, height: 35 }}/>
                             <Body>
                                 <Text>Natanon </Text>
                                 <Text note style={{ fontSize: 10 }}>April 27, 2018</Text>
@@ -20,7 +20,12 @@ class CardComponent extends Component {
                         </Left>
                     </CardItem>
                     <CardItem cardBody>
-                        <Image source={require('../assets/image/food.jpg')} style={styles.imageCard}/>
+                        <Image source={require('../assets/image/Food/food1.jpeg')} style={styles.imageCard}/>
+                    </CardItem>
+                    <CardItem>
+                        <Left>
+
+                        </Left>
                     </CardItem>
                 </Card>
             </View>
