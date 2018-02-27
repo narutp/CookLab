@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Container, Content } from 'native-base';
+import CardComponent from '../CardComponent.js'
 
 class NewfeedTab extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text> Newfeed </Text>
-            </View>
+            <Container style={styles.container}>
+                <Content>
+                    <CardComponent />
+                </Content>
+            </Container>
         );
     }
 }

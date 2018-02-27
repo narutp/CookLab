@@ -1,23 +1,36 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Card, CardItem, Thumbnail, Body, Left, Right, Button,
+Icon } from 'native-base';
 
-class NewfeedTab extends Component {
+class CardComponent extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text> Newfeed </Text>
-            </View>
+            <Card style={ styles.container }>
+                <CardItem>
+                    <Left>
+                        <Thumbnail source={require
+                        ('../assets/image/tan.jpg')} />
+                        <Body>
+                            <Text>Natanon </Text>
+                        </Body>
+                    </Left>
+                </CardItem>
+                <CardItem cardBody>
+                    
+                </CardItem>
+            </Card>
         );
     }
 }
 
-export default NewfeedTab;
+export default CardComponent;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
