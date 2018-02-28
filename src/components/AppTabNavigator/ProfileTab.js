@@ -21,7 +21,7 @@ class ProfileTab extends Component {
                         <IconFontAwesome name="camera" size={20} style={{ marginRight:10, color: '#fff' }} />
                     </Right>
                 </Header>
-                <Image source={require('../../assets/image/CoverImage/coverImage1.jpeg')} style={styles.coverImage} />
+                <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
             </View>
         );
     }

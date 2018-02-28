@@ -17,7 +17,7 @@ class SearchTab extends Component {
                         <Text>Search</Text>
                     </Button>
                 </Header>
-                <Image source={require('../../assets/image/Food/food1.jpeg')} />
+                <Image source={require('../../assets/image/Food/food1.jpg')} />
             </View>
         );
     }

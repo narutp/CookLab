@@ -12,15 +12,15 @@ class CardComponent extends Component {
             '2': require('../assets/image/Profile/profilePic2.jpg')
         }
         const foodImage = {
-            '1': require('../assets/image/Food/food1.jpeg'),
-            '2': require('../assets/image/Food/food2.jpeg'),
-            '3': require('../assets/image/Food/food3.jpeg'),
-            '4': require('../assets/image/Food/food4.jpeg'),
+            '1': require('../assets/image/Food/food1.jpg'),
+            '2': require('../assets/image/Food/food2.jpg'),
+            '3': require('../assets/image/Food/food3.jpg'),
+            '4': require('../assets/image/Food/food4.jpg'),
             '5': require('../assets/image/Food/food5.jpg'),
-            '6': require('../assets/image/Food/food6.jpeg'),
-            '7': require('../assets/image/Food/food7.jpeg'),
+            '6': require('../assets/image/Food/food6.jpg'),
+            '7': require('../assets/image/Food/food7.jpg'),
             '8': require('../assets/image/Food/food8.jpg'),
-            '9': require('../assets/image/Food/food9.jpg'),
+            '9': require('../assets/image/Food/food9.jpg')
         }
 
         return (
