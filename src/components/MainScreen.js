@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Body, Left, Right } from 'native-base';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import TabNavigator from 'react-native-tab-navigator';
@@ -8,6 +9,7 @@ import ProfileTab from './AppTabNavigator/ProfileTab'
 import SearchTab from './AppTabNavigator/SearchTab'
 import TopfeedTab from './AppTabNavigator/TopfeedTab'
 
+
 // This is mainscreen
 class MainScreen extends Component {
     state = {
@@ -15,9 +17,10 @@ class MainScreen extends Component {
     };
 
     static navigationOptions = {
-        headerLeft: <IconEntypo name="menu" size={25} style={{ marginLeft:10 }} />,
-        title: "Cooklab",
-        headerRight: <IconFontAwesome name="camera" size={20} style={{ marginRight:10 }} />
+        header: null
+        // headerLeft: <IconEntypo name="menu" size={25} style={{ marginLeft:10 }} />,
+        // title: "Cooklab",
+        // headerRight: <IconFontAwesome name="camera" size={20} style={{ marginRight:10 }} />
     }
     render() {
         return (
