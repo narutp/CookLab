@@ -21,7 +21,12 @@ class ProfileTab extends Component {
                         <IconFontAwesome name="camera" size={20} style={{ marginRight:10, color: '#fff' }} />
                     </Right>
                 </Header>
-                <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
+                <View>
+                    <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
+                    <View style={{ alignItems: 'center' }}>
+                        <Image source={require('../../assets/image/Profile/profilePic1.jpg')} style={styles.profileImage} />
+                    </View>
+                </View>
             </View>
         );
     }
@@ -39,8 +44,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#4F4F4F'
   },
   coverImage: {
+    position: 'absolute',
     resizeMode: 'stretch',
     height: 200,
     width: '100%'
+  },
+  profileImage: {
+    position: 'absolute',
+    top: 160,
+    width: 80,
+    height: 80,
+    borderRadius: 37.5,
+    borderWidth: 0.5,
+    borderColor: 'grey'
   }
 })
