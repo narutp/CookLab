@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation'
 import MainScreen from 'src/components/MainScreen'
-
+import MyDishes from 
+import { DrawerNavigator } from 'react-navigation'
 export default class App extends React.Component {
   render() {
     return (
@@ -17,6 +18,11 @@ const AppStackNavigator = StackNavigator({
   }
 })
 
+const AppDrawerNavigator = DrawerNavigator({
+  MyDishes: {
+    screen: MyDishes
+  }
+})
 const styles = StyleSheet.create({
   container: {
     flex: 1,
