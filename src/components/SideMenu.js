@@ -20,7 +20,7 @@ class SideMenu extends Component {
               Section 1
             </Text> */}
             <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Home')}>
+              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Page1')}>
               Page1
               </Text>
             </View>
@@ -30,7 +30,7 @@ class SideMenu extends Component {
               Section 2
             </Text> */}
             <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('My-dishes')}>
+              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Page2')}>
                 Page2
               </Text>
               {/* <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Page3')}>
