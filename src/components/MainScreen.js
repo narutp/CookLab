@@ -9,7 +9,6 @@ import ProfileTab from './AppTabNavigator/ProfileTab'
 import SearchTab from './AppTabNavigator/SearchTab'
 import TopfeedTab from './AppTabNavigator/TopfeedTab'
 
-
 // This is mainscreen
 class MainScreen extends Component {
     state = {
@@ -63,7 +62,7 @@ class MainScreen extends Component {
 }
 
 export default MainScreen;
-
+  
 const styles = StyleSheet.create({
   container: {
     flex: 1,
