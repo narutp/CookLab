@@ -1,15 +1,23 @@
 import Home from './MainScreen';
 import MyDishes from './AppDrawerNavigator/MyDishes';
+import Settings from './AppDrawerNavigator/Settings';
+import Logout from './AppDrawerNavigator/Logout';
+
 import SideMenu from './SideMenu';
 import { DrawerNavigator } from 'react-navigation';
 
-console.log('Page2',Page2)
 export default DrawerNavigator({
   Home: {
     screen: Home
   },
   MyDishes: {
     screen: MyDishes
+  },
+  Settings: {
+    screen: Settings
+  },
+  Logout: {
+    screen: Logout
   }
 }, {
   contentComponent: SideMenu,

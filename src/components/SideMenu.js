@@ -16,31 +16,37 @@ class SideMenu extends Component {
       <View style={styles.container}>
         <ScrollView>
           <View>
-            {/* <Text style={styles.sectionHeadingStyle}>
-              Section 1
-            </Text> */}
+            {/* Profile pic */}
+            <View style={{ height: 150, backgroundColor: 'lightgrey' }}>
+            
+            </View>
+          </View>
+          <View>
             <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Page1')}>
-              Home
+              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Home')}>
+                Home
               </Text>
             </View>
           </View>
           <View>
-            {/* <Text style={styles.sectionHeadingStyle}>
-              Section 2
-            </Text> */}
             <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Page2')}>
+              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('MyDishes')}>
                 My dishes
               </Text>
-              {/* <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Page3')}>
-                Page3
-              </Text> */}
+            </View>
+          </View>
+          <View>
+            <View style={styles.navSectionStyle}>
+              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Settings')}>
+                Settings
+              </Text>
             </View>
           </View>
         </ScrollView>
-        <View style={styles.footerContainer}>
-          <Text>Footer</Text>
+        <View>
+          <Text style={styles.footerContainer} onPress={this.navigateToScreen('Logout')}>
+            <Text>Log out</Text>
+          </Text>
         </View>
       </View>
     );
@@ -53,7 +59,7 @@ navigation: PropTypes.object
 
 export default SideMenu;
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create ({
     container: {
         paddingTop: 20,
         flex: 1
@@ -62,7 +68,7 @@ const styles = StyleSheet.create({
         padding: 10
     },
     navSectionStyle: {
-        backgroundColor: 'lightgrey'
+        backgroundColor: 'white'
     },
     sectionHeadingStyle: {
         paddingVertical: 10,
