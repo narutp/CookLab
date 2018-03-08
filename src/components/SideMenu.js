@@ -21,7 +21,7 @@ class SideMenu extends Component {
             </Text> */}
             <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Page1')}>
-              Page1
+              Home
               </Text>
             </View>
           </View>
@@ -31,7 +31,7 @@ class SideMenu extends Component {
             </Text> */}
             <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Page2')}>
-                Page2
+                My dishes
               </Text>
               {/* <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Page3')}>
                 Page3
@@ -40,7 +40,7 @@ class SideMenu extends Component {
           </View>
         </ScrollView>
         <View style={styles.footerContainer}>
-          <Text>This is my fixed footer</Text>
+          <Text>Footer</Text>
         </View>
       </View>
     );

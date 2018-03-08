@@ -1,14 +1,15 @@
-import Page1 from './MainScreen';
-import Page2 from './AppDrawerNavigator/MyDishes';
+import Home from './MainScreen';
+import MyDishes from './AppDrawerNavigator/MyDishes';
 import SideMenu from './SideMenu';
 import { DrawerNavigator } from 'react-navigation';
 
+console.log('Page2',Page2)
 export default DrawerNavigator({
-  Page1: {
-    screen: Page1
+  Home: {
+    screen: Home
   },
-  Page2: {
-    screen: Page2
+  MyDishes: {
+    screen: MyDishes
   }
 }, {
   contentComponent: SideMenu,

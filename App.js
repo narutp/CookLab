@@ -9,6 +9,8 @@ import Router from './src/components/DrawerRouter'
 
 export default class App extends React.Component {
   render() {
+    console.log('gg')
+
     return (
       // <AppDrawerNavigator />
       <Router />

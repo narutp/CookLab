@@ -7,7 +7,7 @@ class MyDishes extends Component {
     render () {
         return (
             <View>
-                MyDishes
+                <Text>MyDishes</Text>
             </View>
         );
     }
@@ -18,3 +18,4 @@ export default MyDishes;
 const styles = StyleSheet.create({
 
 })
+
