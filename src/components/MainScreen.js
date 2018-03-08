@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { Body, Left, Right } from 'native-base';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconEntypo from 'react-native-vector-icons/Entypo'
@@ -14,14 +14,25 @@ class MainScreen extends Component {
     state = {
         selectedTab: 'home'
     };
-
-    static navigationOptions = {
-        header: null
-        // headerLeft: <IconEntypo name="menu" size={25} style={{ marginLeft:10 }} />,
-        // title: "Cooklab",
-        // headerRight: <IconFontAwesome name="camera" size={20} style={{ marginRight:10 }} />
+    
+    constructor(props) {
+        super(props)
+        this.showDrawerMenuBinded = this.showDrawerMenu.bind(this)
     }
+
+    // static navigationOptions = {
+    //     header: null,
+    //     headerLeft: <IconEntypo name="menu" size={25} style={{ marginLeft:10 }} />,
+    //     title: "Cooklab",
+    //     headerRight: <IconFontAwesome name="camera" size={20} style={{ marginRight:10 }} />
+    // }
+
+    showDrawerMenu() {
+        this.props.navigation.navigate('DrawerOpen')
+    }
+
     render() {
+        console.log(this.props)
         return (
             <TabNavigator style={styles.container}>
                 <TabNavigator.Item
@@ -30,7 +41,7 @@ class MainScreen extends Component {
                     renderIcon={() => <IconFontAwesome name="star" size={15} />}
                     renderSelectedIcon={() => <IconFontAwesome name="star" size={15} color="#3496f0" />}
                     onPress={() => this.setState({ selectedTab: 'home' })}>
-                    <TopfeedTab />
+                    <TopfeedTab onMenuPressed={this.showDrawerMenuBinded} />
                 </TabNavigator.Item>
                 <TabNavigator.Item
                     selected={this.state.selectedTab === 'newfeed'}

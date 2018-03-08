@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import { NavigationActions } from 'react-navigation';
-import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Text, Image, View } from 'react-native';
 
 class SideMenu extends Component {
   navigateToScreen = (route) => () => {
@@ -17,8 +17,10 @@ class SideMenu extends Component {
         <ScrollView>
           <View>
             {/* Profile pic */}
-            <View style={{ height: 150, backgroundColor: 'lightgrey' }}>
-            
+            <View style={{ height: 150, backgroundColor: '#fe5e31' }}>
+              <View style={{ alignItems: 'center' }}>
+                <Image source={require('../assets/image/Profile/profilePic1.jpg')} style={styles.profileImage} />
+              </View>
             </View>
           </View>
           <View>
@@ -61,7 +63,6 @@ export default SideMenu;
 
 const styles = StyleSheet.create ({
     container: {
-        paddingTop: 20,
         flex: 1
     },
     navItemStyle: {
@@ -77,5 +78,15 @@ const styles = StyleSheet.create ({
     footerContainer: {
         padding: 20,
         backgroundColor: 'lightgrey'
-    }
+    },
+    profileImage: {
+      // position: 'absolute',
+      // top: -40,
+      top: '50%',
+      width: 80,
+      height: 80,
+      borderRadius: 37.5,
+      borderWidth: 0.5,
+      borderColor: 'grey'
+    },
 })
