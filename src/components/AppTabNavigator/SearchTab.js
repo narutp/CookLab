@@ -4,7 +4,7 @@ import { Card, CardItem, Container, Header, Item, Input, Icon, Button, Text } fr
 
 class SearchTab extends Component {
 
-    render() {
+    render () {
         return (
             <View style={styles.container}>
                 <Header searchBar rounded style={styles.searchBar}>
