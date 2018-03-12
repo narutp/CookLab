@@ -1,19 +1,21 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { DrawerNavigator } from 'react-navigation'
 import MainScreen from 'src/components/MainScreen'
 import MyDishes from 'src/components/AppDrawerNavigator/MyDishes'
 import SideMenu from 'src/components/SideMenu'
 import Router from './src/components/DrawerRouter'
+import Login from './src/components/Login'
 
 export default class App extends React.Component {
   render() {
     console.log('gg')
 
     return (
+      <Login />
       // <AppDrawerNavigator />
-      <Router />
+      // <Router />
     );
   }
 }

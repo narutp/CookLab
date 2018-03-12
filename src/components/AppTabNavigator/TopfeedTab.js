@@ -12,8 +12,8 @@ class TopfeedTab extends Component {
 
     render() {
         return (
-          <Container style={styles.container}>
-            <Header onMenuPressed={this.props.onMenuPressed}/>
+          <Container style={ styles.container }>
+            <Header onMenuPressed={ this.props.onMenuPressed } />
             <Content>
               <CardComponent love='776' profilePic='2' foodPic='8' />
               <CardComponent love='1023' profilePic='1' foodPic='9' />
