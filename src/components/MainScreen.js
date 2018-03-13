@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { Body, Left, Right } from 'native-base';
+import { StackNavigator } from 'react-navigation'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import TabNavigator from 'react-native-tab-navigator';
@@ -14,10 +15,11 @@ class MainScreen extends Component {
     state = {
         selectedTab: 'home'
     };
-    
+
     constructor(props) {
         super(props)
         this.showDrawerMenuBinded = this.showDrawerMenu.bind(this)
+        this.showCameraRoll = this.showCameraRoll.bind(this)
     }
 
     // static navigationOptions = {
@@ -31,8 +33,12 @@ class MainScreen extends Component {
         this.props.navigation.navigate('DrawerOpen')
     }
 
+    showCameraRoll() {
+      console.log("open camera roll");
+        this.props.navigation.navigate('Cameraroll')
+    }
+
     render() {
-        console.log(this.props)
         return (
             <TabNavigator style={styles.container}>
                 <TabNavigator.Item
@@ -41,7 +47,7 @@ class MainScreen extends Component {
                     renderIcon={() => <IconFontAwesome name="star" size={15} />}
                     renderSelectedIcon={() => <IconFontAwesome name="star" size={15} color="#3496f0" />}
                     onPress={() => this.setState({ selectedTab: 'home' })}>
-                    <TopfeedTab onMenuPressed={ this.showDrawerMenuBinded } />
+                    <TopfeedTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
                 </TabNavigator.Item>
                 <TabNavigator.Item
                     selected={this.state.selectedTab === 'newfeed'}
@@ -49,7 +55,7 @@ class MainScreen extends Component {
                     renderIcon={() => <IconEntypo name="newsletter" size={15} />}
                     renderSelectedIcon={() => <IconEntypo name="newsletter" size={15} color="#3496f0" />}
                     onPress={() => this.setState({ selectedTab: 'newfeed' })}>
-                    <NewfeedTab onMenuPressed={ this.showDrawerMenuBinded } />
+                    <NewfeedTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
                 </TabNavigator.Item>
                 <TabNavigator.Item
                     selected={this.state.selectedTab === 'search'}
@@ -65,7 +71,7 @@ class MainScreen extends Component {
                     renderIcon={() => <IconFontAwesome name="user" size={15} color="#666"/>}
                     renderSelectedIcon={() => <IconFontAwesome name="user" size={15} color="#3496f0" />}
                     onPress={() => this.setState({ selectedTab: 'profile' })}>
-                    <ProfileTab onMenuPressed={ this.showDrawerMenuBinded } />
+                    <ProfileTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
                 </TabNavigator.Item>
             </TabNavigator>
         );
@@ -73,7 +79,7 @@ class MainScreen extends Component {
 }
 
 export default MainScreen;
-  
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

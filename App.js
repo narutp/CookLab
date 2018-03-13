@@ -13,9 +13,9 @@ export default class App extends React.Component {
     console.log('gg')
 
     return (
-      <Login />
+      //<Login />
       // <AppDrawerNavigator />
-      // <Router />
+       <Router />
     );
   }
 }
