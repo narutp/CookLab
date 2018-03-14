@@ -1,8 +1,22 @@
 import React, { Component } from 'react'
-import { Dimensions, View, Text, StyleSheet, Image } from 'react-native'
+import { Dimensions, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import FBSDK, { LoginManager } from 'react-native-fbsdk'
 
 class Login extends Component {
     
+    // _fbAuth() {
+    //     LoginManager.logInWithReadPermissions(['public_profile']).then(function(result) {
+    //         if (result.isCancelled) {
+    //             console.log('Login is cancelled')
+    //         } else {
+    //             console.log('Login was success' + result.grantedPermissions.toString)
+    //         }
+    //     }, function(error) {
+    //         console.log('An error occured' + error)
+            
+    //     })
+    // }
+
     render() {
         return (
             <View>
@@ -10,6 +24,9 @@ class Login extends Component {
                 <View style={ styles.title }>
                     <Text style={ styles.titleText }> CookLab </Text>
                 </View>
+                {/* <View>
+                    <TouchableOpacity onpress={ this._fbAuth() }></TouchableOpacity>
+                </View> */}
             </View>
         )
     }
