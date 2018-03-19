@@ -11,9 +11,10 @@ import MainScreen from '../MainScreen'
 class TopfeedTab extends Component {
 
     render() {
+      console.log("HEllo")
         return (
           <Container style={ styles.container }>
-            <Header onMenuPressed={ this.props.onMenuPressed } />
+            <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll }/>
             <Content>
               <CardComponent love='776' profilePic='2' foodPic='8' />
               <CardComponent love='1023' profilePic='1' foodPic='9' />
@@ -27,6 +28,12 @@ class TopfeedTab extends Component {
 }
 
 export default TopfeedTab;
+
+// export default StackNavigator({
+//   Cameraroll: {
+//     screen: Cameraroll,
+//   },
+// });
 
 const styles = StyleSheet.create({
   container: {

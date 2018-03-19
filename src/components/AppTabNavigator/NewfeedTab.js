@@ -12,7 +12,7 @@ class NewfeedTab extends Component {
     render() {
         return (
             <Container style={styles.container}>
-                <Header onMenuPressed={ this.props.onMenuPressed } />
+                <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll }/>
                 <Content>
                     <CardComponent love='176' profilePic='1' foodPic='1' />
                     <CardComponent love='71' profilePic='2' foodPic='2' />
@@ -23,9 +23,11 @@ class NewfeedTab extends Component {
             </Container>
         );
     }
+
 }
 
 export default NewfeedTab;
+
 
 const styles = StyleSheet.create({
   container: {
