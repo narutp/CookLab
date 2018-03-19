@@ -1,32 +1,44 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Button, CameraRoll } from 'react-native';
+import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
-import TabNavigator from 'react-native-tab-navigator';
-import { StackNavigator } from 'react-navigation';
 import { Container, Content, Left, Right, Body, Header } from 'native-base';
-import Cameraroll from './Cameraroll';
+import ImagePicker from 'react-native-image-picker';
 
-
+// props
+// onMenuPressed () => {}
 class CustomHeader extends Component {
-  constructor(props) {
-    super(props)
-    this._handleButtonPress = this._handleButtonPress.bind(this)
-  }
-  _handleButtonPress() {
-    // console.log(CameraRoll())
-     CameraRoll.getPhotos({
-         first: 20,
-         assetType: 'Photos',
-       })
-       .then(r => {
-         this.setState({ photos: r.edges });
-       })
-       .catch((err) => {
-          //Error Loading Images
-       });
-     };
+
+    openImage(){
+      var options = {
+        title: 'Select Avatar',
+        customButtons: [
+          {name: 'fb', title: 'Choose Photo from Facebook'},
+        ],
+        storageOptions: {
+          skipBackup: true,
+          path: 'images'
+        }
+      };
+
+      ImagePicker.showImagePicker(options, (response) => {
+        console.log('Response = ', response);
+
+        if (response.didCancel) {
+          console.log('User cancelled image picker');
+        }
+        else if (response.error) {
+          console.log('ImagePicker Error: ', response.error);
+        }
+        else if (response.customButton) {
+          console.log('User tapped custom button: ', response.customButton);
+        }
+        else {
+          console.log(response.uri);
+        }
+      });
+    }
 
     render() {
         return (
@@ -38,12 +50,11 @@ class CustomHeader extends Component {
                 <Text style={{ color: '#fff' }}>CookLab</Text>
               </Body>
               <Right>
-                <IconFontAwesome name="camera" onPress={this._handleButtonPress} size={20} style={{ marginRight:10, color: '#fff' }} />
+                <IconFontAwesome name="camera" onPress={() => this.openImage() }size={20} style={{ marginRight:10, color: '#fff' }} />
               </Right>
             </Header>
         )
     }
-
 }
 
 const styles = StyleSheet.create({
