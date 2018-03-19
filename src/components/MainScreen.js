@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { Body, Left, Right } from 'native-base';
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, Button } from 'react-native'
+import { Body, Left, Right } from 'native-base'
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconEntypo from 'react-native-vector-icons/Entypo'
-import TabNavigator from 'react-native-tab-navigator';
+import TabNavigator from 'react-native-tab-navigator'
 import NewfeedTab from './AppTabNavigator/NewfeedTab'
 import ProfileTab from './AppTabNavigator/ProfileTab'
 import SearchTab from './AppTabNavigator/SearchTab'

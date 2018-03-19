@@ -1,19 +1,47 @@
 import React, { Component } from 'react'
-import { Dimensions, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { Dimensions, View, StyleSheet, Image } from 'react-native'
 import FBSDK, { LoginManager } from 'react-native-fbsdk'
+import { Button, Text } from 'native-base'
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
+
+const {
+    LoginButton,
+    AccessToken
+} = FBSDK
 
 class Login extends Component {
     
+    _fbAuth() {
+        LoginManager.logInWithReadPermissions(['public_profile']).then(function(result) {
+            if (result.isCancelled) {
+                console.log('Login is cancelled') 
+            } else {
+                console.log('Login was success' + result.grantedPermissions.toString)
+            }
+        }, function(error) {
+            console.log('An error occured' + error)
+            
+        })
+    }
     // _fbAuth() {
-    //     LoginManager.logInWithReadPermissions(['public_profile']).then(function(result) {
-    //         if (result.isCancelled) {
-    //             console.log('Login is cancelled')
+    //     var self = this
+    //     LoginManager.logInWithReadPermissions(['public_profile', 'user_friends']).then(function(result) {
+    //         if(result.isCancelled) {
+    //             console.log('Loging was cancelled')
     //         } else {
-    //             console.log('Login was success' + result.grantedPermissions.toString)
+    //             console.log('Login was a success' + result.grantedPermissions.toString())
+    //             AccessToken.getCurrentAccessToken().then(
+    //                 (data) => {
+    //                     const token = data.accessToken.toString()
+    //                     console.log('token', token)
+    //                     self.props.loginWithFacebook(token)
+    //                     // self.props.getUserFromFacebook(token)
+    //                     Actions.tabMenu()
+    //                 }
+    //             )
     //         }
     //     }, function(error) {
-    //         console.log('An error occured' + error)
-            
+    //         console.log('Login had an error occured')
     //     })
     // }
 
@@ -24,9 +52,12 @@ class Login extends Component {
                 <View style={ styles.title }>
                     <Text style={ styles.titleText }> CookLab </Text>
                 </View>
-                {/* <View>
-                    <TouchableOpacity onpress={ this._fbAuth() }></TouchableOpacity>
-                </View> */}
+                <View>
+                    <Button style={ styles.button } onPress={ this._fbAuth }>
+                        <IconFontAwesome name="facebook-official" style={{ marginLeft: 15 }} size={20} color="#fff" />
+                        <Text>Login by Facebook</Text>
+                    </Button>
+                </View>
             </View>
         )
     }
@@ -60,5 +91,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 400
     },
-
+    button: {
+        backgroundColor: '#183C94',
+    }
 })

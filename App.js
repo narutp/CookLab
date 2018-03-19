@@ -10,12 +10,10 @@ import Login from './src/components/Login'
 
 export default class App extends React.Component {
   render() {
-    console.log('gg')
-
     return (
-      // <Login />
+      <Login />
       // <AppDrawerNavigator />
-      <Router />
+      // <Router />
     );
   }
 }
