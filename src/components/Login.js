@@ -4,6 +4,7 @@ import FBSDK, { LoginManager } from 'react-native-fbsdk'
 import { Button, Text } from 'native-base'
 import { StackNavigator } from 'react-navigation';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
+import MainScreen from './MainScreen'
 // import Router from './src/components/DrawerRouter'
 
 const {
@@ -14,15 +15,16 @@ const {
 class Login extends Component {
 
     _fbAuth() {
-        let self = this
-        LoginManager.logInWithReadPermissions(['public_profile']).then(function(result) {
+        LoginManager.logInWithReadPermissions(['public_profile']).then((result)=> {
             if (result.isCancelled) {
                 console.log('Login is cancelled') 
             } else {
                 console.log('Login was success' + result.grantedPermissions.toString)
-                self.props.navigation.navigate('MyDishes')
+                console.log(this.props)
+                
+                this.props.navigation.navigate('MainScreen')
             }
-        }, function(error) {
+        }, (error)=> {
             console.log('An error occured' + error)
             
         })
@@ -69,11 +71,17 @@ class Login extends Component {
 
 export default StackNavigator({
     Login: {
-      screen: Login
+        screen: Login,
+    },
+    MainScreen: {
+        screen: MainScreen,
     }
-  }, {
+}, {
+    // see next line
+    headerMode: 'none',
+}, {
     contentComponent: Login,
-  });
+});
 
 const styles = StyleSheet.create({
     container: {
