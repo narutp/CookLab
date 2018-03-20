@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { Dimensions, View, StyleSheet, Image } from 'react-native'
 import FBSDK, { LoginManager } from 'react-native-fbsdk'
 import { Button, Text } from 'native-base'
+import { StackNavigator } from 'react-navigation';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
+// import Router from './src/components/DrawerRouter'
 
 const {
     LoginButton,
@@ -10,13 +12,14 @@ const {
 } = FBSDK
 
 class Login extends Component {
-    
+
     _fbAuth() {
         LoginManager.logInWithReadPermissions(['public_profile']).then(function(result) {
             if (result.isCancelled) {
                 console.log('Login is cancelled') 
             } else {
                 console.log('Login was success' + result.grantedPermissions.toString)
+                console.log(this.props)
             }
         }, function(error) {
             console.log('An error occured' + error)
@@ -63,7 +66,13 @@ class Login extends Component {
     }
 }
 
-export default Login
+export default StackNavigator({
+    Login: {
+      screen: Login
+    }
+  }, {
+    contentComponent: Login,
+  });
 
 const styles = StyleSheet.create({
     container: {

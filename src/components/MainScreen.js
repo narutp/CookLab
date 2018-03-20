@@ -29,6 +29,7 @@ class MainScreen extends Component {
     // }
 
     showDrawerMenu() {
+        console.log(this.props)
         this.props.navigation.navigate('DrawerOpen')
     }
 
