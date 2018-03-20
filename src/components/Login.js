@@ -5,6 +5,7 @@ import { Button, Text } from 'native-base'
 import { StackNavigator } from 'react-navigation';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import MainScreen from './MainScreen'
+import DrawerRouter from './DrawerRouter'
 // import Router from './src/components/DrawerRouter'
 
 const {
@@ -22,7 +23,7 @@ class Login extends Component {
                 console.log('Login was success' + result.grantedPermissions.toString)
                 console.log(this.props)
                 
-                this.props.navigation.navigate('MainScreen')
+                this.props.navigation.navigate('DrawerRouter')
             }
         }, (error)=> {
             console.log('An error occured' + error)
@@ -73,8 +74,8 @@ export default StackNavigator({
     Login: {
         screen: Login,
     },
-    MainScreen: {
-        screen: MainScreen,
+    DrawerRouter: {
+        screen: DrawerRouter,
     }
 }, {
     // see next line
