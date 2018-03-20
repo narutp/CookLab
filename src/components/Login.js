@@ -14,12 +14,13 @@ const {
 class Login extends Component {
 
     _fbAuth() {
+        let self = this
         LoginManager.logInWithReadPermissions(['public_profile']).then(function(result) {
             if (result.isCancelled) {
                 console.log('Login is cancelled') 
             } else {
                 console.log('Login was success' + result.grantedPermissions.toString)
-                console.log(this.props)
+                self.props.navigation.navigate('MyDishes')
             }
         }, function(error) {
             console.log('An error occured' + error)
@@ -56,7 +57,7 @@ class Login extends Component {
                     <Text style={ styles.titleText }> CookLab </Text>
                 </View>
                 <View>
-                    <Button style={ styles.button } onPress={ this._fbAuth }>
+                    <Button style={ styles.button } onPress={ this._fbAuth.bind(this) }>
                         <IconFontAwesome name="facebook-official" style={{ marginLeft: 15 }} size={20} color="#fff" />
                         <Text>Login by Facebook</Text>
                     </Button>
