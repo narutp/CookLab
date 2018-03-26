@@ -7,8 +7,13 @@ import MyDishes from 'src/components/AppDrawerNavigator/MyDishes'
 import SideMenu from 'src/components/SideMenu'
 import Router from './src/components/DrawerRouter'
 import Login from './src/components/Login'
+import SplashScreen from 'react-native-splash-screen';
 
 export default class App extends React.Component {
+  componentDidMount() {
+    SplashScreen.hide()
+  }
+
   render() {
     return (
       <Login />
