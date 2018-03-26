@@ -4,41 +4,10 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import { Container, Content, Left, Right, Body, Header } from 'native-base';
-import ImagePicker from 'react-native-image-picker';
 
 // props
 // onMenuPressed () => {}
 class CustomHeader extends Component {
-
-    openImage(){
-      var options = {
-        title: 'Select Avatar',
-        storageOptions: {
-          skipBackup: true,
-          path: 'images'
-        }
-      };
-
-      ImagePicker.showImagePicker(options, (response) => {
-        console.log('Response = ', response);
-
-        if (response.didCancel) {
-          console.log('User cancelled image picker');
-        }
-        else if (response.error) {
-          console.log('ImagePicker Error: ', response.error);
-        }
-        else if (response.customButton) {
-          console.log('User tapped custom button: ', response.customButton);
-        }
-        else {
-          let source = { uri: response.uri };
-          this.setState({
-              imageSource: source
-          });
-        }
-      });
-    }
 
     render() {
       console.log(this.props)
@@ -51,7 +20,7 @@ class CustomHeader extends Component {
                 <Text style={{ color: '#fff' }}>CookLab</Text>
               </Body>
               <Right>
-                <IconFontAwesome name="camera" onPress={() => this.openImage() }size={20} style={{ marginRight:10, color: '#fff' }} />
+                <IconFontAwesome name="camera" onPress={() => this.props.showCameraRoll() }size={20} style={{ marginRight:10, color: '#fff' }} />
               </Right>
             </Header>
         )

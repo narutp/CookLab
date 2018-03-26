@@ -8,6 +8,7 @@ import NewfeedTab from './AppTabNavigator/NewfeedTab'
 import ProfileTab from './AppTabNavigator/ProfileTab'
 import SearchTab from './AppTabNavigator/SearchTab'
 import TopfeedTab from './AppTabNavigator/TopfeedTab'
+import ImagePicker from 'react-native-image-picker';
 
 // This is mainscreen
 class MainScreen extends Component {
@@ -27,8 +28,34 @@ class MainScreen extends Component {
     }
 
     showCameraRoll() {
-      console.log("open camera roll");
-        this.props.navigation.navigate('Cameraroll')
+      var options = {
+        title: 'Select Avatar',
+        storageOptions: {
+          skipBackup: true,
+          path: 'images'
+        }
+      };
+
+      ImagePicker.showImagePicker(options, (response) => {
+        console.log('Response = ', response);
+
+        if (response.didCancel) {
+          console.log('User cancelled image picker');
+        }
+        else if (response.error) {
+          console.log('ImagePicker Error: ', response.error);
+        }
+        else if (response.customButton) {
+          console.log('User tapped custom button: ', response.customButton);
+        }
+        else {
+          let source = { uri: response.uri };
+          this.setState({
+              imageSource: source
+          });
+          console.log(this.state.imageSource);
+        }
+      });
     }
 
     render() {

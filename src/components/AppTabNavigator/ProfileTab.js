@@ -37,8 +37,8 @@ class ProfileTab extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header onMenuPressed={ this.props.onMenuPressed } />
-                
+                <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll }/>
+
                 <View>
                     {/* Cover image */}
                     <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
@@ -75,7 +75,7 @@ class ProfileTab extends Component {
     }
 }
 
-    
+
 
 export default ProfileTab;
 
