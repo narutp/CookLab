@@ -41,6 +41,7 @@ class CustomHeader extends Component {
     }
 
     render() {
+      console.log(this.props)
         return (
             <Header style={styles.header}>
               <Left>

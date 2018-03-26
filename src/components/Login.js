@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import { Dimensions, View, StyleSheet, Image } from 'react-native'
 import FBSDK, { LoginManager } from 'react-native-fbsdk'
 import { Button, Text } from 'native-base'
+import { StackNavigator } from 'react-navigation';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
+import MainScreen from './MainScreen'
+import DrawerRouter from './DrawerRouter'
+// import Router from './src/components/DrawerRouter'
 
 const {
     LoginButton,
@@ -10,15 +14,18 @@ const {
 } = FBSDK
 
 class Login extends Component {
-    
+
     _fbAuth() {
-        LoginManager.logInWithReadPermissions(['public_profile']).then(function(result) {
+        LoginManager.logInWithReadPermissions(['public_profile']).then((result)=> {
             if (result.isCancelled) {
                 console.log('Login is cancelled') 
             } else {
                 console.log('Login was success' + result.grantedPermissions.toString)
+                console.log(this.props)
+                
+                this.props.navigation.navigate('DrawerRouter')
             }
-        }, function(error) {
+        }, (error)=> {
             console.log('An error occured' + error)
             
         })
@@ -53,7 +60,7 @@ class Login extends Component {
                     <Text style={ styles.titleText }> CookLab </Text>
                 </View>
                 <View>
-                    <Button style={ styles.button } onPress={ this._fbAuth }>
+                    <Button style={ styles.button } onPress={ this._fbAuth.bind(this) }>
                         <IconFontAwesome name="facebook-official" style={{ marginLeft: 15 }} size={20} color="#fff" />
                         <Text>Login by Facebook</Text>
                     </Button>
@@ -63,7 +70,19 @@ class Login extends Component {
     }
 }
 
-export default Login
+export default StackNavigator({
+    Login: {
+        screen: Login,
+    },
+    DrawerRouter: {
+        screen: DrawerRouter,
+    }
+}, {
+    // see next line
+    headerMode: 'none',
+}, {
+    contentComponent: Login,
+});
 
 const styles = StyleSheet.create({
     container: {

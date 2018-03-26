@@ -21,14 +21,8 @@ class MainScreen extends Component {
         this.showCameraRoll = this.showCameraRoll.bind(this)
     }
 
-    // static navigationOptions = {
-    //     header: null,
-    //     headerLeft: <IconEntypo name="menu" size={25} style={{ marginLeft:10 }} />,
-    //     title: "Cooklab",
-    //     headerRight: <IconFontAwesome name="camera" size={20} style={{ marginRight:10 }} />
-    // }
-
     showDrawerMenu() {
+        console.log(this.props)
         this.props.navigation.navigate('DrawerOpen')
     }
 
