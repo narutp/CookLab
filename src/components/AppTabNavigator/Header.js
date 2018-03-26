@@ -32,7 +32,10 @@ class CustomHeader extends Component {
           console.log('User tapped custom button: ', response.customButton);
         }
         else {
-          console.log(response.uri);
+          let source = { uri: response.uri };
+          this.setState({
+              imageSource: source
+          });
         }
       });
     }
