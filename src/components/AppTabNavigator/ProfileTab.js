@@ -76,8 +76,8 @@ class ProfileTab extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header onMenuPressed={ this.props.onMenuPressed } />
-                
+                <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll }/>
+
                 <View>
                     <Modal
                         animationType="slide"
@@ -141,7 +141,7 @@ class ProfileTab extends Component {
     }
 }
 
-    
+
 
 export default ProfileTab;
 
