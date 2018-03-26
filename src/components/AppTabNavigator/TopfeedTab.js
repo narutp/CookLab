@@ -11,7 +11,6 @@ import MainScreen from '../MainScreen'
 class TopfeedTab extends Component {
 
     render() {
-      console.log("HEllo")
         return (
           <Container style={ styles.container }>
             <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll }/>
