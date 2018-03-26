@@ -17,7 +17,7 @@ class SideMenu extends Component {
         <ScrollView>
           <View>
             {/* Profile pic */}
-            <View style={{ height: 150, backgroundColor: '#fe5e31' }}>
+            <View style={{ height: 150, backgroundColor: '#F44336' }}>
               <View style={{ alignItems: 'center' }}>
                 <Image source={require('../assets/image/Profile/profilePic1.jpg')} style={styles.profileImage} />
               </View>
