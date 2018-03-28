@@ -60,7 +60,7 @@ class SideMenu extends Component {
                   {text: 'Log out', onPress: () => this.logout()},
                 ],
                 { cancelable: false }
-              )}>
+              )}>Log out
           </Text>
         </View>
       </View>
