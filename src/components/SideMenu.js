@@ -53,11 +53,11 @@ class SideMenu extends Component {
         <View>
           <Text style={styles.footerContainer}
               onPress={() => Alert.alert(
-                'Alert Title',
-                'alertMessage',
+                'Log out',
+                'Log out from CookLab?',                
                 [
                   {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-                  {text: 'OK', onPress: () => this.logout()},
+                  {text: 'Log out', onPress: () => this.logout()},
                 ],
                 { cancelable: false }
               )}>
