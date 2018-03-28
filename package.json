@@ -10,9 +10,11 @@
     "native-base": "^2.3.9",
     "react": "16.2.0",
     "react-native": "0.53.0",
+    "react-native-axios": "^0.17.1",
     "react-native-fbsdk": "^0.7.0",
     "react-native-image-picker": "^0.26.7",
     "react-native-router-flux": "^4.0.0-beta.28",
+    "react-native-splash-screen": "^3.0.6",
     "react-native-tab-navigator": "^0.3.4",
     "react-native-vector-icons": "^4.5.0",
     "react-navigation": "^1.0.3"

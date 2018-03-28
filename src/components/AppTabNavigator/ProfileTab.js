@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconIonicons from 'react-native-vector-icons/Ionicons';
-import IconEntypo from 'react-native-vector-icons/Entypo';
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native'
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
+import IconIonicons from 'react-native-vector-icons/Ionicons'
+import IconEntypo from 'react-native-vector-icons/Entypo'
 import Header from './Header'
-import { Container, Content, Left, Right, Body, Card, CardItem } from 'native-base';
+import { Container, Content, Left, Right, Body, Card, CardItem } from 'native-base'
+import Axios from 'react-native-axios'
 
 let images = [
     require('../../assets/image/Food/food1.jpg'),
@@ -32,6 +33,11 @@ class ProfileTab extends Component {
                 </View>
             )
         })
+    }
+
+    async fetchUser () {
+        let value = await AsyncStorage.getItem('facebookToken')
+        let result = await Axios.get(`https://graph.facebook.com/v2.11/me?access_token=${ value }`)
     }
 
     render() {
