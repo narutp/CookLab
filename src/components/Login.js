@@ -6,7 +6,7 @@ import { StackNavigator } from 'react-navigation';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import MainScreen from './MainScreen'
 import DrawerRouter from './DrawerRouter'
-// import Router from './src/components/DrawerRouter'
+import Axios from 'react-native-axios'
 
 const {
     LoginButton,
@@ -24,22 +24,21 @@ class Login extends Component {
             
             let data = await AccessToken.getCurrentAccessToken()
                 try {
-                    await AsyncStorage.setItem('@MySuperStore:key', data.accessToken.toString())
-                    
+                    await AsyncStorage.setItem('facebookToken', data.accessToken.toString())
                 } catch (error) {
-                // Error saving data
+                    console.log(error)
                 }
-                // alert(data.accessToken.toString())
-                
-            console.log('in')
-            const value = await AsyncStorage.getItem('@MySuperStore:key')
-                    
-            if (value !== null) {
-                alert(value)
-            }
+                // prepare data of user
+            this.fetchUser()
             this.props.navigation.navigate('DrawerRouter')
         }
         
+    }
+
+    async fetchUser() {
+        let value = await AsyncStorage.getItem('facebookToken')
+        let result = await Axios.get(`https://graph.facebook.com/v2.11/me?access_token=${ value }`)
+        console.log(result)
     }
     // _fbAuth() {
     //     var self = this
