@@ -23,6 +23,11 @@ class Login extends Component {
                 console.log('Login was success' + result.grantedPermissions.toString)
                 console.log(this.props)
                 
+                AccessToken.getCurrentAccessToken().then(
+                    (data) => {
+                        alert(data.accessToken.toString())
+                    }
+                )
                 this.props.navigation.navigate('DrawerRouter')
             }
         }, (error)=> {
