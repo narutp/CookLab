@@ -1,14 +1,19 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import { NavigationActions } from 'react-navigation';
-import { StyleSheet, ScrollView, Text, Image, View } from 'react-native';
+import { StyleSheet, ScrollView, Text, Image, View, Button, Alert } from 'react-native';
 
 class SideMenu extends Component {
+  
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
     });
     this.props.navigation.dispatch(navigateAction);
+  }
+
+  logout () {
+    this.props.navigation.navigate('Login')
   }
 
   render () {
@@ -46,8 +51,16 @@ class SideMenu extends Component {
           </View>
         </ScrollView>
         <View>
-          <Text style={styles.footerContainer} onPress={this.navigateToScreen('Logout')}>
-            <Text>Log out</Text>
+          <Text style={styles.footerContainer}
+              onPress={() => Alert.alert(
+                'Alert Title',
+                'alertMessage',
+                [
+                  {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+                  {text: 'OK', onPress: () => this.logout()},
+                ],
+                { cancelable: false }
+              )}>
           </Text>
         </View>
       </View>
