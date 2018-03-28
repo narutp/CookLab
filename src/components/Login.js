@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, View, StyleSheet, Image } from 'react-native'
+import { Dimensions, View, StyleSheet, Image, AsyncStorage } from 'react-native'
 import FBSDK, { LoginManager } from 'react-native-fbsdk'
 import { Button, Text } from 'native-base'
 import { StackNavigator } from 'react-navigation';
@@ -15,25 +15,31 @@ const {
 
 class Login extends Component {
 
-    _fbAuth() {
-        LoginManager.logInWithReadPermissions(['public_profile']).then((result)=> {
-            if (result.isCancelled) {
-                console.log('Login is cancelled') 
-            } else {
-                console.log('Login was success' + result.grantedPermissions.toString)
-                console.log(this.props)
-                
-                AccessToken.getCurrentAccessToken().then(
-                    (data) => {
-                        alert(data.accessToken.toString())
-                    }
-                )
-                this.props.navigation.navigate('DrawerRouter')
-            }
-        }, (error)=> {
-            console.log('An error occured' + error)
+    async _fbAuth() {
+        let result = await LoginManager.logInWithReadPermissions(['public_profile'])
+        if (result.isCancelled) {
+            console.log('Login is cancelled') 
+        } else {
+            console.log('Login was success' + result.grantedPermissions.toString)
             
-        })
+            let data = await AccessToken.getCurrentAccessToken()
+                try {
+                    await AsyncStorage.setItem('@MySuperStore:key', data.accessToken.toString())
+                    
+                } catch (error) {
+                // Error saving data
+                }
+                // alert(data.accessToken.toString())
+                
+            console.log('in')
+            const value = await AsyncStorage.getItem('@MySuperStore:key')
+                    
+            if (value !== null) {
+                alert(value)
+            }
+            this.props.navigation.navigate('DrawerRouter')
+        }
+        
     }
     // _fbAuth() {
     //     var self = this
