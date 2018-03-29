@@ -11,11 +11,11 @@ let images = [
     require('../../assets/image/Food/food2.jpg'),
     require('../../assets/image/Food/food3.jpg'),
     require('../../assets/image/Food/food4.jpg'),
-    // require('../../assets/image/Food/food5.jpg'),
-    // require('../../assets/image/Food/food6.jpg'),
-    // require('../../assets/image/Food/food7.jpg'),
-    // require('../../assets/image/Food/food8.jpg'),
-    // require('../../assets/image/Food/food9.jpg'),
+    require('../../assets/image/Food/food5.jpg'),
+    require('../../assets/image/Food/food6.jpg'),
+    require('../../assets/image/Food/food7.jpg'),
+    require('../../assets/image/Food/food8.jpg'),
+    require('../../assets/image/Food/food9.jpg'),
 ]
 
 let {width, height} = Dimensions.get('window')
@@ -25,7 +25,8 @@ class ProfileTab extends Component {
         super(props)
         this.state = {
             name: '',
-            id: ''
+            id: '',
+            picUrl: null
         }
     }
     
@@ -49,9 +50,11 @@ class ProfileTab extends Component {
 
     async fetchUser () {
         let userName = await AsyncStorage.getItem('userName')
+        let userPicUrl = await AsyncStorage.getItem('userPic')
 
-        this.setState({name: userName})
+        this.setState({name: userName, picUrl: userPicUrl})
         console.log('name: ' + this.state.name)
+        console.log('pic url: ' + this.state.picUrl)
 
     }
 
@@ -65,7 +68,7 @@ class ProfileTab extends Component {
                     <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
                     {/* Profile image */}
                     <View style={{ alignItems: 'center' }}>
-                        <Image source={require('../../assets/image/Profile/profilePic1.jpg')} style={styles.profileImage} />
+                        <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
                     </View>
                 </View>
                 <View style={ styles.body }>

@@ -38,15 +38,19 @@ class Login extends Component {
 
     async fetchUser() {
         let value = await AsyncStorage.getItem('facebookToken')
-        let result = await Axios.get(`https://graph.facebook.com/v2.11/me?access_token=${ value }`)
+        let result = await Axios.get(`https://graph.facebook.com/v2.11/me?access_token=${ value }&&fields=id,name,picture.type(large)`)
+        console.log(result)
         let userName = result.data.name
         let userId = result.data.id
+        let userPicUrl = result.data.picture.data.url
         console.log('Get name and id from facebook: ' + userName + ' ' + userId)
+        console.log('Photo url: ' + userPicUrl)
 
         // save name and id
         try { 
             await AsyncStorage.setItem('userName', userName) 
             await AsyncStorage.setItem('userId', userId)
+            await AsyncStorage.setItem('userPic', userPicUrl)
         } catch (error) {
             console.log(error)
         }
