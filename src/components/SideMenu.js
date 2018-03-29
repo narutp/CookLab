@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import { NavigationActions } from 'react-navigation';
 import { StyleSheet, ScrollView, Text, Image, View, Button, Alert } from 'react-native';
+import FBSDK, { LoginManager } from 'react-native-fbsdk'
 
 class SideMenu extends Component {
   
@@ -13,6 +14,7 @@ class SideMenu extends Component {
   }
 
   logout () {
+    LoginManager.logOut()
     this.props.navigation.navigate('Login')
   }
 
