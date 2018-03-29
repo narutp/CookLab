@@ -25,6 +25,7 @@ class Login extends Component {
             let data = await AccessToken.getCurrentAccessToken()
                 try {
                     await AsyncStorage.setItem('facebookToken', data.accessToken.toString())
+                    console.log('Facebook token: ' + data.accessToken.toString())
                 } catch (error) {
                     console.log(error)
                 }
@@ -38,7 +39,18 @@ class Login extends Component {
     async fetchUser() {
         let value = await AsyncStorage.getItem('facebookToken')
         let result = await Axios.get(`https://graph.facebook.com/v2.11/me?access_token=${ value }`)
-        console.log(result)
+        let userName = result.data.name
+        let userId = result.data.id
+        console.log('Get name and id from facebook: ' + userName + ' ' + userId)
+
+        // save name and id
+        try { 
+            await AsyncStorage.setItem('userName', userName) 
+            await AsyncStorage.setItem('userId', userId)
+        } catch (error) {
+            console.log(error)
+        }
+
     }
     // _fbAuth() {
     //     var self = this

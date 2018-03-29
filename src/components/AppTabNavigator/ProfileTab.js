@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions, AsyncStorage } from 'react-native'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import Header from './Header'
 import { Container, Content, Left, Right, Body, Card, CardItem } from 'native-base'
-import Axios from 'react-native-axios'
 
 let images = [
     require('../../assets/image/Food/food1.jpg'),
@@ -22,6 +21,15 @@ let images = [
 let {width, height} = Dimensions.get('window')
 class ProfileTab extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: '',
+            id: ''
+        }
+    }
+    
+
     generateImage = () => {
         return images.map((image, index) => {
 
@@ -35,9 +43,16 @@ class ProfileTab extends Component {
         })
     }
 
+    componentDidMount() {
+        this.fetchUser()
+    }
+
     async fetchUser () {
-        let value = await AsyncStorage.getItem('facebookToken')
-        let result = await Axios.get(`https://graph.facebook.com/v2.11/me?access_token=${ value }`)
+        let userName = await AsyncStorage.getItem('userName')
+
+        this.setState({name: userName})
+        console.log('name: ' + this.state.name)
+
     }
 
     render() {
@@ -56,7 +71,7 @@ class ProfileTab extends Component {
                 <View style={ styles.body }>
                     {/* User's name */}
                     <View style={{ alignItems: 'center' }}>
-                        <Text>NarutNrp</Text>
+                        <Text>{ this.state.name }</Text>
                     </View>
                     {/* Horizontal rule */}
                     <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 5 }}></View>
