@@ -147,18 +147,6 @@ exports.create_new_user = function(req, res) {
   });
 };
 
-// exports.upload_image = function(req, res) {
-//   var image = new IngredientModel(req.body);
-//   new_ingredient.save(function(err, ingredient) {
-//     if (err) {
-//       res.send(err);
-//     }
-//     else {
-//       res.json(ingredient);
-//     }
-//   });
-// };
-
 exports.get_achievement = function(req, res) {
   AchievementModel.findById(req.params.achievementId, function(err, achievement) {
     if (err) {
@@ -203,13 +191,39 @@ exports.get_ingredient = function(req, res) {
   });
 };
 
-exports.get_post = function(req, res) {
+exports.get_post_by_post_id = function(req, res) {
   PostModel.findById(req.params.postId, function(err, post) {
     if (err) {
       res.send(err);
     }
     else {
       res.json(post);
+    }
+  });
+};
+
+exports.get_images_posts_by_user_id = function(req, res) {
+  PostModel.find({'id_user': req.params.userId},'id_dish', function(err, post) {
+    if (err) {
+      res.send(err);
+    }
+    else {
+      var id_dish_arr = []
+      post.forEach((p) => {
+        id_dish_arr.push(p.id_dish)
+      })
+      DishModel.find({_id: {$in: id_dish_arr}},'image', function(err, dish) {
+        if (err) {
+          res.send(err);
+        }
+        else {
+          var image_arr = []
+          dish.forEach((d) => {
+            image_arr.push(d.image)
+          })
+          res.json(image_arr);
+        }
+      })
     }
   });
 };
@@ -356,3 +370,68 @@ exports.delete_user = function(req, res) {
     }
   });
 };
+
+exports.follow_user = function(req, res) {
+  UserModel.findOne({_id: req.params.userId}, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    else {
+      user.followings.push(req.params.targetId)
+      user.save()
+    }
+  });
+  UserModel.findOne({_id: req.params.targetId}, function(err, targetUser) {
+    if (err) {
+      res.send(err);
+    }
+    else {
+      targetUser.fans.push(req.params.userId)
+      targetUser.save()
+      res.json(targetUser)
+    }
+  });
+};
+
+exports.get_feeds_by_user_id = function(req, res) {
+  UserModel.findOne({_id: req.params.userId},'followings', function(err, followings) {
+    if (err) {
+      res.send(err)
+    }
+    else {
+      var followings_arr = followings.followings
+      PostModel.find({id_user: {$in: followings_arr}}, function(err, post) {
+        if (err) {
+          res.send(err);
+        }
+        else {
+          var post_arr = []
+          post.forEach((p) => {
+            post_arr.push(p)
+          })
+          post_arr.sort(compare)
+          res.json(post_arr)
+        }
+      })
+    }
+  });
+};
+
+exports.get_top_feed = function(req, res) {
+  PostModel.find({}).sort({'loves':-1}).limit(5).exec(function(err, posts) {
+    if (err) {
+      res.send(err)
+    }
+    else {
+      res.json(posts)
+    }
+  });
+};
+
+function compare(a,b) {
+  if (a.timestamp < b.timestamp)
+    return 1;
+  if (a.timestamp > b.timestamp)
+    return -1;
+  return 0;
+}
