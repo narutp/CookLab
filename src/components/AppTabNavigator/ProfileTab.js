@@ -10,12 +10,12 @@ let images = [
     require('../../assets/image/Food/food1.jpg'),
     require('../../assets/image/Food/food2.jpg'),
     require('../../assets/image/Food/food3.jpg'),
-    require('../../assets/image/Food/food4.jpg'),
-    require('../../assets/image/Food/food5.jpg'),
-    require('../../assets/image/Food/food6.jpg'),
-    require('../../assets/image/Food/food7.jpg'),
-    require('../../assets/image/Food/food8.jpg'),
-    require('../../assets/image/Food/food9.jpg'),
+    // require('../../assets/image/Food/food4.jpg'),
+    // require('../../assets/image/Food/food5.jpg'),
+    // require('../../assets/image/Food/food6.jpg'),
+    // require('../../assets/image/Food/food7.jpg'),
+    // require('../../assets/image/Food/food8.jpg'),
+    // require('../../assets/image/Food/food9.jpg'),
 ]
 
 let {width, height} = Dimensions.get('window')
