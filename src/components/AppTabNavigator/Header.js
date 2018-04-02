@@ -34,6 +34,7 @@ class CustomHeader extends Component {
         else if (response.customButton) {
           console.log('User tapped custom button: ', response.customButton);
         }
+        // Choose image
         else {
           console.log(response.uri);
         }
