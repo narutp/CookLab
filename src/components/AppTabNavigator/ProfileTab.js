@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Alert, StyleSheet, Text, View, Image, Dimensions, AsyncStorage } from 'react-native'
+import { TouchableOpacity, Alert, StyleSheet, Text, View, Image, Dimensions, AsyncStorage } from 'react-native'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import IconMaterial from 'react-native-vector-icons/MaterialIcons'
 import Header from './Header'
+import Modal from 'react-native-modal'
 import { Container, Content, Left, Right, Body, Card, CardItem } from 'native-base'
 
 let images = [
@@ -27,7 +28,8 @@ class ProfileTab extends Component {
         this.state = {
             name: '',
             id: '',
-            picUrl: null
+            picUrl: null,
+            isModalVisible: false
         }
     }
     
@@ -59,12 +61,29 @@ class ProfileTab extends Component {
 
     }
 
+    toggleModal () {
+        this.setState({ isModalVisible: !this.state.isModalVisible })
+        console.log('Toggle modal')
+    }
+
+    editName () {
+        this.toggleModal()
+    }
     render() {
         return (
             <View style={styles.container}>
                 <Header onMenuPressed={ this.props.onMenuPressed } />
                 
                 <View>
+                    
+                    <Modal isVisible={this.state.isModalVisible}>
+                        <View style={ styles.modal }>
+                            <Text>Hello!</Text>
+                            <TouchableOpacity onPress={() => this.toggleModal()}>
+                            <Text>Hide me!</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </Modal>
                     {/* Cover image */}
                     <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
                     {/* Profile image */}
@@ -74,17 +93,9 @@ class ProfileTab extends Component {
                 </View>
                 <View style={ styles.body }>
                     {/* User's name */}
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', textAlign: 'center' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ textAlign: 'center' }}>{ this.state.name }</Text>
-                        <IconMaterial name="edit" style={{ textAlign: 'center', marginLeft: 5 }} onPress={() => Alert.alert(
-                            'Log out',
-                            'Log out from CookLab?',                
-                            [
-                            {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-                            {text: 'Log out', onPress: () => this.logout()},
-                            ],
-                            { cancelable: false }
-                        )} /> 
+                        <IconMaterial onPress={() => this.editName()} name="edit" style={{ textAlign: 'center', marginLeft: 5 }} /> 
                     </View>
                     {/* Horizontal rule */}
                     <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 5 }}></View>
@@ -118,6 +129,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     width: Dimensions.get('window').width
+  },
+  modal: {
+    flex: 1, 
+    width: 300, 
+    height: 300, 
+    backgroundColor: 'white', 
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#fff'
   },
   header: {
     backgroundColor: '#4F4F4F'
