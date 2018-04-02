@@ -8,7 +8,11 @@ import NewfeedTab from './AppTabNavigator/NewfeedTab'
 import ProfileTab from './AppTabNavigator/ProfileTab'
 import SearchTab from './AppTabNavigator/SearchTab'
 import TopfeedTab from './AppTabNavigator/TopfeedTab'
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-picker'
+import StatusPosting from './sidepages/StatusPosting'
+import { connect } from 'react-redux'
+import { Router, Scene } from 'react-native-router-flux'
+import DishActions from 'src/redux/actions/dish'
 
 // This is mainscreen
 class MainScreen extends Component {
@@ -50,10 +54,8 @@ class MainScreen extends Component {
         }
         else {
           let source = { uri: response.uri };
-          this.setState({
-              imageSource: source
-          });
-          console.log(this.state.imageSource);
+          this.props.setImageSource(source)
+          Actions.StatusPosting();
         }
       });
     }
@@ -98,7 +100,13 @@ class MainScreen extends Component {
     }
 }
 
-export default MainScreen;
+const mapDispatchToProps = dispatch => ({
+    setImageSource: (imageSource) => {
+        dispatch(DishActions.setImageSource(imageSource))
+    }
+})
+
+export default connect(null, mapDispatchToProps)(MainScreen);
 
 const styles = StyleSheet.create({
   container: {

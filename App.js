@@ -5,7 +5,7 @@ import { DrawerNavigator } from 'react-navigation'
 import MainScreen from 'src/components/MainScreen'
 import MyDishes from 'src/components/AppDrawerNavigator/MyDishes'
 import SideMenu from 'src/components/SideMenu'
-import Router from './src/components/DrawerRouter'
+import Router from 'src/routes/index'
 import Login from './src/components/Login'
 
 export default class App extends React.Component {
