@@ -11,7 +11,7 @@ import TopfeedTab from './AppTabNavigator/TopfeedTab'
 import ImagePicker from 'react-native-image-picker'
 import StatusPosting from './sidepages/StatusPosting'
 import { connect } from 'react-redux'
-import { Router, Scene } from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 import DishActions from 'src/redux/actions/dish'
 
 // This is mainscreen
@@ -55,7 +55,7 @@ class MainScreen extends Component {
         else {
           let source = { uri: response.uri };
           this.props.setImageSource(source)
-          Actions.StatusPosting();
+          Actions.StatusPosting()
         }
       });
     }
