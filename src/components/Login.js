@@ -7,6 +7,7 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import MainScreen from './MainScreen'
 import DrawerRouter from './DrawerRouter'
 import Axios from 'react-native-axios'
+import CookLabAxios from './HttpRequest/index'
 
 const {
     LoginButton,
