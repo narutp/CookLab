@@ -12,7 +12,7 @@ var express = require('express'),
   
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/cooklabdb'); 
+mongoose.connect('mongodb://35.186.144.84:27017/cooklabdb'); 
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
