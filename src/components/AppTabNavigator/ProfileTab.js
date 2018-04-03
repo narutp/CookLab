@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { TouchableOpacity, Alert, StyleSheet, Text, View, Image, Dimensions, AsyncStorage } from 'react-native'
+import { TextInput, Modal, TouchableHighlight, TouchableOpacity, Alert, StyleSheet, Text, View, Image, Dimensions, AsyncStorage } from 'react-native'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import IconMaterial from 'react-native-vector-icons/MaterialIcons'
 import Header from './Header'
-import Modal from 'react-native-modal'
-import { Container, Content, Left, Right, Body, Card, CardItem } from 'native-base'
+// import Modal from 'react-native-modal'
+import { Container, Content, Left, Right, Body, Card, CardItem, Input } from 'native-base'
+import CooklabAxios from '../HttpRequest/index'
 
 let images = [
     require('../../assets/image/Food/food1.jpg'),
@@ -61,27 +62,46 @@ class ProfileTab extends Component {
 
     }
 
-    toggleModal () {
-        this.setState({ isModalVisible: !this.state.isModalVisible })
+    editName () {
         console.log('Toggle modal')
+        this.setState({ isModalVisible: !this.state.isModalVisible })
     }
 
-    editName () {
-        this.toggleModal()
+    saveName () {
+        console.log('Save name success')
+        this.setState({ isModalVisible: !this.state.isModalVisible })
     }
+
     render() {
         return (
             <View style={styles.container}>
                 <Header onMenuPressed={ this.props.onMenuPressed } />
                 
                 <View>
-                    
-                    <Modal isVisible={this.state.isModalVisible}>
+                    <Modal
+                        animationType="slide"
+                        transparent={false}
+                        visible={this.state.isModalVisible}
+                        onRequestClose={() => {
+                            alert('Modal has been closed.');
+                        }}>
                         <View style={ styles.modal }>
-                            <Text>Hello!</Text>
-                            <TouchableOpacity onPress={() => this.toggleModal()}>
-                            <Text>Hide me!</Text>
-                            </TouchableOpacity>
+                            <View>
+                            <Text>Edit name</Text>
+                            <TextInput placeholder="Input something" />
+
+                            <TouchableHighlight
+                                onPress={() => {
+                                    this.setState({ isModalVisible: !this.state.isModalVisible })
+                                }}>
+                                <Text>Cancel</Text>
+                            </TouchableHighlight>
+
+                            <TouchableHighlight
+                                onPress={() => this.saveName()}>
+                                <Text>Save</Text>
+                            </TouchableHighlight>
+                            </View>
                         </View>
                     </Modal>
                     {/* Cover image */}
@@ -131,13 +151,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width
   },
   modal: {
-    flex: 1, 
-    width: 300, 
-    height: 300, 
-    backgroundColor: 'white', 
-    borderRadius:10,
-    borderWidth: 1,
-    borderColor: '#fff'
+    padding: 30
   },
   header: {
     backgroundColor: '#4F4F4F'
