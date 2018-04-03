@@ -1,10 +1,30 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import { NavigationActions } from 'react-navigation';
-import { StyleSheet, ScrollView, Text, Image, View, Button, Alert } from 'react-native';
+import { StyleSheet, ScrollView, Text, Image, View, Button, Alert, AsyncStorage } from 'react-native';
+import FBSDK, { LoginManager } from 'react-native-fbsdk'
 
 class SideMenu extends Component {
   
+  constructor(props) {
+    super(props)
+    this.state = {
+        picUrl: null
+    }
+  }
+
+  componentDidMount() {
+    this.fetchUser()
+  }
+
+  async fetchUser () {
+    let userPicUrl = await AsyncStorage.getItem('userPic')
+
+    this.setState({ picUrl: userPicUrl })
+    console.log('pic url: ' + this.state.picUrl)
+
+  }
+
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
@@ -13,6 +33,7 @@ class SideMenu extends Component {
   }
 
   logout () {
+    LoginManager.logOut()
     this.props.navigation.navigate('Login')
   }
 
@@ -24,7 +45,7 @@ class SideMenu extends Component {
             {/* Profile pic */}
             <View style={{ height: 150, backgroundColor: '#F44336' }}>
               <View style={{ alignItems: 'center' }}>
-                <Image source={require('../assets/image/Profile/profilePic1.jpg')} style={styles.profileImage} />
+                <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
               </View>
             </View>
           </View>
