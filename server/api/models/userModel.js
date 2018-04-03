@@ -6,15 +6,15 @@ var Schema = mongoose.Schema;
 var UserSchema = new Schema({
   name: {
     type: String,
-    required: 'Kindly enter the name of the user'
+    // required: 'Kindly enter the name of the user'
   },
   email: {
     type: String,
-    required: 'Enter the email of the user'
+    // required: 'Enter the email of the user'
   },
   bio: {
     type: String,
-    required: 'Enter the biography of the user'
+    default: 0
   },
   experience: {
     type: Number,
@@ -27,11 +27,11 @@ var UserSchema = new Schema({
   },
   username: {
     type: String,
-    required: 'Enter the username of the user'
+    // required: 'Enter the username of the user'
   },
   password: { 
     type: String,
-    required: 'Enter the password of the user'
+    // required: 'Enter the password of the user'
   },
   achievements: {
     type: Array,

@@ -51,6 +51,8 @@ class Login extends Component {
         console.log('Get name and id from facebook: ' + userName + ' ' + userId)
         console.log('Photo url: ' + userPicUrl)
 
+        let createUserResponse = await CookLabAxios.post(`/create_user?name=${ userName }`)
+        console.log("Create user on database" + createUserResponse)
         // save name and id
         try { 
             await AsyncStorage.setItem('userName', userName) 

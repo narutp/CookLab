@@ -70,6 +70,7 @@ class ProfileTab extends Component {
     saveName () {
         console.log('Save name success')
         this.setState({ isModalVisible: !this.state.isModalVisible })
+        // let response = await CooklabAxios('')
     }
 
     render() {

@@ -25,6 +25,8 @@ module.exports = function(app) {
 
   app.route('/users')
     .get(cooklab.list_all_users)
+
+  app.route('/create_user')
     .post(cooklab.create_new_user);
 
   app.route('/achievements/:achievementId')

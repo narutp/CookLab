@@ -144,7 +144,7 @@ exports.create_new_post = function(req, res) {
 };
 
 exports.create_new_user = function(req, res) {
-  var new_user = new UserModel(req.body);
+  var new_user = new UserModel(req.query);
   new_user.save(function(err, user) {
     console.log(err)
     if (err) {

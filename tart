@@ -1,0 +1,569 @@
+[33mcommit 0de56cc7d8c56f1b02ceadab73f29f72183f15e0[m[33m ([m[1;36mHEAD -> [m[1;32mbackup-master[m[33m)[m
+Merge: e830371 a1cb781
+Author: suppok <crystalpok@gmail.com>
+Date:   Tue Apr 3 16:14:40 2018 +0700
+
+    Merge pull request #17 from narutp/supanat
+    
+    Supanat
+
+[33mcommit a1cb781c9d97b919f9b1219488bb6f328d7175b7[m[33m ([m[1;31morigin/supanat[m[33m)[m
+Merge: 646cb60 e830371
+Author: suppok <crystalpok@gmail.com>
+Date:   Tue Apr 3 16:12:20 2018 +0700
+
+    Merge branch 'master' of https://github.com/narutp/CookLab into supanat
+
+[33mcommit 646cb60bfce5b005edd5001f928a3420d933ce26[m
+Author: suppok <crystalpok@gmail.com>
+Date:   Tue Apr 3 16:08:12 2018 +0700
+
+    Push Mongo on cloud
+
+[33mcommit e83037160aea8b793af018ab65d58a381d09071e[m
+Merge: cd83b89 895be1f
+Author: Narut Poovorakit <narut.p@ku.th>
+Date:   Tue Apr 3 16:06:52 2018 +0700
+
+    Merge pull request #16 from narutp/narut
+    
+    Narut
+
+[33mcommit 895be1fe54c5aa9fc79f0d8d59e1d78fb2a836c7[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Apr 3 16:05:53 2018 +0700
+
+    Edit some statement in server api
+
+[33mcommit 422aefce908814216df409707fd916bea17bbc7f[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Apr 3 16:02:42 2018 +0700
+
+    Add axios config
+
+[33mcommit a293f3409bae493db36178a295730e4e49a2240d[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Mon Apr 2 22:07:11 2018 +0700
+
+    Add react-native modal for editing name
+
+[33mcommit a96fc2ed6c1583ad68dcb91b2883d500be133eac[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Mon Apr 2 18:35:53 2018 +0700
+
+    Add edit name icon
+
+[33mcommit 6fcadde1e7350aff108ee0385f86359d50b45f37[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Fri Mar 30 19:48:06 2018 +0700
+
+    Get profile pic from facebook by facebookId
+
+[33mcommit 8c62db81839379133fb76c686b4802c03588f7a2[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Thu Mar 29 18:36:11 2018 +0700
+
+    Add logout statement of login manager
+
+[33mcommit 9b8181594659ac882b9f96ef7297616039d9acd8[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Thu Mar 29 17:42:53 2018 +0700
+
+    Get facebook account photo and show in profile tab
+
+[33mcommit 36d2b22cedcb050186f30b13ff47d7598d413d43[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Thu Mar 29 16:13:00 2018 +0700
+
+    Get facebook account name and show in profile tab
+
+[33mcommit cd83b894e52733f1c0791eb7fe167f6b4981f1a2[m
+Merge: 0482c8d 5f144df
+Author: suppok <crystalpok@gmail.com>
+Date:   Thu Mar 29 12:20:58 2018 +0700
+
+    Merge pull request #15 from narutp/supanat
+    
+    Add feed APIs
+
+[33mcommit 5f144dff1e4c1da1ead4319572c07633eecc443e[m
+Author: suppok <crystalpok@gmail.com>
+Date:   Thu Mar 29 12:15:29 2018 +0700
+
+    Add feed APIs
+
+[33mcommit 0482c8dda9c7eb2f758f1544afae5766b9146c8a[m
+Merge: 5802e08 1bab81d
+Author: Narut Poovorakit <narut.p@ku.th>
+Date:   Wed Mar 28 20:15:28 2018 +0700
+
+    Merge pull request #14 from narutp/narut
+    
+    Narut
+
+[33mcommit 1bab81d1ac291c5f27aa43d63fd8042b7f71027f[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Mar 28 20:14:13 2018 +0700
+
+    Can now fetch user name by calling facebook api
+
+[33mcommit 0e84639ecd9178147fe27af22140fb1d20de835a[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Mar 28 17:47:19 2018 +0700
+
+    Can now store facebook token in async storage
+
+[33mcommit f417b650280bdffe98c7c8b34cdacd3e9bad609c[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Mar 28 17:10:38 2018 +0700
+
+    Add react-native axios library
+
+[33mcommit 6ef4d2feaab9e005974eba6dcfc05ff10c81f977[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Mar 28 16:19:51 2018 +0700
+
+    Change color of tab bar
+
+[33mcommit 61bbfda341d8e41bcde903d2e426c51cdf992ee2[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Mar 28 16:00:34 2018 +0700
+
+    Change logout alert message
+
+[33mcommit 9cd6cf341a36d256130ca26a6211f62992b150da[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Mar 28 15:55:45 2018 +0700
+
+    Can now logout without authentication
+
+[33mcommit fccb4537dbbdcbc842ac0a8e6ced29cd6f2e84ef[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Mar 28 13:35:30 2018 +0700
+
+    Hide the status bar on Android
+
+[33mcommit d8bd76f3edc2533f2b3e28374833185c1619f7f6[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Mar 28 13:27:52 2018 +0700
+
+    Change icon of splash screen
+
+[33mcommit dd421b29e4bd19d6abddea04febc8832117d230b[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Mon Mar 26 22:59:10 2018 +0700
+
+    Loading screen
+
+[33mcommit 75a6cc8d7c23a6b2686dad5f27ae215201a98dc7[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Mon Mar 26 21:36:32 2018 +0700
+
+    Add logo and config files in android
+
+[33mcommit a6d8748f04d20ec6821b9fcd904371b19087b1cf[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Mon Mar 26 20:36:05 2018 +0700
+
+    Move image to mipmap folder
+
+[33mcommit 13e1c9d604fc72c17508c2a0e268c1528b5fb375[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Mon Mar 26 20:19:55 2018 +0700
+
+    Add 3 example icons of splash screen
+
+[33mcommit 5802e089c1f75e81d39eaba0603cc60975dccf6a[m
+Merge: 8f99252 1d25f9f
+Author: Narut Poovorakit <narut.p@ku.th>
+Date:   Mon Mar 26 20:06:53 2018 +0700
+
+    Merge pull request #13 from narutp/narut
+    
+    Narut
+
+[33mcommit 1d25f9f7792098c383b48ad563a2254b45cd529f[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Mon Mar 26 20:05:30 2018 +0700
+
+    Change color of side menu
+
+[33mcommit 8f992525c9a30b820526fdbb91e5d784f2e6953e[m
+Merge: 9ed97d1 28a1e2d
+Author: suppok <crystalpok@gmail.com>
+Date:   Mon Mar 26 19:59:53 2018 +0700
+
+    Merge pull request #12 from narutp/supanat
+    
+    Supanat
+
+[33mcommit 28a1e2dbe15577ff1fcd77ddd56851964b01e697[m
+Merge: d42cb11 9ed97d1
+Author: suppok <crystalpok@gmail.com>
+Date:   Mon Mar 26 19:57:22 2018 +0700
+
+    Merge branch 'master' of https://github.com/narutp/CookLab into supanat
+
+[33mcommit 9ed97d16491fdc42c27b807ba1814bd68e576160[m
+Merge: a76f14f e4e45c9
+Author: tannatanon <tanlnw@gmail.com>
+Date:   Mon Mar 26 19:54:44 2018 +0700
+
+    Merge pull request #11 from narutp/tanzy
+    
+    delete unneccessary file
+
+[33mcommit e4e45c944cb7d40462fc394522427b50f64d7b32[m[33m ([m[1;31morigin/tanzy[m[33m)[m
+Author: Natanon Poonawagul <tanlnw@gmail.com>
+Date:   Mon Mar 26 19:53:49 2018 +0700
+
+    delete unneccessary file
+
+[33mcommit d42cb111109fbd066a501b667c004a66e2e3aecf[m
+Author: suppok <crystalpok@gmail.com>
+Date:   Mon Mar 26 16:38:41 2018 +0700
+
+    Add server for backend
+
+[33mcommit f92875d0c075ebc576cd6296a354b551942e8f31[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Mar 20 18:35:58 2018 +0700
+
+    Fix menu button when login successfully
+
+[33mcommit 925f0f3af324fd97eb1bd4bcb59d5f9d31b87226[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Mar 20 17:52:42 2018 +0700
+
+    Navigate to mainscreen when login success
+
+[33mcommit a115b0d57659098e35f93677e46c0c1c2cde940c[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Mar 20 17:08:20 2018 +0700
+
+    Add router flux
+
+[33mcommit 9a08d28075532e60e057ac66c4d36f811b07278e[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Mar 20 16:40:56 2018 +0700
+
+    Login facebook
+
+[33mcommit 96d893e187d88559dcd9e2a73a9bf2904fb6ff11[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Mon Mar 19 22:46:27 2018 +0700
+
+    Config image picker in android
+
+[33mcommit a76f14fd950c58a59f689a75a7b987a63348c958[m
+Merge: 0df4db8 28089f3
+Author: tannatanon <tanlnw@gmail.com>
+Date:   Mon Mar 19 21:38:54 2018 +0700
+
+    Merge pull request #10 from narutp/tanzy
+    
+    Tanzy
+
+[33mcommit 28089f3dc3ea69991814ea8cebe2bf8d7957f951[m
+Author: Natanon Poonawagul <tanlnw@gmail.com>
+Date:   Mon Mar 19 21:36:28 2018 +0700
+
+    Camera roll fixed
+
+[33mcommit 587c66e2b699536c204c9d5eeb967dc86e3deb0e[m
+Author: Natanon Poonawagul <tanlnw@gmail.com>
+Date:   Mon Mar 19 21:30:20 2018 +0700
+
+    need to commit
+
+[33mcommit 0df4db8dd16438225278b11967886d86653e9267[m
+Merge: ddfc407 a92dba2
+Author: tannatanon <tanlnw@gmail.com>
+Date:   Mon Mar 19 21:09:56 2018 +0700
+
+    Merge pull request #9 from narutp/tanzy
+    
+    Tanzy
+
+[33mcommit a92dba21741a95d457f60060f8939395f39c104b[m
+Merge: 126b50a ddfc407
+Author: tannatanon <tanlnw@gmail.com>
+Date:   Mon Mar 19 21:09:41 2018 +0700
+
+    Merge branch 'master' into tanzy
+
+[33mcommit 126b50ae329690c35af511531abb653b5700fb22[m
+Author: Natanon Poonawagul <tanlnw@gmail.com>
+Date:   Mon Mar 19 21:07:17 2018 +0700
+
+    Add Open Camera roll
+
+[33mcommit ddfc4072735f96157a2fb4d73b0bee60790b46de[m
+Merge: d0041d7 5ab2ee7
+Author: Narut Poovorakit <narut.p@ku.th>
+Date:   Mon Mar 19 21:06:55 2018 +0700
+
+    Merge pull request #8 from narutp/narut
+    
+    Narut
+
+[33mcommit 5ab2ee74bf6b34eba8763975cf659603074e73f2[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Mon Mar 19 21:04:45 2018 +0700
+
+    Add login facebook button
+
+[33mcommit 262e06900202a1221d78828ed79534d19cc2ac4d[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Mar 14 17:02:42 2018 +0700
+
+    Modify manifest
+
+[33mcommit 3403e4c0da0b3199a7a66e7539360d278ff1ba42[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Mar 14 16:24:09 2018 +0700
+
+    Facebook login config in android files
+
+[33mcommit 5afc7cefe4862e17b40434769f3c2128aa7d2a1b[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Mar 13 17:17:48 2018 +0700
+
+    Add background image in Login page
+
+[33mcommit 23fef60c349f6e80a2be67e409b31f69812e16da[m[33m ([m[1;32mtanzy[m[33m)[m
+Author: Natanon Poonawagul <tanlnw@gmail.com>
+Date:   Tue Mar 13 17:16:52 2018 +0700
+
+    testing Cameraroll
+
+[33mcommit 60abe7a906df3ae0e7d73cf8132b1609f3369a16[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Mon Mar 12 22:32:26 2018 +0700
+
+    Add background image
+
+[33mcommit d0041d7c46aefc5e6f947a8607f5c6f2726c109a[m
+Merge: 1aaba26 18f3432
+Author: Narut Poovorakit <narut.p@ku.th>
+Date:   Mon Mar 12 21:44:33 2018 +0700
+
+    Merge pull request #7 from narutp/narut
+    
+    Narut
+
+[33mcommit 18f34324311368d805d7a21467f839ff06399953[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Mon Mar 12 21:32:26 2018 +0700
+
+    Create Login file
+
+[33mcommit b65eee680009e67c8f7040184dcc47d5028bce53[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Mon Mar 12 21:06:15 2018 +0700
+
+    Add onPress on other tab
+
+[33mcommit 1aaba264f181fded36aeea0d81acd3edc62b8be3[m
+Merge: 369ac9b 7135543
+Author: Narut Poovorakit <narut.p@ku.th>
+Date:   Fri Mar 9 10:07:41 2018 +0700
+
+    Merge pull request #6 from narutp/narut
+    
+    Narut
+
+[33mcommit 7135543669a33bac9512123a3fb8280ef109ad48[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Thu Mar 8 19:48:00 2018 +0700
+
+    Add listener button for clicking drawer menu
+
+[33mcommit 47627f3d033500eaa5cfef6032a632bc4cf88b1d[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Thu Mar 8 16:35:56 2018 +0700
+
+    Add settings and logout drawer navigation
+
+[33mcommit 90114459065d8095e3fa187d920d27b813439958[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Thu Mar 8 15:58:45 2018 +0700
+
+    Click my dish page working fine
+
+[33mcommit 20005bae621f6c193f6296f2af5504b8e236344b[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Mar 7 22:46:47 2018 +0700
+
+    Still cannot fix the side menu problem
+
+[33mcommit 10838ea40dda0f585b828777a92c1ac1c1c83695[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Mar 7 22:01:07 2018 +0700
+
+    Add side menu to link home page and my-dishes
+
+[33mcommit 8234b8172b23127a41732ff376fc19bbd32abaaf[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Mar 7 16:44:08 2018 +0700
+
+    Set mainscreen as a drawer navigator
+
+[33mcommit aa1a9ec5265168d131e86482348843cb98cc3900[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Mar 7 14:40:51 2018 +0700
+
+    Add drawer navigator
+
+[33mcommit 369ac9b3d282be0e45f0603325bfd9ee7741eb4e[m
+Merge: 12d4624 dd17f09
+Author: Narut Poovorakit <narut.p@ku.th>
+Date:   Mon Mar 5 23:03:34 2018 +0700
+
+    Merge pull request #5 from narutp/narut
+    
+    Narut
+
+[33mcommit dd17f09d448333cbca978b49f88d22a05256d8b7[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Mon Mar 5 21:58:40 2018 +0700
+
+    Add image in profile page
+
+[33mcommit 47dad5d341218a1cd38e89556f3c0e2e4e194dac[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Feb 28 20:23:24 2018 +0700
+
+    Add follow labels
+
+[33mcommit 5cd7f32c30dabd1b0f86dd2f9a29aff89f0f81e1[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Feb 28 19:31:57 2018 +0700
+
+    Set profile pic to intercept with cover pic
+
+[33mcommit 90e8fcb1d006b67aa425463a62497616d882d8e3[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Feb 28 19:08:16 2018 +0700
+
+    Compress all images
+
+[33mcommit 12d4624d366b9d35405f09d8ca0586837a2f2fa4[m
+Merge: 9226901 2ebf6ba
+Author: Narut Poovorakit <narut.p@ku.th>
+Date:   Wed Feb 28 16:59:19 2018 +0700
+
+    Merge pull request #4 from narutp/narut
+    
+    Narut
+
+[33mcommit 2ebf6ba94f27815054fef3191241619da08e50ee[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Feb 28 16:57:49 2018 +0700
+
+    Add cover photo in profile tab
+
+[33mcommit 383dfbe721199ec6cbb7d0dd9d5b86a8e0d398ef[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Feb 28 15:30:39 2018 +0700
+
+    Add header in profile tab
+
+[33mcommit ebb9383248112d3dc3e2781807e15bfaa7b6ee26[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Wed Feb 28 15:01:46 2018 +0700
+
+    Fix image in search tab
+
+[33mcommit d9bc1bd4e2e76a80273cfe3de2d618873a0c1c66[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Feb 27 20:41:51 2018 +0700
+
+    Change newfeed tab to use CardComponent
+
+[33mcommit 55048dc5b3a9d8012d827b698cc1886617a217dd[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Feb 27 20:33:29 2018 +0700
+
+    Mock data in newfeed
+
+[33mcommit 171fbb55427678d58816f49b29a7d897f8b7d942[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Feb 27 20:25:59 2018 +0700
+
+    Add props between new feed and card components
+
+[33mcommit 585aed3c9f83ae556027449b78020cf59e18dc04[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Feb 27 20:10:56 2018 +0700
+
+    Add footer card
+
+[33mcommit b1cec86faadc946aec06b0296b8cf7f3520e156c[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Feb 27 18:12:41 2018 +0700
+
+    Add more pic
+
+[33mcommit 5ca8f85c58714e1c1d961fe23c415367aa19dc79[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Feb 27 17:33:26 2018 +0700
+
+    Add food and profile picturees
+
+[33mcommit 87a058337a22a752a41d8ffc7b9942d4faca81e2[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Feb 27 16:11:01 2018 +0700
+
+    Add body of cardComponent
+
+[33mcommit 29933c339d1d2ca4bf1589079e6d87068d985baf[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Feb 27 15:13:42 2018 +0700
+
+    Add header in newfeed tab
+
+[33mcommit 7ee5834e366ea886b6010e858145fefe0d3484f4[m
+Author: Narut Poovorakit <net.narut.p@gmail.com>
+Date:   Tue Feb 27 14:09:37 2018 +0700
+
+    Create card component
+
+[33mcommit 922690149b9194e4d9ca7b8a0a998f0abb785285[m
+Merge: ca21168 ee9eb50
+Author: tannatanon <tanlnw@gmail.com>
+Date:   Fri Feb 23 18:29:30 2018 +0700
+
+    Merge pull request #3 from narutp/tanzy
+    
+    Top Feed Mockup
+
+[33mcommit ee9eb50bbddf5af499901cca00774c7777835cbe[m
+Author: Natanon Poonawagul <tanlnw@gmail.com>
+Date:   Fri Feb 23 18:24:02 2018 +0700
+
+    Top Feed Mockup
+
+[33mcommit ca21168a4d0e387158a7fada3f698e60b8319fd4[m
+Merge: 1d70897 64097fe
+Author: Narut Poovorakit <narut.p@ku.th>
+Date:   Wed Feb 21 18:21:56 2018 +0700
+
+    Merge pull request #2 from narutp/supanat
+    
+    Add server.js
+
+[33mcommit 64097fe1e5659ce8a7066f489335d7d01e7c2573[m
+Author: suppok <crystalpok@gmail.com>
+Date:   Wed Feb 21 18:19:33 2018 +0700
+
+    Add server.js
+
+[33mcommit 1d708975e3d62f9e9d0140ea4a3e3a7ab392e518[m
+Merge: bd7698e a41c686
+Author: Narut Poovorakit <narut.p@ku.th>
+Date:   Wed Feb 21 18:17:23 2018 +0700
+
+    Merge pull request #1 from narutp/narut
+    
+    Test git merge
