@@ -48,15 +48,33 @@ module.exports = function(app) {
     .delete(cooklab.delete_ingredient);
 
   app.route('/posts/:postId')
-    .get(cooklab.get_post)
+    .get(cooklab.get_post_by_post_id)
     .put(cooklab.update_post)
     .delete(cooklab.delete_post);
+
+  app.route('/posts/userId/:userId')
+    .get(cooklab.get_images_posts_by_user_id);
 
   app.route('/users/:userId')
     .get(cooklab.get_user)
     .put(cooklab.update_user)
     .delete(cooklab.delete_user);
 
-  // app.route('/image/upload')
-  //   .post(cooklab.upload_image);
+  app.route('/follow/:userId/:targetId')
+    .put(cooklab.follow_user);
+
+  app.route('/unfollow/:userId/:targetId')
+    .put(cooklab.unfollow_user);
+
+  app.route('/feeds/:userId')
+    .get(cooklab.get_feeds_by_user_id);
+
+  app.route('/topfeed')
+    .get(cooklab.get_top_feed);
+
+  app.route('/love/:postId/:userId')
+    .put(cooklab.love_post);
+    
+  app.route('/dislove/:postId/:userId')
+    .put(cooklab.dislove_post);
 };

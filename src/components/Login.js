@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { Dimensions, View, StyleSheet, Image } from 'react-native'
+import { Dimensions, View, StyleSheet, Image, AsyncStorage } from 'react-native'
 import FBSDK, { LoginManager } from 'react-native-fbsdk'
 import { Button, Text } from 'native-base'
 import { StackNavigator } from 'react-navigation';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import MainScreen from './MainScreen'
 import DrawerRouter from './DrawerRouter'
-// import Router from './src/components/DrawerRouter'
+import CooklabAxios from '../http'
+import Axios from 'react-native-axios'
+import CookLabAxios from './HttpRequest/index'
 
 const {
     LoginButton,
@@ -15,20 +17,49 @@ const {
 
 class Login extends Component {
 
-    _fbAuth() {
-        LoginManager.logInWithReadPermissions(['public_profile']).then((result)=> {
-            if (result.isCancelled) {
-                console.log('Login is cancelled') 
-            } else {
-                console.log('Login was success' + result.grantedPermissions.toString)
-                console.log(this.props)
-                
-                this.props.navigation.navigate('DrawerRouter')
-            }
-        }, (error)=> {
-            console.log('An error occured' + error)
+    async _fbAuth() {
+        let result = await LoginManager.logInWithReadPermissions(['public_profile'])
+        if (result.isCancelled) {
+            console.log('Login is cancelled') 
+        } else {
+            console.log('Login was success' + result.grantedPermissions.toString)
             
-        })
+            let data = await AccessToken.getCurrentAccessToken()
+                try {
+                    await AsyncStorage.setItem('facebookToken', data.accessToken.toString())
+                    console.log('Facebook token: ' + data.accessToken.toString())
+                } catch (error) {
+                    console.log(error)
+                }
+                // prepare data of user
+            this.fetchUser()
+            this.props.navigation.navigate('DrawerRouter')
+        }
+
+        
+        // let result = await CooklabAxios.get('/posts')
+        // console.log(result)
+    }
+
+    async fetchUser() {
+        let value = await AsyncStorage.getItem('facebookToken')
+        let result = await Axios.get(`https://graph.facebook.com/v2.11/me?access_token=${ value }&&fields=id,name,picture.type(large)`)
+        console.log(result)
+        let userName = result.data.name
+        let userId = result.data.id
+        let userPicUrl = result.data.picture.data.url
+        console.log('Get name and id from facebook: ' + userName + ' ' + userId)
+        console.log('Photo url: ' + userPicUrl)
+
+        // save name and id
+        try { 
+            await AsyncStorage.setItem('userName', userName) 
+            await AsyncStorage.setItem('userId', userId)
+            await AsyncStorage.setItem('userPic', userPicUrl)
+        } catch (error) {
+            console.log(error)
+        }
+
     }
     // _fbAuth() {
     //     var self = this

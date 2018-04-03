@@ -12,7 +12,7 @@ var express = require('express'),
   
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/cooklabdb'); 
+mongoose.connect('mongodb://35.186.144.84:27017/cooklabdb'); 
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,4 +26,4 @@ routes(app); //register the route
 app.listen(port);
 
 
-console.log('todo list RESTful API server started on: ' + port);
+console.log('CookLab RESTful API server started on: ' + port);

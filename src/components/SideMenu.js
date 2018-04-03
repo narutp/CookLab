@@ -1,14 +1,40 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import { NavigationActions } from 'react-navigation';
-import { StyleSheet, ScrollView, Text, Image, View } from 'react-native';
+import { StyleSheet, ScrollView, Text, Image, View, Button, Alert, AsyncStorage } from 'react-native';
+import FBSDK, { LoginManager } from 'react-native-fbsdk'
 
 class SideMenu extends Component {
+  
+  constructor(props) {
+    super(props)
+    this.state = {
+        picUrl: null
+    }
+  }
+
+  componentDidMount() {
+    this.fetchUser()
+  }
+
+  async fetchUser () {
+    let userPicUrl = await AsyncStorage.getItem('userPic')
+
+    this.setState({ picUrl: userPicUrl })
+    console.log('pic url: ' + this.state.picUrl)
+
+  }
+
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
     });
     this.props.navigation.dispatch(navigateAction);
+  }
+
+  logout () {
+    LoginManager.logOut()
+    this.props.navigation.navigate('Login')
   }
 
   render () {
@@ -19,7 +45,7 @@ class SideMenu extends Component {
             {/* Profile pic */}
             <View style={{ height: 150, backgroundColor: '#F44336' }}>
               <View style={{ alignItems: 'center' }}>
-                <Image source={require('../assets/image/Profile/profilePic1.jpg')} style={styles.profileImage} />
+                <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
               </View>
             </View>
           </View>
@@ -46,8 +72,16 @@ class SideMenu extends Component {
           </View>
         </ScrollView>
         <View>
-          <Text style={styles.footerContainer} onPress={this.navigateToScreen('Logout')}>
-            <Text>Log out</Text>
+          <Text style={styles.footerContainer}
+              onPress={() => Alert.alert(
+                'Log out',
+                'Log out from CookLab?',                
+                [
+                  {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+                  {text: 'Log out', onPress: () => this.logout()},
+                ],
+                { cancelable: false }
+              )}>Log out
           </Text>
         </View>
       </View>

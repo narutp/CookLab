@@ -99,7 +99,7 @@ android {
 
     defaultConfig {
         applicationId "com.cooklab"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -154,6 +154,7 @@ dependencies {
 //    implement (project(':facebook-messenger'))
 //    implement (project(':facebook-places'))
 //    implement (project(':facebook-share'))
+    compile project(path: ':react-native-splash-screen')
 }
 
 // Run this once to be able to run the application with BUCK

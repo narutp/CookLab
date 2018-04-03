@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "start": "node node_modules/react-native/local-cli/cli.js and start",
+    "test": "jest",
+    "android": "adb reverse tcp:8081 tcp:8081 & adb reverse tcp:3000 tcp:3000 & react-native run-android"
   },
   "dependencies": {
     "adm-zip": "^0.4.7",
@@ -12,9 +13,12 @@
     "plist": "^3.0.1",
     "react": "16.2.0",
     "react-native": "0.53.0",
+    "react-native-axios": "^0.17.1",
     "react-native-fbsdk": "^0.7.0",
     "react-native-image-picker": "^0.26.7",
+    "react-native-modal": "^5.4.0",
     "react-native-router-flux": "^4.0.0-beta.28",
+    "react-native-splash-screen": "^3.0.6",
     "react-native-tab-navigator": "^0.3.4",
     "react-native-vector-icons": "^4.5.0",
     "react-navigation": "^1.0.3",
