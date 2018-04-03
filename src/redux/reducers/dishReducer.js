@@ -1,4 +1,4 @@
-import constants from 'src/redux/constants.js'
+import constants from 'src/redux/constants'
 const initialState = {
    imageSource: null
 }
