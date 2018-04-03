@@ -93,7 +93,16 @@ exports.create_new_comment = function(req, res) {
       res.send(err);
     }
     else {
-      res.json(comment);
+      PostModel.findOne({_id: new_comment.id_post},function(err, post) {
+        if (err) {
+          res.send(err);
+        }
+        else {
+          post.comments.push(new_comment._id)
+          post.save()
+          res.json(new_comment);
+        }
+      })
     }
   });
 };
@@ -317,11 +326,32 @@ exports.delete_achievement = function(req, res) {
 };
 
 exports.delete_comment = function(req, res) {
+  var postId
+  CommentModel.findOne({_id: req.params.commentId}, function(err, comment) {
+    if (err) {
+      res.send(err);
+    }
+    else {
+      postId = comment.id_post
+    }
+  })
   CommentModel.remove({_id: req.params.commentId}, function(err, comment) {
     if (err) {
       res.send(err);
     }
     else {
+      PostModel.findOne({_id: postId}, function(err, post) {
+        if (err) {
+          res.send(err);
+        }
+        else {
+          var index = post.comments.indexOf(req.params.commentId)
+          if (index > -1) {
+            post.comments.splice(index, 1);
+          }
+          post.save()
+        }
+      })
       res.json({ message: 'Comment successfully deleted' });
     }
   });
@@ -350,12 +380,28 @@ exports.delete_ingredient = function(req, res) {
 };
 
 exports.delete_post = function(req, res) {
-  PostModel.remove({_id: req.params.postId}, function(err, post) {
+  var comments_arr
+  PostModel.findOne({_id: req.params.postId},'comments', function(err, comments) {
     if (err) {
       res.send(err);
     }
     else {
-      res.json({ message: 'Post successfully deleted' });
+      comments_arr = comments.comments
+    }
+  })
+  PostModel.remove({_id: req.params.postId}, function(err, post) {
+    if (err) {
+      res.send(err);
+    }
+    else {      
+      CommentModel.remove({_id: {$in: comments_arr}}, function(err, comment) {
+        if (err) {
+          res.send(err);
+        }
+        else {
+          res.json({ message: 'Post and comment successfully deleted' });
+        }
+      })
     }
   });
 };
@@ -393,6 +439,34 @@ exports.follow_user = function(req, res) {
   });
 };
 
+exports.unfollow_user = function(req, res) {
+  UserModel.findOne({_id: req.params.userId}, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    else {
+      var index = user.followings.indexOf(req.params.targetId)
+      if (index > -1) {
+        user.followings.splice(index, 1);
+      }
+      user.save()
+    }
+  });
+  UserModel.findOne({_id: req.params.targetId}, function(err, targetUser) {
+    if (err) {
+      res.send(err);
+    }
+    else {
+      var index = targetUser.fans.indexOf(req.params.userId)
+      if (index > -1) {
+        targetUser.fans.splice(index, 1);
+      }
+      targetUser.save()
+      res.json(targetUser)
+    }
+  });
+};
+
 exports.get_feeds_by_user_id = function(req, res) {
   UserModel.findOne({_id: req.params.userId},'followings', function(err, followings) {
     if (err) {
@@ -424,6 +498,35 @@ exports.get_top_feed = function(req, res) {
     }
     else {
       res.json(posts)
+    }
+  });
+};
+
+exports.love_post = function(req, res) {
+  PostModel.findOne({_id: req.params.postId}, function(err, post) {
+    if (err) {
+      res.send(err)
+    }
+    else {
+      post.loves++
+      post.love_list.push(req.params.userId)
+      post.save()
+      res.json(post)
+    }
+  });
+};
+
+exports.dislove_post = function(req, res) {
+  PostModel.findOne({_id: req.params.postId}, function(err, post) {
+    if (err) {
+      res.send(err)
+    }
+    else {
+      post.loves--
+      var index = post.love_list.indexOf(req.params.userId)
+      post.love_list.splice(index, 1)
+      post.save()
+      res.json(post)
     }
   });
 };
