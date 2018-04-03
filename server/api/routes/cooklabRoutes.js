@@ -63,10 +63,18 @@ module.exports = function(app) {
   app.route('/follow/:userId/:targetId')
     .put(cooklab.follow_user);
 
+  app.route('/unfollow/:userId/:targetId')
+    .put(cooklab.unfollow_user);
+
   app.route('/feeds/:userId')
     .get(cooklab.get_feeds_by_user_id);
 
   app.route('/topfeed')
     .get(cooklab.get_top_feed);
-  
+
+  app.route('/love/:postId/:userId')
+    .put(cooklab.love_post);
+    
+  app.route('/dislove/:postId/:userId')
+    .put(cooklab.dislove_post);
 };

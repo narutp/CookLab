@@ -6,6 +6,7 @@ import { StackNavigator } from 'react-navigation';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import MainScreen from './MainScreen'
 import DrawerRouter from './DrawerRouter'
+import CooklabAxios from '../http'
 import Axios from 'react-native-axios'
 
 const {
@@ -32,7 +33,10 @@ class Login extends Component {
             this.fetchUser()
             this.props.navigation.navigate('DrawerRouter')
         }
+
         
+        // let result = await CooklabAxios.get('/posts')
+        // console.log(result)
     }
 
     async fetchUser() {

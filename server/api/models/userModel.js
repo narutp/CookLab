@@ -44,6 +44,10 @@ var UserSchema = new Schema({
   fans: {
     type: Array,
     default: []
+  },
+  photo: {
+    type: String,
+    default: ''
   }
 
 });
