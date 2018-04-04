@@ -72,10 +72,18 @@ class Login extends Component {
 
     }
 
-    login() {
+    async login() {
         console.log('Login normal')
         console.log('Username: ' + this.state.username)
         console.log('Password: ' + this.state.password)
+        if (this.state.username != null) {
+            let createUserResponse = await CookLabAxios.post(`/create_user`, {
+                name: this.state.username,
+                password: this.state.password 
+            })
+        } else {
+            console.log('Input something before login')
+        }
     }
 
     render() {
