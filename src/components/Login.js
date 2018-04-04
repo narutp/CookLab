@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Dimensions, View, StyleSheet, Image, AsyncStorage } from 'react-native'
+import { TextInput, Dimensions, View, StyleSheet, Image, AsyncStorage } from 'react-native'
 import FBSDK, { LoginManager } from 'react-native-fbsdk'
-import { Button, Text } from 'native-base'
+import { Input, Button, Text } from 'native-base'
 import { StackNavigator } from 'react-navigation';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import MainScreen from './MainScreen'
@@ -91,12 +91,15 @@ class Login extends Component {
                 <Image style={ styles.background } source={ require('../assets/image/Background/backgroundImage.jpg') }/>
                 <View style={ styles.title }>
                     <Text style={ styles.titleText }> CookLab </Text>
-                </View>
-                <View>
-                    <Button style={ styles.button } onPress={ this._fbAuth.bind(this) }>
+                    <Text style={ styles.subtitleText }> Design your dream dishes</Text>
+                    <TextInput underlineColorAndroid= "transparent" style={ styles.loginInput } />
+                    <TextInput underlineColorAndroid= "transparent" style={ styles.loginInput } />
+                    <Button style={ styles.facebookButton } onPress={ this._fbAuth.bind(this) }>
                         <IconFontAwesome name="facebook-official" style={{ marginLeft: 15 }} size={20} color="#fff" />
                         <Text>Login by Facebook</Text>
                     </Button>
+                </View>
+                <View>
                 </View>
             </View>
         )
@@ -133,17 +136,29 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontSize: 30, 
+        color: 'white',
+    },
+    subtitleText: {
         color: 'white', 
-        borderColor: 'white', 
+        fontSize: 15,
+        marginBottom: 100
+    },
+    loginInput: {
+        backgroundColor: 'white',
         borderWidth: 1,
-        backgroundColor: 'black',
-        opacity: 0.7
+        borderColor: 'black',
+        borderRadius: 10,
+        width: 175,
+        height: 35,
+        marginTop: 10,
+        marginBottom: 20,
+        opacity: 0.8
     },
     background: {
         width: '100%',
         height: 400
     },
-    button: {
+    facebookButton: {
         backgroundColor: '#183C94',
     }
 })
