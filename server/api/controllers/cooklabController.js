@@ -1,4 +1,5 @@
 'use strict';
+var passwordHash = require('password-hash');
 
 var mongoose = require('mongoose'),
   AchievementModel = mongoose.model('Achievements'),
@@ -530,6 +531,21 @@ exports.dislove_post = function(req, res) {
     }
   });
 };
+
+exports.login_by_username_and_password = function(req, res) {
+  UserModel.findOne({username: req.body.username}, function(err, user) {
+    if(err) {
+      res.send(err)
+    }
+    else {
+      let password = user.password
+      let result = passwordHash.verify(req.body.password, password);
+      res.json(result)
+    }
+  });
+}
+
+
 
 function compare(a,b) {
   if (a.timestamp < b.timestamp)

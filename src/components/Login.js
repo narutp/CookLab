@@ -59,7 +59,9 @@ class Login extends Component {
         console.log('Get name and id from facebook: ' + userName + ' ' + userId)
         console.log('Photo url: ' + userPicUrl)
 
-        let createUserResponse = await CookLabAxios.post(`/create_user?name=${ userName }`)
+        let createUserResponse = await CookLabAxios.post(`/create_user`, { 
+            name: userName 
+        })
         console.log("Create user on database" + createUserResponse)
         // save name and id
         try { 
@@ -77,10 +79,11 @@ class Login extends Component {
         console.log('Username: ' + this.state.username)
         console.log('Password: ' + this.state.password)
         if (this.state.username != null) {
-            let createUserResponse = await CookLabAxios.post(`/create_user`, {
-                name: this.state.username,
+            let loginResponse = await CookLabAxios.post(`/login`, {
+                username: this.state.username,
                 password: this.state.password 
             })
+            console.log(loginResponse.data)
         } else {
             console.log('Input something before login')
         }
