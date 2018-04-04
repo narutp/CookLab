@@ -17,6 +17,14 @@ const {
 
 class Login extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            username: '',
+            password: ''
+        }
+    }
+
     async _fbAuth() {
         let result = await LoginManager.logInWithReadPermissions(['public_profile'])
         if (result.isCancelled) {
@@ -63,43 +71,28 @@ class Login extends Component {
         }
 
     }
-    // _fbAuth() {
-    //     var self = this
-    //     LoginManager.logInWithReadPermissions(['public_profile', 'user_friends']).then(function(result) {
-    //         if(result.isCancelled) {
-    //             console.log('Loging was cancelled')
-    //         } else {
-    //             console.log('Login was a success' + result.grantedPermissions.toString())
-    //             AccessToken.getCurrentAccessToken().then(
-    //                 (data) => {
-    //                     const token = data.accessToken.toString()
-    //                     console.log('token', token)
-    //                     self.props.loginWithFacebook(token)
-    //                     // self.props.getUserFromFacebook(token)
-    //                     Actions.tabMenu()
-    //                 }
-    //             )
-    //         }
-    //     }, function(error) {
-    //         console.log('Login had an error occured')
-    //     })
-    // }
+
+    login() {
+        console.log('Login normal')
+        console.log('Username: ' + this.state.username)
+        console.log('Password: ' + this.state.password)
+    }
 
     render() {
         return (
-            <View>
+            <View style={ styles.container }>
                 <Image style={ styles.background } source={ require('../assets/image/Background/backgroundImage.jpg') }/>
                 {/* Top part */}
-                <View style={ styles.title }>
+                <View style={[ styles.title, styles.topContainer ]}>
                     <Text style={ styles.titleText }> CookLab </Text>
                     <Text style={ styles.subtitleText }> Design your dream dishes</Text>
                     <View style={{ marginBottom: 10 }}>
-                        <TextInput underlineColorAndroid= "transparent" style={ styles.loginInput } />
-                        <TextInput underlineColorAndroid= "transparent" style={ styles.loginInput } />
+                        <TextInput onChangeText={(text) => this.setState({username: text})} underlineColorAndroid= "transparent" style={ styles.loginInput } />
+                        <TextInput onChangeText={(text) => this.setState({password: text})} underlineColorAndroid= "transparent" style={ styles.loginInput } />
                     </View>
                     {/* Button */}
                     <View>
-                        <Button style={ styles.button }>
+                        <Button style={ styles.button } onPress={() => this.login()}>
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={[ styles.textButton, styles.simpleTextButton ]}>LOG IN</Text>
                             </View>
@@ -113,7 +106,24 @@ class Login extends Component {
                     </View>
                 </View>
                 {/* Bottom part */}
-                <View>
+                <View style={ styles.bottomContainer }>
+                    <View>
+                        <View>
+                            <Text>
+                                Bring the ingredients or cooking materials for show your meal
+                            </Text>
+                            <Text>
+                                Join us now
+                            </Text>
+                        </View>
+                        <View>
+                            <Button style={ styles.button }>
+                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={[ styles.textButton, styles.simpleTextButton ]}>REGISTER</Text>
+                                </View>
+                            </Button>
+                        </View>
+                    </View>
                 </View>
             </View>
         )
@@ -136,8 +146,11 @@ export default StackNavigator({
 
 const styles = StyleSheet.create({
     container: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
+    },
+    topContainer: {
+        marginBottom: 200,
+        // width: Dimensions.get('window').width,
+        // height: Dimensions.get('window').height,
     },
     title: {
         position: 'absolute',
@@ -192,5 +205,9 @@ const styles = StyleSheet.create({
     },
     simpleTextButton: {
         color: 'black'
+    },
+    bottomContainer: {
+        backgroundColor: 'white',
+        padding: 60,
     }
 })
