@@ -89,16 +89,30 @@ class Login extends Component {
         return (
             <View>
                 <Image style={ styles.background } source={ require('../assets/image/Background/backgroundImage.jpg') }/>
+                {/* Top part */}
                 <View style={ styles.title }>
                     <Text style={ styles.titleText }> CookLab </Text>
                     <Text style={ styles.subtitleText }> Design your dream dishes</Text>
-                    <TextInput underlineColorAndroid= "transparent" style={ styles.loginInput } />
-                    <TextInput underlineColorAndroid= "transparent" style={ styles.loginInput } />
-                    <Button style={ styles.facebookButton } onPress={ this._fbAuth.bind(this) }>
-                        <IconFontAwesome name="facebook-official" style={{ marginLeft: 15 }} size={20} color="#fff" />
-                        <Text>Login by Facebook</Text>
-                    </Button>
+                    <View style={{ marginBottom: 10 }}>
+                        <TextInput underlineColorAndroid= "transparent" style={ styles.loginInput } />
+                        <TextInput underlineColorAndroid= "transparent" style={ styles.loginInput } />
+                    </View>
+                    {/* Button */}
+                    <View>
+                        <Button style={ styles.button }>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={[ styles.textButton, styles.simpleTextButton ]}>LOG IN</Text>
+                            </View>
+                        </Button>
+                        <Button style={ styles.facebookButton } onPress={ this._fbAuth.bind(this) }>
+                            <IconFontAwesome name="facebook-official" style={{ marginLeft: 10, marginRight: -10 }} size={18} color="#fff" />
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={ styles.textButton }>Login by Facebook</Text>
+                            </View>
+                        </Button>
+                    </View>
                 </View>
+                {/* Bottom part */}
                 <View>
                 </View>
             </View>
@@ -141,7 +155,7 @@ const styles = StyleSheet.create({
     subtitleText: {
         color: 'white', 
         fontSize: 15,
-        marginBottom: 100
+        marginBottom: 50
     },
     loginInput: {
         backgroundColor: 'white',
@@ -151,14 +165,32 @@ const styles = StyleSheet.create({
         width: 175,
         height: 35,
         marginTop: 10,
-        marginBottom: 20,
         opacity: 0.8
     },
     background: {
         width: '100%',
         height: 400
     },
+    button: {
+        backgroundColor: 'white',
+        borderWidth: 1,
+        borderColor: 'pink',
+        width: 150,
+        height: 35,
+        borderRadius: 5,
+        marginBottom: 10,
+        marginTop: 10
+    },
     facebookButton: {
         backgroundColor: '#183C94',
+        width: 150,
+        height: 35,
+        borderRadius: 5,
+    },
+    textButton: {
+        fontSize: 11
+    },
+    simpleTextButton: {
+        color: 'black'
     }
 })
