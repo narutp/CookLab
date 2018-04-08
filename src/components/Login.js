@@ -135,7 +135,7 @@ class Login extends Component {
                         <View>
                             <Button style={ styles.button }>
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text onPress={ this.props.navigation.navigate('Register') } style={[ styles.textButton, styles.simpleTextButton ]}>REGISTER</Text>
+                                    <Text onPress={ () =>this.props.navigation.navigate('Register') } style={[ styles.textButton, styles.simpleTextButton ]}>REGISTER</Text>
                                 </View>
                             </Button>
                         </View>

@@ -1,8 +1,31 @@
 import React, { Component } from 'react'
 import { ImageBackground, View, Text, StyleSheet, TextInput } from 'react-native'
 import { Button } from 'native-base'
+import { NavigationActions } from 'react-navigation'
+import ConfigAxios from './HttpRequest/index'
 
 class Register extends Component {
+
+    constructor (props) {
+        super(props)
+        this.state = {
+            name: '',
+            username: '',
+            email: '',
+            password: '',
+            rePassword: ''
+        }
+    }
+
+    async register () {
+        let registerResponse = await ConfigAxios(`/create_user`, {
+            name: this.state.name,
+            username: this.state.username,
+            email: this.state.email,
+            password: this.password
+        })
+        console.log(registerResponse)
+    }
 
     render() {
         return (
@@ -12,15 +35,30 @@ class Register extends Component {
                 </View>
                 <View style={ styles.formContainer }>
                     <Text style={ styles.formContent }>Name</Text>
-                    <TextInput style={ styles.formInput } underlineColorAndroid= "transparent"/>
+                    <TextInput style={ styles.formInput } 
+                        underlineColorAndroid= "transparent"
+                        onChangeText={(text) => this.setState({name: text})}
+                    />
                     <Text style={ styles.formContent }>Username</Text>
-                    <TextInput style={ styles.formInput } underlineColorAndroid= "transparent"/>
+                    <TextInput style={ styles.formInput }
+                        underlineColorAndroid= "transparent"
+                        onChangeText={(text) => this.setState({username: text})}
+                    />
                     <Text style={ styles.formContent }>Email</Text>
-                    <TextInput style={ styles.formInput } underlineColorAndroid= "transparent"/>
+                    <TextInput style={ styles.formInput } 
+                        underlineColorAndroid= "transparent"
+                        onChangeText={(text) => this.setState({email: text})}
+                    />
                     <Text style={ styles.formContent }>Password</Text>
-                    <TextInput style={ styles.formInput } underlineColorAndroid= "transparent"/>
+                    <TextInput style={ styles.formInput } 
+                        underlineColorAndroid= "transparent"
+                        onChangeText={(text) => this.setState({password: text})}
+                    />
                     <Text style={ styles.formContent }>Re-password</Text>
-                    <TextInput style={ styles.formInput } underlineColorAndroid= "transparent"/>
+                    <TextInput style={ styles.formInput } 
+                        underlineColorAndroid= "transparent"
+                        onChangeText={(text) => this.setState({rePassword: text})}
+                    />
 
                     <View style={ styles.buttonContainer }>
                         <Button style={{ 
@@ -28,7 +66,7 @@ class Register extends Component {
                             borderRadius: 5, borderWidth: 1, marginRight: 15
                         }}>
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text>BACK</Text>
+                                <Text onPress={ () => this.props.navigation.dispatch(NavigationActions.back()) }>BACK</Text>
                             </View>
                         </Button>
                         <Button style={{ 
@@ -36,7 +74,7 @@ class Register extends Component {
                             borderRadius: 5, borderWidth: 1 
                         }}>
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text>REGISTER</Text>
+                                <Text onPress={ () => this.register() }>REGISTER</Text>
                             </View>
                         </Button>
                     </View>
