@@ -10,36 +10,46 @@ import ImagePicker from 'react-native-image-picker';
 // onMenuPressed () => {}
 class CustomHeader extends Component {
 
-    openImage(){
-      var options = {
-        title: 'Select Avatar',
-        customButtons: [
-          {name: 'fb', title: 'Choose Photo from Facebook'},
-        ],
-        storageOptions: {
-          skipBackup: true,
-          path: 'images'
-        }
-      };
-
-      ImagePicker.showImagePicker(options, (response) => {
-        console.log('Response = ', response);
-
-        if (response.didCancel) {
-          console.log('User cancelled image picker');
-        }
-        else if (response.error) {
-          console.log('ImagePicker Error: ', response.error);
-        }
-        else if (response.customButton) {
-          console.log('User tapped custom button: ', response.customButton);
-        }
-        // Choose image
-        else {
-          console.log(response.uri);
-        }
-      });
-    }
+    // openImage(){
+    //   var options = {
+    //     title: 'Select Avatar',
+    //     customButtons: [
+    //       {name: 'fb', title: 'Choose Photo from Facebook'},
+    //     ],
+    //     storageOptions: {
+    //       skipBackup: true,
+    //       path: 'images'
+    //     }
+    //   };
+    //
+    //   /**
+    //   * The first arg is the options object for customization (it can also be null or omitted for default options),
+    //   * The second arg is the callback which sends object: response (more info below in README)
+    //   */
+    //   ImagePicker.showImagePicker(options, (response) => {
+    //     console.log('Response = ', response);
+    //
+    //     if (response.didCancel) {
+    //       console.log('User cancelled image picker');
+    //     }
+    //     else if (response.error) {
+    //       console.log('ImagePicker Error: ', response.error);
+    //     }
+    //     else if (response.customButton) {
+    //       console.log('User tapped custom button: ', response.customButton);
+    //     }
+    //     else {
+    //       console.log(response.uri);
+    //
+    //       // You can also display the image using data:
+    //       // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+    //
+    //       // this.setState({
+    //       //   avatarSource: source
+    //       // });
+    //     }
+    //   });
+    // }
 
     render() {
       console.log(this.props)
@@ -52,7 +62,7 @@ class CustomHeader extends Component {
                 <Text style={{ color: '#fff' }}>CookLab</Text>
               </Body>
               <Right>
-                <IconFontAwesome name="camera" onPress={() => this.openImage() }size={20} style={{ marginRight:10, color: '#fff' }} />
+                <IconFontAwesome name="camera" onPress={() => this.props.showCameraRoll() }size={20} style={{ marginRight:10, color: '#fff' }} />
               </Right>
             </Header>
         )
@@ -61,7 +71,7 @@ class CustomHeader extends Component {
 
 const styles = StyleSheet.create({
     header: {
-      backgroundColor: '#F44336'
+      backgroundColor: '#4F4F4F'
     }
   })
 
