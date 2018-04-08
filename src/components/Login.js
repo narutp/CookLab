@@ -10,6 +10,7 @@ import CooklabAxios from '../http'
 import Register from './Register'
 import Axios from 'react-native-axios'
 import CookLabAxios from './HttpRequest/index'
+import { Actions } from 'react-native-router-flux'
 
 const {
     LoginButton,
@@ -42,7 +43,7 @@ class Login extends Component {
                 }
                 // prepare data of user
             this.fetchUser()
-            this.props.navigation.navigate('DrawerRouter')
+            Actions.MainScreen()
         }
         // let result = await CooklabAxios.get('/posts')
         // console.log(result)
@@ -84,7 +85,7 @@ class Login extends Component {
             })
             console.log(loginResponse.data)
             if (loginResponse.data === true) {
-                this.props.navigation.navigate('DrawerRouter')
+                Actions.MainScreen()
             } else {
                 // login failed
                 // TODO: add alert login fail
@@ -144,7 +145,7 @@ class Login extends Component {
                         <View>
                             <Button style={ styles.button }>
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text onPress={ () =>this.props.navigation.navigate('Register') } style={[ styles.textButton, styles.simpleTextButton ]}>REGISTER</Text>
+                                    <Text onPress={ () => Actions.Register() } style={[ styles.textButton, styles.simpleTextButton ]}>REGISTER</Text>
                                 </View>
                             </Button>
                         </View>
@@ -155,22 +156,7 @@ class Login extends Component {
     }
 }
 
-export default StackNavigator({
-    Login: {
-        screen: Login,
-    },
-    Register: {
-        screen: Register,
-    },
-    DrawerRouter: {
-        screen: DrawerRouter,
-    }
-}, {
-    // see next line
-    headerMode: 'none',
-}, {
-    contentComponent: Login,
-});
+export default Login
 
 const styles = StyleSheet.create({
     container: {
