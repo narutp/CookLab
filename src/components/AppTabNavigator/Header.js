@@ -71,7 +71,7 @@ class CustomHeader extends Component {
 
 const styles = StyleSheet.create({
     header: {
-      backgroundColor: '#4F4F4F'
+      backgroundColor: '#F44336'
     }
   })
 
