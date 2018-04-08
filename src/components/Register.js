@@ -18,12 +18,17 @@ class Register extends Component {
     }
 
     async register () {
-        let registerResponse = await ConfigAxios(`/create_user`, {
+        let registerResponse = await ConfigAxios.post(`/create_user`, {
             name: this.state.name,
             username: this.state.username,
             email: this.state.email,
-            password: this.password
+            password: this.state.password
         })
+        if (registerResponse.data === true) {
+            this.props.navigation.dispatch(NavigationActions.back())
+        } else {
+            // TODO: handle error fail request
+        }
         console.log(registerResponse)
     }
 
@@ -39,15 +44,15 @@ class Register extends Component {
                         underlineColorAndroid= "transparent"
                         onChangeText={(text) => this.setState({name: text})}
                     />
-                    <Text style={ styles.formContent }>Username</Text>
-                    <TextInput style={ styles.formInput }
-                        underlineColorAndroid= "transparent"
-                        onChangeText={(text) => this.setState({username: text})}
-                    />
                     <Text style={ styles.formContent }>Email</Text>
                     <TextInput style={ styles.formInput } 
                         underlineColorAndroid= "transparent"
                         onChangeText={(text) => this.setState({email: text})}
+                    />
+                    <Text style={ styles.formContent }>Username</Text>
+                    <TextInput style={ styles.formInput }
+                        underlineColorAndroid= "transparent"
+                        onChangeText={(text) => this.setState({username: text})}
                     />
                     <Text style={ styles.formContent }>Password</Text>
                     <TextInput style={ styles.formInput } 
