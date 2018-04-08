@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -564,30 +565,50 @@
 			isa = PBXGroup;
 			children = (
 				063782CF207A158700E91048 /* libRNImagePicker.a */,
+		06378477207A205400E91048 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				06378487207A205400E91048 /* libRNVectorIcons.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
+
 		063782C6207A158700E91048 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				063782CC207A158700E91048 /* libRCTFBSDK.a */,
+
+		06378479207A205400E91048 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				06378484207A205400E91048 /* libRNImagePicker.a */,
+
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
+
 		063782C8207A158700E91048 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				063782D2207A158700E91048 /* libRNVectorIcons.a */,
+
+		0637847B207A205400E91048 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				06378481207A205400E91048 /* libRCTFBSDK.a */,
+
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
+
 		063782DB207A15EE00E91048 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				063782DF207A15EE00E91048 /* libSplashScreen.a */,
+
 			);
 			name = Products;
 			sourceTree = "<group>";
