@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, StatusBar } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { DrawerNavigator } from 'react-navigation'
 import MainScreen from 'src/components/MainScreen'
@@ -7,8 +7,13 @@ import MyDishes from 'src/components/AppDrawerNavigator/MyDishes'
 import SideMenu from 'src/components/SideMenu'
 import Router from 'src/routes/index'
 import Login from './src/components/Login'
+import SplashScreen from 'react-native-splash-screen'
 
 export default class App extends React.Component {
+  componentDidMount() {
+    SplashScreen.hide()
+    StatusBar.setHidden(true)
+  }
   render() {
     return (
       //<Login />
