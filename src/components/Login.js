@@ -7,6 +7,7 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import MainScreen from './MainScreen'
 import DrawerRouter from './DrawerRouter'
 import CooklabAxios from '../http'
+import Register from './Register'
 import Axios from 'react-native-axios'
 import CookLabAxios from './HttpRequest/index'
 
@@ -43,8 +44,6 @@ class Login extends Component {
             this.fetchUser()
             this.props.navigation.navigate('DrawerRouter')
         }
-
-        
         // let result = await CooklabAxios.get('/posts')
         // console.log(result)
     }
@@ -84,6 +83,12 @@ class Login extends Component {
                 password: this.state.password 
             })
             console.log(loginResponse.data)
+            if (loginResponse.data === true) {
+                this.props.navigation.navigate('DrawerRouter')
+            } else {
+                // login failed
+                // TODO: add alert login fail
+            }
         } else {
             console.log('Input something before login')
         }
@@ -130,7 +135,7 @@ class Login extends Component {
                         <View>
                             <Button style={ styles.button }>
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={[ styles.textButton, styles.simpleTextButton ]}>REGISTER</Text>
+                                    <Text onPress={ this.props.navigation.navigate('Register') } style={[ styles.textButton, styles.simpleTextButton ]}>REGISTER</Text>
                                 </View>
                             </Button>
                         </View>
@@ -144,6 +149,9 @@ class Login extends Component {
 export default StackNavigator({
     Login: {
         screen: Login,
+    },
+    Register: {
+        screen: Register,
     },
     DrawerRouter: {
         screen: DrawerRouter,
