@@ -53,6 +53,7 @@ class MainScreen extends Component {
           console.log('User tapped custom button: ', response.customButton);
         }
         else {
+        console.log("dddd",response)
           this.props.setImageSource(response.uri)
           Actions.StatusPosting()
         }
