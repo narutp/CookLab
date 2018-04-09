@@ -56,11 +56,13 @@ class Register extends Component {
                     />
                     <Text style={ styles.formContent }>Password</Text>
                     <TextInput style={ styles.formInput } 
+                        secureTextEntry={true}
                         underlineColorAndroid= "transparent"
                         onChangeText={(text) => this.setState({password: text})}
                     />
                     <Text style={ styles.formContent }>Re-password</Text>
                     <TextInput style={ styles.formInput } 
+                        secureTextEntry={true}
                         underlineColorAndroid= "transparent"
                         onChangeText={(text) => this.setState({rePassword: text})}
                     />
