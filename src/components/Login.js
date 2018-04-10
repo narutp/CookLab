@@ -71,7 +71,6 @@ class Login extends Component {
             AsyncStorage.setItem('userName', userName) 
             AsyncStorage.setItem('userId', userId)
             AsyncStorage.setItem('userPic', userPicUrl)
-            console.log("CCCCCCCCCCCCCCC")
         } catch (error) {
             console.log(error)
         }
@@ -159,21 +158,24 @@ class Login extends Component {
                 {/* Bottom part */}
                 <View style={ styles.bottomContainer }>
                     <View>
-                        <View>
-                            <Text>
-                                Bring the ingredients or cooking materials for show your meal
+                        {/* <Text style={ styles.bottomLabel }>
+                            Bring the ingredients or cooking materials for show your meal
+                        </Text> */}
+                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={ styles.bottomLabel }>
+                                Cooking and show your meal 
                             </Text>
-                            <Text>
+                            <Text style={ styles.bottomLabel }>
                                 Join us now
                             </Text>
                         </View>
-                        <View>
-                            <Button style={ styles.button }>
-                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text onPress={ () => Actions.Register() } style={[ styles.textButton, styles.simpleTextButton ]}>REGISTER</Text>
-                                </View>
-                            </Button>
-                        </View>
+                    </View>
+                    <View>
+                        <Button style={styles.registerButton}>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text onPress={ () => Actions.Register() } style={styles.textButton}>REGISTER</Text>
+                            </View>
+                        </Button>
                     </View>
                 </View>
             </View>
@@ -201,7 +203,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     titleText: {
-        fontSize: 30, 
+        fontSize: 40, 
+        fontWeight: 'bold',
         color: 'white',
     },
     subtitleText: {
@@ -211,13 +214,13 @@ const styles = StyleSheet.create({
     },
     loginInput: {
         backgroundColor: 'white',
-        borderWidth: 1,
-        borderColor: 'black',
-        borderRadius: 10,
-        width: 175,
+        borderWidth: 0.5,
+        borderColor: 'grey',
+        borderRadius: 5,
+        width: 220,
         height: 35,
         marginTop: 10,
-        opacity: 0.8
+        opacity: 0.9
     },
     background: {
         width: '100%',
@@ -226,12 +229,20 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: 'white',
         borderWidth: 1,
-        borderColor: 'pink',
+        borderColor: 'white',
         width: 150,
         height: 35,
         borderRadius: 5,
-        marginBottom: 10,
+        marginBottom: 20,
         marginTop: 10
+    },
+    registerButton: {
+        backgroundColor: '#F44336',
+        borderWidth: 1,
+        borderColor: 'white',
+        width: 150,
+        height: 35,
+        borderRadius: 5,
     },
     facebookButton: {
         backgroundColor: '#183C94',
@@ -247,6 +258,12 @@ const styles = StyleSheet.create({
     },
     bottomContainer: {
         backgroundColor: 'white',
-        padding: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 50,
+    },
+    bottomLabel: {
+        fontSize: 13,
+        marginBottom: 10
     }
 })
