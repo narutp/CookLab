@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     height: 45
   },
   imageCard: {
-    resizeMode: 'stretch',
+    resizeMode: 'cover',
     height: 250,
     width: '100%'
   },

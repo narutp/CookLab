@@ -83,10 +83,15 @@ class Login extends Component {
         console.log('Username: ' + this.state.username)
         console.log('Password: ' + this.state.password)
         if (this.state.username != null) {
-            let loginResponse = await CookLabAxios.post(`/login`, {
-                username: this.state.username,
-                password: this.state.password 
-            })
+            let loginResponse
+            try { 
+                loginResponse = await CookLabAxios.post(`/login`, {
+                    username: this.state.username,
+                    password: this.state.password 
+                })
+            } catch (error) {
+                console.log(error)
+            }
             console.log(loginResponse.data)
             if (loginResponse.data === true) {
                 var getUserResponse
