@@ -17,7 +17,7 @@ import DishActions from 'src/redux/actions/dish'
 // This is mainscreen
 class MainScreen extends Component {
     state = {
-        selectedTab: 'home'
+        selectedTab: 'newfeed'
     };
 
     constructor(props) {
@@ -64,8 +64,15 @@ class MainScreen extends Component {
         return (
             <TabNavigator style={styles.container}>
                 <TabNavigator.Item
+                    selected={this.state.selectedTab === 'newfeed'}
+                    selectedTitleStyle={{ color: "#F44336" }}
+                    renderIcon={() => <IconEntypo name="newsletter" size={16} />}
+                    renderSelectedIcon={() => <IconEntypo name="newsletter" size={15} color="#F44336" />}
+                    onPress={() => this.setState({ selectedTab: 'newfeed' })}>
+                    <NewfeedTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
+                </TabNavigator.Item>
+                <TabNavigator.Item
                     selected={this.state.selectedTab === 'home'}
-                    title="Home"
                     selectedTitleStyle={{ color: "#F44336" }}
                     renderIcon={() => <IconFontAwesome name="star" size={15} />}
                     renderSelectedIcon={() => <IconFontAwesome name="star" size={15} color="#F44336" />}
@@ -73,17 +80,7 @@ class MainScreen extends Component {
                     <TopfeedTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
                 </TabNavigator.Item>
                 <TabNavigator.Item
-                    selected={this.state.selectedTab === 'newfeed'}
-                    title="NewFeed"
-                    selectedTitleStyle={{ color: "#F44336" }}
-                    renderIcon={() => <IconEntypo name="newsletter" size={15} />}
-                    renderSelectedIcon={() => <IconEntypo name="newsletter" size={15} color="#F44336" />}
-                    onPress={() => this.setState({ selectedTab: 'newfeed' })}>
-                    <NewfeedTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
-                </TabNavigator.Item>
-                <TabNavigator.Item
                     selected={this.state.selectedTab === 'search'}
-                    title="Search"
                     selectedTitleStyle={{ color: "#F44336" }}
                     renderIcon={() => <IconFontAwesome name="search" size={15} />}
                     renderSelectedIcon={() => <IconFontAwesome name="search" size={15} color="#F44336" />}
@@ -92,7 +89,6 @@ class MainScreen extends Component {
                 </TabNavigator.Item>
                 <TabNavigator.Item
                     selected={this.state.selectedTab === 'profile'}
-                    title="Profile"
                     selectedTitleStyle={{ color: "#F44336" }}
                     renderIcon={() => <IconFontAwesome name="user" size={15} color="#666"/>}
                     renderSelectedIcon={() => <IconFontAwesome name="user" size={15} color="#F44336" />}

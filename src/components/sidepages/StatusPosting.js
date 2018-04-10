@@ -61,7 +61,8 @@ class StatusPosting extends Component {
     constructor(props) {
       super(props)
       this.state = {
-        uploadURL: ''
+        uploadURL: '',
+        caption: ''
       }
     }
 
@@ -100,7 +101,7 @@ class StatusPosting extends Component {
           id_dish: idDish,
           id_user: userid,
           image: url,
-          caption: 'a'
+          caption: this.state.caption
         })
       } catch(error) {
         console.log(error)
@@ -110,8 +111,11 @@ class StatusPosting extends Component {
     render() {
         return(
             <View>
-              <TextInput multiline autoCapitalize='none' placeholder={"Write something..."}
-              style = {styles.textInput} maxLength={150}></TextInput>
+              <TextInput onChangeText={(text) => this.setState({caption: text})} 
+                multiline autoCapitalize='none' 
+                placeholder={"Write something..."}
+                style = {styles.textInput} maxLength={150}>
+              </TextInput>
               <Image source={{uri: this.props.imageSource}} style={styles.imageCard}/>
               <Button title="Post" onPress={ () => this.pickImage() } style={styles.postButton}></Button>
               {/* <Button title="Post" style={styles.postButton}></Button> */}
