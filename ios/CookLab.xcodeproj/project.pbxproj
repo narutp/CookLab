@@ -588,6 +588,10 @@
 			isa = PBXGroup;
 			children = (
 				06ADB235207CDB1300DFE8FB /* libRNFetchBlob.a */,
+		06ADB1C9207CCDB800DFE8FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				06ADB1D2207CCDB800DFE8FB /* libRNImagePicker.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -596,6 +600,10 @@
 			isa = PBXGroup;
 			children = (
 				06ADB23C207CDE3700DFE8FB /* libSplashScreen.a */,
+		06ADB1CB207CCDB800DFE8FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				06ADB1D5207CCDB800DFE8FB /* libRNVectorIcons.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
