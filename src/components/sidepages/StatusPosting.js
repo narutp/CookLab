@@ -7,7 +7,7 @@ import { Container, Content, Left, Right, Body } from 'native-base'
 import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import CooklabAxios from '../HttpRequest/index'
-
+import { Actions } from 'react-native-router-flux'
 import RNFetchBlob from 'react-native-fetch-blob'
 import firebase from 'firebase'
 
@@ -98,11 +98,12 @@ class StatusPosting extends Component {
       let createPostResponse
       try {
           createPostResponse = await CooklabAxios.post(`/create_post`, {
-          id_dish: idDish,
-          id_user: userid,
-          image: url,
-          caption: this.state.caption
-        })
+            id_dish: idDish,
+            id_user: userid,
+            image: url,
+            caption: this.state.caption
+          })
+          Actions.MainScreen()
       } catch(error) {
         console.log(error)
       }
