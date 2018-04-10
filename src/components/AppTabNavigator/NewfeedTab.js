@@ -38,22 +38,19 @@ class NewfeedTab extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            loves: [],
-            comments: '',
-            image: [],
-            caption: [],
-            feedResponse: []
+            feedResponse: [],
+            user: ''
         }
     }
 
     render() {
         return (
             <Container style={styles.container}>
-                <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll }/>
+                <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll } />
                 <Content>
                     {this.state.feedResponse.map((data, index) => {
                         return (
-                            <CardComponent love={data.loves} profilePic='1' foodPic={data.image} />
+                            <CardComponent love={data.loves} profilePic='1' foodPic={data.image} caption={data.caption} />
                         )
                     })}
                     {/* <CardComponent love='176' profilePic='1' foodPic='1' />

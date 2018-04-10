@@ -11,17 +11,6 @@ class CardComponent extends Component {
             '1': require('../assets/image/Profile/profilePic1.jpg'),
             '2': require('../assets/image/Profile/profilePic2.jpg')
         }
-        const foodImage = {
-            '1': require('../assets/image/Food/food1.jpg'),
-            '2': require('../assets/image/Food/food2.jpg'),
-            '3': require('../assets/image/Food/food3.jpg'),
-            '4': require('../assets/image/Food/food4.jpg'),
-            '5': require('../assets/image/Food/food5.jpg'),
-            '6': require('../assets/image/Food/food6.jpg'),
-            '7': require('../assets/image/Food/food7.jpg'),
-            '8': require('../assets/image/Food/food8.jpg'),
-            '9': require('../assets/image/Food/food9.jpg')
-        }
 
         return (
             <View style={ styles.container }>
@@ -53,13 +42,13 @@ class CardComponent extends Component {
                         </Left>
                     </CardItem>
                     <CardItem style={{ height: 10 }}>
-                        <Text style={{ fontSize: 12, fontWeight: '500' }}>{this.props.love} love </Text>
+                        <Text style={{ fontSize: 12, fontWeight: '600' }}>{ this.props.love } love </Text>
                     </CardItem>
                     <CardItem>
                         <Body>
                             <Text style={{ fontSize: 12 }}>
                                 <Text style={{ fontWeight: '900' }}>Natanon </Text>
-                                Beautiful lunch :p #lunch #whataniceday #thailand #withfriends
+                                { this.props.caption }
                             </Text>
                         </Body>
                     </CardItem>
