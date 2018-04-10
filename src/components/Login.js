@@ -51,6 +51,8 @@ class Login extends Component {
 
     async fetchUser() {
         let value = await AsyncStorage.getItem('facebookToken')
+        console.log('value' + value);
+        
         let result = await Axios.get(`https://graph.facebook.com/v2.11/me?access_token=${ value }&&fields=id,name,picture.type(large)`)
         console.log(result)
         let userName = result.data.name
@@ -66,9 +68,10 @@ class Login extends Component {
         console.log("Create user on database" + createUserResponse)
         // save name and id
         try { 
-            await AsyncStorage.setItem('userName', userName) 
-            await AsyncStorage.setItem('userId', userId)
-            await AsyncStorage.setItem('userPic', userPicUrl)
+            AsyncStorage.setItem('userName', userName) 
+            AsyncStorage.setItem('userId', userId)
+            AsyncStorage.setItem('userPic', userPicUrl)
+            console.log("CCCCCCCCCCCCCCC")
         } catch (error) {
             console.log(error)
         }
@@ -86,12 +89,18 @@ class Login extends Component {
             })
             console.log(loginResponse.data)
             if (loginResponse.data === true) {
-                let getUserResponse = await CookLabAxios.get(`/get_user?username=${this.state.username}`)
+                var getUserResponse
+                try {
+                    getUserResponse = await CookLabAxios.get(`/get_user?username=${this.state.username}`)     
+                } catch(error) {
+                    console.log(error)
+                }
                 let userid = getUserResponse.data
                 console.log(userid)
                 if (userid != null) {
                     try {
                         await AsyncStorage.setItem('userid', userid)
+                        
                     } catch (error) {
                         console.log(error)
                     }

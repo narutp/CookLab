@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, Platform, Button, StyleSheet, Text, TextInput, View, Image } from 'react-native'
+import { AsyncStorage, Dimensions, Platform, Button, StyleSheet, Text, TextInput, View, Image } from 'react-native'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
@@ -79,12 +79,32 @@ class StatusPosting extends Component {
     }
 
     async createDish(uploadURL) {
-      console.log('q' + uploadURL)
-      let createResponse = await CooklabAxios.post(`/create_dish`, {
-        image: uploadURL
-      })
+      let createResponse
+      try {
+          createResponse = await CooklabAxios.post(`/create_dish`, {
+          image: uploadURL
+        })
+      } catch(error) {
+        console.log(error)
+      }
       console.log('create dish by sending pic url with id dish: ' + createResponse.data)
-      
+      this.createPost(createResponse.data, uploadURL)
+    }
+
+    async createPost(idDish, url) {
+      let userid = await AsyncStorage.getItem('userid')
+      console.log('get id from st' + userid)
+      let createPostResponse
+      try {
+          createPostResponse = await CooklabAxios.post(`/create_post`, {
+          id_dish: idDish,
+          id_user: userid,
+          image: url,
+          caption: 'a'
+        })
+      } catch(error) {
+        console.log(error)
+      }
     }
 
     render() {
