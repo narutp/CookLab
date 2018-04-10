@@ -60,7 +60,8 @@ class Login extends Component {
         console.log('Photo url: ' + userPicUrl)
 
         let createUserResponse = await CookLabAxios.post(`/create_user`, { 
-            name: userName 
+            name: userName,
+            username: userName 
         })
         console.log("Create user on database" + createUserResponse)
         // save name and id
@@ -85,6 +86,16 @@ class Login extends Component {
             })
             console.log(loginResponse.data)
             if (loginResponse.data === true) {
+                let getUserResponse = await CookLabAxios.get(`/get_user?username=${this.state.username}`)
+                let userid = getUserResponse.data
+                console.log(userid)
+                if (userid != null) {
+                    try {
+                        await AsyncStorage.setItem('userid', userid)
+                    } catch (error) {
+                        console.log(error)
+                    }
+                }
                 Actions.MainScreen()
             } else {
                 // login failed
