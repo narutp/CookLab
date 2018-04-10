@@ -37,7 +37,7 @@ class ProfileTab extends Component {
 
     generateImage = () => {
         return images.map((image, index) => {
-
+            console.log(image)
             return (
                 <View key={index} style={[{ width: (width)/3 }, { height: (width)/3 }]}>
                     <Image style={{ flex: 1, width: undefined, height: undefined }}
@@ -76,8 +76,8 @@ class ProfileTab extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header onMenuPressed={ this.props.onMenuPressed } />
-                
+                <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll }/>
+
                 <View>
                     <Modal
                         animationType="slide"
@@ -141,7 +141,7 @@ class ProfileTab extends Component {
     }
 }
 
-    
+
 
 export default ProfileTab;
 
