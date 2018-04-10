@@ -6,6 +6,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo'
 import { Container, Content, Left, Right, Body } from 'native-base'
 import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
+import CooklabAxios from '../HttpRequest/index'
 
 import RNFetchBlob from 'react-native-fetch-blob'
 import firebase from 'firebase'
@@ -36,23 +37,18 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
 
     fs.readFile(uploadUri, 'base64')
       .then((data) => {
-        console.log(data)
-        
         return Blob.build(data, { type: `${mime};BASE64` })
       })
       .then((blob) => {
         uploadBlob = blob
-        console.log(blob)
         return imageRef.put(blob, { contentType: mime })
       })
       .then(() => {
         uploadBlob.close()
-        console.log(imageRef.getDownloadURL())
-        
         return imageRef.getDownloadURL()
       })
       .then((url) => {
-        console.log(url)
+        console.log('url:' + url)
         resolve(url)
       })
       .catch((error) => {
@@ -69,15 +65,29 @@ class StatusPosting extends Component {
       }
     }
 
+    componentWillUpdate(nextProps, nextState) {
+      if (this.state.uploadURL != nextState.uploadURL) {
+        this.createDish(nextState.uploadURL)
+      }
+    }
+
     pickImage() {
       uploadImage(this.props.imageSource)
         .then(url => this.setState({ uploadURL: url }))
         .catch(error => console.log(error))
+      // this.createDish()
+    }
+
+    async createDish(uploadURL) {
+      console.log('q' + uploadURL)
+      let createResponse = await CooklabAxios.post(`/create_dish`, {
+        image: uploadURL
+      })
+      console.log('create dish by sending pic url with id dish: ' + createResponse.data)
+      
     }
 
     render() {
-        console.log('aaaaa', this.props);
-        
         return(
             <View>
               <TextInput multiline autoCapitalize='none' placeholder={"Write something..."}
