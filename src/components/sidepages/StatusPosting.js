@@ -6,7 +6,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo'
 import { Container, Content, Left, Right, Body } from 'native-base'
 import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
-
+import { Actions } from 'react-native-router-flux'
 import RNFetchBlob from 'react-native-fetch-blob'
 import firebase from 'firebase'
 
@@ -73,6 +73,7 @@ class StatusPosting extends Component {
       uploadImage(this.props.imageSource)
         .then(url => this.setState({ uploadURL: url }))
         .catch(error => console.log(error))
+      Actions.MainScreen()
     }
 
     render() {

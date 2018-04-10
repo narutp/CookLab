@@ -104,7 +104,7 @@ class Login extends Component {
                     <Text style={ styles.titleText }> CookLab </Text>
                     <Text style={ styles.subtitleText }> Design your dream dishes</Text>
                     <View style={{ marginBottom: 10 }}>
-                        <TextInput onChangeText={(text) => this.setState({username: text})} 
+                        <TextInput autoCapitalize='none' onChangeText={(text) => this.setState({username: text})} 
                             underlineColorAndroid= "transparent" 
                             style={ styles.loginInput }
                             placeholder="Name.." 
