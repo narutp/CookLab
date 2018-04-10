@@ -36,7 +36,8 @@ class CardComponent extends Component {
                         </Left>
                     </CardItem>
                     <CardItem cardBody>
-                        <Image source={foodImage[this.props.foodPic]} style={styles.imageCard}/>
+                        {/* <Image source={foodImage[this.props.foodPic]} style={styles.imageCard}/> */}
+                        <Image source={{ uri: this.props.foodPic }} style={styles.imageCard} />
                     </CardItem>
                     <CardItem style={styles.footerCard}>
                         <Left>
