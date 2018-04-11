@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, TouchableHighlight, AsyncStorage, Dimensions, Platform, StyleSheet, Text, TextInput, View, Image } from 'react-native'
+import { ScrollView, Picker, Modal, TouchableHighlight, AsyncStorage, Dimensions, Platform, StyleSheet, Text, TextInput, View, Image } from 'react-native'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
@@ -63,7 +63,8 @@ class StatusPosting extends Component {
       this.state = {
         uploadURL: '',
         caption: '',
-        isModalVisible: false
+        isModalVisible: false,
+        level: ''
       }
     }
 
@@ -116,7 +117,7 @@ class StatusPosting extends Component {
 
     render() {
         return(
-            <View>
+          <View>
               <Modal
                 animationType="slide"
                 transparent={false}
@@ -125,14 +126,44 @@ class StatusPosting extends Component {
                     // alert('Modal has been closed.');
                 }}>
                 <View style={ styles.modal }>
+                  <ScrollView>
                     <View>
-                      <Text style={{ fontSize: 18 }}>Dish details</Text>
+                      <Text style={{ fontSize: 14 }}>Dish details</Text>
                       <TextInput 
-                        multiline autoCapitalize='none'
-                        style={styles.dishName} placeholder="Dish name.." />
+                        autoCapitalize='none'
+                        style={styles.dishName} placeholder="Dish name..." />
                       <TextInput 
-                        multiline autoCapitalize='none'
-                        style={styles.dishDescription} placeholder="Dish description.." />
+                        multiline={true}
+                        numberOfLines={3} 
+                        autoCapitalize='none'
+                        style={styles.dishDescription} placeholder="Dish description..." />
+                      <TextInput 
+                        multiline={true} 
+                        autoCapitalize='none'
+                        style={styles.dishName} placeholder="Calories..." />
+                      <Text style={{ fontSize: 14 }}>Ingredients</Text>
+                      <TextInput 
+                        multiline={true}
+                        numberOfLines={4}
+                        style={styles.dishRecipe} 
+                        placeholder="1 tablespoon oil" />
+                      <Text style={{ fontSize: 14 }}>Recipe (Step by step)</Text>
+                      <TextInput 
+                        multiline={true}
+                        numberOfLines={4}
+                        style={styles.dishRecipe} 
+                        placeholder="1. Cook the noodles in boiling water.." />
+                      <Text style={{ fontSize: 14 }}>Level of food</Text>
+                      <Picker
+                        selectedValue={this.state.level}
+                        style={{ height: 20, width: 50, marginBottom: 20 }}
+                        onValueChange={(itemValue, itemIndex) => this.setState({level: itemValue})}>
+                        <Picker.Item label="1" value="1" />
+                        <Picker.Item label="2" value="2" />
+                        <Picker.Item label="3" value="3" />
+                        <Picker.Item label="4" value="4" />
+                        <Picker.Item label="5" value="5" />
+                      </Picker>  
                       <View style={{ flex: 1,
                         flexDirection: 'row',
                         justifyContent: 'center',
@@ -150,6 +181,7 @@ class StatusPosting extends Component {
                         </Button>
                       </View>
                     </View>
+                  </ScrollView>
                 </View>
               </Modal>
               <TextInput onChangeText={(text) => this.setState({caption: text})} 
@@ -171,7 +203,7 @@ class StatusPosting extends Component {
               </Button>
               {/* <Button title="Dish details" onPress={ () => this.openDishDetail() } style={styles.dishDetailButton}></Button>
               <Button title="Post" onPress={ () => this.pickImage() } style={styles.postButton}></Button> */}
-            </View>
+          </View>
         );
     }
 }
@@ -207,7 +239,10 @@ const styles = StyleSheet.create({
     height: 40,
   },
   dishDescription: {
-    height: 70,
+    height: 80,
+  },
+  dishRecipe: {
+    height: 150,
   },
   postLabel: {
     color: 'white'

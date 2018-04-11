@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   },
   commentInput: {
       width: '100%',
-      fontSize: 9,
+      fontSize: 10,
       height: 40
   }
 })
