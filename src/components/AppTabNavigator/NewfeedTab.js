@@ -25,12 +25,10 @@ class NewfeedTab extends Component {
         }
         try {
             feedResponse = await CooklabAxios.get(`/feeds?userId=${userid}`)
-            console.log('feed response: ' + feedResponse.data[0].loves)
-            console.log(feedResponse.data.length)
             this.setState({feedResponse: feedResponse.data})
             let newDate
             feedResponse.data.forEach(element => {
-                console.log(element)
+                console.log(element.status)
             });
         } catch (error) {
             console.log(error)
@@ -53,12 +51,14 @@ class NewfeedTab extends Component {
                     {this.state.feedResponse.map((data, index) => {
                         return (
                             <CardComponent 
-                                love={data.loves} 
+                                trophy={data.trophies} 
                                 profilePic='1' 
                                 foodPic={data.image} 
                                 caption={data.caption}
                                 date={moment.utc(data.timestamp).format("MMMM Do YYYY, h:mm")}
                                 userName={data.user_name}
+                                postId={data._id}
+                                status={data.status}
                              />
                         )
                     })}

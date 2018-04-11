@@ -1,11 +1,62 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { TextInput, AsyncStorage, TouchableOpacity, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { Card, CardItem, Thumbnail, Body, Left, Right, Button,
 Icon } from 'native-base';
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
+import CooklabAxios from './HttpRequest/index'
+
+// const FBSDK = require('react-native-fbsdk');
+// const {
+//   ShareDialog,
+// } = FBSDK
+
+// // Build up a shareable link.
+// const shareLinkContent = {
+//     contentType: 'link',
+//     contentUrl: "https://facebook.com",
+//     contentDescription: 'Wow, check out this great site!',
+// };
 
 class CardComponent extends Component {
+
+    async increaseTrophy () {
+        let userid
+        try {
+            userid = await AsyncStorage.getItem('userid')
+        } catch (error) {
+            console.log(error)
+        }
+        let trophyResponse
+        try {
+            trophyResponse = await CooklabAxios.put(`/increase_trophy`, {
+                userId: userid,
+                postId: this.props.postId
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        console.log(trophyResponse)
+    }
+
+    async decreaseTrophy () {
+        let userid
+        try {
+            userid = await AsyncStorage.getItem('userid')
+        } catch (error) {
+            console.log(error)
+        }
+        let trophyResponse
+        try {
+            trophyResponse = await CooklabAxios.put(`/increase_trophy`, {
+                userId: userid,
+                postId: this.props.postId
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        console.log(trophyResponse)
+    }
 
     render() {
         const profileImage = {
@@ -31,9 +82,14 @@ class CardComponent extends Component {
                     </CardItem>
                     <CardItem style={styles.footerCard}>
                         <Left>
-                            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
+                            { this.props.status === true ? 
+                            <TouchableOpacity onPress={ () => this.decreaseTrophy() } style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
+                                <IconEntypo name='trophy' style={{ color: '#F44336' }} size={15}/>
+                            </TouchableOpacity> : 
+                            <TouchableOpacity onPress={ () => this.increaseTrophy() } style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
                                 <IconEntypo name='trophy' style={{ color: 'black' }} size={15}/>
                             </TouchableOpacity>
+                            }
                             <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
                                 <IconIonicons name='ios-paper-outline' style={{ color: 'black' }} size={15}/>
                             </TouchableOpacity>
@@ -43,7 +99,10 @@ class CardComponent extends Component {
                         </Left>
                     </CardItem>
                     <CardItem style={{ height: 10 }}>
-                        <Text style={{ fontSize: 12, fontWeight: '600' }}>{ this.props.love } love </Text>
+                        { this.props.trophy == 1 ? 
+                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{ this.props.trophy } trophy </Text>
+                            : <Text style={{ fontSize: 12, fontWeight: '600' }}>{ this.props.trophy } trophies </Text>
+                        }
                     </CardItem>
                     <CardItem>
                         <Body>
@@ -51,6 +110,10 @@ class CardComponent extends Component {
                                 <Text style={{ fontWeight: '900' }}>Natanon </Text>
                                 { this.props.caption }
                             </Text>
+                            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 12, fontWeight: 'bold' }} >more...</Text>
+                            </TouchableOpacity>
+                            <TextInput style={ styles.commentInput } placeholder="comment.. " />
                         </Body>
                     </CardItem>
                 </Card>
@@ -75,5 +138,10 @@ const styles = StyleSheet.create({
   },
   footerCard: {
     height: 35
+  },
+  commentInput: {
+      width: '100%',
+      fontSize: 9,
+      height: 40
   }
 })
