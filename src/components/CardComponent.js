@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { Card, CardItem, Thumbnail, Body, Left, Right, Button,
 Icon } from 'native-base';
-import IconIonicons from 'react-native-vector-icons/Ionicons';
+import IconIonicons from 'react-native-vector-icons/Ionicons'
+import IconEntypo from 'react-native-vector-icons/Entypo'
 
 class CardComponent extends Component {
 
@@ -30,15 +31,15 @@ class CardComponent extends Component {
                     </CardItem>
                     <CardItem style={styles.footerCard}>
                         <Left>
-                            <Button transparent>
-                                <IconIonicons name='md-heart-outline' style={{ color: 'black' }} size={15}/>
-                            </Button>
-                            <Button transparent>
+                            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 10, marginRight: 10 }}>
+                                <IconEntypo name='trophy' style={{ color: 'black' }} size={15}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 10, marginRight: 10 }}>
                                 <IconIonicons name='ios-paper-outline' style={{ color: 'black' }} size={15}/>
-                            </Button>
-                            <Button transparent>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 10, marginRight: 10 }}>
                                 <IconIonicons name='md-share' style={{ color: 'black' }} size={15}/>
-                            </Button>
+                            </TouchableOpacity>
                         </Left>
                     </CardItem>
                     <CardItem style={{ height: 10 }}>
