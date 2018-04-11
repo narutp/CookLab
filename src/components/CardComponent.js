@@ -20,7 +20,7 @@ class CardComponent extends Component {
                         <Left>
                             <Thumbnail source={profileImage[this.props.profilePic]} style={{ width: 30, height: 30 }}/>
                             <Body>
-                                <Text>Natanon </Text>
+                                <Text>{this.props.userName} </Text>
                                 <Text note style={{ fontSize: 9 }}>{this.props.date}</Text>
                             </Body>
                         </Left>
@@ -31,13 +31,13 @@ class CardComponent extends Component {
                     </CardItem>
                     <CardItem style={styles.footerCard}>
                         <Left>
-                            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 10, marginRight: 10 }}>
+                            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
                                 <IconEntypo name='trophy' style={{ color: 'black' }} size={15}/>
                             </TouchableOpacity>
-                            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 10, marginRight: 10 }}>
+                            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
                                 <IconIonicons name='ios-paper-outline' style={{ color: 'black' }} size={15}/>
                             </TouchableOpacity>
-                            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 10, marginRight: 10 }}>
+                            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
                                 <IconIonicons name='md-share' style={{ color: 'black' }} size={15}/>
                             </TouchableOpacity>
                         </Left>

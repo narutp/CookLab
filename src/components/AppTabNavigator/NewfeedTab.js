@@ -58,6 +58,7 @@ class NewfeedTab extends Component {
                                 foodPic={data.image} 
                                 caption={data.caption}
                                 date={moment.utc(data.timestamp).format("MMMM Do YYYY, h:mm")}
+                                userName={data.user_name}
                              />
                         )
                     })}
