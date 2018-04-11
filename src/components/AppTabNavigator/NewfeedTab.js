@@ -7,6 +7,7 @@ import Header from './Header'
 import { Container, Content, Left, Right, Body } from 'native-base';
 import CardComponent from '../CardComponent.js'
 import CooklabAxios from '../HttpRequest/index'
+import moment from 'moment'
 
 class NewfeedTab extends Component {
 
@@ -27,6 +28,7 @@ class NewfeedTab extends Component {
             console.log('feed response: ' + feedResponse.data[0].loves)
             console.log(feedResponse.data.length)
             this.setState({feedResponse: feedResponse.data})
+            let newDate
             feedResponse.data.forEach(element => {
                 console.log(element)
             });
@@ -50,7 +52,13 @@ class NewfeedTab extends Component {
                 <Content>
                     {this.state.feedResponse.map((data, index) => {
                         return (
-                            <CardComponent love={data.loves} profilePic='1' foodPic={data.image} caption={data.caption} />
+                            <CardComponent 
+                                love={data.loves} 
+                                profilePic='1' 
+                                foodPic={data.image} 
+                                caption={data.caption}
+                                date={moment.utc(data.timestamp).format("MMMM Do YYYY, h:mm")}
+                             />
                         )
                     })}
                     {/* <CardComponent love='176' profilePic='1' foodPic='1' />

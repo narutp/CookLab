@@ -20,7 +20,7 @@ class CardComponent extends Component {
                             <Thumbnail source={profileImage[this.props.profilePic]} style={{ width: 30, height: 30 }}/>
                             <Body>
                                 <Text>Natanon </Text>
-                                <Text note style={{ fontSize: 9 }}>April 27, 2018</Text>
+                                <Text note style={{ fontSize: 9 }}>{this.props.date}</Text>
                             </Body>
                         </Left>
                     </CardItem>

@@ -10,6 +10,7 @@
   "dependencies": {
     "adm-zip": "^0.4.7",
     "firebase": "^4.12.1",
+    "moment": "^2.22.0",
     "native-base": "^2.3.9",
     "plist": "^3.0.1",
     "react": "16.2.0",
