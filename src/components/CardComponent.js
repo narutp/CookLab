@@ -4,6 +4,7 @@ import { Card, CardItem, Thumbnail, Body, Left, Right, Button,
 Icon } from 'native-base';
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
+import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import CooklabAxios from './HttpRequest/index'
 
 // const FBSDK = require('react-native-fbsdk');
@@ -20,7 +21,20 @@ import CooklabAxios from './HttpRequest/index'
 
 class CardComponent extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            trophy: '',
+            status: ''
+        }
+    }
+
+    componentDidMount() {
+        this.setState({ status: this.props.status, trophy: this.props.trophy })
+    }
+
     async increaseTrophy () {
+        this.setState({ status: !this.state.status, trophy: this.state.trophy+1 })
         let userid
         try {
             userid = await AsyncStorage.getItem('userid')
@@ -40,6 +54,7 @@ class CardComponent extends Component {
     }
 
     async decreaseTrophy () {
+        this.setState({ status: !this.state.status, trophy: this.state.trophy-1 })
         let userid
         try {
             userid = await AsyncStorage.getItem('userid')
@@ -48,7 +63,7 @@ class CardComponent extends Component {
         }
         let trophyResponse
         try {
-            trophyResponse = await CooklabAxios.put(`/increase_trophy`, {
+            trophyResponse = await CooklabAxios.put(`/decrease_trophy`, {
                 userId: userid,
                 postId: this.props.postId
             })
@@ -82,7 +97,7 @@ class CardComponent extends Component {
                     </CardItem>
                     <CardItem style={styles.footerCard}>
                         <Left>
-                            { this.props.status === true ? 
+                            { this.state.status === true ? 
                             <TouchableOpacity onPress={ () => this.decreaseTrophy() } style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
                                 <IconEntypo name='trophy' style={{ color: '#F44336' }} size={15}/>
                             </TouchableOpacity> : 
@@ -91,7 +106,7 @@ class CardComponent extends Component {
                             </TouchableOpacity>
                             }
                             <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
-                                <IconIonicons name='ios-paper-outline' style={{ color: 'black' }} size={15}/>
+                                <IconMaterialCommunityIcons name="comment-outline" style={{ color: 'black' }} size={15} />
                             </TouchableOpacity>
                             <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
                                 <IconIonicons name='md-share' style={{ color: 'black' }} size={15}/>
@@ -99,9 +114,9 @@ class CardComponent extends Component {
                         </Left>
                     </CardItem>
                     <CardItem style={{ height: 10 }}>
-                        { this.props.trophy == 1 ? 
-                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{ this.props.trophy } trophy </Text>
-                            : <Text style={{ fontSize: 12, fontWeight: '600' }}>{ this.props.trophy } trophies </Text>
+                        { this.state.trophy > 0 && this.state.trophy <= 1 ? 
+                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{ this.state.trophy } trophy </Text>
+                            : <Text style={{ fontSize: 12, fontWeight: '600' }}>{ this.state.trophy } trophies </Text>
                         }
                     </CardItem>
                     <CardItem>
