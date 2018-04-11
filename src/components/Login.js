@@ -128,12 +128,14 @@ class Login extends Component {
                     <Text style={ styles.titleText }> CookLab </Text>
                     <Text style={ styles.subtitleText }> Design your dream dishes</Text>
                     <View style={{ marginBottom: 10 }}>
-                        <TextInput onChangeText={(text) => this.setState({username: text})} 
+                        <TextInput onChangeText={(text) => this.setState({username: text})}
+                            multiline autoCapitalize='none' 
                             underlineColorAndroid= "transparent" 
                             style={ styles.loginInput }
                             placeholder="Name.." 
                         />
-                        <TextInput onChangeText={(text) => this.setState({password: text})} 
+                        <TextInput onChangeText={(text) => this.setState({password: text})}
+                            multiline autoCapitalize='none' 
                             underlineColorAndroid= "transparent" 
                             style={ styles.loginInput }
                             secureTextEntry={true} 
