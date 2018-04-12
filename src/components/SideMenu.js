@@ -2,7 +2,10 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import { NavigationActions } from 'react-navigation';
 import { StyleSheet, ScrollView, Text, Image, View, Button, Alert, AsyncStorage } from 'react-native';
-import FBSDK, { LoginManager } from 'react-native-fbsdk'
+import FBSDK, { LoginManager } from 'react-native-fbsdk';
+import { Actions } from 'react-native-router-flux';
+import { Header } from 'native-base';
+import IconEntypo from 'react-native-vector-icons/Entypo';
 
 class SideMenu extends Component {
   
@@ -13,17 +16,17 @@ class SideMenu extends Component {
     }
   }
 
-  componentDidMount() {
-    this.fetchUser()
-  }
+  // componentDidMount() {
+  //   this.fetchUser()
+  // }
 
-  async fetchUser () {
-    let userPicUrl = await AsyncStorage.getItem('userPic')
+  // async fetchUser () {
+  //   let userPicUrl = await AsyncStorage.getItem('userPic')
 
-    this.setState({ picUrl: userPicUrl })
-    console.log('pic url: ' + this.state.picUrl)
+  //   this.setState({ picUrl: userPicUrl })
+  //   console.log('pic url: ' + this.state.picUrl)
 
-  }
+  // }
 
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
@@ -40,26 +43,29 @@ class SideMenu extends Component {
   render () {
     return (
       <View style={styles.container}>
+          <View style={styles.header}>
+              <IconEntypo name="menu" onPress={() =>  Actions.MainScreen() } size={25} style={{ marginLeft:10, marginTop: 25,color: '#fff' }} />
+          </View>
         <ScrollView>
           <View>
             {/* Profile pic */}
-            <View style={{ height: 150, backgroundColor: '#F44336' }}>
-              <View style={{ alignItems: 'center' }}>
+            <View style={{ height: 150, backgroundColor: '#F33336' }}>
+              {/* <View style={{ alignItems: 'center' }}>
                 <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
-              </View>
+              </View> */}
             </View>
           </View>
           <View>
             <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Home')}>
+              <Text style={styles.navItemStyle} onPress={() => Actions.MainScreen()}>
                 Home
               </Text>
             </View>
           </View>
           <View>
             <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('MyDishes')}>
-                My dishes
+              <Text style={styles.navItemStyle} onPress={() => Actions.Achievement()}>
+                Achievement
               </Text>
             </View>
           </View>
@@ -98,6 +104,9 @@ export default SideMenu;
 const styles = StyleSheet.create ({
     container: {
         flex: 1
+    },
+    header: {
+        backgroundColor: '#F44336'
     },
     navItemStyle: {
         padding: 10
