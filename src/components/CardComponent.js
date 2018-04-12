@@ -9,12 +9,14 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 import IconFeather from 'react-native-vector-icons/Feather'
 import CooklabAxios from './HttpRequest/index'
 import { ShareDialog } from 'react-native-fbsdk'
+const Timer = require('react-native-timer')
 
 class CardComponent extends Component {
 
     constructor(props) {
         super(props)
         this.springValue = new Animated.Value(1)
+        this.iconAnimated = new Animated.Value(1)
         // Build up a shareable link.
         const shareLinkContent = {
             contentType: 'photo',
@@ -28,17 +30,24 @@ class CardComponent extends Component {
         this.state = {
             trophy: '',
             status: '',
-            shareLinkContent: shareLinkContent
+            shareLinkContent: shareLinkContent,
+            isIncreaseTrophy: false,
         }
     }
 
     springAnimation() {
-        this.springValue.setValue(1.1)
+        this.springValue.setValue(1)
+        this.iconAnimated.setValue(0.5)
         Animated.spring(
-            this.springValue,
-            {
-            toValue: 1,
-            friction: 1
+            this.iconAnimated, {
+                toValue: 1,
+                friction: 1
+            }
+        ).start()
+        Animated.spring(
+            this.springValue, {
+                toValue: 1,
+                friction: 1
             }
         ).start()
     }
@@ -70,7 +79,10 @@ class CardComponent extends Component {
     }
 
     async increaseTrophy () {
-        this.setState({ status: !this.state.status, trophy: this.state.trophy+1 })
+        this.setState({ status: !this.state.status, 
+            trophy: this.state.trophy+1, 
+            isIncreaseTrophy: true 
+        })
         // Add animation when click add trophy
         this.springAnimation()
         let userid
@@ -89,10 +101,19 @@ class CardComponent extends Component {
             console.log(error)
         }
         console.log(trophyResponse)
+        Timer.setTimeout(
+            'timer', () => {
+                this.setState({ isIncreaseTrophy: false })
+            }, 5000
+        )
+        Timer.clearInterval('timer')
     }
 
     async decreaseTrophy () {
-        this.setState({ status: !this.state.status, trophy: this.state.trophy-1 })
+        this.setState({ status: !this.state.status, 
+            trophy: this.state.trophy-1, 
+            isIncreaseTrophy: false  
+        })
         let userid
         try {
             userid = await AsyncStorage.getItem('userid')
@@ -135,6 +156,11 @@ class CardComponent extends Component {
                         height: 250,
                         width: '100%',
                         transform: [{scale: this.springValue}]}} />
+                        { this.state.isIncreaseTrophy === true && 
+                            <Animated.View style={{ position: 'absolute', left: '42%', transform: [{scale: this.iconAnimated}] }}>
+                                <IconIonicons name='md-trophy' style={{ color: 'white' }} size={70}/>
+                            </Animated.View>
+                        }
                     </CardItem>
                     <CardItem style={styles.footerCard}>
                         <Left>
