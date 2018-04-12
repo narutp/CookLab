@@ -4,7 +4,6 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import { Container, Content, Left, Right, Body, Header } from 'native-base';
-import ImagePicker from 'react-native-image-picker';
 
 // props
 // onMenuPressed () => {}
