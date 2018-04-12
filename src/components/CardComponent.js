@@ -138,7 +138,7 @@ class CardComponent extends Component {
                         </Left>
                     </CardItem>
                     <CardItem style={{ height: 10 }}>
-                        { this.state.trophy > 0 && this.state.trophy <= 1 ? 
+                        { this.state.trophy >= 0 && this.state.trophy <= 1 ? 
                             <Text style={{ fontSize: 12, fontWeight: '600' }}>{ this.state.trophy } trophy </Text>
                             : <Text style={{ fontSize: 12, fontWeight: '600' }}>{ this.state.trophy } trophies </Text>
                         }
