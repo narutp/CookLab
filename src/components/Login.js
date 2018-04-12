@@ -51,6 +51,8 @@ class Login extends Component {
 
     async fetchUser() {
         let value = await AsyncStorage.getItem('facebookToken')
+        console.log('value' + value);
+        
         let result = await Axios.get(`https://graph.facebook.com/v2.11/me?access_token=${ value }&&fields=id,name,picture.type(large)`)
         console.log(result)
         let userName = result.data.name
@@ -60,14 +62,15 @@ class Login extends Component {
         console.log('Photo url: ' + userPicUrl)
 
         let createUserResponse = await CookLabAxios.post(`/create_user`, { 
-            name: userName 
+            name: userName,
+            username: userName 
         })
         console.log("Create user on database" + createUserResponse)
         // save name and id
         try { 
-            await AsyncStorage.setItem('userName', userName) 
-            await AsyncStorage.setItem('userId', userId)
-            await AsyncStorage.setItem('userPic', userPicUrl)
+            AsyncStorage.setItem('userName', userName) 
+            AsyncStorage.setItem('userId', userId)
+            AsyncStorage.setItem('userPic', userPicUrl)
         } catch (error) {
             console.log(error)
         }
@@ -79,12 +82,33 @@ class Login extends Component {
         console.log('Username: ' + this.state.username)
         console.log('Password: ' + this.state.password)
         if (this.state.username != null) {
-            let loginResponse = await CookLabAxios.post(`/login`, {
-                username: this.state.username,
-                password: this.state.password 
-            })
+            let loginResponse
+            try { 
+                loginResponse = await CookLabAxios.post(`/login`, {
+                    username: this.state.username,
+                    password: this.state.password 
+                })
+            } catch (error) {
+                console.log(error)
+            }
             console.log(loginResponse.data)
             if (loginResponse.data === true) {
+                var getUserResponse
+                try {
+                    getUserResponse = await CookLabAxios.get(`/get_user?username=${this.state.username}`)     
+                } catch(error) {
+                    console.log(error)
+                }
+                let userid = getUserResponse.data
+                console.log(userid)
+                if (userid != null) {
+                    try {
+                        await AsyncStorage.setItem('userid', userid)
+                        
+                    } catch (error) {
+                        console.log(error)
+                    }
+                }
                 Actions.MainScreen()
             } else {
                 // login failed
@@ -104,12 +128,14 @@ class Login extends Component {
                     <Text style={ styles.titleText }> CookLab </Text>
                     <Text style={ styles.subtitleText }> Design your dream dishes</Text>
                     <View style={{ marginBottom: 10 }}>
-                        <TextInput onChangeText={(text) => this.setState({username: text})} 
+                        <TextInput onChangeText={(text) => this.setState({username: text})}
+                            multiline autoCapitalize='none' 
                             underlineColorAndroid= "transparent" 
                             style={ styles.loginInput }
                             placeholder="Name.." 
                         />
-                        <TextInput onChangeText={(text) => this.setState({password: text})} 
+                        <TextInput onChangeText={(text) => this.setState({password: text})}
+                            multiline autoCapitalize='none' 
                             underlineColorAndroid= "transparent" 
                             style={ styles.loginInput }
                             secureTextEntry={true} 
@@ -134,21 +160,24 @@ class Login extends Component {
                 {/* Bottom part */}
                 <View style={ styles.bottomContainer }>
                     <View>
-                        <View>
-                            <Text>
-                                Bring the ingredients or cooking materials for show your meal
+                        {/* <Text style={ styles.bottomLabel }>
+                            Bring the ingredients or cooking materials for show your meal
+                        </Text> */}
+                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={ styles.bottomLabel }>
+                                Cooking and show your meal 
                             </Text>
-                            <Text>
+                            <Text style={ styles.bottomLabel }>
                                 Join us now
                             </Text>
                         </View>
-                        <View>
-                            <Button style={ styles.button }>
-                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text onPress={ () => Actions.Register() } style={[ styles.textButton, styles.simpleTextButton ]}>REGISTER</Text>
-                                </View>
-                            </Button>
-                        </View>
+                    </View>
+                    <View>
+                        <Button style={styles.registerButton}>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text onPress={ () => Actions.Register() } style={styles.textButton}>REGISTER</Text>
+                            </View>
+                        </Button>
                     </View>
                 </View>
             </View>
@@ -176,7 +205,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     titleText: {
-        fontSize: 30, 
+        fontSize: 40, 
+        fontWeight: 'bold',
         color: 'white',
     },
     subtitleText: {
@@ -186,13 +216,13 @@ const styles = StyleSheet.create({
     },
     loginInput: {
         backgroundColor: 'white',
-        borderWidth: 1,
-        borderColor: 'black',
-        borderRadius: 10,
-        width: 175,
+        borderWidth: 0.5,
+        borderColor: 'grey',
+        borderRadius: 5,
+        width: 220,
         height: 35,
         marginTop: 10,
-        opacity: 0.8
+        opacity: 0.9
     },
     background: {
         width: '100%',
@@ -201,12 +231,20 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: 'white',
         borderWidth: 1,
-        borderColor: 'pink',
+        borderColor: 'white',
         width: 150,
         height: 35,
         borderRadius: 5,
-        marginBottom: 10,
+        marginBottom: 20,
         marginTop: 10
+    },
+    registerButton: {
+        backgroundColor: '#F44336',
+        borderWidth: 1,
+        borderColor: 'white',
+        width: 150,
+        height: 35,
+        borderRadius: 5,
     },
     facebookButton: {
         backgroundColor: '#183C94',
@@ -222,6 +260,12 @@ const styles = StyleSheet.create({
     },
     bottomContainer: {
         backgroundColor: 'white',
-        padding: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 50,
+    },
+    bottomLabel: {
+        fontSize: 13,
+        marginBottom: 10
     }
 })

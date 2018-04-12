@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { Dimensions, Platform, Button, StyleSheet, Text, TextInput, View, Image } from 'react-native'
+import { ScrollView, Picker, Modal, TouchableHighlight, AsyncStorage, Dimensions, Platform, StyleSheet, Text, TextInput, View, Image } from 'react-native'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
-import { Container, Content, Left, Right, Body } from 'native-base'
+import { Container, Button, Content, Left, Right, Body } from 'native-base'
 import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
-
+import CooklabAxios from '../HttpRequest/index'
+import { Actions } from 'react-native-router-flux'
 import RNFetchBlob from 'react-native-fetch-blob'
 import firebase from 'firebase'
 
@@ -36,23 +37,18 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
 
     fs.readFile(uploadUri, 'base64')
       .then((data) => {
-        console.log(data)
-        
         return Blob.build(data, { type: `${mime};BASE64` })
       })
       .then((blob) => {
         uploadBlob = blob
-        console.log(blob)
         return imageRef.put(blob, { contentType: mime })
       })
       .then(() => {
         uploadBlob.close()
-        console.log(imageRef.getDownloadURL())
-        
         return imageRef.getDownloadURL()
       })
       .then((url) => {
-        console.log(url)
+        console.log('url:' + url)
         resolve(url)
       })
       .catch((error) => {
@@ -65,7 +61,16 @@ class StatusPosting extends Component {
     constructor(props) {
       super(props)
       this.state = {
-        uploadURL: ''
+        uploadURL: '',
+        caption: '',
+        isModalVisible: false,
+        level: ''
+      }
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+      if (this.state.uploadURL != nextState.uploadURL) {
+        this.createDish(nextState.uploadURL)
       }
     }
 
@@ -73,19 +78,132 @@ class StatusPosting extends Component {
       uploadImage(this.props.imageSource)
         .then(url => this.setState({ uploadURL: url }))
         .catch(error => console.log(error))
+      // this.createDish()
+    }
+
+    openDishDetail() {
+      this.setState({isModalVisible: !this.state.isModalVisible})
+    }
+
+    async createDish(uploadURL) {
+      let createResponse
+      try {
+          createResponse = await CooklabAxios.post(`/create_dish`, {
+          image: uploadURL
+        })
+      } catch(error) {
+        console.log(error)
+      }
+      console.log('create dish by sending pic url with id dish: ' + createResponse.data)
+      this.createPost(createResponse.data, uploadURL)
+    }
+
+    async createPost(idDish, url) {
+      let userid = await AsyncStorage.getItem('userid')
+      console.log('get id from st' + userid)
+      let createPostResponse
+      try {
+          createPostResponse = await CooklabAxios.post(`/create_post`, {
+            id_dish: idDish,
+            id_user: userid,
+            image: url,
+            caption: this.state.caption
+          })
+          Actions.MainScreen()
+      } catch(error) {
+        console.log(error)
+      }
     }
 
     render() {
-        console.log('aaaaa', this.props);
-        
         return(
-            <View>
-              <TextInput multiline autoCapitalize='none' placeholder={"Write something..."}
-              style = {styles.textInput} maxLength={150}></TextInput>
+          <View>
+              <Modal
+                animationType="slide"
+                transparent={false}
+                visible={this.state.isModalVisible}
+                onRequestClose={() => {
+                    // alert('Modal has been closed.');
+                }}>
+                <View style={ styles.modal }>
+                  <ScrollView>
+                    <View>
+                      <Text style={{ fontSize: 14 }}>Dish details</Text>
+                      <TextInput 
+                        autoCapitalize='none'
+                        style={styles.dishName} placeholder="Dish name..." />
+                      <TextInput 
+                        multiline={true}
+                        numberOfLines={3} 
+                        autoCapitalize='none'
+                        style={styles.dishDescription} placeholder="Dish description..." />
+                      <TextInput 
+                        multiline={true} 
+                        autoCapitalize='none'
+                        style={styles.dishName} placeholder="Calories..." />
+                      <Text style={{ fontSize: 14 }}>Ingredients</Text>
+                      <TextInput 
+                        multiline={true}
+                        numberOfLines={4}
+                        style={styles.dishRecipe} 
+                        placeholder="1 tablespoon oil" />
+                      <Text style={{ fontSize: 14 }}>Recipe (Step by step)</Text>
+                      <TextInput 
+                        multiline={true}
+                        numberOfLines={4}
+                        style={styles.dishRecipe} 
+                        placeholder="1. Cook the noodles in boiling water.." />
+                      <Text style={{ fontSize: 14 }}>Level of food</Text>
+                      <Picker
+                        selectedValue={this.state.level}
+                        style={{ height: 20, width: 50, marginBottom: 20 }}
+                        onValueChange={(itemValue, itemIndex) => this.setState({level: itemValue})}>
+                        <Picker.Item label="1" value="1" />
+                        <Picker.Item label="2" value="2" />
+                        <Picker.Item label="3" value="3" />
+                        <Picker.Item label="4" value="4" />
+                        <Picker.Item label="5" value="5" />
+                      </Picker>  
+                      <View style={{ flex: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center', }}>
+                        <Button style={ styles.cancelButton }
+                            onPress={() => {
+                                this.setState({ isModalVisible: !this.state.isModalVisible })
+                            }}>
+                            <Text>Cancel</Text>
+                        </Button>
+
+                        <Button style={ styles.saveDishButton }
+                            onPress={() => this.saveName()}>
+                            <Text>Save</Text>
+                        </Button>
+                      </View>
+                    </View>
+                  </ScrollView>
+                </View>
+              </Modal>
+              <TextInput onChangeText={(text) => this.setState({caption: text})} 
+                multiline autoCapitalize='none'
+                underlineColorAndroid= "transparent"  
+                placeholder={"Write caption..."}
+                style = {styles.textInput} maxLength={150}>
+              </TextInput>
               <Image source={{uri: this.props.imageSource}} style={styles.imageCard}/>
-              <Button title="Post" onPress={ () => this.pickImage() } style={styles.postButton}></Button>
-              {/* <Button title="Post" style={styles.postButton}></Button> */}
-            </View>
+              <Button onPress={ () => this.openDishDetail() } style={styles.dishDetailButton}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                  <Text style={styles.whiteText}>DISH DETAILS</Text>
+                </View>
+              </Button>
+              <Button onPress={ () => this.pickImage() } style={styles.postButton}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                  <Text style={styles.postLabel}>POST</Text>
+                </View>
+              </Button>
+              {/* <Button title="Dish details" onPress={ () => this.openDishDetail() } style={styles.dishDetailButton}></Button>
+              <Button title="Post" onPress={ () => this.pickImage() } style={styles.postButton}></Button> */}
+          </View>
         );
     }
 }
@@ -109,9 +227,51 @@ const styles = StyleSheet.create({
     height: 300,
     width: '100%'
   },
+  dishDetailButton: {
+    borderWidth: 0.5,
+    backgroundColor: '#F2994A',
+    width: '100%'
+  },
+  whiteText: {
+    color: 'white'
+  },
+  dishName: {
+    height: 40,
+  },
+  dishDescription: {
+    height: 80,
+  },
+  dishRecipe: {
+    height: 150,
+  },
+  postLabel: {
+    color: 'white'
+  },
   postButton: {
     borderWidth: 0.5,
-    backgroundColor: 'blue',
-    alignSelf: 'flex-end'
+    backgroundColor: '#6FCF97',
+    width: '100%'
+  },
+  cancelButton: {
+    width: 100,
+    padding: 5, 
+    borderWidth: 1,
+    borderColor: '#F44336', 
+    backgroundColor: 'white',
+    marginRight: 10, 
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  saveDishButton: {
+    width: 100, 
+    padding: 5, 
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#6FCF97', 
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  modal: {
+    padding: 30
   }
 })

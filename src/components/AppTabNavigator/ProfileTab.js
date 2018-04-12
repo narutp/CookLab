@@ -6,7 +6,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo'
 import IconMaterial from 'react-native-vector-icons/MaterialIcons'
 import Header from './Header'
 // import Modal from 'react-native-modal'
-import { Container, Content, Left, Right, Body, Card, CardItem, Input } from 'native-base'
+import { Button, Container, Content, Left, Right, Body, Card, CardItem, Input } from 'native-base'
 import CooklabAxios from '../HttpRequest/index'
 
 let images = [
@@ -76,8 +76,8 @@ class ProfileTab extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll }/>
-
+                <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll } />
+                
                 <View>
                     <Modal
                         animationType="slide"
@@ -91,6 +91,22 @@ class ProfileTab extends Component {
                             <Text>Edit name</Text>
                             <TextInput placeholder="Input something" />
 
+                            <View style={{ flex: 1,
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                alignItems: 'center', }}>
+                                <Button style={ styles.cancelButton }
+                                    onPress={() => {
+                                        this.setState({ isModalVisible: !this.state.isModalVisible })
+                                    }}>
+                                    <Text>Cancel</Text>
+                                </Button>
+
+                                <Button style={ styles.saveNameButton }
+                                    onPress={() => this.saveName()}>
+                                    <Text>Save</Text>
+                                </Button>
+                            </View>
                             <TouchableHighlight
                                 onPress={() => {
                                     this.setState({ isModalVisible: !this.state.isModalVisible })
@@ -180,5 +196,24 @@ const styles = StyleSheet.create({
   },
   body: {
       top: 50,
-  }
+  },
+  cancelButton: {
+    width: 100,
+    padding: 5, 
+    borderWidth: 1,
+    borderColor: '#F44336', 
+    backgroundColor: 'white',
+    marginRight: 10, 
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  saveNameButton: {
+    width: 100, 
+    padding: 5, 
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#6FCF97', 
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
 })
