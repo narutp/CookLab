@@ -4,7 +4,9 @@ import { Card, CardItem, Thumbnail, Body, Left, Right, Button,
 Icon } from 'native-base';
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
+import IconSimpleLine from 'react-native-vector-icons/SimpleLineIcons'
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import IconFeather from 'react-native-vector-icons/Feather'
 import CooklabAxios from './HttpRequest/index'
 import { ShareDialog } from 'react-native-fbsdk'
 
@@ -42,11 +44,11 @@ class CardComponent extends Component {
             if (result.isCancelled) {
                 console.log('Share cancelled');
             } else {
-                alert('Share success' + result.postId);
+                alert('Share success');
             }
             },
             function(error) {
-            alert('Share error: ' + error);
+                console.log('Share error: ' + error);
             }
         );
     }
@@ -120,18 +122,18 @@ class CardComponent extends Component {
                     <CardItem style={styles.footerCard}>
                         <Left>
                             { this.state.status === true ? 
-                            <TouchableOpacity onPress={ () => this.decreaseTrophy() } style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
-                                <IconEntypo name='trophy' style={{ color: '#F44336' }} size={15}/>
+                            <TouchableOpacity onPress={ () => this.decreaseTrophy() } style={ styles.iconContainer }>
+                                <IconIonicons name='md-trophy' style={{ color: '#F44336' }} size={18}/>
                             </TouchableOpacity> : 
-                            <TouchableOpacity onPress={ () => this.increaseTrophy() } style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
-                                <IconEntypo name='trophy' style={{ color: 'black' }} size={15}/>
+                            <TouchableOpacity onPress={ () => this.increaseTrophy() } style={ styles.iconContainer }>
+                                <IconIonicons name='md-trophy' style={{ color: 'black' }} size={18}/>
                             </TouchableOpacity>
                             }
-                            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
-                                <IconMaterialCommunityIcons name="comment-outline" style={{ color: 'black' }} size={15} />
+                            <TouchableOpacity style={ styles.iconContainer }>
+                                <IconMaterialCommunityIcons name="comment-outline" style={{ color: 'black' }} size={18} />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={ () => this.shareLinkWithShareDialog() } style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
-                                <IconIonicons name='md-share' style={{ color: 'black' }} size={15}/>
+                            <TouchableOpacity onPress={ () => this.shareLinkWithShareDialog() } style={ styles.iconContainer }>
+                                <IconFeather name='share-2' style={{ color: 'black' }} size={18}/>
                             </TouchableOpacity>
                         </Left>
                     </CardItem>
@@ -180,5 +182,12 @@ const styles = StyleSheet.create({
       width: '100%',
       fontSize: 10,
       height: 40
+  },
+  iconContainer: {
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    width: 20, 
+    height: 20,
+    marginRight: 10
   }
 })
