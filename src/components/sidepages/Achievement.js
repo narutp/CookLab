@@ -51,7 +51,7 @@ class Achievement extends Component {
                     <BadgeCardComponent badgeImage={ImageFactory.consumer2} badgeName='Blue Consumer' badgeProgress={100} point='500' timer='2'/>
                     <BadgeCardComponent badgeImage={ImageFactory.consumer3} badgeName='Gold Consumer' badgeProgress={100} point='1000' timer='3'/>
                     <BadgeCardComponent badgeImage={ImageFactory.homecook1} badgeName='Green Homecook' badgeProgress={100} point='2500' timer='4'/>
-                    {/* <BadgeCardComponent badgeImage={ImageFactory.homecook2} badgeName='Blue Homecook' badgeProgress={100} point='5000'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.homecook2} badgeName='Blue Homecook' badgeProgress={100} point='5000'/>
                     <BadgeCardComponent badgeImage={ImageFactory.homecook3} badgeName='Gold Homecook' badgeProgress={100} point='10000'/>
                     <BadgeCardComponent badgeImage={ImageFactory.juniorcook1} badgeName='Green Juniorcook' badgeProgress={100} point='20000'/>
                     <BadgeCardComponent badgeImage={ImageFactory.juniorcook2} badgeName='Blue Juniorcook' badgeProgress={100} point='50000'/>
@@ -61,7 +61,7 @@ class Achievement extends Component {
                     <BadgeCardComponent badgeImage={ImageFactory.cook3} badgeName='Gold Cook' badgeProgress={0} point='320000'/>
                     <BadgeCardComponent badgeImage={ImageFactory.chef1} badgeName='Green Chef' badgeProgress={0} point='550000'/>
                     <BadgeCardComponent badgeImage={ImageFactory.chef2} badgeName='Blue Chef' badgeProgress={0} point='750000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.chef3} badgeName='Gold Chef' badgeProgress={0} point='1000000'/> */}
+                    <BadgeCardComponent badgeImage={ImageFactory.chef3} badgeName='Gold Chef' badgeProgress={0} point='1000000'/>
             </ScrollView>
         );
     }
