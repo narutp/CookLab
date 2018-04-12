@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, AsyncStorage, TouchableOpacity, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { TextInput, Animated, AsyncStorage, TouchableOpacity, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { Card, CardItem, Thumbnail, Body, Left, Right, Button,
 Icon } from 'native-base';
 import IconIonicons from 'react-native-vector-icons/Ionicons'
@@ -14,6 +14,7 @@ class CardComponent extends Component {
 
     constructor(props) {
         super(props)
+        this.springValue = new Animated.Value(1)
         // Build up a shareable link.
         const shareLinkContent = {
             contentType: 'photo',
@@ -29,6 +30,17 @@ class CardComponent extends Component {
             status: '',
             shareLinkContent: shareLinkContent
         }
+    }
+
+    springAnimation() {
+        this.springValue.setValue(1.1)
+        Animated.spring(
+            this.springValue,
+            {
+            toValue: 1,
+            friction: 1
+            }
+        ).start()
     }
 
     shareLinkWithShareDialog() {
@@ -59,6 +71,8 @@ class CardComponent extends Component {
 
     async increaseTrophy () {
         this.setState({ status: !this.state.status, trophy: this.state.trophy+1 })
+        // Add animation when click add trophy
+        this.springAnimation()
         let userid
         try {
             userid = await AsyncStorage.getItem('userid')
@@ -117,7 +131,10 @@ class CardComponent extends Component {
                     </CardItem>
                     <CardItem cardBody>
                         {/* <Image source={foodImage[this.props.foodPic]} style={styles.imageCard}/> */}
-                        <Image source={{ uri: this.props.foodPic }} style={styles.imageCard} />
+                        <Animated.Image source={{ uri: this.props.foodPic }} style={{ resizeMode: 'cover',
+                        height: 250,
+                        width: '100%',
+                        transform: [{scale: this.springValue}]}} />
                     </CardItem>
                     <CardItem style={styles.footerCard}>
                         <Left>
