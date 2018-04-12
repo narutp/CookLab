@@ -18,7 +18,7 @@ class Achievement extends Component {
     progressRunning() {
         Timer.setInterval(
             'Progress', () => {
-                this.setState({progress:this.state.progress+1})
+                this.setState({progress:this.state.progress+2})
                 if(this.state.progress>=MAX_PROGRESS){
                     Timer.clearInterval('Progress')
                 }

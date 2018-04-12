@@ -16,12 +16,12 @@ const App = () => {
         <Provider store={store}>
             <Router>
                 <Scene key="root">
-                    <Scene key="Login" component={Login} hideNavBar={1} />
+                    <Scene key="Login" component={Login} hideNavBar={1} initial/>
                     <Scene key="StatusPosting" component={StatusPosting} hideNavBar={1} />
                     <Scene key="Register" component={Register} hideNavBar={1} />
                     <Scene key="SideMenu" component={SideMenu} hideNavBar={1} />
                     <Scene key="MainScreen" component={MainScreen} hideNavBar={1} />
-                    <Scene key="Achievement" component={Achievement} hideNavBar={1} initial/>
+                    <Scene key="Achievement" component={Achievement} hideNavBar={1}/>
                 </Scene>
             </Router>
         </Provider>
