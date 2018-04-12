@@ -18,12 +18,16 @@ class Register extends Component {
     }
 
     async register () {
-        let registerResponse = await ConfigAxios.post(`/create_user`, {
-            name: this.state.name,
-            username: this.state.username,
-            email: this.state.email,
-            password: this.state.password
-        })
+        try {
+            let registerResponse = await ConfigAxios.post(`/create_user`, {
+                name: this.state.name,
+                username: this.state.username,
+                email: this.state.email,
+                password: this.state.password
+            })
+        } catch (error) {
+            console.log(error)
+        }
         if (registerResponse.data === true) {
             this.props.navigation.dispatch(NavigationActions.back())
         } else {
