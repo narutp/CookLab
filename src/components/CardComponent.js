@@ -6,27 +6,49 @@ import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import CooklabAxios from './HttpRequest/index'
-
-// const FBSDK = require('react-native-fbsdk');
-// const {
-//   ShareDialog,
-// } = FBSDK
-
-// // Build up a shareable link.
-// const shareLinkContent = {
-//     contentType: 'link',
-//     contentUrl: "https://facebook.com",
-//     contentDescription: 'Wow, check out this great site!',
-// };
+import { ShareDialog } from 'react-native-fbsdk'
 
 class CardComponent extends Component {
 
     constructor(props) {
         super(props)
+        // Build up a shareable link.
+        const shareLinkContent = {
+            contentType: 'photo',
+            photos: [{
+                imageUrl: this.props.foodPic,
+                userGenerated: false, 
+                hashtag: '#cooklab',
+                quote: '#cooklab'
+            }]
+        };
         this.state = {
             trophy: '',
-            status: ''
+            status: '',
+            shareLinkContent: shareLinkContent
         }
+    }
+
+    shareLinkWithShareDialog() {
+        var tmp = this;
+        ShareDialog.canShow(this.state.shareLinkContent).then(
+            function(canShow) {
+            if (canShow) {
+                return ShareDialog.show(tmp.state.shareLinkContent);
+            }
+            }
+        ).then(
+            function(result) {
+            if (result.isCancelled) {
+                console.log('Share cancelled');
+            } else {
+                alert('Share success' + result.postId);
+            }
+            },
+            function(error) {
+            alert('Share error: ' + error);
+            }
+        );
     }
 
     componentDidMount() {
@@ -108,7 +130,7 @@ class CardComponent extends Component {
                             <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
                                 <IconMaterialCommunityIcons name="comment-outline" style={{ color: 'black' }} size={15} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
+                            <TouchableOpacity onPress={ () => this.shareLinkWithShareDialog() } style={{ justifyContent: 'center', alignItems: 'center', width: 15, marginRight: 10 }}>
                                 <IconIonicons name='md-share' style={{ color: 'black' }} size={15}/>
                             </TouchableOpacity>
                         </Left>
