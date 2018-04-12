@@ -22,7 +22,7 @@ class Achievement extends Component {
                 if(this.state.progress>=MAX_PROGRESS){
                     Timer.clearInterval('Progress')
                 }
-            }, 20
+            }, 10
           )
     }
 
