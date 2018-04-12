@@ -88,36 +88,25 @@ class ProfileTab extends Component {
                         }}>
                         <View style={ styles.modal }>
                             <View>
-                            <Text>Edit name</Text>
-                            <TextInput placeholder="Input something" />
+                                <Text>Edit name</Text>
+                                <TextInput placeholder="Input something" />
 
-                            <View style={{ flex: 1,
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignItems: 'center', }}>
-                                <Button style={ styles.cancelButton }
-                                    onPress={() => {
-                                        this.setState({ isModalVisible: !this.state.isModalVisible })
-                                    }}>
-                                    <Text>Cancel</Text>
-                                </Button>
+                                <View style={{ flex: 1,
+                                    flexDirection: 'row',
+                                    justifyContent: 'center',
+                                    alignItems: 'center', }}>
+                                    <Button style={ styles.cancelButton }
+                                        onPress={() => {
+                                            this.setState({ isModalVisible: !this.state.isModalVisible })
+                                        }}>
+                                        <Text>Cancel</Text>
+                                    </Button>
 
-                                <Button style={ styles.saveNameButton }
-                                    onPress={() => this.saveName()}>
-                                    <Text>Save</Text>
-                                </Button>
-                            </View>
-                            <TouchableHighlight
-                                onPress={() => {
-                                    this.setState({ isModalVisible: !this.state.isModalVisible })
-                                }}>
-                                <Text>Cancel</Text>
-                            </TouchableHighlight>
-
-                            <TouchableHighlight
-                                onPress={() => this.saveName()}>
-                                <Text>Save</Text>
-                            </TouchableHighlight>
+                                    <Button style={ styles.saveNameButton }
+                                        onPress={() => this.saveName()}>
+                                        <Text>Save</Text>
+                                    </Button>
+                                </View>
                             </View>
                         </View>
                     </Modal>
