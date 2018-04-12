@@ -5,10 +5,33 @@ import { Actions } from 'react-native-router-flux';
 import ImageFactory from 'src/components/ImageFactory';
 import ProgressBarClassic from 'react-native-progress-bar-classic';
 import BadgeCardComponent from 'src/components/sidepages/BadgeCardComponent';
+import Timer from 'react-native-timer'
+
+const MAX_PROGRESS = 40
 
 class Achievement extends Component {
 
+    state = {
+        progress: 0
+    };
+
+    progressRunning() {
+        Timer.setInterval(
+            'Progress', () => {
+                this.setState({progress:this.state.progress+1})
+                if(this.state.progress>=MAX_PROGRESS){
+                    Timer.clearInterval('Progress')
+                }
+            }, 20
+          )
+    }
+
+    componentDidMount(){
+        this.progressRunning()
+    }
+
     render(){
+
         return(
             <ScrollView style={ styles.container }>
                 <View style={styles.header}>
@@ -20,15 +43,15 @@ class Achievement extends Component {
                 <View style={styles.mybadgeComponent}>
                     <Image source={ImageFactory.juniorcook3} style={ styles.mybadge }/>
                     <Text style={ styles.textBadge }>Gold Junior Cook</Text>
-                    <View style={ styles.badgeProgress }><ProgressBarClassic progress={40} /></View>
+                    <View style={ styles.badgeProgress }><ProgressBarClassic progress={this.state.progress} /></View>
                     <Text style={ styles.yourPoint }>Your Point: 56000</Text>
                     <Text style={ styles.badgePoint }>Point for next badge: 90000</Text>
                 </View>
-                    <BadgeCardComponent badgeImage={ImageFactory.consumer1} badgeName='Green Consumer' badgeProgress={100} point='100'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.consumer2} badgeName='Blue Consumer' badgeProgress={100} point='500'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.consumer3} badgeName='Gold Consumer' badgeProgress={100} point='1000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.homecook1} badgeName='Green Homecook' badgeProgress={100} point='2500' />
-                    <BadgeCardComponent badgeImage={ImageFactory.homecook2} badgeName='Blue Homecook' badgeProgress={100} point='5000'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.consumer1} badgeName='Green Consumer' badgeProgress={100} point='100' timer='1'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.consumer2} badgeName='Blue Consumer' badgeProgress={100} point='500' timer='2'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.consumer3} badgeName='Gold Consumer' badgeProgress={100} point='1000' timer='3'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.homecook1} badgeName='Green Homecook' badgeProgress={100} point='2500' timer='4'/>
+                    {/* <BadgeCardComponent badgeImage={ImageFactory.homecook2} badgeName='Blue Homecook' badgeProgress={100} point='5000'/>
                     <BadgeCardComponent badgeImage={ImageFactory.homecook3} badgeName='Gold Homecook' badgeProgress={100} point='10000'/>
                     <BadgeCardComponent badgeImage={ImageFactory.juniorcook1} badgeName='Green Juniorcook' badgeProgress={100} point='20000'/>
                     <BadgeCardComponent badgeImage={ImageFactory.juniorcook2} badgeName='Blue Juniorcook' badgeProgress={100} point='50000'/>
@@ -38,7 +61,7 @@ class Achievement extends Component {
                     <BadgeCardComponent badgeImage={ImageFactory.cook3} badgeName='Gold Cook' badgeProgress={0} point='320000'/>
                     <BadgeCardComponent badgeImage={ImageFactory.chef1} badgeName='Green Chef' badgeProgress={0} point='550000'/>
                     <BadgeCardComponent badgeImage={ImageFactory.chef2} badgeName='Blue Chef' badgeProgress={0} point='750000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.chef3} badgeName='Gold Chef' badgeProgress={0} point='1000000'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.chef3} badgeName='Gold Chef' badgeProgress={0} point='1000000'/> */}
             </ScrollView>
         );
     }
