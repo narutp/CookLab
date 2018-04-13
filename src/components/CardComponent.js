@@ -184,7 +184,6 @@ class CardComponent extends Component {
               id_user: userid,
               text: this.state.comment
             })
-            this.forceUpdate()
         } catch (error) {
             
         }

@@ -9,18 +9,8 @@ import { connect } from 'react-redux'
 import CooklabAxios from '../HttpRequest/index'
 import { Actions } from 'react-native-router-flux'
 import RNFetchBlob from 'react-native-fetch-blob'
-import firebase from 'firebase'
-
-// Init Firebase
-const config = {
-  apiKey: "AIzaSyAD6vYOiblwoSmVI95GmCbV0WkgJLdTQR0",
-  authDomain: "cooklab-cb6c0.firebaseio.com",
-  storageBucket: "cooklab-cb6c0.appspot.com",
-}
-firebase.initializeApp(config)
+import firebase from '../../firebase/'
 const storage = firebase.storage()
-
-
 
 const uploadImage = (uri, mime = 'application/octet-stream') => {
   // Prepare Blob support
@@ -89,7 +79,8 @@ class StatusPosting extends Component {
       let createResponse
       try {
           createResponse = await CooklabAxios.post(`/create_dish`, {
-          image: uploadURL
+            image: uploadURL,
+            type: 'normal'
         })
       } catch(error) {
         console.log(error)
