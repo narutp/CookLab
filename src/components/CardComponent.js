@@ -9,6 +9,8 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 import IconFeather from 'react-native-vector-icons/Feather'
 import CooklabAxios from './HttpRequest/index'
 import { ShareDialog } from 'react-native-fbsdk'
+import { AccessToken, LoginManager } from 'react-native-fbsdk'
+import { Actions } from 'react-native-router-flux'
 const Timer = require('react-native-timer')
 
 class CardComponent extends Component {
@@ -52,7 +54,36 @@ class CardComponent extends Component {
         ).start()
     }
 
-    shareLinkWithShareDialog() {
+    async loginFacebook() {
+        let result = await LoginManager.logInWithReadPermissions(['public_profile'])
+        if (result.isCancelled) {
+            console.log('Login is cancelled') 
+        } else {
+            console.log('Login was success' + result.grantedPermissions.toString)
+            
+            let data = await AccessToken.getCurrentAccessToken()
+                try {
+                    await AsyncStorage.setItem('facebookToken', data.accessToken.toString())
+                    console.log('Facebook token: ' + data.accessToken.toString())
+                } catch (error) {
+                    console.log(error)
+                }
+            this.shareLinkWithShareDialog()
+        }
+    }
+
+    async shareLinkWithShareDialog() {
+        let facebookToken
+        try {
+            facebookToken = await AsyncStorage.getItem('facebookToken')
+        } catch(error) {
+            console.log(error)
+        }
+        console.log('facebook token when click share: ' + facebookToken)
+        // check if user didn't login by facebook
+        if (facebookToken === null) {
+            this.loginFacebook()
+        }
         var tmp = this;
         ShareDialog.canShow(this.state.shareLinkContent).then(
             function(canShow) {
