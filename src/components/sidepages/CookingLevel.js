@@ -9,7 +9,7 @@ import Timer from 'react-native-timer'
 
 const MAX_PROGRESS = 40
 
-class Achievement extends Component {
+class CookingLevel extends Component {
 
     state = {
         progress: 0
@@ -38,7 +38,7 @@ class Achievement extends Component {
                     <Ionicons name="ios-arrow-back" onPress={() =>  Actions.MainScreen() } size={25} style={ styles.backIcon } />
                 </View>
                 <View style={ styles.headTextWrapper }>
-                    <Text style={ styles.headText }>Achievement</Text>
+                    <Text style={ styles.headText }>CookingLevel</Text>
                 </View>
                 <View style={styles.mybadgeComponent}>
                     <Image source={ImageFactory.juniorcook3} style={ styles.mybadge }/>
@@ -47,27 +47,27 @@ class Achievement extends Component {
                     <Text style={ styles.yourPoint }>Your Point: 56000</Text>
                     <Text style={ styles.badgePoint }>Point for next badge: 90000</Text>
                 </View>
-                    <BadgeCardComponent badgeImage={ImageFactory.consumer1} badgeName='Green Consumer' badgeProgress={100} point='100' timer='1'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.consumer2} badgeName='Blue Consumer' badgeProgress={100} point='500' timer='2'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.consumer3} badgeName='Gold Consumer' badgeProgress={100} point='1000' timer='3'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.homecook1} badgeName='Green Homecook' badgeProgress={100} point='2500' timer='4'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.homecook2} badgeName='Blue Homecook' badgeProgress={100} point='5000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.homecook3} badgeName='Gold Homecook' badgeProgress={100} point='10000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.juniorcook1} badgeName='Green Juniorcook' badgeProgress={100} point='20000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.juniorcook2} badgeName='Blue Juniorcook' badgeProgress={100} point='50000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.juniorcook3} badgeName='Gold Juniorcook' badgeProgress={40} point='90000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.cook1} badgeName='Green Cook' badgeProgress={0} point='140000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.cook2} badgeName='Blue Cook' badgeProgress={0} point='210000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.cook3} badgeName='Gold Cook' badgeProgress={0} point='320000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.chef1} badgeName='Green Chef' badgeProgress={0} point='550000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.chef2} badgeName='Blue Chef' badgeProgress={0} point='750000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.chef3} badgeName='Gold Chef' badgeProgress={0} point='1000000'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.consumer1} badgeName='Consumer I' badgeProgress={100} point='100' timer='1'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.consumer2} badgeName='Consumer II' badgeProgress={100} point='500' timer='2'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.consumer3} badgeName='Consumer III' badgeProgress={100} point='1000' timer='3'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.homecook1} badgeName='Homecook I' badgeProgress={100} point='2500' timer='4'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.homecook2} badgeName='Homecook II' badgeProgress={100} point='5000'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.homecook3} badgeName='Homecook III' badgeProgress={100} point='10000'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.juniorcook1} badgeName='Juniorcook I' badgeProgress={100} point='20000'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.juniorcook2} badgeName='Juniorcook II' badgeProgress={100} point='50000'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.juniorcook3} badgeName='Juniorcook III' badgeProgress={40} point='90000'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.cook1} badgeName='Cook I' badgeProgress={0} point='140000'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.cook2} badgeName='Cook II' badgeProgress={0} point='210000'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.cook3} badgeName='Cook III' badgeProgress={0} point='320000'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.chef1} badgeName='Chef I' badgeProgress={0} point='550000'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.chef2} badgeName='Chef II' badgeProgress={0} point='750000'/>
+                    <BadgeCardComponent badgeImage={ImageFactory.chef3} badgeName='Chef III' badgeProgress={0} point='1000000'/>
             </ScrollView>
         );
     }
 }
 
-export default Achievement
+export default CookingLevel
 
 const styles = StyleSheet.create({
     container: {
@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
     },
     backIcon: {
         marginLeft: 10, 
-        marginTop: 20 
+        marginTop: 6,
+        color: 'white' 
     },
     headText: {
         alignSelf: 'center',

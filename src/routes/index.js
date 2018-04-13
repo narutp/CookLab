@@ -9,7 +9,10 @@ import React from 'react'
 import store from 'src/redux/store'
 import DrawerRouter from '../components/DrawerRouter'
 import SideMenu from 'src/components/SideMenu'
-import Achievement from 'src/components/sidepages/Achievement'
+import CookingLevel from 'src/components/sidepages/CookingLevel'
+import Leaderboard from 'src/components/sidepages/Leaderboard'
+import MyDish from 'src/components/sidepages/MyDish'
+import DishDetail from '../components/sidepages/DishDetail'
 
 const App = () => {
     return (
@@ -21,7 +24,10 @@ const App = () => {
                     <Scene key="Register" component={Register} hideNavBar={1} />
                     <Scene key="SideMenu" component={SideMenu} hideNavBar={1} />
                     <Scene key="MainScreen" component={MainScreen} hideNavBar={1} />
-                    <Scene key="Achievement" component={Achievement} hideNavBar={1}/>
+                    <Scene key="CookingLevel" component={CookingLevel} hideNavBar={1} />
+                    <Scene key="Leaderboard" component={Leaderboard} hideNavBar={1} />
+                    <Scene key="MyDish" component={MyDish} hideNavBar={1} />
+                    <Scene key="DishDetail" component={DishDetail} hideNavBar={1} />
                 </Scene>
             </Router>
         </Provider>
