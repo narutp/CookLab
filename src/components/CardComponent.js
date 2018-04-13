@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { TextInput, Animated, AsyncStorage, TouchableOpacity, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
-import { Card, CardItem, Thumbnail, Body, Left, Right, Button,
+import { ScrollView, Modal, TextInput, Animated, AsyncStorage, TouchableOpacity, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { Container, Card, CardItem, Thumbnail, Body, Left, Right, Button, Header, Footer,
 Icon } from 'native-base';
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
@@ -9,6 +9,9 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 import IconFeather from 'react-native-vector-icons/Feather'
 import CooklabAxios from './HttpRequest/index'
 import { ShareDialog } from 'react-native-fbsdk'
+import { AccessToken, LoginManager } from 'react-native-fbsdk'
+import { Actions } from 'react-native-router-flux'
+import CommentCard from './CommentCard'
 const Timer = require('react-native-timer')
 
 class CardComponent extends Component {
@@ -24,7 +27,7 @@ class CardComponent extends Component {
                 imageUrl: this.props.foodPic,
                 userGenerated: false, 
                 hashtag: '#cooklab',
-                quote: '#cooklab'
+                quote: '#cooklab',
             }]
         };
         this.state = {
@@ -32,6 +35,8 @@ class CardComponent extends Component {
             status: '',
             shareLinkContent: shareLinkContent,
             isIncreaseTrophy: false,
+            isModalVisible: false,
+            comment: '',
         }
     }
 
@@ -52,7 +57,36 @@ class CardComponent extends Component {
         ).start()
     }
 
-    shareLinkWithShareDialog() {
+    async loginFacebook() {
+        let result = await LoginManager.logInWithReadPermissions(['public_profile'])
+        if (result.isCancelled) {
+            console.log('Login is cancelled') 
+        } else {
+            console.log('Login was success' + result.grantedPermissions.toString)
+            
+            let data = await AccessToken.getCurrentAccessToken()
+                try {
+                    await AsyncStorage.setItem('facebookToken', data.accessToken.toString())
+                    console.log('Facebook token: ' + data.accessToken.toString())
+                } catch (error) {
+                    console.log(error)
+                }
+            this.shareLinkWithShareDialog()
+        }
+    }
+
+    async shareLinkWithShareDialog() {
+        let facebookToken
+        try {
+            facebookToken = await AsyncStorage.getItem('facebookToken')
+        } catch(error) {
+            console.log(error)
+        }
+        console.log('facebook token when click share: ' + facebookToken)
+        // check if user didn't login by facebook
+        if (facebookToken === null) {
+            this.loginFacebook()
+        }
         var tmp = this;
         ShareDialog.canShow(this.state.shareLinkContent).then(
             function(canShow) {
@@ -75,6 +109,10 @@ class CardComponent extends Component {
     }
 
     componentDidMount() {
+        this.props.comments.forEach(element => {
+            console.log(element)
+        });
+        // console.log('argaperogkapeorg' + this.props.comments)
         this.setState({ status: this.props.status, trophy: this.props.trophy })
     }
 
@@ -132,6 +170,27 @@ class CardComponent extends Component {
         console.log(trophyResponse)
     }
 
+    async comment() {
+        let createCommentResponse
+        let userid
+        try {
+            userid = await AsyncStorage.getItem('userid')
+        } catch (error) {
+            console.log(error)
+        }
+        try {
+            createCommentResponse = await CooklabAxios.post(`create_comment`, {
+              id_post: this.props.postId,
+              id_user: userid,
+              text: this.state.comment
+            })
+            this.forceUpdate()
+        } catch (error) {
+            
+        }
+
+    }
+
     render() {
         const profileImage = {
             '1': require('../assets/image/Profile/profilePic1.jpg'),
@@ -140,6 +199,58 @@ class CardComponent extends Component {
 
         return (
             <View style={ styles.container }>
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={this.state.isModalVisible}
+                    onRequestClose={() => {
+                        alert('Modal has been closed.');
+                    }}>
+                    <Container>
+                        <Header style={styles.headerModal}>
+                            <Left>
+                                <IconIonicons name="ios-arrow-back" onPress={() => {
+                                    this.setState({ isModalVisible: !this.state.isModalVisible })
+                                }} color={'black'} size={25} style={ styles.backIcon } />
+                            </Left>
+                            <Body>
+                                <Text>Comment</Text>
+                            </Body>
+                        </Header>
+                        <ScrollView>
+                        {this.props.comments.map((data, index) => {
+                            return (
+                                <CommentCard 
+                                    name={data.name}
+                                    comment={data.text}
+                                    profilePic={this.props.profilePic}
+                                />
+                            )
+                        })}
+                            {/* <Card style={ styles.modal }>
+                                <CardItem>
+                                    <Left>
+                                        <Thumbnail source={profileImage[this.props.profilePic]} style={{ width: 30, height: 30 }}/>
+                                        <Body>
+                                            <Text>Natanon</Text>
+                                            <Text>Hello hello hello</Text>
+                                        </Body>
+                                    </Left>
+                                </CardItem>
+                            </Card> */}
+                        </ScrollView>
+                        <Footer style={styles.footerModal}>
+                            <Left style={{ paddingLeft: 5 }}>
+                                <TextInput style={styles.commentModal} onChangeText={ (text) => this.setState({comment: text}) } placeholder="Add comment.." />
+                            </Left>
+                            <Right style={{ paddingRight: 10 }}>
+                                <TouchableOpacity onPress={ () => this.comment() }>
+                                    <Text style={{ color: 'blue' }}>POST</Text>
+                                </TouchableOpacity>
+                            </Right>
+                        </Footer>
+                    </Container>
+                </Modal>
                 <Card>
                     <CardItem header style={styles.headerCard}>
                         <Left>
@@ -172,7 +283,7 @@ class CardComponent extends Component {
                                 <IconIonicons name='md-trophy' style={{ color: 'black' }} size={18}/>
                             </TouchableOpacity>
                             }
-                            <TouchableOpacity style={ styles.iconContainer }>
+                            <TouchableOpacity onPress={ () => this.setState({ isModalVisible: !this.state.isModalVisible}) } style={ styles.iconContainer }>
                                 <IconMaterialCommunityIcons name="comment-outline" style={{ color: 'black' }} size={18} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={ () => this.shareLinkWithShareDialog() } style={ styles.iconContainer }>
@@ -193,7 +304,7 @@ class CardComponent extends Component {
                                 { this.props.caption }
                             </Text>
                             <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 12, fontWeight: 'bold' }} >more...</Text>
+                                <Text onPress={ () => this.setState({ isModalVisible: !isModalVisible}) } style={{ fontSize: 12, fontWeight: 'bold' }} >more...</Text>
                             </TouchableOpacity>
                             <TextInput style={ styles.commentInput } placeholder="comment.. " />
                         </Body>
@@ -232,5 +343,23 @@ const styles = StyleSheet.create({
     width: 20, 
     height: 20,
     marginRight: 10
+  },
+  modal: {
+    padding: 10
+  },
+  headerModal: {
+    backgroundColor: 'white'
+  },
+  backIcon: {
+    marginLeft: 10
+  },
+  footerModal: {
+    backgroundColor: 'white',
+    borderTopColor: 'grey',
+    borderTopWidth: 0.5,
+  },
+  commentModal: {
+    backgroundColor: 'white',
+    width: '80%'
   }
 })
