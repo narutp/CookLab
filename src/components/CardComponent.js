@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Modal, TextInput, Animated, AsyncStorage, TouchableOpacity, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
-import { Card, CardItem, Thumbnail, Body, Left, Right, Button,
+import { ScrollView, Modal, TextInput, Animated, AsyncStorage, TouchableOpacity, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Header,
 Icon } from 'native-base';
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
@@ -199,29 +199,39 @@ class CardComponent extends Component {
                     onRequestClose={() => {
                         alert('Modal has been closed.');
                     }}>
-                    <View style={ styles.modal }>
+                    <ScrollView>
                         <View>
-                            <Text>Edit name</Text>
-                            <TextInput onChangeText={ (text) => this.setState({comment: text}) } placeholder="Add comment.." />
+                            <Header style={styles.header}>
+                                <Left>
+                                    <IconIonicons name="ios-arrow-back" onPress={() =>  Actions.MainScreen() } color={'black'} size={25} style={ styles.backIcon } />
+                                </Left>
+                                <Body>
+                                    <Text>Comment</Text>
+                                </Body>
+                            </Header>
+                            <View style={ styles.modal }>
+                                <Text>Edit name</Text>
+                                <TextInput onChangeText={ (text) => this.setState({comment: text}) } placeholder="Add comment.." />
 
-                            <View style={{ flex: 1,
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignItems: 'center', }}>
-                                <Button style={ styles.cancelButton }
-                                    onPress={() => {
-                                        this.setState({ isModalVisible: !this.state.isModalVisible })
-                                    }}>
-                                    <Text>Cancel</Text>
-                                </Button>
+                                <View style={{ flex: 1,
+                                    flexDirection: 'row',
+                                    justifyContent: 'center',
+                                    alignItems: 'center', }}>
+                                    <Button style={ styles.cancelButton }
+                                        onPress={() => {
+                                            this.setState({ isModalVisible: !this.state.isModalVisible })
+                                        }}>
+                                        <Text>Cancel</Text>
+                                    </Button>
 
-                                <Button style={ styles.saveNameButton }
-                                    onPress={() => this.comment()}>
-                                    <Text>Save</Text>
-                                </Button>
+                                    <Button style={ styles.saveNameButton }
+                                        onPress={() => this.comment()}>
+                                        <Text>Save</Text>
+                                    </Button>
+                                </View>
                             </View>
                         </View>
-                    </View>
+                    </ScrollView>
                 </Modal>
                 <Card>
                     <CardItem header style={styles.headerCard}>
@@ -315,5 +325,14 @@ const styles = StyleSheet.create({
     width: 20, 
     height: 20,
     marginRight: 10
+  },
+  modal: {
+    padding: 30
+  },
+  header: {
+    backgroundColor: 'white'
+  },
+  backIcon: {
+    marginLeft: 10
   }
 })
