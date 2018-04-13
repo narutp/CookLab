@@ -9,7 +9,7 @@ import Timer from 'react-native-timer'
 
 const MAX_PROGRESS = 40
 
-class Achievement extends Component {
+class CookingLevel extends Component {
 
     state = {
         progress: 0
@@ -38,7 +38,7 @@ class Achievement extends Component {
                     <Ionicons name="ios-arrow-back" onPress={() =>  Actions.MainScreen() } size={25} style={ styles.backIcon } />
                 </View>
                 <View style={ styles.headTextWrapper }>
-                    <Text style={ styles.headText }>Achievement</Text>
+                    <Text style={ styles.headText }>CookingLevel</Text>
                 </View>
                 <View style={styles.mybadgeComponent}>
                     <Image source={ImageFactory.juniorcook3} style={ styles.mybadge }/>
@@ -67,7 +67,7 @@ class Achievement extends Component {
     }
 }
 
-export default Achievement
+export default CookingLevel
 
 const styles = StyleSheet.create({
     container: {
