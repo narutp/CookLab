@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, Modal, TextInput, Animated, AsyncStorage, TouchableOpacity, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
-import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Header,
+import { Container, Card, CardItem, Thumbnail, Body, Left, Right, Button, Header, Footer,
 Icon } from 'native-base';
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
@@ -199,39 +199,41 @@ class CardComponent extends Component {
                     onRequestClose={() => {
                         alert('Modal has been closed.');
                     }}>
-                    <ScrollView>
-                        <View>
-                            <Header style={styles.header}>
-                                <Left>
-                                    <IconIonicons name="ios-arrow-back" onPress={() =>  Actions.MainScreen() } color={'black'} size={25} style={ styles.backIcon } />
-                                </Left>
-                                <Body>
-                                    <Text>Comment</Text>
-                                </Body>
-                            </Header>
-                            <View style={ styles.modal }>
-                                <Text>Edit name</Text>
-                                <TextInput onChangeText={ (text) => this.setState({comment: text}) } placeholder="Add comment.." />
-
-                                <View style={{ flex: 1,
-                                    flexDirection: 'row',
-                                    justifyContent: 'center',
-                                    alignItems: 'center', }}>
-                                    <Button style={ styles.cancelButton }
-                                        onPress={() => {
-                                            this.setState({ isModalVisible: !this.state.isModalVisible })
-                                        }}>
-                                        <Text>Cancel</Text>
-                                    </Button>
-
-                                    <Button style={ styles.saveNameButton }
-                                        onPress={() => this.comment()}>
-                                        <Text>Save</Text>
-                                    </Button>
-                                </View>
-                            </View>
-                        </View>
-                    </ScrollView>
+                    <Container>
+                        <Header style={styles.headerModal}>
+                            <Left>
+                                <IconIonicons name="ios-arrow-back" onPress={() => {
+                                    this.setState({ isModalVisible: !this.state.isModalVisible })
+                                }} color={'black'} size={25} style={ styles.backIcon } />
+                            </Left>
+                            <Body>
+                                <Text>Comment</Text>
+                            </Body>
+                        </Header>
+                        <ScrollView>
+                            <Card style={ styles.modal }>
+                                <CardItem>
+                                    <Left>
+                                        <Thumbnail source={profileImage[this.props.profilePic]} style={{ width: 30, height: 30 }}/>
+                                        <Body>
+                                            <Text>A</Text>
+                                            <Text>B</Text>
+                                        </Body>
+                                    </Left>
+                                </CardItem>
+                            </Card>
+                        </ScrollView>
+                        <Footer style={styles.footerModal}>
+                            <Left style={{ paddingLeft: 5 }}>
+                                <TextInput style={styles.commentModal} onChangeText={ (text) => this.setState({comment: text}) } placeholder="Add comment.." />
+                            </Left>
+                            <Right style={{ paddingRight: 10 }}>
+                                <TouchableOpacity>
+                                    <Text style={{ color: 'blue' }}>POST</Text>
+                                </TouchableOpacity>
+                            </Right>
+                        </Footer>
+                    </Container>
                 </Modal>
                 <Card>
                     <CardItem header style={styles.headerCard}>
@@ -327,12 +329,21 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   modal: {
-    padding: 30
+    padding: 10
   },
-  header: {
+  headerModal: {
     backgroundColor: 'white'
   },
   backIcon: {
     marginLeft: 10
+  },
+  footerModal: {
+    backgroundColor: 'white',
+    borderTopColor: 'grey',
+    borderTopWidth: 0.5,
+  },
+  commentModal: {
+    backgroundColor: 'white',
+    width: '80%'
   }
 })
