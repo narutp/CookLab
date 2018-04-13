@@ -71,8 +71,15 @@ class SideMenu extends Component {
           </View>
           <View>
             <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Settings')}>
-                Settings
+              <Text style={styles.navItemStyle} onPress={() => Actions.Leaderboard()}>
+                Leaderboard
+              </Text>
+            </View>
+          </View>
+          <View>
+            <View style={styles.navSectionStyle}>
+              <Text style={styles.navItemStyle} onPress={() => Actions.MyDish()}>
+                MyDish
               </Text>
             </View>
           </View>
