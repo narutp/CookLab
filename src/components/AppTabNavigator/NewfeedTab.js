@@ -23,7 +23,6 @@ class NewfeedTab extends Component {
         } catch (error) {
             console.log(error)
         }
-        console.log('aefawefef' + userid)
         try {
             feedResponse = await CooklabAxios.get(`/feeds?userId=${userid}`)
             this.setState({feedResponse: feedResponse.data})
@@ -60,6 +59,7 @@ class NewfeedTab extends Component {
                                 userName={data.user_name}
                                 postId={data._id}
                                 status={data.status}
+                                comments={data.comments}
                              />
                         )
                     })}

@@ -11,6 +11,7 @@ import CooklabAxios from './HttpRequest/index'
 import { ShareDialog } from 'react-native-fbsdk'
 import { AccessToken, LoginManager } from 'react-native-fbsdk'
 import { Actions } from 'react-native-router-flux'
+import CommentCard from './CommentCard'
 const Timer = require('react-native-timer')
 
 class CardComponent extends Component {
@@ -35,7 +36,7 @@ class CardComponent extends Component {
             shareLinkContent: shareLinkContent,
             isIncreaseTrophy: false,
             isModalVisible: false,
-            comment: ''
+            comment: '',
         }
     }
 
@@ -108,6 +109,10 @@ class CardComponent extends Component {
     }
 
     componentDidMount() {
+        this.props.comments.forEach(element => {
+            console.log(element)
+        });
+        // console.log('argaperogkapeorg' + this.props.comments)
         this.setState({ status: this.props.status, trophy: this.props.trophy })
     }
 
@@ -179,9 +184,11 @@ class CardComponent extends Component {
               id_user: userid,
               text: this.state.comment
             })
+            this.forceUpdate()
         } catch (error) {
             
         }
+
     }
 
     render() {
@@ -211,24 +218,33 @@ class CardComponent extends Component {
                             </Body>
                         </Header>
                         <ScrollView>
-                            <Card style={ styles.modal }>
+                        {this.props.comments.map((data, index) => {
+                            return (
+                                <CommentCard 
+                                    name={data.name}
+                                    comment={data.text}
+                                    profilePic={this.props.profilePic}
+                                />
+                            )
+                        })}
+                            {/* <Card style={ styles.modal }>
                                 <CardItem>
                                     <Left>
                                         <Thumbnail source={profileImage[this.props.profilePic]} style={{ width: 30, height: 30 }}/>
                                         <Body>
-                                            <Text>A</Text>
-                                            <Text>B</Text>
+                                            <Text>Natanon</Text>
+                                            <Text>Hello hello hello</Text>
                                         </Body>
                                     </Left>
                                 </CardItem>
-                            </Card>
+                            </Card> */}
                         </ScrollView>
                         <Footer style={styles.footerModal}>
                             <Left style={{ paddingLeft: 5 }}>
                                 <TextInput style={styles.commentModal} onChangeText={ (text) => this.setState({comment: text}) } placeholder="Add comment.." />
                             </Left>
                             <Right style={{ paddingRight: 10 }}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={ () => this.comment() }>
                                     <Text style={{ color: 'blue' }}>POST</Text>
                                 </TouchableOpacity>
                             </Right>
