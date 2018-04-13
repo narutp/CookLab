@@ -88,10 +88,21 @@ class ProfileTab extends Component {
         this.setState({ isModalVisible: !this.state.isModalVisible })
     }
 
-    saveName () {
+    async saveName () {
         console.log('Save name success')
         this.setState({ isModalVisible: !this.state.isModalVisible })
         // let response = await CooklabAxios('')
+        let userid = await AsyncStorage.getItem('userid')
+        let temp = this.state.name
+        let saveNameResponse
+        try {
+            saveNameResponse = await CooklabAxios.put(`/update_user`, {
+                userId: userid,
+                name: this.state.name
+            })
+        } catch (error) {
+            
+        }
     }
 
     render() {
@@ -110,7 +121,7 @@ class ProfileTab extends Component {
                         <View style={ styles.modal }>
                             <View>
                                 <Text>Edit name</Text>
-                                <TextInput placeholder="Input something" />
+                                <TextInput onChangeText={ (text) => this.setState({name: text}) } placeholder={this.state.name} />
 
                                 <View style={{ flex: 1,
                                     flexDirection: 'row',
