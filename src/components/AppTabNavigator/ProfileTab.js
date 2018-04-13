@@ -53,10 +53,31 @@ class ProfileTab extends Component {
     }
 
     async fetchUser () {
-        let userName = await AsyncStorage.getItem('userName')
-        let userPicUrl = await AsyncStorage.getItem('userPic')
-
-        this.setState({name: userName, picUrl: userPicUrl})
+        // login by facebook
+        let userNameFB
+        let userPicUrlFB
+        try {
+            userNameFB = await AsyncStorage.getItem('userName')
+            userPicUrlFB = await AsyncStorage.getItem('userPic')
+        } catch (error) {
+            console.log(error)
+        }
+        
+        // login normal
+        let user_name
+        // check username by facebook is null
+        // then, get user data that login normally
+        if (userNameFB == null) {
+            try {
+                user_name = await AsyncStorage.getItem('name')
+                console.log('in' + user_name)
+            } catch (error) {
+                console.log(error)
+            }
+            this.setState({name: user_name})
+        } else {
+            this.setState({name: userNameFB, picUrl: userPicUrlFB})
+        }
         console.log('name: ' + this.state.name)
         console.log('pic url: ' + this.state.picUrl)
 
