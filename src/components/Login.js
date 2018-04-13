@@ -42,14 +42,14 @@ class Login extends Component {
                     console.log(error)
                 }
                 // prepare data of user
-            this.fetchUser()
+            this.fetchFacebookUser()
             Actions.MainScreen()
         }
         // let result = await CooklabAxios.get('/posts')
         // console.log(result)
     }
 
-    async fetchUser() {
+    async fetchFacebookUser() {
         let value = await AsyncStorage.getItem('facebookToken')
         console.log('value' + value);
         
@@ -95,20 +95,17 @@ class Login extends Component {
             if (loginResponse.data === true) {
                 var getUserResponse
                 try {
-                    getUserResponse = await CookLabAxios.get(`/get_user?username=${this.state.username}`)     
+                    getUserResponse = await CookLabAxios.get(`/get_user_id?username=${this.state.username}`)     
                 } catch(error) {
                     console.log(error)
                 }
                 let userid = getUserResponse.data
                 console.log(userid)
-                if (userid != null) {
-                    try {
-                        await AsyncStorage.setItem('userid', userid)
-                        
-                    } catch (error) {
-                        console.log(error)
-                    }
-                }
+                
+                // set all user data
+                this.setUser(userid)
+
+                // navigate to main screen
                 Actions.MainScreen()
             } else {
                 // login failed
@@ -119,6 +116,24 @@ class Login extends Component {
         }
     }
 
+    async setUser(userId) {
+        let userResponse
+        try {
+            userResponse = await CooklabAxios.get(`/get_user?userId=${userId}`)
+        } catch (error) {
+            console.log(error)
+        }
+        console.log('Login page: setUser => ' + userResponse.data.name)
+        let name = userResponse.data.name
+        try {
+            await AsyncStorage.setItem('userid', userId)
+            await AsyncStorage.setItem('name', name)
+            await AsyncStorage.setItem('username', userResponse.data.username)
+            // await AsyncStorage.setItem('userExperience', userResponse.data.experience)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     render() {
         return (
             <View style={ styles.container }>

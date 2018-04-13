@@ -13,14 +13,14 @@ class TopfeedTab extends Component {
     render() {
         return (
           <Container style={ styles.container }>
-            <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll }/>
-            <Content>
-              <CardComponent love='776' profilePic='2' foodPic='8' />
-              <CardComponent love='1023' profilePic='1' foodPic='9' />
-              <CardComponent love='2600' profilePic='2' foodPic='7' />
-              <CardComponent love='3412' profilePic='1' foodPic='6' />
-              <CardComponent love='1877' profilePic='1' foodPic='3' />
-            </Content>
+          {/* //   <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll }/>
+          //   <Content>
+          //     <CardComponent love='776' profilePic='2' foodPic='8' />
+          //     <CardComponent love='1023' profilePic='1' foodPic='9' />
+          //     <CardComponent love='2600' profilePic='2' foodPic='7' />
+          //     <CardComponent love='3412' profilePic='1' foodPic='6' />
+          //     <CardComponent love='1877' profilePic='1' foodPic='3' />
+          //   </Content> */}
           </Container>
         );
     }

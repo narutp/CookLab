@@ -53,10 +53,31 @@ class ProfileTab extends Component {
     }
 
     async fetchUser () {
-        let userName = await AsyncStorage.getItem('userName')
-        let userPicUrl = await AsyncStorage.getItem('userPic')
-
-        this.setState({name: userName, picUrl: userPicUrl})
+        // login by facebook
+        let userNameFB
+        let userPicUrlFB
+        try {
+            userNameFB = await AsyncStorage.getItem('userName')
+            userPicUrlFB = await AsyncStorage.getItem('userPic')
+        } catch (error) {
+            console.log(error)
+        }
+        
+        // login normal
+        let user_name
+        // check username by facebook is null
+        // then, get user data that login normally
+        if (userNameFB == null) {
+            try {
+                user_name = await AsyncStorage.getItem('name')
+                console.log('in' + user_name)
+            } catch (error) {
+                console.log(error)
+            }
+            this.setState({name: user_name})
+        } else {
+            this.setState({name: userNameFB, picUrl: userPicUrlFB})
+        }
         console.log('name: ' + this.state.name)
         console.log('pic url: ' + this.state.picUrl)
 
@@ -67,10 +88,21 @@ class ProfileTab extends Component {
         this.setState({ isModalVisible: !this.state.isModalVisible })
     }
 
-    saveName () {
+    async saveName () {
         console.log('Save name success')
         this.setState({ isModalVisible: !this.state.isModalVisible })
         // let response = await CooklabAxios('')
+        let userid = await AsyncStorage.getItem('userid')
+        let temp = this.state.name
+        let saveNameResponse
+        try {
+            saveNameResponse = await CooklabAxios.put(`/update_user`, {
+                userId: userid,
+                name: this.state.name
+            })
+        } catch (error) {
+            
+        }
     }
 
     render() {
@@ -88,36 +120,25 @@ class ProfileTab extends Component {
                         }}>
                         <View style={ styles.modal }>
                             <View>
-                            <Text>Edit name</Text>
-                            <TextInput placeholder="Input something" />
+                                <Text>Edit name</Text>
+                                <TextInput onChangeText={ (text) => this.setState({name: text}) } placeholder={this.state.name} />
 
-                            <View style={{ flex: 1,
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignItems: 'center', }}>
-                                <Button style={ styles.cancelButton }
-                                    onPress={() => {
-                                        this.setState({ isModalVisible: !this.state.isModalVisible })
-                                    }}>
-                                    <Text>Cancel</Text>
-                                </Button>
+                                <View style={{ flex: 1,
+                                    flexDirection: 'row',
+                                    justifyContent: 'center',
+                                    alignItems: 'center', }}>
+                                    <Button style={ styles.cancelButton }
+                                        onPress={() => {
+                                            this.setState({ isModalVisible: !this.state.isModalVisible })
+                                        }}>
+                                        <Text>Cancel</Text>
+                                    </Button>
 
-                                <Button style={ styles.saveNameButton }
-                                    onPress={() => this.saveName()}>
-                                    <Text>Save</Text>
-                                </Button>
-                            </View>
-                            <TouchableHighlight
-                                onPress={() => {
-                                    this.setState({ isModalVisible: !this.state.isModalVisible })
-                                }}>
-                                <Text>Cancel</Text>
-                            </TouchableHighlight>
-
-                            <TouchableHighlight
-                                onPress={() => this.saveName()}>
-                                <Text>Save</Text>
-                            </TouchableHighlight>
+                                    <Button style={ styles.saveNameButton }
+                                        onPress={() => this.saveName()}>
+                                        <Text>Save</Text>
+                                    </Button>
+                                </View>
                             </View>
                         </View>
                     </Modal>
