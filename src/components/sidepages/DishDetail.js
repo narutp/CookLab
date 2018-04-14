@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import { Card, CardItem, Left, Right, Header, Body } from 'native-base'
 import CooklabAxios from '../HttpRequest'
+import StarRating from 'react-native-star-rating'
 
 class DishDetail extends Component{
     
@@ -18,7 +19,7 @@ class DishDetail extends Component{
             dish_imageUrl: '',
             dish_name: '',
             dish_description: '',
-            dish_level: ''
+            dish_level: '',
         }
     }
 
@@ -36,7 +37,7 @@ class DishDetail extends Component{
         }
         console.log('Dish detail: ' + getDishResponse.data)
         this.setState({
-            dish_rate: getDishResponse.data.rate,
+            dish_rate: 2.5,
             dish_recipe: getDishResponse.data.recipe,
             dish_ingredients: getDishResponse.data.ingredients,
             dish_imageUrl: getDishResponse.data.image,
@@ -47,6 +48,13 @@ class DishDetail extends Component{
         console.log('ingre: ' + this.state.dish_ingredients[0])
         console.log('recipe: ' + this.state.dish_recipe)
     }
+
+    onStarRatingPress(rating) {
+        this.setState({
+            dish_rate: rating
+        })
+    }
+    
     render(){
         return(
             <View>
@@ -64,6 +72,23 @@ class DishDetail extends Component{
                     <Image source={{ uri: this.state.dish_imageUrl }} style={ styles.dishImage }/>
                     <View style={{ padding: 20 }}>
                         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
+                            <View style={{ marginBottom: 10 }}>
+                                <StarRating
+                                    disabled={false}
+                                    maxStars={5}
+                                    halfStarEnabled
+                                    iconSet={'FontAwesome'}
+                                    emptyStar={'star-o'}
+                                    fullStar={'star'}
+                                    halfStar={'star-half-empty'}
+                                    emptyStarColor={'#F4B706'}
+                                    fullStarColor={'#F4B706'}
+                                    starStyle={{ marginRight: 5 }}
+                                    starSize={30}
+                                    rating={this.state.dish_rate}
+                                    selectedStar={(rating) => this.onStarRatingPress(rating)}
+                                />
+                            </View>
                             <Text style={ styles.dishName }>{this.state.dish_name}</Text>
                             <Text style={ styles.dishDescription }>{this.state.dish_description}</Text>
                         </View>
