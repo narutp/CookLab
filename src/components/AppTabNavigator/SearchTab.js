@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, View, Image, TextInput, TouchableOpacity } from 'react-native';
+import { Dimensions, StyleSheet, View, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { Card, CardItem, Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
+import SearchCardComponent from '../card/SearchCardComponent';
 
 class SearchTab extends Component {
 
@@ -31,18 +32,11 @@ class SearchTab extends Component {
                         <TextInput>Search</TextInput>
                     </Button> */}
                 </Header>
-                <View>
-                    {/* <Image source={require('../../assets/image/Food/food1.jpg')} style={styles.image1} /> */}
-                </View>
-                <View>
-                    {/* <Image source={require('../../assets/image/Food/food5.jpg')} style={styles.image1} /> */}
-                </View>
-                <View>
-                    {/* <Image source={require('../../assets/image/Food/food7.jpg')} style={styles.image1} /> */}
-                </View>
-                <View>
-                    {/* <Image source={require('../../assets/image/Food/food9.jpg')} style={styles.image1} /> */}
-                </View>
+                <ScrollView>
+                    <SearchCardComponent>
+
+                    </SearchCardComponent>
+                </ScrollView>
             </View>
         );
     }
