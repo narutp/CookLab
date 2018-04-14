@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { Card, CardItem, Left } from 'native-base';
-import ImageFactory from 'src/components/ImageFactory';
 import ProgressBarClassic from 'react-native-progress-bar-classic';
-import Timer from 'react-native-timer';
 
 class BadgeCardComponent extends Component {
 

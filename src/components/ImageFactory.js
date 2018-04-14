@@ -1,4 +1,7 @@
 const Images = {
+    //Logo
+    'logo': require('src/assets/image/Logo/chef.png'),
+    //Badges
     'consumer1': require('src/assets/image/badges/consumer-green.png'),
     'consumer2': require('src/assets/image/badges/consumer-blue.png'),
     'consumer3': require('src/assets/image/badges/consumer-gold.png'),
@@ -13,7 +16,37 @@ const Images = {
     'cook3': require('src/assets/image/badges/cook-gold.png'),
     'chef1': require('src/assets/image/badges/chef-green.png'),
     'chef2': require('src/assets/image/badges/chef-blue.png'),
-    'chef3': require('src/assets/image/badges/chef-gold.png')
+    'chef3': require('src/assets/image/badges/chef-gold.png'),
+    //ProfilePic
+    'user1': require('../assets/image/Profile/profilePic1.jpg'),
+    'user2': require('../assets/image/Profile/profilePic2.jpg'),
+    'user3': require('../assets/image/Profile/profilePic3.jpg'),
+    //FoodPic
+    'food1': require('../assets/image/Food/food1.jpg'),
+    'food2': require('../assets/image/Food/food2.jpg'),
+    'food3': require('../assets/image/Food/food3.jpg'),
+    'food4': require('../assets/image/Food/food4.jpg'),
+    'food5': require('../assets/image/Food/food5.jpg'),
+    'food6': require('../assets/image/Food/food6.jpg'),
+    'food7': require('../assets/image/Food/food7.jpg'),
+    'food8': require('../assets/image/Food/food8.jpg'),
+    'food9': require('../assets/image/Food/food9.jpg'),
+    //Acheivement
+    'plates1': require('../assets/image/Acheivement/plates1.png'),
+    'plates2': require('../assets/image/Acheivement/plates2.png'),
+    'plates3': require('../assets/image/Acheivement/plates3.png'),
+    'plates4': require('../assets/image/Acheivement/plates4.png'),
+    'plates5': require('../assets/image/Acheivement/plates5.png'),
+    'plates6': require('../assets/image/Acheivement/plates6.png'),
+    'plates7': require('../assets/image/Acheivement/plates7.png'),
+    'plates8': require('../assets/image/Acheivement/plates8.png'),
+    'plates9': require('../assets/image/Acheivement/plates9.png'),
+    'plates10': require('../assets/image/Acheivement/plates10.png'),
+    'trophy1': require('../assets/image/Acheivement/trophy1.png'),
+    'trophy2': require('../assets/image/Acheivement/trophy2.png'),
+    'trophy3': require('../assets/image/Acheivement/trophy3.png'),
+    'trophy4': require('../assets/image/Acheivement/trophy4.png'),
+    'trophy5': require('../assets/image/Acheivement/trophy5.png'),
 }
 
 export default Images
