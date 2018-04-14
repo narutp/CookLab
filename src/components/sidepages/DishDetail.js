@@ -110,7 +110,6 @@ const styles = StyleSheet.create({
     backIcon: {
         marginLeft: 10, 
         marginTop: 6,
-        color: 'black' 
     },
     dishName: {
         fontSize: 16,
