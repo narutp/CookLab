@@ -14,7 +14,22 @@ class CookingLevel extends Component {
     state = {
         progress: 0,
         userData: {},
-        MAX_PROGRESS: 0
+        MAX_PROGRESS: 0,
+        badgeDetail: [ {image: ImageFactory.consumer1 ,name:'Consumer I', point:0, progress:0}, 
+                       {image: ImageFactory.consumer2 ,name:'Consumer II', point:40, progress:0},
+                       {image: ImageFactory.consumer3 ,name:'Consumer III', point:80, progress:0},
+                       {image: ImageFactory.homecook1 ,name:'Homecook I', point:150, progress:0},
+                       {image: ImageFactory.homecook2 ,name:'Homecook II', point:270, progress:0},
+                       {image: ImageFactory.homecook3 ,name:'Homecook III', point:400, progress:0},
+                       {image: ImageFactory.juniorcook1 ,name:'Juniorcook I', point:550, progress:0},
+                       {image: ImageFactory.juniorcook2 ,name:'Juniorcook II', point:720, progress:0},
+                       {image: ImageFactory.juniorcook3 ,name:'Juniorcook III', point:900, progress:0},
+                       {image: ImageFactory.cook1 ,name:'Cook I', point:1400, progress:0},
+                       {image: ImageFactory.cook2 ,name:'Cook II', point:2000, progress:0},
+                       {image: ImageFactory.cook3 ,name:'Cook III', point:2900, progress:0},
+                       {image: ImageFactory.chef1 ,name:'Chef I', point:4500, progress:0},
+                       {image: ImageFactory.chef2 ,name:'Chef II', point:6900, progress:0},
+                       {image: ImageFactory.chef3 ,name:'Chef III', point:10000, progress:0} ]
     };
 
     async getUser(){
@@ -28,6 +43,7 @@ class CookingLevel extends Component {
         this.setState({userData: result.data})
         console.log(this.state.userData.experience)
         this.progressRunning()
+        this.assignProgressValue()
     }
 
     progressRunning() {
@@ -40,6 +56,24 @@ class CookingLevel extends Component {
                 }
             }, 10
           )
+    }
+
+    assignProgressValue(){
+        const tempArray = this.state.badgeDetail
+        for (i = 0;i < this.state.badgeDetail.length;i++){
+            if(this.state.badgeDetail[i].point >= this.state.MAX_PROGRESS){
+                console.log("In if", this.state.MAX_PROGRESS ,"Point " ,this.state.badgeDetail[i].point)
+                tempArray[i].progress = Math.ceil(this.state.MAX_PROGRESS)
+                break
+            }
+            else{
+                console.log("In else")
+                tempArray[i].progress = 100
+            }
+        }
+        this.setState({ badgeDetail: tempArray })
+        console.log("tempArray",tempArray)
+        console.log("badgeDetail",this.state.badgeDetail)
     }
 
     componentDidMount(){
@@ -63,21 +97,16 @@ class CookingLevel extends Component {
                     <Text style={ styles.yourPoint }>Your Point: { this.state.userData.experience }</Text>
                     <Text style={ styles.badgePoint }>Point for next badge: 150</Text>
                 </View>
-                    <BadgeCardComponent badgeImage={ImageFactory.consumer1} badgeName='Consumer I' badgeProgress={100} point='' />
-                    <BadgeCardComponent badgeImage={ImageFactory.consumer2} badgeName='Consumer II' badgeProgress={100} point='40' />
-                    <BadgeCardComponent badgeImage={ImageFactory.consumer3} badgeName='Consumer III' badgeProgress={100} point='80' />
-                    <BadgeCardComponent badgeImage={ImageFactory.homecook1} badgeName='Homecook I' badgeProgress={this.state.progress} point='150' />
-                    <BadgeCardComponent badgeImage={ImageFactory.homecook2} badgeName='Homecook II' badgeProgress={0} point='270'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.homecook3} badgeName='Homecook III' badgeProgress={0} point='400'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.juniorcook1} badgeName='Juniorcook I' badgeProgress={0} point='550'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.juniorcook2} badgeName='Juniorcook II' badgeProgress={0} point='720'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.juniorcook3} badgeName='Juniorcook III' badgeProgress={0} point='900'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.cook1} badgeName='Cook I' badgeProgress={0} point='1200'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.cook2} badgeName='Cook II' badgeProgress={0} point='1800'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.cook3} badgeName='Cook III' badgeProgress={0} point='2500'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.chef1} badgeName='Chef I' badgeProgress={0} point='4500'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.chef2} badgeName='Chef II' badgeProgress={0} point='6900'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.chef3} badgeName='Chef III' badgeProgress={0} point='10000'/>
+                    { this.state.badgeDetail.map((data,index) => {
+                        return(
+                            <BadgeCardComponent 
+                                badgeImage={data.image} 
+                                badgeName={data.name} 
+                                badgeProgress={data.progress} 
+                                point={data.point} 
+                            />
+                        )
+                    })}
             </ScrollView>
         );
     }
