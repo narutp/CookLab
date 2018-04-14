@@ -90,6 +90,13 @@ class SideMenu extends Component {
               </Text>
             </View>
           </View>
+          <View>
+            <View style={styles.navSectionStyle}>
+              <Text style={styles.navItemStyle} onPress={() => Actions.Aboutus()}>
+                About us
+              </Text>
+            </View>
+          </View>
         </ScrollView>
         <View>
           <Text style={styles.footerContainer}
