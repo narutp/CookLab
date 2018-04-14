@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, ScrollView, Text, Image, View, Button, Dimensions } from 'react-native'
+import { StyleSheet, ScrollView, Text, Image, View, Dimensions } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
-import { Card, CardItem, Left, Right, Header, Body } from 'native-base'
+import { Card, CardItem, Left, Right, Header, Button, Body } from 'native-base'
 import CooklabAxios from '../HttpRequest'
 import StarRating from 'react-native-star-rating'
 import BackHeader from './BackHeader';
@@ -57,6 +57,15 @@ class DishDetail extends Component{
         })
     }
     
+    async rateDish() {
+        let rateResponse
+        try {
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     render(){
         return(
             <View style={{ flex: 1 }}>
@@ -108,6 +117,11 @@ class DishDetail extends Component{
                             </View>
                         </View>
                     </View>
+                    <View>
+                        <Button onPress={ () => this.rateDish() } style={ styles.rateButton }>
+                            <Text style={{ color: 'black' }}>RATE THE DISH</Text>
+                        </Button>
+                    </View>
                 </ScrollView>
             </View>
         )
@@ -158,5 +172,13 @@ const styles = StyleSheet.create({
     },
     detailText: {
         fontSize: 12
-    }  
+    },
+    rateButton: {
+        width: Dimensions.get('window').width,
+        backgroundColor: 'white',
+        borderTopColor: 'black',
+        borderTopWidth: 0.5,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 })
