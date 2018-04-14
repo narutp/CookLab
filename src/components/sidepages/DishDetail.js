@@ -71,7 +71,7 @@ class DishDetail extends Component{
                         <Ionicons name="ios-arrow-back" onPress={() =>  Actions.MyDish() } size={25} style={ styles.backIcon } />
                     </View> */}
                     <Image source={{ uri: this.state.dish_imageUrl }} style={ styles.dishImage }/>
-                    <View style={{ padding: 20 }}>
+                    <View style={{ padding: 25 }}>
                         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
                             <View style={{ marginBottom: 10 }}>
                                 <StarRating
@@ -95,6 +95,9 @@ class DishDetail extends Component{
                         </View>
                         <View>
                             {/* <Text style={ styles.detailText }>Level: </Text> */}
+                            <View style={ styles.subtitleWrapper }>
+                                <Text style={ styles.subtitle }>Dish level: {this.state.dish_level}</Text>
+                            </View>
                             <View style={ styles.subtitleWrapper }>
                                 <Text style={ styles.subtitle }>Ingredients</Text>
                                 { this.state.dish_ingredients.map(element => {

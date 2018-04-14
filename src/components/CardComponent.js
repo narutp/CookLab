@@ -243,9 +243,15 @@ class CardComponent extends Component {
                             </Card> */}
                         </ScrollView>
                         <Footer style={styles.footerModal}>
-                            <Left style={{ paddingLeft: 5 }}>
-                                <TextInput style={styles.commentModal} onChangeText={ (text) => this.setState({comment: text}) } placeholder="Add comment.." />
-                            </Left>
+                            <Body style={{ paddingLeft: 5 }}>
+                                <TextInput 
+                                    multiline={true}
+                                    numberOfLines={2}
+                                    style={styles.commentModal} 
+                                    onChangeText={ (text) => this.setState({comment: text}) } 
+                                    placeholder="Add comment.." 
+                                />
+                            </Body>
                             <Right style={{ paddingRight: 10 }}>
                                 <TouchableOpacity onPress={ () => this.comment() }>
                                     <Text style={{ color: 'blue' }}>POST</Text>
@@ -365,6 +371,6 @@ const styles = StyleSheet.create({
   },
   commentModal: {
     backgroundColor: 'white',
-    width: '80%'
+    width: 300
   }
 })
