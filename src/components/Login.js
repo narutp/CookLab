@@ -6,7 +6,6 @@ import { StackNavigator } from 'react-navigation';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import MainScreen from './MainScreen'
 import DrawerRouter from './DrawerRouter'
-import CooklabAxios from '../http'
 import Register from './Register'
 import Axios from 'react-native-axios'
 import CookLabAxios from './HttpRequest/index'
@@ -27,6 +26,21 @@ class Login extends Component {
         }
     }
 
+    async componentDidMount() {
+        let data
+        try {
+            // data = await AccessToken.getCurrentAccessToken()
+            data = await AsyncStorage.getItem('facebookToken')
+        } catch (error) {
+            console.log(error)
+        }
+        console.log('token' + data)
+        if (data != null) {
+            this.fetchFacebookUser()
+            Actions.MainScreen()
+        }
+    }
+
     async _fbAuth() {
         let result = await LoginManager.logInWithReadPermissions(['public_profile'])
         if (result.isCancelled) {
@@ -42,7 +56,7 @@ class Login extends Component {
                     console.log(error)
                 }
                 // prepare data of user
-            this.fetchFacebookUser()
+            await this.fetchFacebookUser()
             Actions.MainScreen()
         }
         // let result = await CooklabAxios.get('/posts')
@@ -61,16 +75,22 @@ class Login extends Component {
         console.log('Get name and id from facebook: ' + userName + ' ' + userId)
         console.log('Photo url: ' + userPicUrl)
 
-        let createUserResponse = await CookLabAxios.post(`/create_user`, { 
+        let createUserResponse = await CookLabAxios.post(`/login_with_facebook`, { 
             name: userName,
             username: userName 
         })
+        var getUserResponse
+        try {
+            getUserResponse = await CookLabAxios.get(`/get_user_id?username=${userName}`)     
+        } catch(error) {
+            console.log(error)
+        }
         console.log("Create user on database" + createUserResponse)
         // save name and id
         try { 
-            AsyncStorage.setItem('userName', userName) 
-            AsyncStorage.setItem('userId', userId)
-            AsyncStorage.setItem('userPic', userPicUrl)
+            await AsyncStorage.setItem('userName', userName) 
+            await AsyncStorage.setItem('userid', getUserResponse.data)
+            await AsyncStorage.setItem('userPic', userPicUrl)
         } catch (error) {
             console.log(error)
         }
@@ -84,7 +104,7 @@ class Login extends Component {
         if (this.state.username != null) {
             let loginResponse
             try { 
-                loginResponse = await CookLabAxios.post(`/login`, {
+                loginResponse = await CookLabAxios.post(`/login_by_username`, {
                     username: this.state.username,
                     password: this.state.password 
                 })
@@ -103,7 +123,7 @@ class Login extends Component {
                 console.log(userid)
                 
                 // set all user data
-                this.setUser(userid)
+                await this.setUser(userid)
 
                 // navigate to main screen
                 Actions.MainScreen()
@@ -119,16 +139,21 @@ class Login extends Component {
     async setUser(userId) {
         let userResponse
         try {
-            userResponse = await CooklabAxios.get(`/get_user?userId=${userId}`)
+            userResponse = await CookLabAxios.get(`/get_user?userId=${userId}`)
         } catch (error) {
             console.log(error)
         }
         console.log('Login page: setUser => ' + userResponse.data.name)
         let name = userResponse.data.name
+        let username = userResponse.data.username
+        console.log('g' + username)
         try {
             await AsyncStorage.setItem('userid', userId)
+            console.log(await AsyncStorage.getAllKeys())
             await AsyncStorage.setItem('name', name)
-            await AsyncStorage.setItem('username', userResponse.data.username)
+            console.log(await AsyncStorage.getAllKeys())
+            await AsyncStorage.setItem('username', username)
+            console.log(await AsyncStorage.getAllKeys())
             // await AsyncStorage.setItem('userExperience', userResponse.data.experience)
         } catch (error) {
             console.log(error)

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -8,6 +8,7 @@ import { Container, Content, Left, Right, Body } from 'native-base';
 import CardComponent from '../CardComponent.js'
 import CooklabAxios from '../HttpRequest/index'
 import moment from 'moment'
+import AsyncStorage from '../AsyncStorage'
 
 class NewfeedTab extends Component {
 
@@ -23,6 +24,7 @@ class NewfeedTab extends Component {
         } catch (error) {
             console.log(error)
         }
+        console.log('newfeed' + userid)
         try {
             feedResponse = await CooklabAxios.get(`/feeds?userId=${userid}`)
             this.setState({feedResponse: feedResponse.data})
