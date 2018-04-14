@@ -3,28 +3,29 @@ import { StyleSheet, ScrollView, Text, Image, View, Button } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 import ImageFactory from 'src/components/ImageFactory';
+import BackHeader from './BackHeader'
 
 class Aboutus extends Component {
     
     render(){
         return(
-            <ScrollView style={ styles.container }>
-                <View style={ styles.header }>
-                    <Ionicons name="ios-arrow-back" onPress={() =>  Actions.MainScreen() } size={25} style={ styles.backIcon } />
-                </View>
-                <Text style={ styles.aboutus }>About us..</Text>
-                <View style={ styles.logoWrapper }>
-                    <Image source={ ImageFactory.logo } style={ styles.logoImage }/>
-                    <Text style={ styles.cooklab }>CookLab</Text>
-                </View>
-                <Text style={ styles.thanks }>Thanks for using our application.</Text>
-                <Text style={ styles.collaborators }>Collaborators</Text>
-                <View style={ styles.devWrapper }>
-                    <Text style={ styles.dev }>Narut Poovorakit</Text>
-                    <Text style={ styles.dev }>Natanon Poonawagul</Text>
-                    <Text style={ styles.dev }>Supanat Pokturng</Text>
-                </View>
-            </ScrollView>
+            <View style={{ flex: 1 }}>
+                <BackHeader />
+                <ScrollView style={ styles.container }>
+                    <Text style={ styles.aboutus }>About us..</Text>
+                    <View style={ styles.logoWrapper }>
+                        <Image source={ ImageFactory.logo } style={ styles.logoImage }/>
+                        <Text style={ styles.cooklab }>CookLab</Text>
+                    </View>
+                    <Text style={ styles.thanks }>Thanks for using our application.</Text>
+                    <Text style={ styles.collaborators }>Collaborators</Text>
+                    <View style={ styles.devWrapper }>
+                        <Text style={ styles.dev }>Narut Poovorakit</Text>
+                        <Text style={ styles.dev }>Natanon Poonawagul</Text>
+                        <Text style={ styles.dev }>Supanat Pokturng</Text>
+                    </View>
+                </ScrollView>
+            </View>
         )
     }
 }

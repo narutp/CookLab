@@ -6,6 +6,7 @@ import IconIonicons from 'react-native-vector-icons/Ionicons'
 import { Card, CardItem, Left, Right, Header, Body } from 'native-base'
 import CooklabAxios from '../HttpRequest'
 import StarRating from 'react-native-star-rating'
+import BackHeader from './BackHeader';
 
 class DishDetail extends Component{
     
@@ -38,7 +39,7 @@ class DishDetail extends Component{
         console.log('Dish detail: ' + getDishResponse.data)
         this.setState({
             // TODO: dish rate that send from back, type is string (need to change to int)
-            dish_rate: 5,
+            dish_rate: getDishResponse.data.rate,
             dish_recipe: getDishResponse.data.recipe,
             dish_ingredients: getDishResponse.data.ingredients,
             dish_imageUrl: getDishResponse.data.image,
@@ -59,13 +60,7 @@ class DishDetail extends Component{
     render(){
         return(
             <View style={{ flex: 1 }}>
-                <Header style={styles.headerModal}>
-                    <Left style={{ flex: 1, justifyContent: 'center' }}>
-                        <IconIonicons name="ios-arrow-back" onPress={() => {
-                            Actions.MainScreen()
-                        }} color={'black'} size={25} style={ styles.backIcon } />
-                    </Left>
-                </Header>
+                <BackHeader />
                 <ScrollView style={ styles.container }>
                     {/* <View style={ styles.header }>
                         <Ionicons name="ios-arrow-back" onPress={() =>  Actions.MyDish() } size={25} style={ styles.backIcon } />
@@ -135,10 +130,6 @@ const styles = StyleSheet.create({
     },
     backIcon: {
         marginLeft: 10
-    },
-    backIcon: {
-        marginLeft: 10, 
-        marginTop: 6,
     },
     dishName: {
         fontSize: 16,
