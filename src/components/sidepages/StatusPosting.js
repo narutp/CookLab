@@ -54,7 +54,13 @@ class StatusPosting extends Component {
         uploadURL: '',
         caption: '',
         isModalVisible: false,
-        level: ''
+        dishName: '',
+        dishDescription: '',
+        calories: '',
+        ingredients: '',
+        recipe: '',
+        level: '',
+        isMyDish: false,
       }
     }
 
@@ -72,18 +78,37 @@ class StatusPosting extends Component {
     }
 
     openDishDetail() {
-      this.setState({isModalVisible: !this.state.isModalVisible})
+      this.setState({ isModalVisible: !this.state.isModalVisible })
     }
 
     async createDish(uploadURL) {
       let createResponse
-      try {
+
+      // Not my dish (normal post)
+      if (this.state.isMyDish === false) {
+        try {
           createResponse = await CooklabAxios.post(`/create_dish`, {
             image: uploadURL,
             type: 'normal'
-        })
-      } catch(error) {
-        console.log(error)
+          })
+        } catch(error) {
+          console.log(error)
+        }
+      } else {
+        // My dish (include dish details)
+        try {
+          createResponse = await CooklabAxios.post(`/create_dish`, {
+            image: uploadURL,
+            type: 'mydish',
+            name: this.state.dishName,
+            description: this.state.dishDescription,
+            ingredient_str: this.state.ingredients,
+            recipe_str: this.state.recipe,
+            level: this.state.level
+          })
+        } catch (error) {
+          console.log(error)
+        }
       }
       console.log('create dish by sending pic url with id dish: ' + createResponse.data)
       this.createPost(createResponse.data, uploadURL)
@@ -106,6 +131,17 @@ class StatusPosting extends Component {
       }
     }
 
+    saveDishDetail() {
+      if (this.state.dishName != '' &&
+        this.state.dishDescription != '' &&
+        this.state.ingredients != '' &&
+        this.state.recipe != '') {
+          this.setState({ isMyDish: true, isModalVisible: !this.state.isModalVisible })
+        } else {
+          this.setState({ isMyDish: false, isModalVisible: !this.state.isModalVisible })
+        }
+    }
+
     render() {
         return(
           <View>
@@ -122,26 +158,36 @@ class StatusPosting extends Component {
                       <Text style={{ fontSize: 14 }}>Dish details</Text>
                       <TextInput 
                         autoCapitalize='none'
+                        value={this.state.dishName}
+                        onChangeText={ (text) => this.setState({dishName: text}) }
                         style={styles.dishName} placeholder="Dish name..." />
                       <TextInput 
                         multiline={true}
-                        numberOfLines={3} 
+                        numberOfLines={3}
+                        value={this.state.dishDescription}
+                        onChangeText={ (text) => this.setState({dishDescription: text}) } 
                         autoCapitalize='none'
                         style={styles.dishDescription} placeholder="Dish description..." />
                       <TextInput 
                         multiline={true} 
+                        value={this.state.calories}
+                        onChangeText={ (text) => this.setState({calories: text}) }
                         autoCapitalize='none'
                         style={styles.dishName} placeholder="Calories..." />
                       <Text style={{ fontSize: 14 }}>Ingredients</Text>
                       <TextInput 
                         multiline={true}
                         numberOfLines={4}
+                        value={this.state.ingredients}
+                        onChangeText={ (text) => this.setState({ingredients: text}) }
                         style={styles.dishRecipe} 
                         placeholder="1 tablespoon oil" />
                       <Text style={{ fontSize: 14 }}>Recipe (Step by step)</Text>
                       <TextInput 
                         multiline={true}
                         numberOfLines={4}
+                        value={this.state.recipe}
+                        onChangeText={ (text) => this.setState({recipe: text}) }
                         style={styles.dishRecipe} 
                         placeholder="1. Cook the noodles in boiling water.." />
                       <Text style={{ fontSize: 14 }}>Level of food</Text>
@@ -161,13 +207,13 @@ class StatusPosting extends Component {
                         alignItems: 'center', }}>
                         <Button style={ styles.cancelButton }
                             onPress={() => {
-                                this.setState({ isModalVisible: !this.state.isModalVisible })
+                                this.setState({ isModalVisible: !this.state.isModalVisible, isMyDish: false })
                             }}>
                             <Text>Cancel</Text>
                         </Button>
 
                         <Button style={ styles.saveDishButton }
-                            onPress={() => this.saveName()}>
+                            onPress={() => this.saveDishDetail()}>
                             <Text>Save</Text>
                         </Button>
                       </View>
@@ -214,8 +260,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   imageCard: {
-    resizeMode: 'stretch',
-    height: 300,
+    resizeMode: 'cover',
+    height: 250,
     width: '100%'
   },
   dishDetailButton: {

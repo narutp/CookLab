@@ -184,7 +184,7 @@ class Login extends Component {
                     </View>
                     {/* Button */}
                     <View>
-                        <Button style={ styles.button } onPress={() => this.login()}>
+                        <Button style={ styles.button } onPress={async () => await this.login()}>
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={[ styles.textButton, styles.simpleTextButton ]}>LOG IN</Text>
                             </View>
