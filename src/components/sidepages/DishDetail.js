@@ -37,7 +37,7 @@ class DishDetail extends Component{
         }
         console.log('Dish detail: ' + getDishResponse.data)
         this.setState({
-            dish_rate: 2.5,
+            dish_rate: getDishResponse.data.rating,
             dish_recipe: getDishResponse.data.recipe,
             dish_ingredients: getDishResponse.data.ingredients,
             dish_imageUrl: getDishResponse.data.image,
@@ -56,6 +56,7 @@ class DishDetail extends Component{
     }
     
     render(){
+        // TODO: Can't scroll!!
         return(
             <View>
                 <Header style={styles.headerModal}>
