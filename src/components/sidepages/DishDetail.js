@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, ScrollView, Text, Image, View, Dimensions } from 'react-native'
+import { StyleSheet, ScrollView, Text, Image, View, Dimensions, AsyncStorage } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
@@ -21,6 +21,7 @@ class DishDetail extends Component{
             dish_name: '',
             dish_description: '',
             dish_level: '',
+            userid: ''
         }
     }
 
@@ -30,6 +31,13 @@ class DishDetail extends Component{
 
     async fetchDish() {
         let getDishResponse
+        let getUserid
+        try {
+            getUserid = await AsyncStorage.getItem('userid')
+        } catch (error) {
+            console.log(error)
+        }
+        console.log('userid' + getUserid)
         try {
             // id dish from newfeed
             getDishResponse = await CooklabAxios.get(`get_dish?dishId=${this.props.idDish}`)
@@ -45,7 +53,8 @@ class DishDetail extends Component{
             dish_imageUrl: getDishResponse.data.image,
             dish_name: getDishResponse.data.name,
             dish_description: getDishResponse.data.description,
-            dish_level: getDishResponse.data.level
+            dish_level: getDishResponse.data.level,
+            userid: getUserid
         })
         console.log('ingre: ' + this.state.dish_ingredients[0])
         console.log('recipe: ' + this.state.dish_recipe)
@@ -60,7 +69,11 @@ class DishDetail extends Component{
     async rateDish() {
         let rateResponse
         try {
-            
+            rateResponse = await CooklabAxios.put(`rate_dish`, {
+                dish_id: this.props.idDish,
+                user_id: this.state.userid,
+                rate: this.state.dish_rate
+            })
         } catch (error) {
             console.log(error)
         }
