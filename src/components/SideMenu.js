@@ -64,6 +64,13 @@ class SideMenu extends Component {
           </View>
           <View>
             <View style={styles.navSectionStyle}>
+              <Text style={styles.navItemStyle} onPress={() => Actions.Achievement()}>
+                Achievement
+              </Text>
+            </View>
+          </View>
+          <View>
+            <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={() => Actions.CookingLevel()}>
                 CookingLevel
               </Text>

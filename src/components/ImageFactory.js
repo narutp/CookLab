@@ -29,6 +29,22 @@ const Images = {
     'food7': require('../assets/image/Food/food7.jpg'),
     'food8': require('../assets/image/Food/food8.jpg'),
     'food9': require('../assets/image/Food/food9.jpg'),
+    //Acheivement
+    'plates1': require('../assets/image/Acheivement/plates1.png'),
+    'plates2': require('../assets/image/Acheivement/plates2.png'),
+    'plates3': require('../assets/image/Acheivement/plates3.png'),
+    'plates4': require('../assets/image/Acheivement/plates4.png'),
+    'plates5': require('../assets/image/Acheivement/plates5.png'),
+    'plates6': require('../assets/image/Acheivement/plates6.png'),
+    'plates7': require('../assets/image/Acheivement/plates7.png'),
+    'plates8': require('../assets/image/Acheivement/plates8.png'),
+    'plates9': require('../assets/image/Acheivement/plates9.png'),
+    'plates10': require('../assets/image/Acheivement/plates10.png'),
+    'trophy1': require('../assets/image/Acheivement/trophy1.png'),
+    'trophy2': require('../assets/image/Acheivement/trophy2.png'),
+    'trophy3': require('../assets/image/Acheivement/trophy3.png'),
+    'trophy4': require('../assets/image/Acheivement/trophy4.png'),
+    'trophy5': require('../assets/image/Acheivement/trophy5.png'),
 }
 
 export default Images

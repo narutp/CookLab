@@ -13,13 +13,14 @@ import CookingLevel from 'src/components/sidepages/CookingLevel'
 import Leaderboard from 'src/components/sidepages/Leaderboard'
 import MyDish from 'src/components/sidepages/MyDish'
 import DishDetail from '../components/sidepages/DishDetail'
+import Achievement from 'src/components/sidepages/Achievement'
 
 const App = () => {
     return (
         <Provider store={store}>
             <Router>
                 <Scene key="root">
-                    <Scene key="Login" component={Login} hideNavBar={1} initial/>
+                    <Scene key="Login" component={Login} hideNavBar={1} />
                     <Scene key="StatusPosting" component={StatusPosting} hideNavBar={1} />
                     <Scene key="Register" component={Register} hideNavBar={1} />
                     <Scene key="SideMenu" component={SideMenu} hideNavBar={1} />
@@ -28,6 +29,7 @@ const App = () => {
                     <Scene key="Leaderboard" component={Leaderboard} hideNavBar={1} />
                     <Scene key="MyDish" component={MyDish} hideNavBar={1} />
                     <Scene key="DishDetail" component={DishDetail} hideNavBar={1} />
+                    <Scene key="Achievement" component={Achievement} hideNavBar={1} initial/>
                 </Scene>
             </Router>
         </Provider>
