@@ -58,7 +58,7 @@ class DishDetail extends Component{
     render(){
         // TODO: Can't scroll!!
         return(
-            <View>
+            <View style={{ flex: 1 }}>
                 <Header style={styles.headerModal}>
                     <Left style={{ flex: 1, justifyContent: 'center' }}>
                         <IconIonicons name="ios-arrow-back" onPress={() => {
