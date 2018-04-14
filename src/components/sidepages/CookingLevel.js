@@ -15,6 +15,8 @@ class CookingLevel extends Component {
         progress: 0,
         userData: {},
         MAX_PROGRESS: 0,
+        userBadge: '',
+        oldBadge: 0,
         badgeDetail: [ {image: ImageFactory.consumer1 ,name:'Consumer I', point:0, progress:0}, 
                        {image: ImageFactory.consumer2 ,name:'Consumer II', point:40, progress:0},
                        {image: ImageFactory.consumer3 ,name:'Consumer III', point:80, progress:0},
@@ -42,27 +44,33 @@ class CookingLevel extends Component {
         console.log(result.data)
         this.setState({userData: result.data})
         console.log(this.state.userData.experience)
-        this.progressRunning()
         this.assignProgressValue()
+        this.progressRunning()
     }
 
     progressRunning() {
-        this.state.MAX_PROGRESS = ((this.state.userData.experience-80)/(150-80)) * 100
         Timer.setInterval(
             'Progress', () => {
-                this.setState({progress:this.state.progress+2})
+                this.setState({progress:this.state.progress+1})
                 if(this.state.progress>=this.state.MAX_PROGRESS){
                     Timer.clearInterval('Progress')
                 }
-            }, 10
+            }, 5
           )
     }
 
     assignProgressValue(){
         const tempArray = this.state.badgeDetail
         for (i = 0;i < this.state.badgeDetail.length;i++){
-            if(this.state.badgeDetail[i].point >= this.state.MAX_PROGRESS){
-                console.log("In if", this.state.MAX_PROGRESS ,"Point " ,this.state.badgeDetail[i].point)
+            if(this.state.badgeDetail[i].point >= this.state.userData.experience){
+                this.setState({userBadge: {
+                    image: this.state.badgeDetail[i].image ,
+                    name: this.state.badgeDetail[i].name ,
+                    badgePoint: this.state.badgeDetail[i].point}
+                })
+                this.setState({ oldBadge: this.state.badgeDetail[i-1].point })
+                this.setState({ MAX_PROGRESS: ((this.state.userData.experience-this.state.oldBadge)/
+                    (this.state.userBadge.badgePoint-this.state.oldBadge)) * 100})
                 tempArray[i].progress = Math.ceil(this.state.MAX_PROGRESS)
                 break
             }
@@ -91,11 +99,11 @@ class CookingLevel extends Component {
                     <Text style={ styles.headText }>CookingLevel</Text>
                 </View>
                 <View style={styles.mybadgeComponent}>
-                    <Image source={ImageFactory.consumer3} style={ styles.mybadge }/>
-                    <Text style={ styles.textBadge }>Consumer III</Text>
+                    <Image source={ this.state.userBadge.image } style={ styles.mybadge }/>
+                    <Text style={ styles.textBadge }>{ this.state.userBadge.name }</Text>
                     <View style={ styles.badgeProgress }><ProgressBarClassic progress={this.state.progress} /></View>
                     <Text style={ styles.yourPoint }>Your Point: { this.state.userData.experience }</Text>
-                    <Text style={ styles.badgePoint }>Point for next badge: 150</Text>
+                    <Text style={ styles.badgePoint }>Point for next badge: { this.state.userBadge.badgePoint }</Text>
                 </View>
                     { this.state.badgeDetail.map((data,index) => {
                         return(
