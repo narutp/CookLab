@@ -1,4 +1,6 @@
 const Images = {
+    //Logo
+    'logo': require('src/assets/image/Logo/chef.png'),
     //Badges
     'consumer1': require('src/assets/image/badges/consumer-green.png'),
     'consumer2': require('src/assets/image/badges/consumer-blue.png'),

@@ -17,12 +17,13 @@ class DishDetail extends Component{
                     <CardItem style={ styles.dishNameWrapper }><Text style={ styles.dishName }>DishName</Text></CardItem>
                 </Card>
                 <Image source={this.props.imageSource} style={ styles.dishImage }/>
-                <Text>detail1...</Text>
-                <Text>detail2...</Text>
-                <Text>detail3...</Text>
-                <Text>detail4...</Text>
-                <Text>detail5...</Text>
-                <Text>detail6...</Text>
+                <View style={ styles.detail }>
+                    <Text style={ styles.detailText }>Type: </Text>
+                    <Text style={ styles.detailText }>Level: </Text>
+                    <Text style={ styles.detailText }>Description: </Text>
+                    <Text style={ styles.detailText }>Ingredients: </Text>
+                    <Text style={ styles.detailText }>Recipe: </Text>
+                </View>
             </ScrollView>
         )
     }
@@ -56,5 +57,11 @@ const styles = StyleSheet.create({
     dishImage: {
         width: Dimensions.get('window').width,
         height: 250
-    }
+    },
+    detail: {
+        marginLeft: 10
+    },
+    detailText: {
+        fontSize: 18
+    }  
 })
