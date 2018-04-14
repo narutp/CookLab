@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Modal, TextInput, Animated, AsyncStorage, TouchableOpacity, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { ScrollView, Modal, TextInput, Animated, AsyncStorage, TouchableHighlight, TouchableOpacity, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { Container, Card, CardItem, Thumbnail, Body, Left, Right, Button, Header, Footer,
 Icon } from 'native-base';
 import IconIonicons from 'react-native-vector-icons/Ionicons'
@@ -185,9 +185,13 @@ class CardComponent extends Component {
               text: this.state.comment
             })
         } catch (error) {
-            
+            console.log(error)
         }
+    }
 
+    navigateDishDetail() {
+        console.log('ininininin')
+        Actions.DishDetail({ idDish: this.props.idDish })
     }
 
     render() {
@@ -262,10 +266,12 @@ class CardComponent extends Component {
                     </CardItem>
                     <CardItem cardBody>
                         {/* <Image source={foodImage[this.props.foodPic]} style={styles.imageCard}/> */}
-                        <Animated.Image source={{ uri: this.props.foodPic }} style={{ resizeMode: 'cover',
-                        height: 250,
-                        width: '100%',
-                        transform: [{scale: this.springValue}]}} />
+                        <TouchableOpacity onPress={ () => this.navigateDishDetail() }>
+                            <Image source={{ uri: this.props.foodPic }} style={{ resizeMode: 'cover',
+                                height: 250,
+                                width: Dimensions.get('window').width
+                            }} />
+                        </TouchableOpacity>
                         { this.state.isIncreaseTrophy === true && 
                             <Animated.View style={{ position: 'absolute', left: '42%', transform: [{scale: this.iconAnimated}] }}>
                                 <IconIonicons name='md-trophy' style={{ color: 'white' }} size={70}/>

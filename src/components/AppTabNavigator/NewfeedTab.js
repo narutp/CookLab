@@ -61,6 +61,7 @@ class NewfeedTab extends Component {
                                 postId={data._id}
                                 status={data.status}
                                 comments={data.comments}
+                                idDish={data.id_dish}
                              />
                         )
                     })}

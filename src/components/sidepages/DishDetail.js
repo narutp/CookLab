@@ -7,6 +7,11 @@ import { Card, CardItem } from 'native-base'
 
 class DishDetail extends Component{
     
+    constructor(props) {
+        super(props)
+        console.log('id dish' + this.props.idDish)
+    }
+    
     render(){
         return(
             <ScrollView style={ styles.container }>
