@@ -13,8 +13,8 @@ class DishDetail extends Component{
         console.log('id dish' + this.props.idDish)
         this.state = {
             dish_rate: '',
-            dish_recipe: '',
-            dish_ingredients: '',
+            dish_recipe: [],
+            dish_ingredients: [],
             dish_imageUrl: '',
             dish_name: '',
             dish_description: '',
@@ -44,34 +44,45 @@ class DishDetail extends Component{
             dish_description: getDishResponse.data.description,
             dish_level: getDishResponse.data.level
         })
+        console.log('ingre: ' + this.state.dish_ingredients[0])
+        console.log('recipe: ' + this.state.dish_recipe)
     }
     render(){
         return(
             <View>
                 <Header style={styles.headerModal}>
-                    <Left>
+                    <Left style={{ flex: 1, justifyContent: 'center' }}>
                         <IconIonicons name="ios-arrow-back" onPress={() => {
-                            Action.MainScreen()
+                            Actions.MainScreen()
                         }} color={'black'} size={25} style={ styles.backIcon } />
                     </Left>
-                    <Body>
-                        <Text>Dish</Text>
-                    </Body>
                 </Header>
                 <ScrollView style={ styles.container }>
                     {/* <View style={ styles.header }>
                         <Ionicons name="ios-arrow-back" onPress={() =>  Actions.MyDish() } size={25} style={ styles.backIcon } />
                     </View> */}
                     <Image source={{ uri: this.state.dish_imageUrl }} style={ styles.dishImage }/>
-                    <Card>
-                        <CardItem style={ styles.dishNameWrapper }><Text style={ styles.dishName }>{this.state.dish_name}</Text></CardItem>
-                    </Card>
-                    <View style={ styles.detail }>
-                        <Text style={ styles.detailText }>Type: </Text>
-                        <Text style={ styles.detailText }>Level: </Text>
-                        <Text style={ styles.detailText }>Description: </Text>
-                        <Text style={ styles.detailText }>Ingredients: </Text>
-                        <Text style={ styles.detailText }>Recipe: </Text>
+                    <View style={{ padding: 20 }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
+                            <Text style={ styles.dishName }>{this.state.dish_name}</Text>
+                            <Text style={ styles.dishDescription }>{this.state.dish_description}</Text>
+                        </View>
+                        <View>
+                            {/* <Text style={ styles.detailText }>Level: </Text> */}
+                            <View style={ styles.subtitleWrapper }>
+                                <Text style={ styles.subtitle }>Ingredients</Text>
+                                { this.state.dish_ingredients.map(element => {
+                                    return <Text style={ styles.detailText }>{element}{"\n"}</Text>
+                                })}
+                                {/* <Text style={ styles.detailText }>{this.state.dish_ingredients}</Text> */}
+                            </View>
+                            <View style={ styles.subtitleWrapper }>
+                                <Text style={ styles.subtitle }>Recipes</Text>
+                                { this.state.dish_recipe.map(element => {
+                                    return <Text style={ styles.detailText }>{element}{"\n"}</Text>
+                                })}
+                            </View>
+                        </View>
                     </View>
                 </ScrollView>
             </View>
@@ -88,10 +99,10 @@ export default connect(mapStateToProps, null)(DishDetail)
 const styles = StyleSheet.create({
     container: {
         // flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     headerModal: {
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     backIcon: {
         marginLeft: 10
@@ -99,22 +110,34 @@ const styles = StyleSheet.create({
     backIcon: {
         marginLeft: 10, 
         marginTop: 6,
-        color: 'white' 
-    },
-    dishNameWrapper: {
-        width: Dimensions.get('window').width
+        color: 'black' 
     },
     dishName: {
-        fontSize: 24
+        fontSize: 16,
+        fontWeight: '800'
+    },
+    dishDescription: {
+        fontSize: 13,
+        fontWeight: '500'
     },
     dishImage: {
         width: Dimensions.get('window').width,
-        height: 250
+        resizeMode: 'cover',
+        height: 250,
+        marginBottom: 5
+    },
+    subtitle: {
+        fontSize: 13,
+        fontWeight: '500',
+        marginBottom: 10
+    },
+    subtitleWrapper: {
+        marginBottom: 15
     },
     detail: {
         marginLeft: 10
     },
     detailText: {
-        fontSize: 18
+        fontSize: 12
     }  
 })
