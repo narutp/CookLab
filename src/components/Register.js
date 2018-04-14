@@ -18,8 +18,9 @@ class Register extends Component {
     }
 
     async register () {
+        let registerResponse
         try {
-            let registerResponse = await ConfigAxios.post(`/create_user`, {
+            registerResponse = await ConfigAxios.post(`/create_user`, {
                 name: this.state.name,
                 username: this.state.username,
                 email: this.state.email,

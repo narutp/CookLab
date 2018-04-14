@@ -184,7 +184,6 @@ class CardComponent extends Component {
               id_user: userid,
               text: this.state.comment
             })
-            this.forceUpdate()
         } catch (error) {
             
         }
@@ -304,7 +303,7 @@ class CardComponent extends Component {
                                 { this.props.caption }
                             </Text>
                             <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Text onPress={ () => this.setState({ isModalVisible: !isModalVisible}) } style={{ fontSize: 12, fontWeight: 'bold' }} >more...</Text>
+                                <Text onPress={ () => this.setState({ isModalVisible: !this.state.isModalVisible}) } style={{ fontSize: 12, fontWeight: 'bold' }} >more...</Text>
                             </TouchableOpacity>
                             <TextInput style={ styles.commentInput } placeholder="comment.. " />
                         </Body>

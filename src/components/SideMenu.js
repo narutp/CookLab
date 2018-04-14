@@ -35,8 +35,15 @@ class SideMenu extends Component {
     this.props.navigation.dispatch(navigateAction);
   }
 
-  logout () {
+  async logout () {
     LoginManager.logOut()
+    try {
+      // await AsyncStorage.removeItem('facebookToken')
+      await AsyncStorage.clear()
+      // await AsyncStorage.removeItem('userid')
+    } catch (error) {
+      console.log(error)
+    }
     this.props.navigation.navigate('Login')
   }
 
