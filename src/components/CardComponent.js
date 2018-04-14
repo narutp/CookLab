@@ -12,7 +12,7 @@ import { ShareDialog } from 'react-native-fbsdk'
 import { AccessToken, LoginManager } from 'react-native-fbsdk'
 import { Actions } from 'react-native-router-flux'
 import CommentCard from './CommentCard'
-const Timer = require('react-native-timer')
+import Timer from 'react-native-timer'
 
 class CardComponent extends Component {
 
