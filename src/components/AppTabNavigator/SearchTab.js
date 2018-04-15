@@ -50,8 +50,10 @@ class SearchTab extends Component {
                             return (
                                 <SearchCardComponent 
                                     name={element.name}
-                                    dishId={element._id}
-                                    image={element.image} />
+                                    image={element.image}
+                                    type={element.type}
+                                    id={element._id}
+                                 />
                             )
                         })}
                     </ScrollView>  
