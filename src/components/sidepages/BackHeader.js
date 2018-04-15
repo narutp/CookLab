@@ -11,11 +11,11 @@ class BackHeader extends Component {
             <Header style={styles.headerModal}>
                 <Left style={{ flex: 1, justifyContent: 'center' }}>
                     <IconIonicons name="ios-arrow-back" onPress={() => {
-                        Actions.MainScreen()
+                        this.props.action
                     }} color={'black'} size={25} style={ styles.backIcon } />
                 </Left>
-                <Body>
-                    <Text>{this.props.title}</Text>
+                <Body style={ styles.titleWrapper }>
+                    <Text>{ this.props.title }</Text>
                 </Body>
                 <Right />
             </Header>
@@ -32,4 +32,8 @@ const styles = StyleSheet.create({
     backIcon: {
         marginLeft: 10
     },
+    titleWrapper: {
+        justifyContent: 'center', 
+        alignItems: 'center'
+    }
 })

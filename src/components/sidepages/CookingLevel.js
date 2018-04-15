@@ -93,7 +93,7 @@ class CookingLevel extends Component {
 
         return (
             <View style={ styles.container }>
-                <BackHeader title="Cooking level" />
+                <BackHeader title="Cooking level" actions="Actions.MainScreen()" />
                 <ScrollView style={ styles.container }>
                     <View style={styles.mybadgeComponent}>
                         <Image source={ this.state.userBadge.image } style={ styles.mybadge }/>
