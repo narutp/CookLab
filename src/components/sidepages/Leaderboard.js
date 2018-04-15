@@ -5,8 +5,28 @@ import { Card, CardItem } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 import UserCardComponent from 'src/components/sidepages/UserCardComponent';
+import CookLabAxios from 'src/components/HttpRequest/index'
 
 class Leaderboard extends Component {
+
+    state = {
+        leaderboard: []
+    }
+
+    async getLeaderboard(){
+        try{
+            result = await CookLabAxios.get(`/get_most_post`)
+            this.setState({leaderboard: result.data})
+        } catch(error) {
+            console.log(error)
+        }
+        console.log("Result ",result.data)
+        console.log("State", this.state.leaderboard)
+    } 
+
+    componentDidMount(){
+        this.getLeaderboard()
+    }
 
     render() {
         return(
@@ -25,9 +45,17 @@ class Leaderboard extends Component {
                     </CardItem>
                 </Card>
                 <Text style={ styles.leaderboard }>LeaderBoard</Text>
-                <UserCardComponent rank='1.' badgeImage={ImageFactory.chef1} userImage={ImageFactory.user2} userName="NatanonP" point="555555"/>
-                <UserCardComponent rank='2.' badgeImage={ImageFactory.cook2} userImage={ImageFactory.user3} userName="SupanatP" point="222222"/>
-                <UserCardComponent rank='3.' badgeImage={ImageFactory.juniorcook3} userImage={ImageFactory.user1} userName="NarutP" point="56000"/>
+                { this.state.leaderboard.map((data, index) => {
+                    return(
+                        <UserCardComponent 
+                            rank={ index+1 } 
+                            badgeImage={ImageFactory.chef1} 
+                            userImage={ImageFactory.user2} 
+                            userName={ data.name } 
+                            point={ data.count }
+                        />
+                    )
+                })}
             </ScrollView>
         )
     }

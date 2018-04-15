@@ -1,33 +1,91 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, Text, Image, View, Button } from 'react-native';
+import { StyleSheet, ScrollView, Text, Image, View, Button, AsyncStorage } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 import ImageFactory from 'src/components/ImageFactory';
 import ProgressBarClassic from 'react-native-progress-bar-classic';
 import BadgeCardComponent from 'src/components/sidepages/BadgeCardComponent';
 import Timer from 'react-native-timer'
-
-const MAX_PROGRESS = 40
+import Axios from 'react-native-axios'
+import CookLabAxios from 'src/components/HttpRequest/index'
 
 class CookingLevel extends Component {
 
     state = {
-        progress: 0
+        progress: 0,
+        userData: {},
+        MAX_PROGRESS: 0,
+        userBadge: '',
+        oldBadge: 0,
+        badgeDetail: [ {image: ImageFactory.consumer1 ,name:'Consumer I', point:0, progress:0}, 
+                       {image: ImageFactory.consumer2 ,name:'Consumer II', point:40, progress:0},
+                       {image: ImageFactory.consumer3 ,name:'Consumer III', point:80, progress:0},
+                       {image: ImageFactory.homecook1 ,name:'Homecook I', point:150, progress:0},
+                       {image: ImageFactory.homecook2 ,name:'Homecook II', point:270, progress:0},
+                       {image: ImageFactory.homecook3 ,name:'Homecook III', point:400, progress:0},
+                       {image: ImageFactory.juniorcook1 ,name:'Juniorcook I', point:550, progress:0},
+                       {image: ImageFactory.juniorcook2 ,name:'Juniorcook II', point:720, progress:0},
+                       {image: ImageFactory.juniorcook3 ,name:'Juniorcook III', point:900, progress:0},
+                       {image: ImageFactory.cook1 ,name:'Cook I', point:1400, progress:0},
+                       {image: ImageFactory.cook2 ,name:'Cook II', point:2000, progress:0},
+                       {image: ImageFactory.cook3 ,name:'Cook III', point:2900, progress:0},
+                       {image: ImageFactory.chef1 ,name:'Chef I', point:4500, progress:0},
+                       {image: ImageFactory.chef2 ,name:'Chef II', point:6900, progress:0},
+                       {image: ImageFactory.chef3 ,name:'Chef III', point:10000, progress:0} ]
     };
+
+    async getUser(){
+        let userid = await AsyncStorage.getItem('userid')
+        try{
+            result = await CookLabAxios.get(`/get_user?userId=${userid}`)
+        } catch (error){
+            console.log(error)
+        }
+        console.log(result.data)
+        this.setState({userData: result.data})
+        console.log(this.state.userData.experience)
+        this.assignProgressValue()
+        this.progressRunning()
+    }
 
     progressRunning() {
         Timer.setInterval(
             'Progress', () => {
-                this.setState({progress:this.state.progress+2})
-                if(this.state.progress>=MAX_PROGRESS){
+                this.setState({progress:this.state.progress+1})
+                if(this.state.progress>=this.state.MAX_PROGRESS){
                     Timer.clearInterval('Progress')
                 }
-            }, 10
+            }, 5
           )
     }
 
+    assignProgressValue(){
+        const tempArray = this.state.badgeDetail
+        for (i = 0;i < this.state.badgeDetail.length;i++){
+            if(this.state.badgeDetail[i].point >= this.state.userData.experience){
+                this.setState({userBadge: {
+                    image: this.state.badgeDetail[i].image ,
+                    name: this.state.badgeDetail[i].name ,
+                    badgePoint: this.state.badgeDetail[i].point}
+                })
+                this.setState({ oldBadge: this.state.badgeDetail[i-1].point })
+                this.setState({ MAX_PROGRESS: ((this.state.userData.experience-this.state.oldBadge)/
+                    (this.state.userBadge.badgePoint-this.state.oldBadge)) * 100})
+                tempArray[i].progress = Math.ceil(this.state.MAX_PROGRESS)
+                break
+            }
+            else{
+                console.log("In else")
+                tempArray[i].progress = 100
+            }
+        }
+        this.setState({ badgeDetail: tempArray })
+        console.log("tempArray",tempArray)
+        console.log("badgeDetail",this.state.badgeDetail)
+    }
+
     componentDidMount(){
-        this.progressRunning()
+        this.getUser()
     }
 
     render(){
@@ -41,27 +99,22 @@ class CookingLevel extends Component {
                     <Text style={ styles.headText }>CookingLevel</Text>
                 </View>
                 <View style={styles.mybadgeComponent}>
-                    <Image source={ImageFactory.juniorcook3} style={ styles.mybadge }/>
-                    <Text style={ styles.textBadge }>Gold Junior Cook</Text>
+                    <Image source={ this.state.userBadge.image } style={ styles.mybadge }/>
+                    <Text style={ styles.textBadge }>{ this.state.userBadge.name }</Text>
                     <View style={ styles.badgeProgress }><ProgressBarClassic progress={this.state.progress} /></View>
-                    <Text style={ styles.yourPoint }>Your Point: 56000</Text>
-                    <Text style={ styles.badgePoint }>Point for next badge: 90000</Text>
+                    <Text style={ styles.yourPoint }>Your Point: { this.state.userData.experience }</Text>
+                    <Text style={ styles.badgePoint }>Point for next badge: { this.state.userBadge.badgePoint }</Text>
                 </View>
-                    <BadgeCardComponent badgeImage={ImageFactory.consumer1} badgeName='Consumer I' badgeProgress={100} point='100' timer='1'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.consumer2} badgeName='Consumer II' badgeProgress={100} point='500' timer='2'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.consumer3} badgeName='Consumer III' badgeProgress={100} point='1000' timer='3'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.homecook1} badgeName='Homecook I' badgeProgress={100} point='2500' timer='4'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.homecook2} badgeName='Homecook II' badgeProgress={100} point='5000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.homecook3} badgeName='Homecook III' badgeProgress={100} point='10000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.juniorcook1} badgeName='Juniorcook I' badgeProgress={100} point='20000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.juniorcook2} badgeName='Juniorcook II' badgeProgress={100} point='50000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.juniorcook3} badgeName='Juniorcook III' badgeProgress={40} point='90000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.cook1} badgeName='Cook I' badgeProgress={0} point='140000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.cook2} badgeName='Cook II' badgeProgress={0} point='210000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.cook3} badgeName='Cook III' badgeProgress={0} point='320000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.chef1} badgeName='Chef I' badgeProgress={0} point='550000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.chef2} badgeName='Chef II' badgeProgress={0} point='750000'/>
-                    <BadgeCardComponent badgeImage={ImageFactory.chef3} badgeName='Chef III' badgeProgress={0} point='1000000'/>
+                    { this.state.badgeDetail.map((data,index) => {
+                        return(
+                            <BadgeCardComponent 
+                                badgeImage={data.image} 
+                                badgeName={data.name} 
+                                badgeProgress={data.progress} 
+                                point={data.point} 
+                            />
+                        )
+                    })}
             </ScrollView>
         );
     }
