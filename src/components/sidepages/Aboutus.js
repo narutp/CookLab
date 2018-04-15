@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView, Text, Image, View, Button } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 import ImageFactory from 'src/components/ImageFactory';
-import BackHeader from './BackHeader'
+import BackHeader from '../header/BackHeader'
 
 class Aboutus extends Component {
     

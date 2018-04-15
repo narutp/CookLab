@@ -8,7 +8,7 @@ import BadgeCardComponent from 'src/components/sidepages/BadgeCardComponent'
 import Timer from 'react-native-timer'
 import Axios from 'react-native-axios'
 import CookLabAxios from 'src/components/HttpRequest/index'
-import BackHeader from './BackHeader'
+import BackHeader from '../header/BackHeader'
 
 class CookingLevel extends Component {
 

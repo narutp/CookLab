@@ -7,7 +7,7 @@ import { Container, Content, Left, Right, Body, Header } from 'native-base';
 
 // props
 // onMenuPressed () => {}
-class CustomHeader extends Component {
+class AppHeader extends Component {
 
     render() {
       console.log(this.props)
@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
   })
 
 
-export default CustomHeader
+export default AppHeader

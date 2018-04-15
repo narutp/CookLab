@@ -6,7 +6,7 @@ import { Actions } from 'react-native-router-flux'
 import ImageFactory from 'src/components/ImageFactory'
 import { Card, CardItem, Thumbnail } from 'native-base'
 import AchievementCard from './AchievementCard'
-import BackHeader from './BackHeader'
+import BackHeader from '../header/BackHeader'
 
 class Achievement extends Component {
     

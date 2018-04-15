@@ -5,7 +5,7 @@ import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import { Container, Content, Left, Right, Body } from 'native-base';
 import CardComponent from '../CardComponent'
-import Header from './Header'
+import AppHeader from '../header/AppHeader'
 import MainScreen from '../MainScreen'
 
 class TopfeedTab extends Component {

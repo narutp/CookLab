@@ -6,7 +6,7 @@ import IconIonicons from 'react-native-vector-icons/Ionicons'
 import { Card, CardItem, Left, Right, Header, Button, Body } from 'native-base'
 import CooklabAxios from '../HttpRequest'
 import StarRating from 'react-native-star-rating'
-import BackHeader from './BackHeader';
+import BackHeader from '../header/BackHeader'
 
 class DishDetail extends Component{
     

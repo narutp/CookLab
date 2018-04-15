@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import Header from './Header'
+import AppHeader from '../header/AppHeader'
 import { Container, Content, Left, Right, Body } from 'native-base';
 import CardComponent from '../CardComponent.js'
 import CooklabAxios from '../HttpRequest/index'
@@ -47,7 +47,7 @@ class NewfeedTab extends Component {
     render() {
         return (
             <Container style={styles.container}>
-                <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll } />
+                <AppHeader onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll } />
                 <Content>
                     {this.state.feedResponse.map((data, index) => {
                         return (

@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
 import UserCardComponent from 'src/components/sidepages/UserCardComponent'
 import CookLabAxios from 'src/components/HttpRequest/index'
-import BackHeader from './BackHeader'
+import BackHeader from '../header/BackHeader'
 
 class Leaderboard extends Component {
 
