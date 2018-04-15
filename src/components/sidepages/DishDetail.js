@@ -82,7 +82,7 @@ class DishDetail extends Component{
     render(){
         return(
             <View style={{ flex: 1 }}>
-                <BackHeader title="Dish" actions="Actions.MainScreen()" />
+                <BackHeader title="Dish" actions="sidemenu" />
                 <ScrollView style={ styles.container }>
                     {/* <View style={ styles.header }>
                         <Ionicons name="ios-arrow-back" onPress={() =>  Actions.MyDish() } size={25} style={ styles.backIcon } />

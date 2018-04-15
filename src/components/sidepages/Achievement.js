@@ -13,7 +13,7 @@ class Achievement extends Component {
     render() {
         return (
             <View style={ styles.container }>
-                <BackHeader title="Achievement" actions="Actions.MainScreen" />
+                <BackHeader title="Achievement" actions="sidemenu" />
                 <ScrollView style={ styles.container }>
                     <Thumbnail source={ ImageFactory.user1 } style={ styles.userImage }/>
                     <View style={ styles.statWrapper }>

@@ -32,7 +32,7 @@ class Leaderboard extends Component {
     render() {
         return (
             <View style={ styles.container }>
-                <BackHeader title="Leaderboard" actions="Actions.MainScreen" />
+                <BackHeader title="Leaderboard" actions="sidemenu" />
                 <ScrollView style={ styles.container }>
                     <Card style={ styles.chooser }>
                         <CardItem style={ styles.friendWrapper }>

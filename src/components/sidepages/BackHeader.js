@@ -10,9 +10,14 @@ class BackHeader extends Component {
         return (
             <Header style={styles.headerModal}>
                 <Left style={{ flex: 1, justifyContent: 'center' }}>
-                    <IconIonicons name="ios-arrow-back" onPress={() => {
-                        this.props.action
-                    }} color={'black'} size={25} style={ styles.backIcon } />
+                    { this.props.actions === 'sidemenu' ? 
+                        <IconIonicons name="ios-arrow-back" onPress={() => {
+                            Actions.SideMenu()
+                        }} color={'black'} size={25} style={ styles.backIcon } /> : 
+                        <IconIonicons name="ios-arrow-back" onPress={() => {
+                            Actions.MainScreen()
+                        }} color={'black'} size={25} style={ styles.backIcon } />
+                    }
                 </Left>
                 <Body style={ styles.titleWrapper }>
                     <Text>{ this.props.title }</Text>
