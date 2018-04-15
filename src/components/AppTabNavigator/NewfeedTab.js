@@ -6,7 +6,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import AppHeader from '../header/AppHeader'
 import { Container, Content, Left, Right, Body } from 'native-base';
 import CardComponent from '../CardComponent.js'
-import CooklabAxios from '../HttpRequest/index'
+import CooklabAxios from '../../http/index'
 import moment from 'moment'
 
 class NewfeedTab extends Component {

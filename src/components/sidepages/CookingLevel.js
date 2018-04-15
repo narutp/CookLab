@@ -7,7 +7,7 @@ import ProgressBarClassic from 'react-native-progress-bar-classic'
 import BadgeCardComponent from 'src/components/sidepages/BadgeCardComponent'
 import Timer from 'react-native-timer'
 import Axios from 'react-native-axios'
-import CookLabAxios from 'src/components/HttpRequest/index'
+import CookLabAxios from '../../http/index'
 import BackHeader from '../header/BackHeader'
 
 class CookingLevel extends Component {
