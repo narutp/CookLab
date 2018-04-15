@@ -19,18 +19,17 @@ class UserCardComponent extends Component {
                         <Text style={ styles.point }>{ this.props.point }</Text>
                         <Image source={ this.props.badgeImage } style={ styles.badgeImage } />
                     </CardItem> */}
+                    {/* TODO: line bug between list */}
                     <ListItem>
-                        <Left>
-                            <Text>{ this.props.rank }</Text>
+                        <Left style={{ flex: 1 }}>
+                            <Text style={{ fontSize: 10 }}>{ this.props.rank }</Text>
                             <Thumbnail source={ this.props.userImage } style={ styles.userImage } />
                         </Left>
-                        <Body>
-                            <Left>
-                                <Text>{ this.props.userName }</Text>
-                                <Text note>{ this.props.point }{' Pts'}</Text>
-                            </Left>
+                        <Body style={{ flex: 2 }}>
+                            <Text style={{ fontSize: 12 }}>{ this.props.userName }</Text>
+                            <Text style={{ fontSize: 12 }} note>{ this.props.point }{' Pts'}</Text>
                         </Body>
-                        <Right>
+                        <Right style={{ flex: 1 }}>
                             <Thumbnail style= {styles.badgeImage } source={ this.props.badgeImage }/>
                         </Right>
                     </ListItem>
@@ -48,7 +47,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     card: {
-        height: 80,
+        height: 100,
+        flex: 1
     },
     badgeImage: {
         width: 40,
@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
     userImage: {
         width: 40,
         height: 40,
-        marginRight: 0,
         marginLeft: 10
     },
     userName: {
