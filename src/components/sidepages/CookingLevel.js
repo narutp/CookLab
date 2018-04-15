@@ -49,6 +49,20 @@ class CookingLevel extends Component {
         this.progressRunning()
     }
 
+    async getUser(){
+        let userid = await AsyncStorage.getItem('userid')
+        try{
+            result = await CookLabAxios.get(`/get_user?userId=${userid}`)
+        } catch (error){
+            console.log(error)
+        }
+        console.log(result.data)
+        this.setState({userData: result.data})
+        console.log(this.state.userData.experience)
+        this.assignProgressValue()
+        this.progressRunning()
+    }
+
     progressRunning() {
         Timer.setInterval(
             'Progress', () => {
@@ -90,7 +104,6 @@ class CookingLevel extends Component {
     }
 
     render() {
-
         return (
             <View style={ styles.container }>
                 <BackHeader title="LEVEL" actions="sidemenu" />

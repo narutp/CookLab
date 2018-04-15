@@ -79,7 +79,6 @@ class Leaderboard extends Component {
                     </View>
                 </ScrollView>
             </View>
-            
         )
     }
 }
