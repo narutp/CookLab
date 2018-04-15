@@ -73,7 +73,7 @@ class SearchCardComponent extends Component {
                         <Card>
                             <CardItem>
                                 <Left style={{ flex: 2 }}>
-                                    <Image source={{ uri: this.state.image }} style={{ width: 50, height: 50 }}/>
+                                    <Image source={{ uri: this.state.image }} style={ styles.image }/>
                                     <Body>
                                         <Text>{this.state.name}</Text>
                                         <Text note style={{ fontSize: 10 }}>{'Dish level '}{this.state.level}</Text>
@@ -91,7 +91,7 @@ class SearchCardComponent extends Component {
                         <Card>
                             <CardItem>
                                 <Left style={{ flex: 2 }}>
-                                    <Image source={{ uri: this.state.image }} style={{ width: 50, height: 50 }}/>
+                                    <Image source={{ uri: this.state.image }} style={ styles.image }/>
                                     <Body>
                                         <Text>{this.state.name}</Text>
                                         <Text note style={{ fontSize: 10 }}>{'Dish level '}{this.state.level}</Text>
@@ -116,5 +116,9 @@ export default SearchCardComponent
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff'
+    },
+    image: {
+        width: 100,
+        height: 100
     }
 })

@@ -29,6 +29,19 @@ class SearchTab extends Component {
        console.log(this.state.isSearch)
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('Current state', this.state.resultArr)
+        console.log('Next State :', nextState.resultArr)
+        return this.state.resultArr != nextState.resultArr
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (nextState) {
+           this.state.resultArr.splice(0, this.state.resultArr.length)
+        }
+    }
+
+    // TODO: when search new things, old value doesn't gone!
     render () {
         return (
             <View style={styles.container}>
@@ -44,9 +57,10 @@ class SearchTab extends Component {
                         <TextInput>Search</TextInput>
                     </Button> */}
                 </Header>
-                { this.state.isSearch === true &&
+                {/* { this.state.isSearch === true && */}
                     <ScrollView>
                         { this.state.resultArr.map( (element) => {
+                            console.log('render with: ' + element.name)
                             return (
                                 <SearchCardComponent 
                                     name={element.name}
@@ -57,7 +71,7 @@ class SearchTab extends Component {
                             )
                         })}
                     </ScrollView>  
-                }
+                {/* } */}
                 
             </View>
         );
