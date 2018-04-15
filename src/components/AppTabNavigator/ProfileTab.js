@@ -65,17 +65,18 @@ class ProfileTab extends Component {
             id: '',
             picUrl: null,
             isModalVisible: false,
-            uploadURL: null
+            uploadURL: null,
+            picCollection: []
         }
     }
     
     generateImage = () => {
-        return images.map((image, index) => {
-            console.log(image)
+        return this.state.picCollection.map((element, index) => {
+            console.log(element)
             return (
                 <View key={index} style={[{ width: (width)/3 }, { height: (width)/3 }]}>
                     <Image style={{ flex: 1, width: undefined, height: undefined }}
-                    source={image}
+                    source={{ uri: element.image}}
                     />
                 </View>
             )
@@ -143,11 +144,22 @@ class ProfileTab extends Component {
                 this.setState({ name: user_name, picUrl: userResponse.data.photo })
             } else {
                 this.setState({ name: user_name })
-            }
-            
+            }    
         } else {
             this.setState({ name: userNameFB, picUrl: userPicUrlFB })
         }
+
+        let userPostResponse
+        try {
+            userPostResponse = await CooklabAxios.get(`get_user_post?user_id=${userid}`)
+        } catch (error) {
+            console.log(error)
+        }
+        
+        this.setState({
+            picCollection: userPostResponse.data
+        })
+        console.log('user post response: ', this.state.picCollection)
         console.log('name: ' + this.state.name)
         console.log('pic url: ' + this.state.picUrl)
 
@@ -260,6 +272,7 @@ class ProfileTab extends Component {
                 </View>
                 <View style={ styles.body }>
                     {/* User's name */}
+                    {/* TODO: change name bug!!!! */}
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ textAlign: 'center' }}>{ this.state.name }</Text>
                         <IconMaterial onPress={() => this.editName()} name="edit" style={{ textAlign: 'center', marginLeft: 5 }} /> 
