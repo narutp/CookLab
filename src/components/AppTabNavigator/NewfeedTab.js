@@ -56,7 +56,7 @@ class NewfeedTab extends Component {
                                 profilePic='1' 
                                 foodPic={data.image} 
                                 caption={data.caption}
-                                date={moment.utc(data.timestamp).format("MMMM Do YYYY, h:mm")}
+                                date={moment.utc(data.timestamp).format("MMMM Do YYYY, h:mm a")}
                                 userName={data.user_name}
                                 postId={data._id}
                                 status={data.status}

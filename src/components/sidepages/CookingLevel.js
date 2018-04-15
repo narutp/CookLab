@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import { StyleSheet, ScrollView, Text, Image, View, Button, AsyncStorage } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Actions } from 'react-native-router-flux';
-import ImageFactory from 'src/components/ImageFactory';
-import ProgressBarClassic from 'react-native-progress-bar-classic';
-import BadgeCardComponent from 'src/components/sidepages/BadgeCardComponent';
+import React, { Component } from 'react'
+import { StyleSheet, ScrollView, Text, Image, View, Button, AsyncStorage } from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Actions } from 'react-native-router-flux'
+import ImageFactory from 'src/components/ImageFactory'
+import ProgressBarClassic from 'react-native-progress-bar-classic'
+import BadgeCardComponent from 'src/components/sidepages/BadgeCardComponent'
 import Timer from 'react-native-timer'
 import Axios from 'react-native-axios'
 import CookLabAxios from 'src/components/HttpRequest/index'
+import BackHeader from './BackHeader'
 
 class CookingLevel extends Component {
 
@@ -32,9 +33,9 @@ class CookingLevel extends Component {
                        {image: ImageFactory.chef1 ,name:'Chef I', point:4500, progress:0},
                        {image: ImageFactory.chef2 ,name:'Chef II', point:6900, progress:0},
                        {image: ImageFactory.chef3 ,name:'Chef III', point:10000, progress:0} ]
-    };
+    }
 
-    async getUser(){
+    async getUser() {
         let userid = await AsyncStorage.getItem('userid')
         try{
             result = await CookLabAxios.get(`/get_user?userId=${userid}`)
@@ -59,9 +60,9 @@ class CookingLevel extends Component {
           )
     }
 
-    assignProgressValue(){
+    assignProgressValue() {
         const tempArray = this.state.badgeDetail
-        for (i = 0;i < this.state.badgeDetail.length;i++){
+        for (i = 0;i < this.state.badgeDetail.length;i++) {
             if(this.state.badgeDetail[i].point >= this.state.userData.experience){
                 this.setState({userBadge: {
                     image: this.state.badgeDetail[i].image ,
@@ -74,7 +75,7 @@ class CookingLevel extends Component {
                 tempArray[i].progress = Math.ceil(this.state.MAX_PROGRESS)
                 break
             }
-            else{
+            else {
                 console.log("In else")
                 tempArray[i].progress = 100
             }
@@ -84,39 +85,36 @@ class CookingLevel extends Component {
         console.log("badgeDetail",this.state.badgeDetail)
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getUser()
     }
 
-    render(){
+    render() {
 
-        return(
-            <ScrollView style={ styles.container }>
-                <View style={styles.header}>
-                    <Ionicons name="ios-arrow-back" onPress={() =>  Actions.MainScreen() } size={25} style={ styles.backIcon } />
-                </View>
-                <View style={ styles.headTextWrapper }>
-                    <Text style={ styles.headText }>CookingLevel</Text>
-                </View>
-                <View style={styles.mybadgeComponent}>
-                    <Image source={ this.state.userBadge.image } style={ styles.mybadge }/>
-                    <Text style={ styles.textBadge }>{ this.state.userBadge.name }</Text>
-                    <View style={ styles.badgeProgress }><ProgressBarClassic progress={this.state.progress} /></View>
-                    <Text style={ styles.yourPoint }>Your Point: { this.state.userData.experience }</Text>
-                    <Text style={ styles.badgePoint }>Point for next badge: { this.state.userBadge.badgePoint }</Text>
-                </View>
-                    { this.state.badgeDetail.map((data,index) => {
-                        return(
-                            <BadgeCardComponent 
-                                badgeImage={data.image} 
-                                badgeName={data.name} 
-                                badgeProgress={data.progress} 
-                                point={data.point} 
-                            />
-                        )
-                    })}
-            </ScrollView>
-        );
+        return (
+            <View style={ styles.container }>
+                <BackHeader title="Cooking level" />
+                <ScrollView style={ styles.container }>
+                    <View style={styles.mybadgeComponent}>
+                        <Image source={ this.state.userBadge.image } style={ styles.mybadge }/>
+                        <Text style={ styles.textBadge }>{ this.state.userBadge.name }</Text>
+                        <View style={ styles.badgeProgress }><ProgressBarClassic progress={this.state.progress} /></View>
+                        <Text style={ styles.yourPoint }>Your Point: { this.state.userData.experience }</Text>
+                        <Text style={ styles.badgePoint }>Point for next badge: { this.state.userBadge.badgePoint }</Text>
+                    </View>
+                        { this.state.badgeDetail.map((data,index) => {
+                            return(
+                                <BadgeCardComponent 
+                                    badgeImage={data.image} 
+                                    badgeName={data.name} 
+                                    badgeProgress={data.progress} 
+                                    point={data.point} 
+                                />
+                            )
+                        })}
+                </ScrollView>
+            </View>
+        )
     }
 }
 
@@ -126,23 +124,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white'
-    },
-    backIcon: {
-        marginLeft: 10, 
-        marginTop: 6,
-        color: 'white' 
-    },
-    headText: {
-        alignSelf: 'center',
-        fontSize: 24,
-        marginTop: 10,
-        marginBottom: 10
-    },
-    headTextWrapper: {
-        borderWidth: 0.5
-    },
-    header: {
-        backgroundColor: '#F44336'
     },
     mybadgeComponent: {
         marginTop: 20

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { StyleSheet } from 'react-native'
-import { Header, Left } from 'native-base'
+import { Header, Left, Body, Right, Text } from 'native-base'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
 
@@ -14,6 +14,10 @@ class BackHeader extends Component {
                         Actions.MainScreen()
                     }} color={'black'} size={25} style={ styles.backIcon } />
                 </Left>
+                <Body>
+                    <Text>{this.props.title}</Text>
+                </Body>
+                <Right />
             </Header>
         )
     }

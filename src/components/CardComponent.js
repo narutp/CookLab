@@ -311,7 +311,7 @@ class CardComponent extends Component {
                     <CardItem>
                         <Body>
                             <Text style={{ fontSize: 12 }}>
-                                <Text style={{ fontWeight: '900' }}>Natanon </Text>
+                                <Text style={{ fontWeight: '900' }}>{this.props.userName}{"  "}</Text>
                                 { this.props.caption }
                             </Text>
                             <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
