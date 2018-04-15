@@ -13,7 +13,7 @@ class MyDish extends Component {
     render() {
         return (
             <View style={ styles.container }>
-                <BackHeader title="My dishes" actions="sidemenu" />
+                <BackHeader title="MY DISHES" actions="sidemenu" />
                 <ScrollView style={ styles.container }>
                     <Card style={ styles.profile }>
                         <CardItem style={ styles.profilePicWrapper }>
@@ -23,7 +23,7 @@ class MyDish extends Component {
                             <Text style={ styles.detailText }>NarutP</Text>
                             <Text style={ styles.detailText }>Points: 56000</Text>
                             <Text style={ styles.detailText }>Juniorcook III</Text>
-                            <View style={ styles.badgeProgress }><ProgressBarClassic progress={40}/></View>
+                            <View style={ styles.badgeProgress }><ProgressBarClassic valueStyle={'none'} progress={40}/></View>
                         </CardItem>
                         <CardItem style={ styles.badgePicWrapper }>
                             <Thumbnail source={ ImageFactory.juniorcook3 } style={ styles.badgePic } />
@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
         width: '25%'
     },
     profilePic: {
-        width: 70,
-        height: 70
+        width: 50,
+        height: 50
     },
     userDetailWrapper: {
         width: '50%',
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     detailText: {
         alignSelf: 'flex-start',
-        fontSize: 14,
+        fontSize: 12,
         marginBottom: 1
     },
     badgeProgress: {
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
     badgePic: {
-        width: 70,
-        height: 70
+        width: 50,
+        height: 50
     },
     foodImage: {
         width: '100%',
