@@ -29,7 +29,7 @@ class AppHeader extends Component {
 
 const styles = StyleSheet.create({
     header: {
-      backgroundColor: '#F44336',
+      backgroundColor: '#FFBF00',
     },
     titleWrapper: {
       justifyContent: 'center', 
