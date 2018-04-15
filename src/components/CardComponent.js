@@ -7,7 +7,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo'
 import IconSimpleLine from 'react-native-vector-icons/SimpleLineIcons'
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import IconFeather from 'react-native-vector-icons/Feather'
-import CooklabAxios from './HttpRequest/index'
+import CooklabAxios from '../http/index'
 import { ShareDialog } from 'react-native-fbsdk'
 import { AccessToken, LoginManager } from 'react-native-fbsdk'
 import { Actions } from 'react-native-router-flux'
@@ -211,13 +211,13 @@ class CardComponent extends Component {
                     }}>
                     <Container>
                         <Header style={styles.headerModal}>
-                            <Left>
+                            <Left style={{ flex: 1, justifyContent: 'center' }}>
                                 <IconIonicons name="ios-arrow-back" onPress={() => {
                                     this.setState({ isModalVisible: !this.state.isModalVisible })
                                 }} color={'black'} size={25} style={ styles.backIcon } />
                             </Left>
-                            <Body>
-                                <Text>Comment</Text>
+                            <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 13 }}>Comment</Text>
                             </Body>
                         </Header>
                         <ScrollView>
@@ -311,7 +311,7 @@ class CardComponent extends Component {
                     <CardItem>
                         <Body>
                             <Text style={{ fontSize: 12 }}>
-                                <Text style={{ fontWeight: '900' }}>Natanon </Text>
+                                <Text style={{ fontWeight: '900' }}>{this.props.userName}{"  "}</Text>
                                 { this.props.caption }
                             </Text>
                             <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>

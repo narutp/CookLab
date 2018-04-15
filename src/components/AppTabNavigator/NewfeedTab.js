@@ -3,10 +3,10 @@ import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import Header from './Header'
+import AppHeader from '../header/AppHeader'
 import { Container, Content, Left, Right, Body } from 'native-base';
 import CardComponent from '../CardComponent.js'
-import CooklabAxios from '../HttpRequest/index'
+import CooklabAxios from '../../http/index'
 import moment from 'moment'
 
 class NewfeedTab extends Component {
@@ -47,7 +47,7 @@ class NewfeedTab extends Component {
     render() {
         return (
             <Container style={styles.container}>
-                <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll } />
+                <AppHeader onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll } />
                 <Content>
                     {this.state.feedResponse.map((data, index) => {
                         return (
@@ -56,7 +56,7 @@ class NewfeedTab extends Component {
                                 profilePic='1' 
                                 foodPic={data.image} 
                                 caption={data.caption}
-                                date={moment.utc(data.timestamp).format("MMMM Do YYYY, h:mm")}
+                                date={moment.utc(data.timestamp).format("MMMM Do YYYY, h:mm a")}
                                 userName={data.user_name}
                                 postId={data._id}
                                 status={data.status}

@@ -3,14 +3,14 @@ import { StyleSheet, ScrollView, Text, Image, View, Button } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 import ImageFactory from 'src/components/ImageFactory';
-import BackHeader from './BackHeader'
+import BackHeader from '../header/BackHeader'
 
 class Aboutus extends Component {
     
     render(){
         return(
             <View style={{ flex: 1 }}>
-                <BackHeader />
+                <BackHeader title="About us" actions="sidemenu" />
                 <ScrollView style={ styles.container }>
                     <Text style={ styles.aboutus }>About us..</Text>
                     <View style={ styles.logoWrapper }>

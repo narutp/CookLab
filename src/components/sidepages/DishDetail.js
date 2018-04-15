@@ -4,9 +4,9 @@ import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import { Card, CardItem, Left, Right, Header, Button, Body } from 'native-base'
-import CooklabAxios from '../HttpRequest'
+import CooklabAxios from '../../http/index'
 import StarRating from 'react-native-star-rating'
-import BackHeader from './BackHeader';
+import BackHeader from '../header/BackHeader'
 
 class DishDetail extends Component{
     
@@ -82,7 +82,7 @@ class DishDetail extends Component{
     render(){
         return(
             <View style={{ flex: 1 }}>
-                <BackHeader />
+                <BackHeader title="DISH" actions="sidemenu" />
                 <ScrollView style={ styles.container }>
                     {/* <View style={ styles.header }>
                         <Ionicons name="ios-arrow-back" onPress={() =>  Actions.MyDish() } size={25} style={ styles.backIcon } />

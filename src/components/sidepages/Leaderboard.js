@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
-import { StyleSheet, ScrollView, Text, Image, View, Button } from 'react-native';
-import ImageFactory from 'src/components/ImageFactory';
-import { Card, CardItem } from 'native-base';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Actions } from 'react-native-router-flux';
-import UserCardComponent from 'src/components/sidepages/UserCardComponent';
-import CookLabAxios from 'src/components/HttpRequest/index'
+import React, { Component } from 'react'
+import { StyleSheet, ScrollView, Text, Image, View, Button } from 'react-native'
+import ImageFactory from 'src/components/ImageFactory'
+import { Card, CardItem, List, ListItem, Header, Tab, Tabs } from 'native-base'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Actions } from 'react-native-router-flux'
+import UserCardComponent from 'src/components/sidepages/UserCardComponent'
+import CookLabAxios from '../../http/index'
+import BackHeader from '../header/BackHeader'
+import FriendLeaderboard from './FriendLeaderboard'
 
 class Leaderboard extends Component {
 
@@ -13,7 +15,7 @@ class Leaderboard extends Component {
         leaderboard: []
     }
 
-    async getLeaderboard(){
+    async getLeaderboard() {
         try{
             result = await CookLabAxios.get(`/get_most_post`)
             this.setState({leaderboard: result.data})
@@ -24,39 +26,59 @@ class Leaderboard extends Component {
         console.log("State", this.state.leaderboard)
     } 
 
-    componentDidMount(){
+    componentDidMount() {
         this.getLeaderboard()
     }
 
     render() {
-        return(
-            <ScrollView style={ styles.container }>
-                <View style={styles.header}>
-                    <Ionicons name="ios-arrow-back" onPress={() =>  Actions.MainScreen() } size={25} style={ styles.backIcon } />
-                </View>
-                <Card style={ styles.chooser }>
-                    <CardItem style={ styles.friendWrapper }>
-                        <Ionicons name="ios-people" onPress={() => Actions.Leaderboard()} style={ styles.friendIcon } />
-                        <Text style={ styles.friendText }>Friends</Text>
-                    </CardItem>
-                    <CardItem style={ styles.globalWrapper }>
-                        <Ionicons name="ios-globe" onPress={() => Actions.Leaderboard()} style={ styles.globalIcon } />
-                        <Text style={ styles.globalText }>Global</Text>
-                    </CardItem>
-                </Card>
-                <Text style={ styles.leaderboard }>LeaderBoard</Text>
-                { this.state.leaderboard.map((data, index) => {
-                    return(
-                        <UserCardComponent 
-                            rank={ index+1 } 
-                            badgeImage={ImageFactory.chef1} 
-                            userImage={ImageFactory.user2} 
-                            userName={ data.name } 
-                            point={ data.count }
-                        />
-                    )
-                })}
-            </ScrollView>
+        return (
+            <View style={ styles.container }>
+                <BackHeader title="LEADERBOARD" actions="sidemenu" />
+                <ScrollView style={ styles.container }>
+                    {/* <Card style={ styles.chooser }>
+                        <CardItem style={ styles.friendWrapper }>
+                            <Ionicons name="ios-people" onPress={() => Actions.Leaderboard()} style={ styles.friendIcon } />
+                            <Text style={ styles.friendText }>Friends</Text>
+                        </CardItem>
+                        <CardItem style={ styles.globalWrapper }>
+                            <Ionicons name="ios-globe" onPress={() => Actions.Leaderboard()} style={ styles.globalIcon } />
+                            <Text style={ styles.globalText }>Global</Text>
+                        </CardItem>
+                    </Card> */}
+                    <Tabs initialPage={1}>
+                        <Tab textStyle={{ color: '#3E5AAE', fontSize: 12, fontWeight: '500' }} 
+                            activeTextStyle={{ color: '#3E5AAE', fontSize: 14, fontWeight: 'bold', textDecorationLine: 'underline' }}
+                            tabStyle={{ backgroundColor: 'white' }}
+                            activeTabStyle={{ backgroundColor: 'white' }} 
+                            heading="Friends">
+                            <FriendLeaderboard />
+                        </Tab>
+                        <Tab textStyle={{ color: '#3E5AAE', fontSize: 12, fontWeight: '500' }} 
+                            activeTextStyle={{ color: '#3E5AAE', fontSize: 14, fontWeight: 'bold', textDecorationLine: 'underline' }}
+                            tabStyle={{ backgroundColor: 'white' }}
+                            activeTabStyle={{ backgroundColor: 'white' }}
+                            heading="Global">
+                            <FriendLeaderboard />
+                        </Tab>
+                        {/* <Tab heading="Tab3">
+                            <Tab3 />
+                        </Tab> */}
+                    </Tabs>
+                    <View>
+                        { this.state.leaderboard.map((data, index) => {
+                            return(
+                                <UserCardComponent 
+                                    rank={ index+1 } 
+                                    badgeImage={ImageFactory.chef1} 
+                                    userImage={ImageFactory.user2} 
+                                    userName={ data.name } 
+                                    point={ data.count }
+                                />
+                            )
+                        })}
+                    </View>
+                </ScrollView>
+            </View>
         )
     }
 }
@@ -68,22 +90,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white'
     },
-    header: {
-        backgroundColor: '#F44336'
-    },
-    backIcon: {
-        marginLeft: 10, 
-        marginTop: 6,
-        color: 'white' 
-    },
     chooser: {
-        flex: 1,
+        // flex: 1,
         flexDirection: 'row',
-        justifyContent: 'flex-start'
-    },
-    leaderboard: {
-        fontSize: 24,
-        alignSelf: 'center'
+        // justifyContent: 'flex-start'
     },
     tableHeader: {
         flex: 1,

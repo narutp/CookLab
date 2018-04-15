@@ -6,10 +6,12 @@ import IconEntypo from 'react-native-vector-icons/Entypo'
 import { Container, Button, Content, Left, Right, Body } from 'native-base'
 import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
-import CooklabAxios from '../HttpRequest/index'
+import CooklabAxios from '../../http/index'
 import { Actions } from 'react-native-router-flux'
 import RNFetchBlob from 'react-native-fetch-blob'
 import firebase from '../../firebase/'
+import BackHeader from '../header/BackHeader'
+
 const storage = firebase.storage()
 
 const uploadImage = (uri, mime = 'application/octet-stream') => {
@@ -144,7 +146,8 @@ class StatusPosting extends Component {
 
     render() {
         return(
-          <View>
+          <View style={{ flex: 1 }} >
+              <BackHeader title="Post" actions="mainscreen" />
               <Modal
                 animationType="slide"
                 transparent={false}

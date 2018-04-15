@@ -4,10 +4,9 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import IconMaterial from 'react-native-vector-icons/MaterialIcons'
-import Header from './Header'
-// import Modal from 'react-native-modal'
+import AppHeader from '../header/AppHeader'
 import { Button, Container, Content, Left, Right, Body, Card, CardItem, Input } from 'native-base'
-import CooklabAxios from '../HttpRequest/index'
+import CooklabAxios from '../../http/index'
 import ImagePicker from 'react-native-image-picker'
 import RNFetchBlob from 'react-native-fetch-blob'
 // import firebase from '../../firebase'
@@ -16,12 +15,6 @@ let images = [
     require('../../assets/image/Food/food1.jpg'),
     require('../../assets/image/Food/food2.jpg'),
     require('../../assets/image/Food/food3.jpg'),
-    // require('../../assets/image/Food/food4.jpg'),
-    // require('../../assets/image/Food/food5.jpg'),
-    // require('../../assets/image/Food/food6.jpg'),
-    // require('../../assets/image/Food/food7.jpg'),
-    // require('../../assets/image/Food/food8.jpg'),
-    // require('../../assets/image/Food/food9.jpg'),
 ]
 
 let {width, height} = Dimensions.get('window')
@@ -194,7 +187,7 @@ class ProfileTab extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll } />
+                <AppHeader onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll } />
                 
                 <View>
                     <Modal

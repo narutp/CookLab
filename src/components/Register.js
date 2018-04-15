@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { ImageBackground, View, Text, StyleSheet, TextInput } from 'react-native'
 import { Button } from 'native-base'
 import { NavigationActions } from 'react-navigation'
-import ConfigAxios from './HttpRequest/index'
+import ConfigAxios from '../http/index'
 
 class Register extends Component {
 
