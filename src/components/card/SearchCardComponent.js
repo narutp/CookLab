@@ -61,26 +61,52 @@ class SearchCardComponent extends Component {
         Actions.DishDetail({ idDish: this.state.id })
     }
 
+    navigateToUserDetail() {
+        Actions.UserDetail({ idUser: this.state.id })
+    }
+
     render() {
         return (
-            <TouchableOpacity onPress={ () => this.navigateToDishDetail() }>
-                <Card>
-                    <CardItem>
-                        <Left style={{ flex: 2 }}>
-                            <Image source={{ uri: this.state.image }} style={{ width: 50, height: 50 }}/>
-                            <Body>
-                                <Text>{this.state.name}</Text>
-                                <Text note style={{ fontSize: 10 }}>{'Dish level '}{this.state.level}</Text>
-                            </Body>
-                        </Left>
-                        <Right style={{ flex: 1 }}>
-                            <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ fontWeight: '500' }}>{this.state.rating}{'/5'}</Text>
-                            </Body>
-                        </Right>
-                    </CardItem>
-                </Card>
-            </TouchableOpacity>
+            <View>
+                { this.props.type === 'dish' ?
+                    <TouchableOpacity onPress={ () => this.navigateToDishDetail() }>
+                        <Card>
+                            <CardItem>
+                                <Left style={{ flex: 2 }}>
+                                    <Image source={{ uri: this.state.image }} style={{ width: 50, height: 50 }}/>
+                                    <Body>
+                                        <Text>{this.state.name}</Text>
+                                        <Text note style={{ fontSize: 10 }}>{'Dish level '}{this.state.level}</Text>
+                                    </Body>
+                                </Left>
+                                <Right style={{ flex: 1 }}>
+                                    <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={{ fontWeight: '500' }}>{this.state.rating}{'/5'}</Text>
+                                    </Body>
+                                </Right>
+                            </CardItem>
+                        </Card>
+                    </TouchableOpacity> :
+                    <TouchableOpacity onPress={ () => this.navigateToUserDetail() }>
+                        <Card>
+                            <CardItem>
+                                <Left style={{ flex: 2 }}>
+                                    <Image source={{ uri: this.state.image }} style={{ width: 50, height: 50 }}/>
+                                    <Body>
+                                        <Text>{this.state.name}</Text>
+                                        <Text note style={{ fontSize: 10 }}>{'Dish level '}{this.state.level}</Text>
+                                    </Body>
+                                </Left>
+                                <Right style={{ flex: 1 }}>
+                                    <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={{ fontWeight: '500' }}>{this.state.rating}{'/5'}</Text>
+                                    </Body>
+                                </Right>
+                            </CardItem>
+                        </Card>
+                    </TouchableOpacity>
+                }
+            </View>
         )
     }
 }
