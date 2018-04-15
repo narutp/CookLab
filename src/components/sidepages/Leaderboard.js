@@ -45,24 +45,42 @@ class Leaderboard extends Component {
                             <Text style={ styles.globalText }>Global</Text>
                         </CardItem>
                     </Card> */}
-                    <Tabs initialPage={1}>
-                        <Tab textStyle={{ color: '#3E5AAE', fontSize: 12, fontWeight: '500' }} 
-                            activeTextStyle={{ color: '#3E5AAE', fontSize: 14, fontWeight: 'bold', textDecorationLine: 'underline' }}
-                            tabStyle={{ backgroundColor: 'white' }}
-                            activeTabStyle={{ backgroundColor: 'white' }} 
+                    <Tabs initialPage={0}>
+                        <Tab textStyle={ styles.Text } 
+                            activeTextStyle={ styles.ActiveText }
+                            tabStyle={ styles.tabStyle }
+                            activeTabStyle={ styles.activeTabStyle } 
                             heading="Friends">
-                            <FriendLeaderboard />
                         </Tab>
-                        <Tab textStyle={{ color: '#3E5AAE', fontSize: 12, fontWeight: '500' }} 
-                            activeTextStyle={{ color: '#3E5AAE', fontSize: 14, fontWeight: 'bold', textDecorationLine: 'underline' }}
-                            tabStyle={{ backgroundColor: 'white' }}
-                            activeTabStyle={{ backgroundColor: 'white' }}
+                        <Tab textStyle={ styles.Text } 
+                             activeTextStyle={ styles.ActiveText }
+                             tabStyle={ styles.tabStyle }
+                             activeTabStyle={ styles.activeTabStyle } 
                             heading="Global">
+                        </Tab>
+                    </Tabs>
+                    <Tabs initialPage={0}>
+                        <Tab textStyle={ styles.Text } 
+                            activeTextStyle={ styles.ActiveText }
+                            tabStyle={ styles.tabStyle }
+                            activeTabStyle={ styles.activeTabStyle } 
+                            heading="Dish">
                             <FriendLeaderboard />
                         </Tab>
-                        {/* <Tab heading="Tab3">
-                            <Tab3 />
-                        </Tab> */}
+                        <Tab textStyle={ styles.Text } 
+                             activeTextStyle={ styles.ActiveText }
+                             tabStyle={ styles.tabStyle }
+                             activeTabStyle={ styles.activeTabStyle } 
+                            heading="Trophy">
+                            <FriendLeaderboard />
+                        </Tab>
+                        <Tab textStyle={ styles.Text } 
+                             activeTextStyle={ styles.ActiveText }
+                             tabStyle={ styles.tabStyle }
+                             activeTabStyle={ styles.activeTabStyle } 
+                            heading="Exp">
+                            <FriendLeaderboard />
+                        </Tab>
                     </Tabs>
                     <View>
                         { this.state.leaderboard.map((data, index) => {
@@ -115,20 +133,25 @@ const styles = StyleSheet.create({
         borderWidth: 0.25,
         borderColor: '#C0C0C0'
     },
-    friendIcon: {
-        color: '#7f0000',
-        fontSize: 30
+    Icon: {
+        color: '#3E5AAE',
+        fontSize: 15
     },
-    globalIcon: {
-        color: '#7f0000',
-        fontSize: 30
+    Text: {
+        color: '#3E5AAE', 
+        fontSize: 12, 
+        fontWeight: '500' 
     },
-    friendText: {
-        fontSize: 18,
-        marginLeft: 8
+    ActiveText: { 
+        color: '#3E5AAE', 
+        fontSize: 14, 
+        fontWeight: 'bold', 
+        textDecorationLine: 'underline' 
     },
-    globalText: {
-        fontSize: 18,
-        marginLeft: 8
+    tabStyle: {
+        backgroundColor: 'white'
+    },
+    activeTabStyle: {
+        backgroundColor: 'white'
     }
 })
