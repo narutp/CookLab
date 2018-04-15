@@ -93,12 +93,12 @@ class CookingLevel extends Component {
 
         return (
             <View style={ styles.container }>
-                <BackHeader title="Cooking level" actions="sidemenu" />
+                <BackHeader title="LEVEL" actions="sidemenu" />
                 <ScrollView style={ styles.container }>
                     <View style={styles.mybadgeComponent}>
                         <Image source={ this.state.userBadge.image } style={ styles.mybadge }/>
                         <Text style={ styles.textBadge }>{ this.state.userBadge.name }</Text>
-                        <View style={ styles.badgeProgress }><ProgressBarClassic progress={this.state.progress} /></View>
+                        <View style={ styles.badgeProgress }><ProgressBarClassic valueStyle={'none'} progress={this.state.progress} /></View>
                         <Text style={ styles.yourPoint }>Your Point: { this.state.userData.experience }</Text>
                         <Text style={ styles.badgePoint }>Point for next badge: { this.state.userBadge.badgePoint }</Text>
                     </View>
@@ -130,14 +130,15 @@ const styles = StyleSheet.create({
     },
     mybadge: {
         resizeMode: 'stretch',
-        height: 150,
-        width: 150,
+        height: 100,
+        width: 100,
         alignSelf: 'center',
         marginBottom: 10
     },
     textBadge: {
         alignSelf: 'center',
-        fontSize: 20,
+        fontSize: 14,
+        fontWeight: '500',
         marginBottom: 10
     },
     badgeProgress: {
@@ -146,11 +147,11 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     yourPoint: {
-        fontSize: 16,
+        fontSize: 13,
         alignSelf: 'center'
     },
     badgePoint: {
-        fontSize: 16,
+        fontSize: 13,
         alignSelf: 'center',
         marginBottom: 5
     }

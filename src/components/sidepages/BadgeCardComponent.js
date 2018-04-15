@@ -14,7 +14,7 @@ class BadgeCardComponent extends Component {
                 </CardItem>
                 <CardItem style={ styles.detail }>
                     <Text style={ styles.badgeName }>{ this.props.badgeName }</Text>
-                    <View style={ styles.badgeProgress }><ProgressBarClassic progress={ this.props.badgeProgress } /></View>
+                    <View style={ styles.badgeProgress }><ProgressBarClassic valueStyle={'none'} progress={ this.props.badgeProgress } /></View>
                     <Text style={ styles.point }>Point needed : { this.props.point }</Text>
                 </CardItem>
             </Card>
@@ -40,17 +40,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     imageWrapper: {
+        marginLeft: 10,
         width: '25%',
         height: 100
     },
     badgeName: {
-        marginLeft: 15,
+        marginLeft: 20,
         marginBottom: 7,
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
+        fontSize: 12
     },
     badgeImage: {
-        width: 75,
-        height: 75
+        width: 50,
+        height: 50
     },
     badgeProgress: {
         width: '90%',
@@ -59,6 +61,7 @@ const styles = StyleSheet.create({
     point: {
         color: 'gray',
         marginLeft: 15,
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
+        fontSize: 12
     }
 })
