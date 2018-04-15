@@ -216,7 +216,7 @@ class CardComponent extends Component {
                                     this.setState({ isModalVisible: !this.state.isModalVisible })
                                 }} color={'black'} size={25} style={ styles.backIcon } />
                             </Left>
-                            <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <Body style={{ justifyContent: 'center', alignItems: 'center', marginRight: 60 }}>
                                 <Text style={{ fontSize: 13 }}>Comment</Text>
                             </Body>
                         </Header>

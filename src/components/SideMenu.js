@@ -1,11 +1,13 @@
-import PropTypes from 'prop-types';
-import React, {Component} from 'react';
-import { NavigationActions } from 'react-navigation';
-import { StyleSheet, ScrollView, Text, Image, View, Button, Alert, AsyncStorage } from 'react-native';
-import FBSDK, { LoginManager } from 'react-native-fbsdk';
-import { Actions } from 'react-native-router-flux';
-import { Header } from 'native-base';
-import IconEntypo from 'react-native-vector-icons/Entypo';
+import PropTypes from 'prop-types'
+import React, {Component} from 'react'
+import { NavigationActions } from 'react-navigation'
+import { StyleSheet, ScrollView, Text, Image, View, Button, Alert, AsyncStorage } from 'react-native'
+import FBSDK, { LoginManager } from 'react-native-fbsdk'
+import { Actions } from 'react-native-router-flux'
+import { Header } from 'native-base'
+import IconEntypo from 'react-native-vector-icons/Entypo'
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
+import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 class SideMenu extends Component {
   
@@ -65,41 +67,42 @@ class SideMenu extends Component {
           <View>
             <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={() => Actions.MainScreen()}>
-                Home
+                <IconFontAwesome name="home" /> Home 
               </Text>
             </View>
           </View>
           <View>
             <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={() => Actions.Achievement()}>
-                Achievement
+                <IconFontAwesome name="flask" /> Achievement
               </Text>
             </View>
           </View>
           <View>
             <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={() => Actions.CookingLevel()}>
-                CookingLevel
+                <IconFontAwesome name="rocket" /> Cooking Level
               </Text>
             </View>
           </View>
           <View>
             <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={() => Actions.Leaderboard()}>
-                Leaderboard
+                <IconFontAwesome name="trello" /> Leaderboard
               </Text>
             </View>
           </View>
           <View>
             <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={() => Actions.MyDish()}>
-                MyDish
+                <IconMaterialCommunityIcons name="food" /> My Dishes
               </Text>
             </View>
           </View>
           <View>
             <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={() => Actions.Aboutus()}>
+                <IconFontAwesome name="user" />
                 About us
               </Text>
             </View>
@@ -140,7 +143,9 @@ const styles = StyleSheet.create ({
         padding: 10
     },
     navSectionStyle: {
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        flex: 1,
+        flexDirection: 'row'
     },
     sectionHeadingStyle: {
         paddingVertical: 10,
