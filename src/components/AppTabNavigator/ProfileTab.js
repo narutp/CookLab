@@ -232,10 +232,7 @@ class ProfileTab extends Component {
                             <TouchableOpacity onPress={ () => chooseImage()} style={{ alignItems: 'center' }}>
                                 <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
                             </TouchableOpacity>
-                        } */}
-                        <TouchableOpacity onPress={ () => chooseImage()}>
-                                <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
-                            </TouchableOpacity>
+                        }
                     </View>
                 </View>
                 <View style={ styles.body }>
@@ -296,16 +293,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   profileImage: {
-    position: 'absolute',
-    top: -40,
+    // position: 'absolute',
+    resizeMode: 'cover',
+    top: 0,
     width: 80,
     height: 80,
+    zIndex: 99,
     borderRadius: 37.5,
     borderWidth: 0.5,
     borderColor: 'grey'
   },
   body: {
-      top: 50,
+      top: 0,
   },
   cancelButton: {
     width: 100,
