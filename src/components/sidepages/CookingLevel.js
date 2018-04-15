@@ -35,20 +35,6 @@ class CookingLevel extends Component {
                        {image: ImageFactory.chef3 ,name:'Chef III', point:10000, progress:0} ]
     }
 
-    async getUser() {
-        let userid = await AsyncStorage.getItem('userid')
-        try{
-            result = await CookLabAxios.get(`/get_user?userId=${userid}`)
-        } catch (error){
-            console.log(error)
-        }
-        console.log(result.data)
-        this.setState({userData: result.data})
-        console.log(this.state.userData.experience)
-        this.assignProgressValue()
-        this.progressRunning()
-    }
-
     async getUser(){
         let userid = await AsyncStorage.getItem('userid')
         try{
