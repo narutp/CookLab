@@ -225,15 +225,17 @@ class ProfileTab extends Component {
                     <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
                     {/* Profile image */}
                     <View style={{ alignItems: 'center' }}>
-                        { this.state.picUrl === null ? 
+                        {/* { this.state.picUrl === null ? 
                             <TouchableOpacity onPress={ () => chooseImage()}>
                                 <Image source={require('../../assets/image/Profile/profilePic.png')} style={ styles.profileImage }/>
                             </TouchableOpacity> : 
                             <TouchableOpacity onPress={ () => chooseImage()}>
                                 <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
                             </TouchableOpacity>
-                        }
-                        
+                        } */}
+                        <TouchableOpacity onPress={ () => chooseImage()}>
+                                <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
+                            </TouchableOpacity>
                     </View>
                 </View>
                 <View style={ styles.body }>

@@ -3,18 +3,30 @@ import { Dimensions, StyleSheet, View, Image, TextInput, TouchableOpacity, Scrol
 import { Card, CardItem, Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import SearchCardComponent from '../card/SearchCardComponent';
+import CooklabAxios from '../../http/index'
 
 class SearchTab extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            searchText: ''
+            searchText: '',
+            resultArr: [],
+            isSearch: false,
         }
     }
 
-    searchDish() {
-        console.log(this.state.searchText)
+    async searchDish() {
+       console.log(this.state.searchText)
+       let searchResponse
+       try {
+           searchResponse = await CooklabAxios.get(`search?text=${this.state.searchText}`)
+       } catch (error) {
+           console.log(error)
+       }
+       console.log(searchResponse.data)
+       this.setState({resultArr: searchResponse.data, isSearch: true})
+       console.log(this.state.isSearch)
     }
 
     render () {
@@ -32,9 +44,19 @@ class SearchTab extends Component {
                         <TextInput>Search</TextInput>
                     </Button> */}
                 </Header>
-                <ScrollView>
-                    <SearchCardComponent />
-                </ScrollView>
+                { this.state.isSearch === true &&
+                    <ScrollView>
+                        { this.state.resultArr.map( (element) => {
+                            return (
+                                <SearchCardComponent 
+                                    name={element.name}
+                                    dishId={element.id}
+                                    image={element.image} />
+                            )
+                        })}
+                    </ScrollView>  
+                }
+                
             </View>
         );
     }
