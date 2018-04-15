@@ -288,10 +288,10 @@ class CardComponent extends Component {
                         <Left>
                             { this.state.status === true ? 
                             <TouchableOpacity onPress={ () => this.decreaseTrophy() } style={ styles.iconContainer }>
-                                <IconIonicons name='md-trophy' style={{ color: '#F44336' }} size={18}/>
+                                <IconIonicons name='md-trophy' style={{ color: '#F0B301' }} size={18}/>
                             </TouchableOpacity> : 
                             <TouchableOpacity onPress={ () => this.increaseTrophy() } style={ styles.iconContainer }>
-                                <IconIonicons name='md-trophy' style={{ color: 'black' }} size={18}/>
+                                <IconIonicons name='md-trophy' style={{ color: 'white' }} size={18}/>
                             </TouchableOpacity>
                             }
                             <TouchableOpacity onPress={ () => this.setState({ isModalVisible: !this.state.isModalVisible}) } style={ styles.iconContainer }>

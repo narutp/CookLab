@@ -33,9 +33,7 @@ class SearchTab extends Component {
                     </Button> */}
                 </Header>
                 <ScrollView>
-                    <SearchCardComponent>
-
-                    </SearchCardComponent>
+                    <SearchCardComponent />
                 </ScrollView>
             </View>
         );

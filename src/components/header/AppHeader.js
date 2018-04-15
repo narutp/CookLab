@@ -17,7 +17,7 @@ class AppHeader extends Component {
                   <IconEntypo name="menu" onPress={() => this.props.onMenuPressed() } size={25} style={{ marginLeft:10, color: '#fff' }} />
                 </Left>
                 <Body style={ styles.titleWrapper }>
-                    <Text style={{ color: '#fff', fontSize: 15, fontWeight: '400' }}>COOKLAB</Text>
+                    <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>COOKLAB</Text>
                 </Body>
                 <Right>
                   <IconFontAwesome name="camera" onPress={() => this.props.showCameraRoll() }size={20} style={{ marginRight:10, color: '#fff' }} />
