@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { StyleSheet, ScrollView, Text, Image, View, Button } from 'react-native'
 import ImageFactory from 'src/components/ImageFactory'
-import { Card, CardItem } from 'native-base'
+import { Card, CardItem, List, ListItem, Header, Tab, Tabs } from 'native-base'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
 import UserCardComponent from 'src/components/sidepages/UserCardComponent'
 import CookLabAxios from '../../http/index'
 import BackHeader from '../header/BackHeader'
+import FriendLeaderboard from './FriendLeaderboard'
 
 class Leaderboard extends Component {
 
@@ -32,9 +33,9 @@ class Leaderboard extends Component {
     render() {
         return (
             <View style={ styles.container }>
-                <BackHeader title="Leaderboard" actions="sidemenu" />
+                <BackHeader title="LEADERBOARD" actions="sidemenu" />
                 <ScrollView style={ styles.container }>
-                    <Card style={ styles.chooser }>
+                    {/* <Card style={ styles.chooser }>
                         <CardItem style={ styles.friendWrapper }>
                             <Ionicons name="ios-people" onPress={() => Actions.Leaderboard()} style={ styles.friendIcon } />
                             <Text style={ styles.friendText }>Friends</Text>
@@ -43,18 +44,39 @@ class Leaderboard extends Component {
                             <Ionicons name="ios-globe" onPress={() => Actions.Leaderboard()} style={ styles.globalIcon } />
                             <Text style={ styles.globalText }>Global</Text>
                         </CardItem>
-                    </Card>
-                    { this.state.leaderboard.map((data, index) => {
-                        return(
-                            <UserCardComponent 
-                                rank={ index+1 } 
-                                badgeImage={ImageFactory.chef1} 
-                                userImage={ImageFactory.user2} 
-                                userName={ data.name } 
-                                point={ data.count }
-                            />
-                        )
-                    })}
+                    </Card> */}
+                    <Tabs initialPage={1}>
+                        <Tab textStyle={{ color: '#3E5AAE', fontSize: 12, fontWeight: '500' }} 
+                            activeTextStyle={{ color: '#3E5AAE', fontSize: 14, fontWeight: 'bold', textDecorationLine: 'underline' }}
+                            tabStyle={{ backgroundColor: 'white' }}
+                            activeTabStyle={{ backgroundColor: 'white' }} 
+                            heading="Friends">
+                            <FriendLeaderboard />
+                        </Tab>
+                        <Tab textStyle={{ color: '#3E5AAE', fontSize: 12, fontWeight: '500' }} 
+                            activeTextStyle={{ color: '#3E5AAE', fontSize: 14, fontWeight: 'bold', textDecorationLine: 'underline' }}
+                            tabStyle={{ backgroundColor: 'white' }}
+                            activeTabStyle={{ backgroundColor: 'white' }}
+                            heading="Global">
+                            <FriendLeaderboard />
+                        </Tab>
+                        {/* <Tab heading="Tab3">
+                            <Tab3 />
+                        </Tab> */}
+                    </Tabs>
+                    <View>
+                        { this.state.leaderboard.map((data, index) => {
+                            return(
+                                <UserCardComponent 
+                                    rank={ index+1 } 
+                                    badgeImage={ImageFactory.chef1} 
+                                    userImage={ImageFactory.user2} 
+                                    userName={ data.name } 
+                                    point={ data.count }
+                                />
+                            )
+                        })}
+                    </View>
                 </ScrollView>
             </View>
             
@@ -70,9 +92,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     chooser: {
-        flex: 1,
+        // flex: 1,
         flexDirection: 'row',
-        justifyContent: 'flex-start'
+        // justifyContent: 'flex-start'
     },
     tableHeader: {
         flex: 1,
