@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, View, Image } from 'react-native';
+import { Dimensions, StyleSheet, View, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { Card, CardItem, Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
+import SearchCardComponent from '../card/SearchCardComponent';
 
 class SearchTab extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            searchText: ''
+        }
+    }
+
+    searchDish() {
+        console.log(this.state.searchText)
+    }
 
     render () {
         return (
@@ -10,25 +23,20 @@ class SearchTab extends Component {
                 <Header searchBar rounded style={styles.searchBar}>
                     <Item>
                         <Icon name="ios-search" />
-                        <Input placeholder="Search" />
-                        <Icon name="ios-people" />
+                        <Input onChangeText={ (text) => this.setState({searchText: text}) } placeholder="Search" />
+                        <TouchableOpacity onPress={ () => this.searchDish() }>
+                            <Icon name="paper-plane" />
+                        </TouchableOpacity>
                     </Item>
-                    <Button transparent>
-                        <Text>Search</Text>
-                    </Button>
+                    {/* <Button transparent>
+                        <TextInput>Search</TextInput>
+                    </Button> */}
                 </Header>
-                <View>
-                    {/* <Image source={require('../../assets/image/Food/food1.jpg')} style={styles.image1} /> */}
-                </View>
-                <View>
-                    {/* <Image source={require('../../assets/image/Food/food5.jpg')} style={styles.image1} /> */}
-                </View>
-                <View>
-                    {/* <Image source={require('../../assets/image/Food/food7.jpg')} style={styles.image1} /> */}
-                </View>
-                <View>
-                    {/* <Image source={require('../../assets/image/Food/food9.jpg')} style={styles.image1} /> */}
-                </View>
+                <ScrollView>
+                    <SearchCardComponent>
+
+                    </SearchCardComponent>
+                </ScrollView>
             </View>
         );
     }
