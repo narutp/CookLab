@@ -12,7 +12,7 @@ class AchievementCard extends Component {
                         <Image source={ this.props.achImage } style={ styles.achImage }/>
                     </CardItem>
                     <CardItem style={ styles.detail }>
-                        <Text style={ styles.achDetail }>{ this.props.achName }</Text>
+                        <Text style={[ styles.achDetail, styles.achName ]}>{ this.props.achName }</Text>
                         <Text style={ styles.achDetail }>{ this.props.achDetail }</Text>
                         <Text style={ styles.achDetail }>{ this.props.current } / {this.props.needed}</Text>
                     </CardItem>
@@ -31,24 +31,30 @@ const styles = StyleSheet.create({
     card: {
         flex: 1,
         flexDirection: 'row',
-        height: 100,
+        height: 90,
         padding: 10
     },
     detail: {
         flex: 1,
         flexDirection: 'column',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        justifyContent: 'center'
     },
     achDetail: {
         marginLeft: 15,
-        marginBottom: 7
+        marginBottom: 7,
+        fontSize: 12
+    },
+    achName: {
+        fontSize: 13,
+        fontWeight: '500'
     },
     imageWrapper: {
         width: '25%',
-        height: '100%'
+        height: '100%',
     },
     achImage: {
-        width: 70,
-        height: 70
+        width: 50,
+        height: 50,
     }
 })

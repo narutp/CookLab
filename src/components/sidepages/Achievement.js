@@ -76,12 +76,11 @@ const styles = StyleSheet.create({
         width: '50%',
     },
     plateIcon: {
-        fontSize: 40,
         alignSelf: 'center'
     },
     plateCount: {
         marginTop: 5,
-        fontSize: 14,
+        fontSize: 13,
         alignSelf: 'center'
     },
     trophyWrapper: {
@@ -89,12 +88,11 @@ const styles = StyleSheet.create({
         width: '50%'
     },
     trophyIcon: {
-        fontSize: 40,
         alignSelf: 'center'
     },
     trophyCount: {
         marginTop: 5,
-        fontSize: 14,
+        fontSize: 13,
         alignSelf: 'center'
     }
 })
