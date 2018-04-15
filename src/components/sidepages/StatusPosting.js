@@ -85,13 +85,14 @@ class StatusPosting extends Component {
 
     async createDish(uploadURL) {
       let createResponse
-
+      let userid = await AsyncStorage.getItem('userid')
       // Not my dish (normal post)
       if (this.state.isMyDish === false) {
         try {
           createResponse = await CooklabAxios.post(`/create_dish`, {
             image: uploadURL,
-            type: 'normal'
+            type: 'normal',
+            id_user: userid
           })
         } catch(error) {
           console.log(error)
@@ -102,6 +103,7 @@ class StatusPosting extends Component {
           createResponse = await CooklabAxios.post(`/create_dish`, {
             image: uploadURL,
             type: 'mydish',
+            id_user: userid,
             name: this.state.dishName,
             description: this.state.dishDescription,
             ingredient_str: this.state.ingredients,
