@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, ScrollView, Text, Image, View, Button } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import IconEntypo from 'react-native-vector-icons/Entypo'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { Actions } from 'react-native-router-flux'
 import ImageFactory from 'src/components/ImageFactory'
@@ -13,16 +14,16 @@ class Achievement extends Component {
     render() {
         return (
             <View style={ styles.container }>
-                <BackHeader title="Achievement" actions="sidemenu" />
+                <BackHeader title="ACHIEVEMENT" actions="sidemenu" />
                 <ScrollView style={ styles.container }>
-                    <Thumbnail source={ ImageFactory.user1 } style={ styles.userImage }/>
+                    {/* <Thumbnail source={ ImageFactory.user1 } style={ styles.userImage }/> */}
                     <View style={ styles.statWrapper }>
                         <View style={ styles.plateWrapper }>
-                            <Ionicons name="ios-disc" style={ styles.plateIcon }/>
+                            <IconEntypo name="medal" size={30} color={'gold'} style={ styles.plateIcon }/>
                             <Text style={ styles.plateCount }>150</Text>
                         </View>
                         <View style={ styles.trophyWrapper }>
-                            <FontAwesome name="trophy" style={ styles.trophyIcon }/>
+                            <FontAwesome name="trophy" size={30} color={'gold'} style={ styles.trophyIcon }/>
                             <Text style={ styles.trophyCount }>890</Text>
                         </View>
                     </View>
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     },
     plateWrapper: {
         alignSelf: 'center',
-        width: '50%'
+        width: '50%',
     },
     plateIcon: {
         fontSize: 40,
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     },
     plateCount: {
         marginTop: 5,
-        fontSize: 18,
+        fontSize: 14,
         alignSelf: 'center'
     },
     trophyWrapper: {
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     },
     trophyCount: {
         marginTop: 5,
-        fontSize: 18,
+        fontSize: 14,
         alignSelf: 'center'
     }
 })

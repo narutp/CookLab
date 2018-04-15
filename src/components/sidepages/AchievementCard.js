@@ -7,16 +7,16 @@ class AchievementCard extends Component {
     render(){
         return(
             <View style={ styles.container }>
-            <Card style={ styles.card }>
-                <CardItem style={ styles.imageWrapper }>
-                    <Image source={ this.props.achImage } style={ styles.achImage }/>
-                </CardItem>
-                <CardItem style={ styles.detail }>
-                    <Text style={ styles.achDetail }>{ this.props.achName }</Text>
-                    <Text style={ styles.achDetail }>{ this.props.achDetail }</Text>
-                    <Text style={ styles.achDetail }>{ this.props.current } / {this.props.needed}</Text>
-                </CardItem>
-            </Card>
+                <Card style={ styles.card }>
+                    <CardItem style={ styles.imageWrapper }>
+                        <Image source={ this.props.achImage } style={ styles.achImage }/>
+                    </CardItem>
+                    <CardItem style={ styles.detail }>
+                        <Text style={ styles.achDetail }>{ this.props.achName }</Text>
+                        <Text style={ styles.achDetail }>{ this.props.achDetail }</Text>
+                        <Text style={ styles.achDetail }>{ this.props.current } / {this.props.needed}</Text>
+                    </CardItem>
+                </Card>
             </View>
         )
     }
@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
     card: {
         flex: 1,
         flexDirection: 'row',
-        height: 80
+        height: 100,
+        padding: 10
     },
     detail: {
         flex: 1,

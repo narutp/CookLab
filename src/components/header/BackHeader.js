@@ -13,14 +13,14 @@ class BackHeader extends Component {
                     { this.props.actions === 'sidemenu' ? 
                         <IconIonicons name="ios-arrow-back" onPress={() => {
                             Actions.SideMenu()
-                        }} color={'black'} size={25} style={ styles.backIcon } /> : 
+                        }} color={'black'} size={20} style={ styles.backIcon } /> : 
                         <IconIonicons name="ios-arrow-back" onPress={() => {
                             Actions.MainScreen()
-                        }} color={'black'} size={25} style={ styles.backIcon } />
+                        }} color={'black'} size={20} style={ styles.backIcon } />
                     }
                 </Left>
                 <Body style={ styles.titleWrapper }>
-                    <Text>{ this.props.title }</Text>
+                    <Text style={ styles.title }>{ this.props.title }</Text>
                 </Body>
                 <Right />
             </Header>
@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
     },
     backIcon: {
         marginLeft: 10
+    },
+    title: {
+        fontSize: 13,
     },
     titleWrapper: {
         justifyContent: 'center', 
