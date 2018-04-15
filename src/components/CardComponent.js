@@ -211,13 +211,13 @@ class CardComponent extends Component {
                     }}>
                     <Container>
                         <Header style={styles.headerModal}>
-                            <Left>
+                            <Left style={{ flex: 1, justifyContent: 'center' }}>
                                 <IconIonicons name="ios-arrow-back" onPress={() => {
                                     this.setState({ isModalVisible: !this.state.isModalVisible })
                                 }} color={'black'} size={25} style={ styles.backIcon } />
                             </Left>
-                            <Body>
-                                <Text>Comment</Text>
+                            <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 13 }}>Comment</Text>
                             </Body>
                         </Header>
                         <ScrollView>
