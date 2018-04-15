@@ -50,7 +50,7 @@ class SearchTab extends Component {
                             return (
                                 <SearchCardComponent 
                                     name={element.name}
-                                    dishId={element.id}
+                                    dishId={element._id}
                                     image={element.image} />
                             )
                         })}

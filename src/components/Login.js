@@ -165,7 +165,7 @@ class Login extends Component {
                 <Image style={ styles.background } source={ require('../assets/image/Background/backgroundImage.jpg') }/>
                 {/* Top part */}
                 <View style={[ styles.title, styles.topContainer ]}>
-                    <Text style={ styles.titleText }> CookLab </Text>
+                    <Text style={ styles.titleText }> COOKLAB </Text>
                     <Text style={ styles.subtitleText }> Design your dream dishes</Text>
                     <View style={{ marginBottom: 10 }}>
                         <TextInput onChangeText={(text) => this.setState({username: text})}
