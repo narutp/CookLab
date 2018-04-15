@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, ScrollView, Text, Image, View, Button } from 'react-native'
+import { StyleSheet, ScrollView, Text, Image, View, Button, AsyncStorage, TouchableOpacity } from 'react-native'
 import ImageFactory from 'src/components/ImageFactory'
 import { Card, CardItem, List, ListItem, Header, Tab, Tabs } from 'native-base'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -7,27 +7,25 @@ import { Actions } from 'react-native-router-flux'
 import UserCardComponent from 'src/components/sidepages/UserCardComponent'
 import CookLabAxios from '../../http/index'
 import BackHeader from '../header/BackHeader'
-import FriendLeaderboard from './FriendLeaderboard'
+import FriendExpLeaderboard from 'src/components/sidepages/FriendExpLeaderboard'
+import GlobalExpLeaderboard from 'src/components/sidepages/GlobalExpLeaderboard'
+import FriendDishLeaderboard from 'src/components/sidepages/FriendDishLeaderboard'
+import GlobalDishLeaderboard from 'src/components/sidepages/GlobalDishLeaderboard'
+import FriendTrophyLeaderboard from 'src/components/sidepages/FriendTrophyLeaderboard'
+import GlobalTrophyLeaderboard from 'src/components/sidepages/GlobalTrophyLeaderboard'
 
 class Leaderboard extends Component {
 
     state = {
-        leaderboard: []
+        tab : 0
     }
 
-    async getLeaderboard() {
-        try{
-            result = await CookLabAxios.get(`/get_most_post`)
-            this.setState({leaderboard: result.data})
-        } catch(error) {
-            console.log(error)
-        }
-        console.log("Result ",result.data)
-        console.log("State", this.state.leaderboard)
-    } 
-
-    componentDidMount() {
-        this.getLeaderboard()
+    changeTab() {
+        if (this.state.tab != 1)
+            this.setState({tab : 1})
+        else 
+            this.setState({tab : 0})
+        console.log(this.state.tab)
     }
 
     render() {
@@ -45,17 +43,17 @@ class Leaderboard extends Component {
                             <Text style={ styles.globalText }>Global</Text>
                         </CardItem>
                     </Card> */}
-                    <Tabs initialPage={0}>
+                    <Tabs initialPage={0} onChangeTab = {() => this.changeTab()}>
                         <Tab textStyle={ styles.Text } 
                             activeTextStyle={ styles.ActiveText }
                             tabStyle={ styles.tabStyle }
-                            activeTabStyle={ styles.activeTabStyle } 
+                            activeTabStyle={ styles.activeTabStyle }
                             heading="Friends">
                         </Tab>
                         <Tab textStyle={ styles.Text } 
                              activeTextStyle={ styles.ActiveText }
                              tabStyle={ styles.tabStyle }
-                             activeTabStyle={ styles.activeTabStyle } 
+                             activeTabStyle={ styles.activeTabStyle }
                             heading="Global">
                         </Tab>
                     </Tabs>
@@ -65,36 +63,32 @@ class Leaderboard extends Component {
                             tabStyle={ styles.tabStyle }
                             activeTabStyle={ styles.activeTabStyle } 
                             heading="Dish">
-                            <FriendLeaderboard />
+                            { this.state.tab == 0 ?
+                                <FriendDishLeaderboard /> :
+                                <GlobalDishLeaderboard />
+                            } 
                         </Tab>
                         <Tab textStyle={ styles.Text } 
                              activeTextStyle={ styles.ActiveText }
                              tabStyle={ styles.tabStyle }
                              activeTabStyle={ styles.activeTabStyle } 
                             heading="Trophy">
-                            <FriendLeaderboard />
+                             { this.state.tab == 0 ?
+                                <FriendTrophyLeaderboard /> :
+                                <GlobalTrophyLeaderboard />
+                            } 
                         </Tab>
                         <Tab textStyle={ styles.Text } 
                              activeTextStyle={ styles.ActiveText }
                              tabStyle={ styles.tabStyle }
                              activeTabStyle={ styles.activeTabStyle } 
                             heading="Exp">
-                            <FriendLeaderboard />
+                             { this.state.tab == 0 ?
+                                <FriendExpLeaderboard /> :
+                                <GlobalExpLeaderboard />
+                             } 
                         </Tab>
                     </Tabs>
-                    <View>
-                        { this.state.leaderboard.map((data, index) => {
-                            return(
-                                <UserCardComponent 
-                                    rank={ index+1 } 
-                                    badgeImage={ImageFactory.chef1} 
-                                    userImage={ImageFactory.user2} 
-                                    userName={ data.name } 
-                                    point={ data.count }
-                                />
-                            )
-                        })}
-                    </View>
                 </ScrollView>
             </View>
         )

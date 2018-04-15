@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     card: {
-        height: 100,
         flex: 1
     },
     badgeImage: {
