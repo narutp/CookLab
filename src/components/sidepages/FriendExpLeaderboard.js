@@ -38,7 +38,7 @@ class FriendExpLeaderboard extends Component {
                     <UserCardComponent 
                         rank={ index+1 } 
                         badgeImage={ImageFactory.chef1} 
-                        userImage={ImageFactory.user2} 
+                        userImage={ data.photo } 
                         userName={ data.name } 
                         point={ data.experience }
                     />

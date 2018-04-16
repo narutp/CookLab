@@ -17,7 +17,7 @@ class FriendExpLeaderboard extends Component {
     async getLeaderboard() {
         let userid = await AsyncStorage.getItem('userid')
         try{
-            result = await CookLabAxios.get(`/get_most_trophies`)
+            result = await CookLabAxios.get(`/get_most_trophy`)
             this.setState({leaderboard: result.data})
         } catch(error) {
             console.log(error)
@@ -38,7 +38,7 @@ class FriendExpLeaderboard extends Component {
                     <UserCardComponent 
                         rank={ index+1 } 
                         badgeImage={ImageFactory.chef1} 
-                        userImage={ImageFactory.user2} 
+                        userImage={ data.image } 
                         userName={ data.name } 
                         point={ data.trophies }
                     />

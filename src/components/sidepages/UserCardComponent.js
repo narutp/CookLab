@@ -23,7 +23,7 @@ class UserCardComponent extends Component {
                     <ListItem>
                         <Left style={{ flex: 1 }}>
                             <Text style={{ fontSize: 10 }}>{ this.props.rank }</Text>
-                            <Thumbnail source={ this.props.userImage } style={ styles.userImage } />
+                            <Thumbnail source={{ uri: this.props.userImage }} style={ styles.userImage } />
                         </Left>
                         <Body style={{ flex: 2 }}>
                             <Text style={{ fontSize: 12 }}>{ this.props.userName }</Text>
