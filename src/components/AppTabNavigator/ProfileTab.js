@@ -274,7 +274,7 @@ class ProfileTab extends Component {
                         {/* User's name */}
                         {/* TODO: change name bug!!!! */}
                         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ textAlign: 'center' }}>{ this.state.name }</Text>
+                            <Text style={{ textAlign: 'center', fontWeight: '600' }}>{ this.state.name }</Text>
                             <IconMaterial onPress={() => this.editName()} name="edit" style={{ textAlign: 'center', marginLeft: 5 }} /> 
                         </View>
                         {/* Horizontal rule */}
@@ -282,11 +282,11 @@ class ProfileTab extends Component {
                         {/* Following | Fans */}
                         <View style={ styles.followPanel }>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 12 }}>Following</Text>
+                                <Text style={{ fontSize: 12, fontWeight: '500' }}>Following</Text>
                                 <Text style={{ color: 'gray', fontSize: 11 }}>53</Text>
                             </View>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 12 }}>Followers</Text>
+                                <Text style={{ fontSize: 12, fontWeight: '500' }}>Followers</Text>
                                 <Text style={{ color: 'gray', fontSize: 11 }}>231</Text>
                             </View>
                         </View>

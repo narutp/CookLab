@@ -104,9 +104,15 @@ class UserDetail extends Component {
             console.log(error)
         }
         console.log('Follow response: ', followResponse.data)
-        this.setState({
-            isFollow: followResponse.data
-        })
+        if (followResponse.data === 'follow') {
+            this.setState({
+                isFollow: true
+            })
+        } else {
+            this.setState({
+                isFollow: false
+            })
+        }
     }
 
     render() {
@@ -119,12 +125,14 @@ class UserDetail extends Component {
                     </View>
                     <View style={ styles.nameWrapper }>
                         <Text style={ styles.name }>{this.state.name}</Text>
+                    </View>
+                    <View style={ styles.nameWrapper }>
                         { this.state.isFollow === false ? 
                             <Button primary onPress={ () => this.followUser() } style={ styles.addButton }>
-                                <IconFeather name="user-plus" style={{ color: "white" }}/>
+                                <IconFeather name="user-plus" style={{ color: "white" }}/><Text style={ styles.textButton }> Follow</Text>
                             </Button> :
                             <Button success onPress={ () => this.followUser() } style={ styles.addButton }>
-                                <IconFeather name="user-check" style={{ color: "white" }}/>
+                                <IconFeather name="user-check" style={{ color: "white" }}/><Text style={ styles.textButton }> Followed</Text>
                             </Button>
                         }
                     </View>
@@ -175,10 +183,14 @@ const styles = StyleSheet.create({
     addButton: {
         // backgroundColor: 'grey', 
         marginLeft: 5, 
-        width: 25, 
+        width: 75, 
         height: 25, 
         padding: 5, 
         justifyContent: 'center', 
         alignItems: 'center'
+    },
+    textButton: {
+        color: 'white',
+        fontSize: 10
     }
 })
