@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TextInput, Platform, Modal, TouchableHighlight, TouchableOpacity, Alert, StyleSheet, Text, View, Image, Dimensions, AsyncStorage } from 'react-native'
+import { ScrollView, TextInput, Platform, Modal, TouchableHighlight, TouchableOpacity, Alert, StyleSheet, Text, View, Image, Dimensions, AsyncStorage } from 'react-native'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
@@ -254,47 +254,49 @@ class ProfileTab extends Component {
                         </View>
                     </Modal>
                 </View>
-                {/* Cover image */}
-                <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
-                {/* Profile image */}
-                <View style={{ marginBottom: 5, marginTop: 5, shadowColor: "black",
-                    shadowOffset: { height: 20},
-                    shadowOpacity: 0.5, 
-                }}>
-                    { this.state.picUrl === null ? 
-                        <TouchableOpacity onPress={ () => this.chooseImage()} style={{ alignItems: 'center' }}>
-                            <Image source={require('../../assets/image/Profile/profilePic.png')} style={ styles.profileImage }/>
-                        </TouchableOpacity> : 
-                        <TouchableOpacity onPress={ () => this.chooseImage()} style={{ alignItems: 'center' }}>
-                            <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
-                        </TouchableOpacity>
-                    }
-                </View>
-                <View style={ styles.body }>
-                    {/* User's name */}
-                    {/* TODO: change name bug!!!! */}
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ textAlign: 'center' }}>{ this.state.name }</Text>
-                        <IconMaterial onPress={() => this.editName()} name="edit" style={{ textAlign: 'center', marginLeft: 5 }} /> 
+                <ScrollView>
+                    {/* Cover image */}
+                    <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
+                    {/* Profile image */}
+                    <View style={{ marginBottom: 5, marginTop: 5, shadowColor: "black",
+                        shadowOffset: { height: 20},
+                        shadowOpacity: 0.5, 
+                    }}>
+                        { this.state.picUrl === null ? 
+                            <TouchableOpacity onPress={ () => this.chooseImage()} style={{ alignItems: 'center' }}>
+                                <Image source={require('../../assets/image/Profile/profilePic.png')} style={ styles.profileImage }/>
+                            </TouchableOpacity> : 
+                            <TouchableOpacity onPress={ () => this.chooseImage()} style={{ alignItems: 'center' }}>
+                                <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
+                            </TouchableOpacity>
+                        }
                     </View>
-                    {/* Horizontal rule */}
-                    <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 5 }}></View>
-                    {/* Following | Fans */}
-                    <View style={ styles.followPanel }>
-                        <View style={{ alignItems: 'center' }}>
-                            <Text style={{ fontSize: 12 }}>Following</Text>
-                            <Text style={{ color: 'gray', fontSize: 11 }}>53</Text>
+                    <View style={ styles.body }>
+                        {/* User's name */}
+                        {/* TODO: change name bug!!!! */}
+                        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ textAlign: 'center' }}>{ this.state.name }</Text>
+                            <IconMaterial onPress={() => this.editName()} name="edit" style={{ textAlign: 'center', marginLeft: 5 }} /> 
                         </View>
-                        <View style={{ alignItems: 'center' }}>
-                            <Text style={{ fontSize: 12 }}>Followers</Text>
-                            <Text style={{ color: 'gray', fontSize: 11 }}>231</Text>
+                        {/* Horizontal rule */}
+                        <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 5 }}></View>
+                        {/* Following | Fans */}
+                        <View style={ styles.followPanel }>
+                            <View style={{ alignItems: 'center' }}>
+                                <Text style={{ fontSize: 12 }}>Following</Text>
+                                <Text style={{ color: 'gray', fontSize: 11 }}>53</Text>
+                            </View>
+                            <View style={{ alignItems: 'center' }}>
+                                <Text style={{ fontSize: 12 }}>Followers</Text>
+                                <Text style={{ color: 'gray', fontSize: 11 }}>231</Text>
+                            </View>
+                        </View>
+                        {/* Image */}
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                            { this.generateImage() }
                         </View>
                     </View>
-                    {/* Image */}
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                        { this.generateImage() }
-                    </View>
-                </View>
+                </ScrollView>
             </View>
         );
     }
