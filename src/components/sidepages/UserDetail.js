@@ -136,8 +136,23 @@ class UserDetail extends Component {
                             </Button>
                         }
                     </View>
-                    <View style={ styles.postWrapper }>
-                        { this.generateImage() }
+                    <View style={ styles.body }>
+                        {/* Horizontal rule */}
+                        <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 5 }}></View>
+                        {/* Following | Fans */}
+                        <View style={ styles.followPanel }>
+                            <View style={{ alignItems: 'center' }}>
+                                <Text style={{ fontSize: 12, fontWeight: '500' }}>Following</Text>
+                                <Text style={{ color: 'gray', fontSize: 11 }}>53</Text>
+                            </View>
+                            <View style={{ alignItems: 'center' }}>
+                                <Text style={{ fontSize: 12, fontWeight: '500' }}>Followers</Text>
+                                <Text style={{ color: 'gray', fontSize: 11 }}>231</Text>
+                            </View>
+                        </View>
+                        <View style={ styles.postWrapper }>
+                            { this.generateImage() }
+                        </View>
                     </View>
                 </ScrollView>
             </View>
@@ -153,7 +168,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     componentWrapper: {
-        marginTop: 10,
+        marginTop: 20,
         padding: 0
     },
     imageWrapper: {
@@ -176,9 +191,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     profilePic: {
-        width: Dimensions.get('window').width/2,
+        width: 200,
         height: 200,
-        resizeMode: 'cover'
+        // resizeMode: 'cover'
     },
     addButton: {
         // backgroundColor: 'grey', 
@@ -192,5 +207,11 @@ const styles = StyleSheet.create({
     textButton: {
         color: 'white',
         fontSize: 10
-    }
+    },
+    followPanel: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginTop: 10,
+        marginBottom: 10,
+    },
 })
