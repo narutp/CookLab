@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, ScrollView, Text, Image, View, Button, Dimensions } from 'react-native'
+import { StyleSheet, ScrollView, Text, Image, View, Button, Dimensions, AsyncStorage } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { Card, CardItem, Thumbnail } from 'native-base'
 import ImageFactory from 'src/components/ImageFactory'
@@ -7,9 +7,36 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import ProgressBarClassic from 'react-native-progress-bar-classic'
 import DishImageTable from './DishImageTable'
 import BackHeader from '../header/BackHeader'
+import CookLabAxios from 'src/http/index'
 
 class MyDish extends Component {
     
+    state = {
+        userData : {},
+        badgePic : [ImageFactory.consumer1,ImageFactory.consumer2,ImageFactory.consumer3,
+                    ImageFactory.homecook1,ImageFactory.homecook2,ImageFactory.homecook3,
+                    ImageFactory.juniorcook1,ImageFactory.juniorcook2,ImageFactory.juniorcook3,
+                    ImageFactory.cook1,ImageFactory.cook2,ImageFactory.cook3,
+                    ImageFactory.chef1,ImageFactory.chef2,ImageFactory.chef3 ],
+        badgeName : ['Consumer I','Consumer II','Consumer III','Homecook I','Homecook II','Homecook III',
+                     'Juniorcook I','Juniorcook II','Juniorcook III','Cook I','Cook II','Cook III',
+                     'Chef I','Chef II','Chef III']
+    }
+
+    async getUser(){
+        let userid = await AsyncStorage.getItem('userid')
+        try{
+            result = await CookLabAxios.get(`/get_user?userId=${userid}`)
+        } catch (error){
+            console.log(error)
+        }
+        this.setState({ userData: result.data })
+    }
+
+    componentDidMount(){
+        this.getUser()
+    }
+
     render() {
         return (
             <View style={ styles.container }>
@@ -17,16 +44,15 @@ class MyDish extends Component {
                 <ScrollView style={ styles.container }>
                     <Card style={ styles.profile }>
                         <CardItem style={ styles.profilePicWrapper }>
-                            <Thumbnail source={ ImageFactory.user1 } style={ styles.profilePic }/>
+                            <Thumbnail source={{uri : this.state.userData.photo }} style={ styles.profilePic }/>
                         </CardItem>
                         <CardItem style={ styles.userDetailWrapper }>
-                            <Text style={ styles.detailText }>NarutP</Text>
-                            <Text style={ styles.detailText }>Points: 56000</Text>
-                            <Text style={ styles.detailText }>Juniorcook III</Text>
-                            <View style={ styles.badgeProgress }><ProgressBarClassic valueStyle={'none'} progress={40}/></View>
+                            <Text style={ styles.detailText }>{this.state.userData.name}</Text>
+                            <Text style={ styles.detailText }>Points: {this.state.userData.experience}</Text>
+                            <Text style={ styles.detailText }>{this.state.badgeName[parseInt(this.state.userData.rank) - 1]}</Text>
                         </CardItem>
                         <CardItem style={ styles.badgePicWrapper }>
-                            <Thumbnail source={ ImageFactory.juniorcook3 } style={ styles.badgePic } />
+                            <Thumbnail source={ this.state.badgePic[parseInt(this.state.userData.rank) - 1] } style={ styles.badgePic } />
                         </CardItem>
                     </Card>
                     <DishImageTable/>
@@ -53,8 +79,8 @@ const styles = StyleSheet.create({
         width: '25%'
     },
     profilePic: {
-        width: 50,
-        height: 50
+        width: 55,
+        height: 55
     },
     userDetailWrapper: {
         width: '50%',
@@ -77,8 +103,8 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
     badgePic: {
-        width: 50,
-        height: 50
+        width: 55,
+        height: 55
     },
     foodImage: {
         width: '100%',
