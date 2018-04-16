@@ -37,8 +37,22 @@ class UserDetail extends Component {
         }
         console.log('User detail page: ', userResponse.data)
 
+        let getUserId
+        try {
+            getUserId = await AsyncStorage.getItem('userid')
+        } catch (error) {
+            console.log(error)
+        }
+
+        let ourUserResponse
+        try {
+            ourUserResponse = await CooklabAxios.get(`/get_user?userId=${getUserId}`)
+        } catch (error) {
+            console.log(error)
+        }
+
         // Check if this user already been followed or not
-        if (userResponse.data.followings.indexOf(this.props.idUser) > -1) {
+        if (ourUserResponse.data.followings.indexOf(this.props.idUser) > -1) {
             this.setState({
                 isFollow: true
             })
@@ -76,7 +90,7 @@ class UserDetail extends Component {
     async followUser() {
         let getUserId
         try {
-            getUserId = AsyncStorage.getItem('userid')
+            getUserId = await AsyncStorage.getItem('userid')
         } catch (error) {
             console.log(error)
         }
@@ -105,12 +119,14 @@ class UserDetail extends Component {
                     </View>
                     <View style={ styles.nameWrapper }>
                         <Text style={ styles.name }>{this.state.name}</Text>
-                        <Button onPress={ () => this.followUser() } style={ styles.addButton }>
-                            { this.state.isFollow === false ? 
-                                <IconFeather name="user-plus" style={{ color: "blue" }}/> : 
-                                <IconFeather name="user-check" style={{ color: "green" }}/>
-                            }
-                        </Button>
+                        { this.state.isFollow === false ? 
+                            <Button primary onPress={ () => this.followUser() } style={ styles.addButton }>
+                                <IconFeather name="user-plus" style={{ color: "white" }}/>
+                            </Button> :
+                            <Button success onPress={ () => this.followUser() } style={ styles.addButton }>
+                                <IconFeather name="user-check" style={{ color: "white" }}/>
+                            </Button>
+                        }
                     </View>
                     <View style={ styles.postWrapper }>
                         { this.generateImage() }
@@ -157,7 +173,7 @@ const styles = StyleSheet.create({
         resizeMode: 'cover'
     },
     addButton: {
-        backgroundColor: 'grey', 
+        // backgroundColor: 'grey', 
         marginLeft: 5, 
         width: 25, 
         height: 25, 
