@@ -94,8 +94,8 @@ class StatusPosting extends Component {
       //   })
       // },3000)
       this.setState({
-            isSpinnerVisible: true
-          })
+        isSpinnerVisible: true
+      })
       uploadImage(this.props.imageSource)
         .then(url => this.setState({ uploadURL: url }))
         .catch(error => console.log(error))

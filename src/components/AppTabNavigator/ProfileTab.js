@@ -298,7 +298,7 @@ class ProfileTab extends Component {
                     </View>
                 </ScrollView>
             </View>
-        );
+        )
     }
 }
 

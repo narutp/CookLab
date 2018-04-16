@@ -13,6 +13,7 @@ import { AccessToken, LoginManager } from 'react-native-fbsdk'
 import { Actions } from 'react-native-router-flux'
 import CommentCard from './CommentCard'
 import Timer from 'react-native-timer'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 class CardComponent extends Component {
 
@@ -116,6 +117,7 @@ class CardComponent extends Component {
         this.setState({ status: this.props.status, trophy: this.props.trophy })
     }
 
+    
     async increaseTrophy () {
         this.setState({ status: !this.state.status, 
             trophy: this.state.trophy+1, 
