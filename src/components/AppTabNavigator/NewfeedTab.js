@@ -29,7 +29,7 @@ class NewfeedTab extends Component {
             this.setState({feedResponse: feedResponse.data})
             let newDate
             feedResponse.data.forEach(element => {
-                console.log(element.status)
+                console.log(element)
             });
         } catch (error) {
             console.log(error)
@@ -53,7 +53,7 @@ class NewfeedTab extends Component {
                         return (
                             <CardComponent 
                                 trophy={data.trophies} 
-                                profilePic='1' 
+                                profilePic={data.photo} 
                                 foodPic={data.image} 
                                 caption={data.caption}
                                 date={moment.utc(data.timestamp).format("MMMM Do YYYY, h:mm a")}
@@ -72,7 +72,7 @@ class NewfeedTab extends Component {
                     <CardComponent love='102' profilePic='2' foodPic='5' /> */}
                 </Content>
             </Container>
-        );
+        )
     }
 }
 

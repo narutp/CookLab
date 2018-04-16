@@ -13,6 +13,7 @@ import { AccessToken, LoginManager } from 'react-native-fbsdk'
 import { Actions } from 'react-native-router-flux'
 import CommentCard from './CommentCard'
 import Timer from 'react-native-timer'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 class CardComponent extends Component {
 
@@ -116,6 +117,7 @@ class CardComponent extends Component {
         this.setState({ status: this.props.status, trophy: this.props.trophy })
     }
 
+    
     async increaseTrophy () {
         this.setState({ status: !this.state.status, 
             trophy: this.state.trophy+1, 
@@ -195,11 +197,6 @@ class CardComponent extends Component {
     }
 
     render() {
-        const profileImage = {
-            '1': require('../assets/image/Profile/profilePic1.jpg'),
-            '2': require('../assets/image/Profile/profilePic2.jpg')
-        }
-
         return (
             <View style={ styles.container }>
                 <Modal
@@ -263,7 +260,7 @@ class CardComponent extends Component {
                 <Card>
                     <CardItem header style={styles.headerCard}>
                         <Left>
-                            <Thumbnail source={profileImage[this.props.profilePic]} style={{ width: 30, height: 30 }}/>
+                            <Thumbnail source={{ uri: this.props.profilePic }} style={{ width: 35, height: 35 }}/>
                             <Body>
                                 <Text>{this.props.userName} </Text>
                                 <Text note style={{ fontSize: 9 }}>{this.props.date}</Text>
@@ -302,6 +299,8 @@ class CardComponent extends Component {
                             </TouchableOpacity>
                         </Left>
                     </CardItem>
+                    {/* Horizontal rule */}
+                    <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 3, marginBottom: 5, opacity: 0.6 }}></View>
                     <CardItem style={{ height: 10 }}>
                         { this.state.trophy >= 0 && this.state.trophy <= 1 ? 
                             <Text style={{ fontSize: 12, fontWeight: '600' }}>{ this.state.trophy } trophy </Text>

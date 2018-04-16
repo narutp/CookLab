@@ -11,6 +11,8 @@ import { Actions } from 'react-native-router-flux'
 import RNFetchBlob from 'react-native-fetch-blob'
 import firebase from '../../firebase/'
 import BackHeader from '../header/BackHeader'
+import Spinner from 'react-native-loading-spinner-overlay'
+import Timer from 'react-native-timer'
 
 const storage = firebase.storage()
 
@@ -56,6 +58,7 @@ class StatusPosting extends Component {
         uploadURL: '',
         caption: '',
         isModalVisible: false,
+        isSpinnerVisible: false,
         dishName: '',
         dishDescription: '',
         calories: '',
@@ -73,10 +76,35 @@ class StatusPosting extends Component {
     }
 
     pickImage() {
+      // Timer.setInterval(() => {
+      //   this.setState({
+      //     isSpinnerVisible: !this.state.isSpinnerVisible
+      //   })
+      // }, 3000)
+      // Timer.setInterval(
+      //   'Spinner', () => {
+      //       this.setState({
+      //         isSpinnerVisible: !this.state.isSpinnerVisible
+      //       })
+      //   }, 3000
+      // )
+      // const spinner = setInterval(() => {
+      //   this.setState({
+      //     isSpinnerVisible: !this.state.isSpinnerVisible
+      //   })
+      // },3000)
+      this.setState({
+        isSpinnerVisible: true
+      })
       uploadImage(this.props.imageSource)
         .then(url => this.setState({ uploadURL: url }))
         .catch(error => console.log(error))
-      // this.createDish()
+      // Timer.setTimeout(()=>Timer.clearInterval('Spinner'),3000)
+      // clearInterval(interval)
+      // setTimeout(() => {
+      //   // clearInterval(spinner)
+      //   this.setState({ isSpinnerVisible: !this.state.isSpinnerVisible })
+      // }, 3000)
     }
 
     openDishDetail() {
@@ -129,10 +157,17 @@ class StatusPosting extends Component {
             image: url,
             caption: this.state.caption
           })
-          Actions.MainScreen()
       } catch(error) {
         console.log(error)
       }
+      this.setState({
+        isSpinnerVisible: false
+      })
+      this.navigateToMainScreen()
+    }
+
+    navigateToMainScreen() {
+      Actions.MainScreen()
     }
 
     saveDishDetail() {
@@ -150,6 +185,10 @@ class StatusPosting extends Component {
         return(
           <View style={{ flex: 1 }} >
               <BackHeader title="Post" actions="mainscreen" />
+              <Spinner visible={this.state.isSpinnerVisible} 
+                // textContent={"Loading..."} 
+                // textStyle={{color: 'white'}} 
+              />
               <Modal
                 animationType="slide"
                 transparent={false}

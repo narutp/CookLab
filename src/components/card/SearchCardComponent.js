@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, Text, View, Image } from 'react-native'
 import { Card, CardItem, Left, Body, Right, Thumbnail } from 'native-base'
 import CooklabAxios from '../../http/index'
 import { Actions } from 'react-native-router-flux'
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 
 class SearchCardComponent extends Component {
 
@@ -70,7 +71,8 @@ class SearchCardComponent extends Component {
                                 </Left>
                                 <Right style={{ flex: 1 }}>
                                     <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={{ fontWeight: '500' }}>{this.state.rating}{'/5'}</Text>
+                                        <Text note>Rating</Text>
+                                        <Text style={{ fontWeight: '400' }}>{this.state.rating}{'/5'}</Text>
                                     </Body>
                                 </Right>
                             </CardItem>
@@ -86,9 +88,9 @@ class SearchCardComponent extends Component {
                                     </Body>
                                 </Left>
                                 <Right>
-                                    {/* <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={{ fontWeight: '500' }}>{'/5'}</Text>
-                                    </Body> */}
+                                    <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                        <IconFontAwesome name="user" size={20} />
+                                    </Body>
                                 </Right>
                             </CardItem>
                         </Card>
@@ -106,7 +108,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     image: {
-        width: 100,
-        height: 100
+        width: 60,
+        height: 60
     }
 })
