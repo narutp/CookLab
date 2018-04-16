@@ -102,8 +102,7 @@ class SideMenu extends Component {
           <View>
             <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={() => Actions.Aboutus()}>
-                <IconFontAwesome name="user" />
-                About us
+                <IconFontAwesome name="user" /> About us
               </Text>
             </View>
           </View>

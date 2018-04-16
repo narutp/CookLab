@@ -37,10 +37,10 @@ class Achievement extends Component {
     async getUser(){
         let userid = await AsyncStorage.getItem('userid')
         try{
-            result = await CookLabAxios.get(`/get_user?userId=${userid}`)
+            result = await CookLabAxios.get(`/get_trophy_dish?user_id=${userid}`)
             console.log(result.data)
-            this.setState({currentPlate : result.data.count})
-            this.setState({currentTrophy : result.data.trophies})
+            this.setState({currentPlate : result.data.dish})
+            this.setState({currentTrophy : result.data.trophy})
         } catch (error){
             console.log(error)
         }
@@ -50,7 +50,7 @@ class Achievement extends Component {
 
     setCurrentUser(){
         const tempArray = this.state.achievement
-        for(i = 0;i < 14;i++){
+        for(i = 0;i < 15;i++){
             if (i < 10)
                 tempArray[i]["current"] = this.state.currentPlate
             else
