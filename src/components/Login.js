@@ -35,7 +35,7 @@ class Login extends Component {
             console.log(error)
         }
         console.log('token' + data)
-        if (data != null) {
+        if (data !== null) {
             this.fetchFacebookUser()
             Actions.MainScreen()
         }
