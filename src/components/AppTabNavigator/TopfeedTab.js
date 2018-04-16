@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, AsyncStorage } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -33,7 +33,7 @@ class TopfeedTab extends Component {
     }
     console.log('newfeed' + userid)
     try {
-        feedResponse = await CooklabAxios.get(`/topfeed`)
+        feedResponse = await CooklabAxios.get(`/topfeed?userId=${userid}`)
         this.setState({feedResponse: feedResponse.data})
         console.log('new feed: ', this.state.feedResponse)
     } catch (error) {
