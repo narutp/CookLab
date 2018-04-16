@@ -35,14 +35,15 @@ class SearchTab extends Component {
         return this.state.resultArr != nextState.resultArr
     }
 
-    componentWillUpdate(nextProps, nextState) {
-        if (nextState) {
-           this.state.resultArr.splice(0, this.state.resultArr.length)
-        }
-    }
+    // componentWillUpdate(nextProps, nextState) {
+    //     if (nextState) {
+    //        this.setState({ resultArr: this.state.resultArr.splice(0, this.state.resultArr.length) })
+    //     }
+    // }
 
     // TODO: when search new things, old value doesn't gone!
     render () {
+        console.log('log array', this.state.resultArr)
         return (
             <View style={styles.container}>
                 <Header searchBar rounded style={styles.searchBar}>
@@ -62,6 +63,9 @@ class SearchTab extends Component {
                         { this.state.resultArr.map( (element) => {
                             console.log('render with: ' + element.name)
                             return (
+                                // <View>
+                                //     <Text>{element.name}</Text>
+                                // </View>
                                 <SearchCardComponent 
                                     name={element.name}
                                     image={element.image}

@@ -9,11 +9,8 @@ class SearchCardComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
             level: '',
             rating: '',
-            image: '',
-            id: '',
         }
     }
 
@@ -37,9 +34,6 @@ class SearchCardComponent extends Component {
         this.setState({
             level: dishResponse.data.level,
             rating: dishResponse.data.rate,
-            image: this.props.image,
-            name: this.props.name,
-            id: this.props.id
         })
     }
 
@@ -50,22 +44,18 @@ class SearchCardComponent extends Component {
         } catch (error) {
             console.log(error)
         }
-        this.setState({
-            image: this.props.image,
-            name: this.props.name,
-            id: this.props.id
-        })
     }
 
     navigateToDishDetail() {
-        Actions.DishDetail({ idDish: this.state.id })
+        Actions.DishDetail({ idDish: this.props.id })
     }
 
     navigateToUserDetail() {
-        Actions.UserDetail({ idUser: this.state.id })
+        Actions.UserDetail({ idUser: this.props.id })
     }
 
     render() {
+        console.log('name: ', this.state.name)
         return (
             <View>
                 { this.props.type === 'dish' ?
@@ -73,9 +63,9 @@ class SearchCardComponent extends Component {
                         <Card>
                             <CardItem>
                                 <Left style={{ flex: 2 }}>
-                                    <Image source={{ uri: this.state.image }} style={ styles.image }/>
+                                    <Image source={{ uri: this.props.image }} style={ styles.image }/>
                                     <Body>
-                                        <Text>{this.state.name}</Text>
+                                        <Text>{this.props.name}</Text>
                                         <Text note style={{ fontSize: 10 }}>{'Dish level '}{this.state.level}</Text>
                                     </Body>
                                 </Left>
@@ -91,16 +81,15 @@ class SearchCardComponent extends Component {
                         <Card>
                             <CardItem>
                                 <Left style={{ flex: 2 }}>
-                                    <Image source={{ uri: this.state.image }} style={ styles.image }/>
+                                    <Image source={{ uri: this.props.image }} style={ styles.image }/>
                                     <Body>
-                                        <Text>{this.state.name}</Text>
-                                        <Text note style={{ fontSize: 10 }}>{'Dish level '}{this.state.level}</Text>
+                                        <Text>{this.props.name}</Text>
                                     </Body>
                                 </Left>
-                                <Right style={{ flex: 1 }}>
-                                    <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={{ fontWeight: '500' }}>{this.state.rating}{'/5'}</Text>
-                                    </Body>
+                                <Right>
+                                    {/* <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={{ fontWeight: '500' }}>{'/5'}</Text>
+                                    </Body> */}
                                 </Right>
                             </CardItem>
                         </Card>
