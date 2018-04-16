@@ -50,7 +50,7 @@ class TopfeedTab extends Component {
                   return (
                       <CardComponent 
                           trophy={data.trophies} 
-                          profilePic='1' 
+                          profilePic={data.photo} 
                           foodPic={data.image} 
                           caption={data.caption}
                           date={moment.utc(data.timestamp).format("MMMM Do YYYY, h:mm a")}
