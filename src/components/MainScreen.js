@@ -66,7 +66,7 @@ class MainScreen extends Component {
                     selected={this.state.selectedTab === 'newfeed'}
                     selectedTitleStyle={{ color: "#FFBF00" }}
                     renderIcon={() => <IconEntypo name="newsletter" size={16} />}
-                    renderSelectedIcon={() => <IconEntypo name="newsletter" size={15} color="#F0B301" />}
+                    renderSelectedIcon={() => <IconEntypo name="newsletter" size={15} color="#F44336" />}
                     onPress={() => this.setState({ selectedTab: 'newfeed' })}>
                     <NewfeedTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
                 </TabNavigator.Item>
@@ -74,7 +74,7 @@ class MainScreen extends Component {
                     selected={this.state.selectedTab === 'home'}
                     selectedTitleStyle={{ color: "#FFBF00" }}
                     renderIcon={() => <IconFontAwesome name="star" size={15} />}
-                    renderSelectedIcon={() => <IconFontAwesome name="star" size={15} color="#F0B301" />}
+                    renderSelectedIcon={() => <IconFontAwesome name="star" size={15} color="#F44336" />}
                     onPress={() => this.setState({ selectedTab: 'home' })}>
                     <TopfeedTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
                 </TabNavigator.Item>
@@ -82,7 +82,7 @@ class MainScreen extends Component {
                     selected={this.state.selectedTab === 'search'}
                     selectedTitleStyle={{ color: "#FFBF00" }}
                     renderIcon={() => <IconFontAwesome name="search" size={15} />}
-                    renderSelectedIcon={() => <IconFontAwesome name="search" size={15} color="#F0B301" />}
+                    renderSelectedIcon={() => <IconFontAwesome name="search" size={15} color="#F44336" />}
                     onPress={() => this.setState({ selectedTab: 'search' })}>
                     <SearchTab />
                 </TabNavigator.Item>
@@ -90,7 +90,7 @@ class MainScreen extends Component {
                     selected={this.state.selectedTab === 'profile'}
                     selectedTitleStyle={{ color: "#FFBF00" }}
                     renderIcon={() => <IconFontAwesome name="user" size={15} color="#666"/>}
-                    renderSelectedIcon={() => <IconFontAwesome name="user" size={15} color="#F0B301" />}
+                    renderSelectedIcon={() => <IconFontAwesome name="user" size={15} color="#F44336" />}
                     onPress={() => this.setState({ selectedTab: 'profile' })}>
                     <ProfileTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
                 </TabNavigator.Item>
