@@ -55,7 +55,6 @@ class SearchCardComponent extends Component {
     }
 
     render() {
-        console.log('name: ', this.state.name)
         return (
             <View>
                 { this.props.type === 'dish' ?

@@ -79,12 +79,22 @@ class Login extends Component {
             name: userName,
             username: userName 
         })
-        var getUserResponse
+        let getUserResponse
         try {
             getUserResponse = await CookLabAxios.get(`/get_user_id?username=${userName}`)     
         } catch(error) {
             console.log(error)
         }
+        let uploadPicResponse
+        try {
+            uploadPicResponse = await CookLabAxios.put(`update_user`, {
+                userId: getUserResponse.data,
+                photo: userPicUrl
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        console.log('Update user ', uploadPicResponse.data)
         console.log("Create user on database" + createUserResponse)
         // save name and id
         try { 

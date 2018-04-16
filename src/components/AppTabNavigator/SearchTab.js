@@ -61,7 +61,7 @@ class SearchTab extends Component {
                 {/* { this.state.isSearch === true && */}
                     <ScrollView>
                         { this.state.resultArr.map( (element) => {
-                            console.log('render with: ' + element.name)
+                            console.log('render with: ' + element)
                             return (
                                 // <View>
                                 //     <Text>{element.name}</Text>
