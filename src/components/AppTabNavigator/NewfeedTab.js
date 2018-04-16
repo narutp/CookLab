@@ -72,7 +72,7 @@ class NewfeedTab extends Component {
                     <CardComponent love='102' profilePic='2' foodPic='5' /> */}
                 </Content>
             </Container>
-        );
+        )
     }
 }
 

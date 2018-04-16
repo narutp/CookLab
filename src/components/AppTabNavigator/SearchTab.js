@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     width: '100%',
+    backgroundColor: '#F44336'
   },
   image1: {
     left: 0,

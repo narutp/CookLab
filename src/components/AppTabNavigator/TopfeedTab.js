@@ -6,33 +6,74 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import { Container, Content, Left, Right, Body } from 'native-base';
 import CardComponent from '../CardComponent'
 import AppHeader from '../header/AppHeader'
-import MainScreen from '../MainScreen'
+import CooklabAxios from '../../http/index'
+import moment from 'moment'
 
 class TopfeedTab extends Component {
 
-    render() {
-        return (
-          <Container style={ styles.container }>
-          {/* //   <Header onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll }/>
-          //   <Content>
-          //     <CardComponent love='776' profilePic='2' foodPic='8' />
-          //     <CardComponent love='1023' profilePic='1' foodPic='9' />
-          //     <CardComponent love='2600' profilePic='2' foodPic='7' />
-          //     <CardComponent love='3412' profilePic='1' foodPic='6' />
-          //     <CardComponent love='1877' profilePic='1' foodPic='3' />
-          //   </Content> */}
-          </Container>
-        );
+  constructor(props) {
+    super(props)
+    this.state = {
+        feedResponse: [],
+        user: ''
     }
+  }
+
+  componentDidMount() {
+    this.fetchPost()
+  }
+
+  async fetchPost() {
+    let userid
+    let feedResponse
+    try {
+        userid = await AsyncStorage.getItem('userid')
+    } catch (error) {
+        console.log(error)
+    }
+    console.log('newfeed' + userid)
+    try {
+        feedResponse = await CooklabAxios.get(`/topfeed`)
+        this.setState({feedResponse: feedResponse.data})
+        console.log('new feed: ', this.state.feedResponse)
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
+  render() {
+      return (
+        <Container style={styles.container}>
+          <AppHeader onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll } />
+          <Content>
+              {this.state.feedResponse.map((data, index) => {
+                  return (
+                      <CardComponent 
+                          trophy={data.trophies} 
+                          profilePic='1' 
+                          foodPic={data.image} 
+                          caption={data.caption}
+                          date={moment.utc(data.timestamp).format("MMMM Do YYYY, h:mm a")}
+                          userName={data.user_name}
+                          postId={data._id}
+                          status={data.status}
+                          comments={data.comments}
+                          idDish={data.id_dish}
+                        />
+                  )
+              })}
+              {/* <CardComponent love='176' profilePic='1' foodPic='1' />
+              <CardComponent love='71' profilePic='2' foodPic='2' />
+              <CardComponent love='26' profilePic='1' foodPic='3' />
+              <CardComponent love='34' profilePic='2' foodPic='4' />
+              <CardComponent love='102' profilePic='2' foodPic='5' /> */}
+          </Content>
+        </Container>
+      )
+  }
 }
 
-export default TopfeedTab;
-
-// export default StackNavigator({
-//   Cameraroll: {
-//     screen: Cameraroll,
-//   },
-// });
+export default TopfeedTab
 
 const styles = StyleSheet.create({
   container: {
