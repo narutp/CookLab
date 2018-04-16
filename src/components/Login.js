@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TextInput, Dimensions, View, StyleSheet, Image, AsyncStorage } from 'react-native'
+import { KeyboardAvoidingView, TextInput, Dimensions, View, StyleSheet, Image, AsyncStorage } from 'react-native'
 import FBSDK, { LoginManager } from 'react-native-fbsdk'
 import { Input, Button, Text } from 'native-base'
 import { StackNavigator } from 'react-navigation';
@@ -149,11 +149,8 @@ class Login extends Component {
         console.log('g' + username)
         try {
             await AsyncStorage.setItem('userid', userId)
-            console.log(await AsyncStorage.getAllKeys())
             await AsyncStorage.setItem('name', name)
-            console.log(await AsyncStorage.getAllKeys())
             await AsyncStorage.setItem('username', username)
-            console.log(await AsyncStorage.getAllKeys())
             // await AsyncStorage.setItem('userExperience', userResponse.data.experience)
         } catch (error) {
             console.log(error)
@@ -168,19 +165,21 @@ class Login extends Component {
                     <Text style={ styles.titleText }> COOKLAB </Text>
                     <Text style={ styles.subtitleText }> Design your dream dishes</Text>
                     <View style={{ marginBottom: 10 }}>
-                        <TextInput onChangeText={(text) => this.setState({username: text})}
-                            multiline autoCapitalize='none' 
-                            underlineColorAndroid= "transparent" 
-                            style={ styles.loginInput }
-                            placeholder="Name.." 
-                        />
-                        <TextInput onChangeText={(text) => this.setState({password: text})}
-                            multiline autoCapitalize='none' 
-                            underlineColorAndroid= "transparent" 
-                            style={ styles.loginInput }
-                            secureTextEntry={true} 
-                            placeholder="Password.."
-                        />
+                        <KeyboardAvoidingView>
+                            <TextInput onChangeText={(text) => this.setState({username: text})}
+                                multiline autoCapitalize='none' 
+                                underlineColorAndroid= "transparent" 
+                                style={ styles.loginInput }
+                                placeholder="Name.." 
+                            />
+                            <TextInput onChangeText={(text) => this.setState({password: text})}
+                                multiline autoCapitalize='none' 
+                                underlineColorAndroid= "transparent" 
+                                style={ styles.loginInput }
+                                secureTextEntry={true} 
+                                placeholder="Password.."
+                            />
+                        </KeyboardAvoidingView>
                     </View>
                     {/* Button */}
                     <View>
