@@ -90,6 +90,8 @@ class SideMenu extends Component {
                 </View>
               </Card>
             </TouchableOpacity>
+          </View>
+          <View style={ styles.sideMenuTable }>
             <TouchableOpacity onPress={() => Actions.Leaderboard()}>
               <Card style={styles.navSectionStyle}>
               <View style={styles.contentView}>
@@ -114,7 +116,7 @@ class SideMenu extends Component {
                 </View>
               </Card>
             </TouchableOpacity>
-        </View>
+          </View>
         </ScrollView>
         <View>
           <Text style={styles.footerContainer}
@@ -153,6 +155,7 @@ const styles = StyleSheet.create ({
         flexDirection: 'row',
         alignItems: 'center',
         flexWrap: 'wrap',
+        height: 100,
         marginTop: 10
     },
     contentView: {
