@@ -48,10 +48,10 @@ class SearchTab extends Component {
             <View style={styles.container}>
                 <Header searchBar rounded style={styles.searchBar}>
                     <Item>
-                        <Icon name="ios-search" />
-                        <Input onChangeText={ (text) => this.setState({searchText: text}) } placeholder="Search" />
+                        <Icon name="ios-search" style={{ color: '#F44336' }} />
+                        <Input onChangeText={ (text) => this.setState({searchText: text}) } placeholder="Search..." />
                         <TouchableOpacity onPress={ () => this.searchDish() }>
-                            <Icon name="paper-plane" />
+                            <Icon name="paper-plane" style={{ color: '#F44336' }} />
                         </TouchableOpacity>
                     </Item>
                     {/* <Button transparent>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     width: '100%',
-    backgroundColor: '#F44336'
+    backgroundColor: 'white'
   },
   image1: {
     left: 0,

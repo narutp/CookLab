@@ -44,12 +44,12 @@ class UserDetail extends Component {
                 <ScrollView style={ styles.componentWrapper }>
                     <View style={ styles.imageWrapper }>
                         <Thumbnail source={{ uri: this.state.image }} style={ styles.profilePic }/>
+                    </View>
+                    <View style={ styles.nameWrapper }>
+                        <Text style={ styles.name }>{this.state.name}</Text>
                         <Button style={ styles.addButton }>
                             <IconFontAwesome name="user-plus" style={{ color: "#fff" }}/>
                         </Button>
-                    </View>
-                    <View style={ styles.nameWrapper }>
-                        <Text>{this.state.name}</Text>
                     </View>
                 </ScrollView>
             </View>
@@ -68,19 +68,22 @@ const styles = StyleSheet.create({
         padding: 10
     },
     imageWrapper: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10
+    },
+    name: {
+        fontWeight: '500'
+    },
+    nameWrapper: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 10
     },
-    nameWrapper: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 10
-    },
     profilePic: {
-        width: 200,
+        width: Dimensions.get('window').width/2,
         height: 200,
         resizeMode: 'cover'
     },
