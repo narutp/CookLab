@@ -10,7 +10,7 @@ class Aboutus extends Component {
     render(){
         return(
             <View style={{ flex: 1 }}>
-                <BackHeader title="About us" actions="sidemenu" />
+                <BackHeader title="ABOUT US" actions="sidemenu" />
                 <ScrollView style={ styles.container }>
                     <Text style={ styles.aboutus }>About us..</Text>
                     <View style={ styles.logoWrapper }>
