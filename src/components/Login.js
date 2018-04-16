@@ -8,7 +8,7 @@ import MainScreen from './MainScreen'
 import DrawerRouter from './DrawerRouter'
 import Register from './Register'
 import Axios from 'react-native-axios'
-import CookLabAxios from '../http/index'
+import CookLabAxios from 'src/http/index'
 import { Actions } from 'react-native-router-flux'
 
 const {
