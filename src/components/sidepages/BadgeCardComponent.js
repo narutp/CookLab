@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { Card, CardItem, Left } from 'native-base';
-import ProgressBarClassic from 'react-native-progress-bar-classic';
+import PBA from 'react-native-animated-progress-bar';
 
 class BadgeCardComponent extends Component {
 
@@ -14,7 +14,14 @@ class BadgeCardComponent extends Component {
                 </CardItem>
                 <CardItem style={ styles.detail }>
                     <Text style={ styles.badgeName }>{ this.props.badgeName }</Text>
-                    <View style={ styles.badgeProgress }><ProgressBarClassic valueStyle={'none'} progress={ this.props.badgeProgress } /></View>
+                    <View style={ styles.badgeProgress }>
+                        <PBA 
+                            progress={ this.props.badgeProgress } 
+                            backgroundStyle={{backgroundColor: '#FFA500'}}
+                            progressStyle={{backgroundColor: 'gold'}}
+                            incompleteStyle={{backgroundColor: 'white'}}
+                        />
+                        </View>
                     <Text style={ styles.point }>Point needed : { this.props.point }</Text>
                 </CardItem>
             </Card>

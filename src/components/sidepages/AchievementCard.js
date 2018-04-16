@@ -13,7 +13,7 @@ class AchievementCard extends Component {
         return(
             <View style={ styles.container }>
                 { parseInt(this.props.current) < parseInt(this.props.needed) ?
-                    <Card style={ styles.cardDone }>
+                    <Card style={ styles.cardUnDone }>
                     <CardItem style={ styles.imageWrapper }>
                         <Image source={ this.props.achImage } style={ styles.achImage }/>
                     </CardItem>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         height: 90,
         padding: 10
     },
-    cardDone: {
+    cardUnDone: {
         flex: 1,
         flexDirection: 'row',
         height: 90,
