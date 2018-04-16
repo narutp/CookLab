@@ -72,7 +72,6 @@ class ProfileTab extends Component {
     
     generateImage = () => {
         return this.state.picCollection.map((element, index) => {
-            console.log(element)
             return (
                 <View key={index} style={[{ width: (width)/3 }, { height: (width)/3 }]}>
                     <Image style={{ flex: 1, width: undefined, height: undefined }}

@@ -9,6 +9,8 @@ import CooklabAxios from '../../http/index'
 import StarRating from 'react-native-star-rating'
 import BackHeader from '../header/BackHeader'
 
+let {width, height} = Dimensions.get('window')
+
 class UserDetail extends Component {
 
     constructor(props) {
@@ -16,6 +18,7 @@ class UserDetail extends Component {
         this.state ={
             name: '',
             image: '',
+            picCollection: []
         }
     }
 
@@ -35,6 +38,29 @@ class UserDetail extends Component {
             name: userResponse.data.name,
             image: userResponse.data.photo
         })
+
+        let userPostResponse
+        try {
+            userPostResponse = await CooklabAxios.get(`get_user_post?user_id=${this.props.idUser}`)
+        } catch (error) {
+            console.log(error)
+        }    
+        this.setState({
+            picCollection: userPostResponse.data
+        })
+    }
+
+    generateImage = () => {
+        return this.state.picCollection.map((element, index) => {
+            console.log(element)
+            return (
+                <View key={index} style={[{ width: (width)/3 }, { height: (width)/3 }]}>
+                    <Image style={{ flex: 1, width: undefined, height: undefined }}
+                    source={{ uri: element.image}}
+                    />
+                </View>
+            )
+        })
     }
 
     render() {
@@ -51,6 +77,9 @@ class UserDetail extends Component {
                             <IconFontAwesome name="user-plus" style={{ color: "#fff" }}/>
                         </Button>
                     </View>
+                    <View style={ styles.postWrapper }>
+                        { this.generateImage() }
+                    </View>
                 </ScrollView>
             </View>
         )
@@ -65,7 +94,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     componentWrapper: {
-        padding: 10
+        padding: 0
     },
     imageWrapper: {
         justifyContent: 'center',
@@ -81,6 +110,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 10
+    },
+    postWrapper: {
+        flex: 1,
+        flexDirection: 'row',
     },
     profilePic: {
         width: Dimensions.get('window').width/2,
