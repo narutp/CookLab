@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
+import IconFeather from 'react-native-vector-icons/Feather'
 import { Card, Icon, Thumbnail, CardItem, Left, Right, Header, Button, Body } from 'native-base'
 import CooklabAxios from '../../http/index'
 import StarRating from 'react-native-star-rating'
@@ -18,7 +19,8 @@ class UserDetail extends Component {
         this.state ={
             name: '',
             image: '',
-            picCollection: []
+            picCollection: [],
+            isFollow: false
         }
     }
 
@@ -34,6 +36,14 @@ class UserDetail extends Component {
             console.log(error)
         }
         console.log('User detail page: ', userResponse.data)
+
+        // Check if this user already been followed or not
+        if (userResponse.data.followings.indexOf(this.props.idUser) > -1) {
+            this.setState({
+                isFollow: true
+            })
+        }
+
         this.setState({
             name: userResponse.data.name,
             image: userResponse.data.photo
@@ -63,6 +73,28 @@ class UserDetail extends Component {
         })
     }
 
+    async followUser() {
+        let getUserId
+        try {
+            getUserId = AsyncStorage.getItem('userid')
+        } catch (error) {
+            console.log(error)
+        }
+        let followResponse
+        try {
+            followResponse = await CooklabAxios.put(`follow`, {
+                userId: getUserId,
+                targetId: this.props.idUser
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        console.log('Follow response: ', followResponse.data)
+        this.setState({
+            isFollow: followResponse.data
+        })
+    }
+
     render() {
         return (
             <View style={ styles.container }>
@@ -73,8 +105,11 @@ class UserDetail extends Component {
                     </View>
                     <View style={ styles.nameWrapper }>
                         <Text style={ styles.name }>{this.state.name}</Text>
-                        <Button style={ styles.addButton }>
-                            <IconFontAwesome name="user-plus" style={{ color: "#fff" }}/>
+                        <Button onPress={ () => this.followUser() } style={ styles.addButton }>
+                            { this.state.isFollow === false ? 
+                                <IconFeather name="user-plus" style={{ color: "blue" }}/> : 
+                                <IconFeather name="user-check" style={{ color: "green" }}/>
+                            }
                         </Button>
                     </View>
                     <View style={ styles.postWrapper }>
@@ -94,6 +129,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     componentWrapper: {
+        marginTop: 10,
         padding: 0
     },
     imageWrapper: {
