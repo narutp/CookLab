@@ -3,21 +3,47 @@ import { Dimensions, StyleSheet, View, Image, TextInput, TouchableOpacity, Scrol
 import { Card, CardItem, Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import SearchCardComponent from '../card/SearchCardComponent';
+import CooklabAxios from '../../http/index'
 
 class SearchTab extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            searchText: ''
+            searchText: '',
+            resultArr: [],
+            isSearch: false,
         }
     }
 
-    searchDish() {
-        console.log(this.state.searchText)
+    async searchDish() {
+       console.log(this.state.searchText)
+       let searchResponse
+       try {
+           searchResponse = await CooklabAxios.get(`search?text=${this.state.searchText}`)
+       } catch (error) {
+           console.log(error)
+       }
+       console.log(searchResponse.data)
+       this.setState({resultArr: searchResponse.data, isSearch: true})
+       console.log(this.state.isSearch)
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('Current state', this.state.resultArr)
+        console.log('Next State :', nextState.resultArr)
+        return this.state.resultArr != nextState.resultArr
+    }
+
+    // componentWillUpdate(nextProps, nextState) {
+    //     if (nextState) {
+    //        this.setState({ resultArr: this.state.resultArr.splice(0, this.state.resultArr.length) })
+    //     }
+    // }
+
+    // TODO: when search new things, old value doesn't gone!
     render () {
+        console.log('log array', this.state.resultArr)
         return (
             <View style={styles.container}>
                 <Header searchBar rounded style={styles.searchBar}>
@@ -32,11 +58,25 @@ class SearchTab extends Component {
                         <TextInput>Search</TextInput>
                     </Button> */}
                 </Header>
-                <ScrollView>
-                    <SearchCardComponent>
-
-                    </SearchCardComponent>
-                </ScrollView>
+                {/* { this.state.isSearch === true && */}
+                    <ScrollView>
+                        { this.state.resultArr.map( (element) => {
+                            console.log('render with: ' + element)
+                            return (
+                                // <View>
+                                //     <Text>{element.name}</Text>
+                                // </View>
+                                <SearchCardComponent 
+                                    name={element.name}
+                                    image={element.image}
+                                    type={element.type}
+                                    id={element._id}
+                                 />
+                            )
+                        })}
+                    </ScrollView>  
+                {/* } */}
+                
             </View>
         );
     }

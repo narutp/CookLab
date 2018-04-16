@@ -216,7 +216,7 @@ class CardComponent extends Component {
                                     this.setState({ isModalVisible: !this.state.isModalVisible })
                                 }} color={'black'} size={25} style={ styles.backIcon } />
                             </Left>
-                            <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <Body style={{ justifyContent: 'center', alignItems: 'center', marginRight: 60 }}>
                                 <Text style={{ fontSize: 13 }}>Comment</Text>
                             </Body>
                         </Header>
@@ -288,17 +288,17 @@ class CardComponent extends Component {
                         <Left>
                             { this.state.status === true ? 
                             <TouchableOpacity onPress={ () => this.decreaseTrophy() } style={ styles.iconContainer }>
-                                <IconIonicons name='md-trophy' style={{ color: '#F44336' }} size={18}/>
+                                <IconMaterialCommunityIcons name='trophy' style={{ color: '#F44336' }} size={20}/>
                             </TouchableOpacity> : 
                             <TouchableOpacity onPress={ () => this.increaseTrophy() } style={ styles.iconContainer }>
-                                <IconIonicons name='md-trophy' style={{ color: 'black' }} size={18}/>
+                                <IconMaterialCommunityIcons name='trophy-outline' style={{ color: 'black' }} size={20}/>
                             </TouchableOpacity>
                             }
                             <TouchableOpacity onPress={ () => this.setState({ isModalVisible: !this.state.isModalVisible}) } style={ styles.iconContainer }>
-                                <IconMaterialCommunityIcons name="comment-outline" style={{ color: 'black' }} size={18} />
+                                <IconMaterialCommunityIcons name="comment-outline" style={{ color: 'black' }} size={20} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={ () => this.shareLinkWithShareDialog() } style={ styles.iconContainer }>
-                                <IconFeather name='share-2' style={{ color: 'black' }} size={18}/>
+                                <IconFeather name='share-2' style={{ color: 'black' }} size={20}/>
                             </TouchableOpacity>
                         </Left>
                     </CardItem>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TextInput, Modal, TouchableHighlight, TouchableOpacity, Alert, StyleSheet, Text, View, Image, Dimensions, AsyncStorage } from 'react-native'
+import { TextInput, Platform, Modal, TouchableHighlight, TouchableOpacity, Alert, StyleSheet, Text, View, Image, Dimensions, AsyncStorage } from 'react-native'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
@@ -9,7 +9,7 @@ import { Button, Container, Content, Left, Right, Body, Card, CardItem, Input } 
 import CooklabAxios from '../../http/index'
 import ImagePicker from 'react-native-image-picker'
 import RNFetchBlob from 'react-native-fetch-blob'
-// import firebase from '../../firebase'
+import firebase from '../../firebase'
 
 let images = [
     require('../../assets/image/Food/food1.jpg'),
@@ -19,42 +19,42 @@ let images = [
 
 let {width, height} = Dimensions.get('window')
 
-// const storage = firebase.storage()
+const storage = firebase.storage()
 
-// const uploadImage = (uri, mime = 'application/octet-stream') => {
-//   // Prepare Blob support
-//   const Blob = RNFetchBlob.polyfill.Blob
-//   const fs = RNFetchBlob.fs
-//   window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
-//   window.Blob = Blob
-//   return new Promise((resolve, reject) => {
-//     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+const uploadImage = (uri, mime = 'application/octet-stream') => {
+  // Prepare Blob support
+  const Blob = RNFetchBlob.polyfill.Blob
+  const fs = RNFetchBlob.fs
+  window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+  window.Blob = Blob
+  return new Promise((resolve, reject) => {
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
     
-//     const sessionId = new Date().getTime()
-//     let uploadBlob = null
-//     const imageRef = storage.ref('images').child(`${sessionId}.jpeg`)
+    const sessionId = new Date().getTime()
+    let uploadBlob = null
+    const imageRef = storage.ref('images').child(`${sessionId}.jpeg`)
 
-//     fs.readFile(uploadUri, 'base64')
-//       .then((data) => {
-//         return Blob.build(data, { type: `${mime};BASE64` })
-//       })
-//       .then((blob) => {
-//         uploadBlob = blob
-//         return imageRef.put(blob, { contentType: mime })
-//       })
-//       .then(() => {
-//         uploadBlob.close()
-//         return imageRef.getDownloadURL()
-//       })
-//       .then((url) => {
-//         console.log('url:' + url)
-//         resolve(url)
-//       })
-//       .catch((error) => {
-//         reject(error)
-//     })
-//   })
-// }
+    fs.readFile(uploadUri, 'base64')
+      .then((data) => {
+        return Blob.build(data, { type: `${mime};BASE64` })
+      })
+      .then((blob) => {
+        uploadBlob = blob
+        return imageRef.put(blob, { contentType: mime })
+      })
+      .then(() => {
+        uploadBlob.close()
+        return imageRef.getDownloadURL()
+      })
+      .then((url) => {
+        console.log('url:' + url)
+        resolve(url)
+      })
+      .catch((error) => {
+        reject(error)
+    })
+  })
+}
 
 class ProfileTab extends Component {
 
@@ -65,17 +65,18 @@ class ProfileTab extends Component {
             id: '',
             picUrl: null,
             isModalVisible: false,
-            uploadURL: ''
+            uploadURL: null,
+            picCollection: []
         }
     }
     
     generateImage = () => {
-        return images.map((image, index) => {
-            console.log(image)
+        return this.state.picCollection.map((element, index) => {
+            console.log(element)
             return (
                 <View key={index} style={[{ width: (width)/3 }, { height: (width)/3 }]}>
                     <Image style={{ flex: 1, width: undefined, height: undefined }}
-                    source={image}
+                    source={{ uri: element.image}}
                     />
                 </View>
             )
@@ -84,6 +85,29 @@ class ProfileTab extends Component {
 
     componentDidMount() {
         this.fetchUser()
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (this.state.uploadURL != nextState.uploadURL) {
+            this.uploadProfilePic(nextState.uploadURL)
+        }
+    }
+
+    async uploadProfilePic(url) {
+        console.log('url' + url)
+        let uploadResponse
+        let userid = await AsyncStorage.getItem('userid')
+        try {
+            uploadResponse = await CooklabAxios.put(`update_user`, {
+                userId: userid,
+                photo: url
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        this.setState({
+            picUrl: url
+        })
     }
 
     async fetchUser () {
@@ -99,19 +123,43 @@ class ProfileTab extends Component {
         
         // login normal
         let user_name
+        let userResponse
+        let userid = await AsyncStorage.getItem('userid')
         // check username by facebook is null
         // then, get user data that login normally
         if (userNameFB == null) {
+            // get profile picture
+            try {
+                userResponse = await CooklabAxios.get(`/get_user?userId=${userid}`)
+            } catch(error) {
+                console.log(error)
+            }
             try {
                 user_name = await AsyncStorage.getItem('name')
                 console.log('in' + user_name)
             } catch (error) {
                 console.log(error)
             }
-            this.setState({name: user_name})
+            if (userResponse.data.photo != null) {
+                this.setState({ name: user_name, picUrl: userResponse.data.photo })
+            } else {
+                this.setState({ name: user_name })
+            }    
         } else {
-            this.setState({name: userNameFB, picUrl: userPicUrlFB})
+            this.setState({ name: userNameFB, picUrl: userPicUrlFB })
         }
+
+        let userPostResponse
+        try {
+            userPostResponse = await CooklabAxios.get(`get_user_post?user_id=${userid}`)
+        } catch (error) {
+            console.log(error)
+        }
+        
+        this.setState({
+            picCollection: userPostResponse.data
+        })
+        console.log('user post response: ', this.state.picCollection)
         console.log('name: ' + this.state.name)
         console.log('pic url: ' + this.state.picUrl)
 
@@ -164,25 +212,9 @@ class ProfileTab extends Component {
                 uploadImage(response.uri)
                 .then(url => this.setState({ uploadURL: url }))
                 .catch(error => console.log(error))
-                // saveProfileImageUri(response.uri)
-                // this.props.setImageSource(response.uri)
-                // Actions.StatusPosting()
             }
         });
     }
-
-    // async saveProfileImageUri(uri) {
-    //     let userid = await AsyncStorage.getItem('userid')
-    //     let saveImageResponse
-    //     try {
-    //         saveImageResponse = await CooklabAxios.put(`/update_user`, {
-    //             userId: userid,
-                
-    //         })
-    //     } catch (error) {
-            
-    //     }
-    // }
 
     render() {
         return (
@@ -221,23 +253,26 @@ class ProfileTab extends Component {
                             </View>
                         </View>
                     </Modal>
-                    {/* Cover image */}
-                    <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
-                    {/* Profile image */}
-                    <View>
-                        { this.state.picUrl === null ? 
-                            <TouchableOpacity onPress={ () => chooseImage()} style={{ alignItems: 'center' }}>
-                                <Image source={require('../../assets/image/Profile/profilePic.png')} style={ styles.profileImage }/>
-                            </TouchableOpacity> : 
-                            <TouchableOpacity onPress={ () => chooseImage()} style={{ alignItems: 'center' }}>
-                                <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
-                            </TouchableOpacity>
-                        }
-                        
-                    </View>
+                </View>
+                {/* Cover image */}
+                <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
+                {/* Profile image */}
+                <View style={{ marginBottom: 5, marginTop: 5, shadowColor: "black",
+                    shadowOffset: { height: 20},
+                    shadowOpacity: 0.5, 
+                }}>
+                    { this.state.picUrl === null ? 
+                        <TouchableOpacity onPress={ () => this.chooseImage()} style={{ alignItems: 'center' }}>
+                            <Image source={require('../../assets/image/Profile/profilePic.png')} style={ styles.profileImage }/>
+                        </TouchableOpacity> : 
+                        <TouchableOpacity onPress={ () => this.chooseImage()} style={{ alignItems: 'center' }}>
+                            <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
+                        </TouchableOpacity>
+                    }
                 </View>
                 <View style={ styles.body }>
                     {/* User's name */}
+                    {/* TODO: change name bug!!!! */}
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ textAlign: 'center' }}>{ this.state.name }</Text>
                         <IconMaterial onPress={() => this.editName()} name="edit" style={{ textAlign: 'center', marginLeft: 5 }} /> 
@@ -294,16 +329,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   profileImage: {
-    position: 'absolute',
-    top: -40,
-    width: 80,
-    height: 80,
-    borderRadius: 37.5,
+    // position: 'absolute',
+    resizeMode: 'cover',
+    top: 0,
+    width: 100,
+    height: 100,
+    zIndex: 99,
+    borderRadius: 50,
     borderWidth: 0.5,
     borderColor: 'grey'
   },
   body: {
-      top: 50,
+      top: 0,
   },
   cancelButton: {
     width: 100,

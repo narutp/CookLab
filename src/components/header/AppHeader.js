@@ -14,13 +14,13 @@ class AppHeader extends Component {
             <Header style={styles.header}>
                 {/* Add flex = 1 for centered the title */}
                 <Left style={{ flex: 1 }}>
-                  <IconEntypo name="menu" onPress={() => this.props.onMenuPressed() } size={25} style={{ marginLeft:10, color: '#fff' }} />
+                  <IconEntypo name="menu" onPress={() => this.props.onMenuPressed() } size={25} style={{ marginLeft:10, color: '#F44336' }} />
                 </Left>
                 <Body style={ styles.titleWrapper }>
-                    <Text style={{ color: '#fff', fontSize: 15, fontWeight: '400' }}>COOKLAB</Text>
+                    <Text style={{ color: 'black', fontSize: 16, fontWeight: '100' }}>COOKLAB</Text>
                 </Body>
                 <Right>
-                  <IconFontAwesome name="camera" onPress={() => this.props.showCameraRoll() }size={20} style={{ marginRight:10, color: '#fff' }} />
+                  <IconFontAwesome name="camera" onPress={() => this.props.showCameraRoll() }size={20} style={{ marginRight:10, color: '#F44336' }} />
                 </Right>
             </Header>
         )
@@ -29,7 +29,8 @@ class AppHeader extends Component {
 
 const styles = StyleSheet.create({
     header: {
-      backgroundColor: '#F44336',
+    //   backgroundColor: '#FFBF00',
+        backgroundColor: 'white'
     },
     titleWrapper: {
       justifyContent: 'center', 
