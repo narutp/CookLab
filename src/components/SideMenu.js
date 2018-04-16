@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import { NavigationActions } from 'react-navigation'
-import { StyleSheet, ScrollView, Text, Image, View, Button, Alert, AsyncStorage } from 'react-native'
+import { StyleSheet, ScrollView, Text, Image, View, Button, Alert, AsyncStorage, TouchableOpacity, Dimensions } from 'react-native'
+import { Card } from 'native-base'
 import FBSDK, { LoginManager } from 'react-native-fbsdk'
 import { Actions } from 'react-native-router-flux'
 import { Header } from 'native-base'
@@ -64,48 +65,56 @@ class SideMenu extends Component {
               </View> */}
             </View>
           </View>
-          <View>
-            <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={() => Actions.MainScreen()}>
-                <IconFontAwesome name="home" /> Home 
-              </Text>
-            </View>
-          </View>
-          <View>
-            <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={() => Actions.Achievement()}>
-                <IconFontAwesome name="flask" /> Achievement
-              </Text>
-            </View>
-          </View>
-          <View>
-            <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={() => Actions.CookingLevel()}>
-                <IconFontAwesome name="rocket" /> Cooking Level
-              </Text>
-            </View>
-          </View>
-          <View>
-            <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={() => Actions.Leaderboard()}>
-                <IconFontAwesome name="trello" /> Leaderboard
-              </Text>
-            </View>
-          </View>
-          <View>
-            <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={() => Actions.MyDish()}>
-                <IconMaterialCommunityIcons name="food" /> My Dishes
-              </Text>
-            </View>
-          </View>
-          <View>
-            <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={() => Actions.Aboutus()}>
-                <IconFontAwesome name="user" /> About us
-              </Text>
-            </View>
-          </View>
+          <View style={ styles.sideMenuTable }>
+            <TouchableOpacity onPress={() => Actions.MainScreen()}>
+              <Card style={styles.navSectionStyle}>
+                <View style={styles.contentView}>
+                <IconFontAwesome style={styles.navIconStyle} name="home" />
+                <Text style={styles.navItemStyle}>Home</Text>
+                </View>
+              </Card>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Actions.Achievement()}>
+              <Card style={styles.navSectionStyle}>
+              <View style={styles.contentView}>
+                <IconFontAwesome style={styles.navIconStyle} name="flask" />
+                <Text style={styles.navItemStyle}>Achievement</Text>
+                </View>
+              </Card>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Actions.CookingLevel()}>
+              <Card style={styles.navSectionStyle}>
+              <View style={styles.contentView}>
+                <IconFontAwesome style={styles.navIconStyle} name="rocket" />
+                <Text style={styles.navItemStyle}>Cooking Level</Text>
+                </View>
+              </Card>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Actions.Leaderboard()}>
+              <Card style={styles.navSectionStyle}>
+              <View style={styles.contentView}>
+                <IconFontAwesome style={styles.navIconStyle} name="trello" />
+                <Text style={styles.navItemStyle}>Leaderboard</Text>
+                </View>
+              </Card>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Actions.MyDish()}>
+              <Card style={styles.navSectionStyle}>
+              <View style={styles.contentView}>
+                <IconMaterialCommunityIcons style={styles.navIconStyle} name="food" /> 
+                <Text style={styles.navItemStyle}>My Dishes</Text>
+                </View>
+              </Card>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Actions.Aboutus()}>
+              <Card style={styles.navSectionStyle}>
+              <View style={styles.contentView}>
+                <IconFontAwesome style={styles.navIconStyle} name="user" /> 
+                <Text style={styles.navItemStyle}>About us</Text>
+                </View>
+              </Card>
+            </TouchableOpacity>
+        </View>
         </ScrollView>
         <View>
           <Text style={styles.footerContainer}
@@ -138,13 +147,33 @@ const styles = StyleSheet.create ({
     header: {
         backgroundColor: '#F44336'
     },
+    sideMenuTable: {
+        width: Dimensions.get('window').width,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        marginTop: 10
+    },
+    contentView: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     navItemStyle: {
-        padding: 10
+        alignSelf: 'center',
+        fontSize: 16
+    },
+    navIconStyle: {
+        alignSelf: 'center',
+        fontSize: 35
     },
     navSectionStyle: {
+        width: (Dimensions.get('window').width*3)/10,
+        height: 40,
+        alignItems: 'center',
         backgroundColor: 'white',
-        flex: 1,
-        flexDirection: 'row'
+        marginLeft: 8
     },
     sectionHeadingStyle: {
         paddingVertical: 10,

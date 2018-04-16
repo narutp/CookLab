@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, ScrollView, Text, Image, View, Button, Dimensions } from 'react-native'
+import { StyleSheet, ScrollView, Text, Image, View, Button, Dimensions, AsyncStorage } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { Card, CardItem, Thumbnail } from 'native-base'
 import ImageFactory from 'src/components/ImageFactory'
@@ -7,9 +7,28 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import ProgressBarClassic from 'react-native-progress-bar-classic'
 import DishImageTable from './DishImageTable'
 import BackHeader from '../header/BackHeader'
+import CookLabAxios from 'src/http/index'
 
 class MyDish extends Component {
     
+    state = {
+        userData : {}
+    }
+
+    async getUser(){
+        let userid = await AsyncStorage.getItem('userid')
+        try{
+            result = await CookLabAxios.get(`/get_user?userId=${userid}`)
+        } catch (error){
+            console.log(error)
+        }
+        this.setState({ userData: result.data })
+    }
+
+    componentDidMount(){
+        this.getUser()
+    }
+
     render() {
         return (
             <View style={ styles.container }>
@@ -17,11 +36,11 @@ class MyDish extends Component {
                 <ScrollView style={ styles.container }>
                     <Card style={ styles.profile }>
                         <CardItem style={ styles.profilePicWrapper }>
-                            <Thumbnail source={ ImageFactory.user1 } style={ styles.profilePic }/>
+                            <Thumbnail source={{uri : this.state.userData.photo }} style={ styles.profilePic }/>
                         </CardItem>
                         <CardItem style={ styles.userDetailWrapper }>
-                            <Text style={ styles.detailText }>NarutP</Text>
-                            <Text style={ styles.detailText }>Points: 56000</Text>
+                            <Text style={ styles.detailText }>{this.state.userData.name}</Text>
+                            <Text style={ styles.detailText }>Points: {this.state.userData.experience}</Text>
                             <Text style={ styles.detailText }>Juniorcook III</Text>
                             <View style={ styles.badgeProgress }><ProgressBarClassic valueStyle={'none'} progress={40}/></View>
                         </CardItem>
