@@ -117,7 +117,7 @@ class CardComponent extends Component {
             console.log(element)
         });
         // console.log('argaperogkapeorg' + this.props.comments)
-        this.setState({ status: this.props.status, trophy: this.props.trophy })
+        this.setState({ status: this.props.status, trophy: this.props.trophy, profilePic: this.props.profilePic })
     }
 
     
@@ -282,6 +282,7 @@ class CardComponent extends Component {
                 <Card>
                     <CardItem header style={styles.headerCard}>
                         <Left>
+                            {/* TODO: Profile pic doesn't show when post a new post */}
                             <Thumbnail source={{ uri: this.props.profilePic }} style={{ width: 35, height: 35 }}/>
                             <Body>
                                 <Text>{this.props.userName} </Text>
@@ -292,10 +293,7 @@ class CardComponent extends Component {
                     <CardItem cardBody>
                         {/* <Image source={foodImage[this.props.foodPic]} style={styles.imageCard}/> */}
                         <TouchableOpacity onPress={ () => this.navigateDishDetail() }>
-                            <Image source={{ uri: this.props.foodPic }} style={{ resizeMode: 'cover',
-                                height: 250,
-                                width: Dimensions.get('window').width
-                            }} />
+                            <Image source={{ uri: this.props.foodPic }} style={ styles.imageCard }/>
                         </TouchableOpacity>
                         { this.state.isIncreaseTrophy === true && 
                             <Animated.View style={{ position: 'absolute', left: '42%', transform: [{scale: this.iconAnimated}] }}>
@@ -357,9 +355,9 @@ const styles = StyleSheet.create({
     height: 45
   },
   imageCard: {
-    resizeMode: 'cover',
-    height: 250,
-    width: '100%'
+    resizeMode: 'contain',
+    height: 300,
+    width: Dimensions.get('window').width
   },
   footerCard: {
     height: 35

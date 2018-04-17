@@ -54,7 +54,7 @@ class NewfeedTab extends Component {
             this.setState({refreshing: false})
         })
     }
-    
+
     render() {
         return (
             <Container style={styles.container}>
@@ -71,7 +71,7 @@ class NewfeedTab extends Component {
                                 return (
                                     <CardComponent 
                                         trophy={data.trophies} 
-                                        profilePic={data.photo} 
+                                        profilePic={data.photo}
                                         foodPic={data.image} 
                                         caption={data.caption}
                                         date={moment.utc(data.timestamp).format("MMMM Do YYYY, h:mm a")}
