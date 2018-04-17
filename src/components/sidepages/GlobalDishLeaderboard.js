@@ -7,11 +7,12 @@ import { Actions } from 'react-native-router-flux'
 import UserCardComponent from 'src/components/sidepages/UserCardComponent'
 import CookLabAxios from '../../http/index'
 import BackHeader from '../header/BackHeader'
+import DishActions from 'src/redux/actions/dish'
+import { connect } from 'react-redux'
 
-class FriendExpLeaderboard extends Component {
+class GlobalDishLeaderboard extends Component {
 
     state = {
-        leaderboard: [],
         badgePic : [ImageFactory.consumer1,ImageFactory.consumer2,ImageFactory.consumer3,
             ImageFactory.homecook1,ImageFactory.homecook2,ImageFactory.homecook3,
             ImageFactory.juniorcook1,ImageFactory.juniorcook2,ImageFactory.juniorcook3,
@@ -20,25 +21,32 @@ class FriendExpLeaderboard extends Component {
     }
 
     async getLeaderboard() {
-        let userid = await AsyncStorage.getItem('userid')
         try{
             result = await CookLabAxios.get(`/get_most_post`)
-            this.setState({leaderboard: result.data})
+            this.props.setGlobalDishLeaderboard(result.data)
         } catch(error) {
             console.log(error)
         }
         console.log("Result ",result.data)
-        console.log("State", this.state.leaderboard)
+        console.log("State", this.props.leaderboard)
     } 
 
-    componentDidMount() {
-        this.getLeaderboard()
+    async componentWillMount() {
+        if(this.props.leaderboard.length == 0)
+            await this.getLeaderboard()
+        console.log("renderGDL")
+    }
+
+    async componentWillUpdate() {
+        if(this.props.leaderboard.length == 0)
+            await this.getLeaderboard()
+        console.log("renderGDL")
     }
     
     render() {
         return (
             <View>
-            { this.state.leaderboard.map((data, index) => {
+            { this.props.leaderboard.map((data, index) => {
                 return(
                     <UserCardComponent 
                         rank={ index+1 } 
@@ -54,7 +62,17 @@ class FriendExpLeaderboard extends Component {
     }
 }
 
-export default FriendExpLeaderboard
+const mapDispatchToProps = dispatch => ({
+    setGlobalDishLeaderboard: (leaderboard) => {
+        dispatch(DishActions.setGlobalDishLeaderboard(leaderboard))
+    }
+})
+
+const mapStateToProps = state => ({
+    leaderboard: state.dishReducer.GDleaderboard
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(GlobalDishLeaderboard)
 
 const styles = StyleSheet.create({
     container: {

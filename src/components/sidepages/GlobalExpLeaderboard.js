@@ -7,11 +7,12 @@ import { Actions } from 'react-native-router-flux'
 import UserCardComponent from 'src/components/sidepages/UserCardComponent'
 import CookLabAxios from '../../http/index'
 import BackHeader from '../header/BackHeader'
+import DishActions from 'src/redux/actions/dish'
+import { connect } from 'react-redux'
 
 class GlobalExpLeaderboard extends Component {
 
     state = {
-        leaderboard: [],
         badgePic : [ImageFactory.consumer1,ImageFactory.consumer2,ImageFactory.consumer3,
             ImageFactory.homecook1,ImageFactory.homecook2,ImageFactory.homecook3,
             ImageFactory.juniorcook1,ImageFactory.juniorcook2,ImageFactory.juniorcook3,
@@ -22,22 +23,30 @@ class GlobalExpLeaderboard extends Component {
     async getLeaderboard() {
         try{
             result = await CookLabAxios.get(`/get_most_rank`)
-            this.setState({leaderboard: result.data})
+            this.props.setGlobalExpLeaderboard(result.data)
         } catch(error) {
             console.log(error)
         }
         console.log("Result ",result.data)
-        console.log("State", this.state.leaderboard)
+        console.log("State", this.props.leaderboard)
     } 
 
-    componentDidMount() {
-        this.getLeaderboard()
+    async componentWillMount() {
+        if(this.props.leaderboard.length == 0)
+            await this.getLeaderboard()
+        console.log("renderGEL")
+    }
+
+    async componentWillUpdate() {
+        if(this.props.leaderboard.length == 0)
+            await this.getLeaderboard()
+        console.log("renderGEL")
     }
 
     render() {
         return (
             <View>
-            { this.state.leaderboard.map((data, index) => {
+            { this.props.leaderboard.map((data, index) => {
                 return(
                     <UserCardComponent 
                         rank={ index+1 } 
@@ -54,7 +63,17 @@ class GlobalExpLeaderboard extends Component {
 
 }
 
-export default GlobalExpLeaderboard
+const mapDispatchToProps = dispatch => ({
+    setGlobalExpLeaderboard: (leaderboard) => {
+        dispatch(DishActions.setGlobalExpLeaderboard(leaderboard))
+    }
+})
+
+const mapStateToProps = state => ({
+    leaderboard: state.dishReducer.GEleaderboard
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(GlobalExpLeaderboard)
 
 const styles = StyleSheet.create({
     container: {
