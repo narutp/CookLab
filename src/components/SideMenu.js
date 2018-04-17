@@ -169,7 +169,7 @@ const styles = StyleSheet.create ({
     navIconStyle: {
         alignSelf: 'center',
         fontSize: 35,
-        color: 'grey'
+        color: '#4F504B'
     },
     navSectionStyle: {
         width: (Dimensions.get('window').width*4)/10,

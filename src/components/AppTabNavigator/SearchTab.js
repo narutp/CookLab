@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-    backgroundColor: '#fff',
+    backgroundColor: '#fbfbfb',
     // justifyContent: 'center',
   },
   searchBar: {

@@ -279,11 +279,11 @@ class ProfileTab extends Component {
                         {/* Following | Fans */}
                         <View style={ styles.followPanel }>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 12, fontWeight: '500' }}>Following</Text>
+                                <Text style={{ fontSize: 12 }}>Following</Text>
                                 <Text style={{ color: 'gray', fontSize: 11 }}>53</Text>
                             </View>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 12, fontWeight: '500' }}>Followers</Text>
+                                <Text style={{ fontSize: 12 }}>Followers</Text>
                                 <Text style={{ color: 'gray', fontSize: 11 }}>231</Text>
                             </View>
                         </View>
