@@ -7,8 +7,10 @@ import { Actions } from 'react-native-router-flux'
 import UserCardComponent from 'src/components/sidepages/UserCardComponent'
 import CookLabAxios from '../../http/index'
 import BackHeader from '../header/BackHeader'
+import DishActions from 'src/redux/actions/dish'
+import { connect } from 'react-redux'
 
-class FriendExpLeaderboard extends Component {
+class FriendTrophyLeaderboard extends Component {
 
     state = {
         leaderboard: [],
@@ -23,22 +25,30 @@ class FriendExpLeaderboard extends Component {
         let userid = await AsyncStorage.getItem('userid')
         try{
             result = await CookLabAxios.get(`/get_most_trophy?user_id=${userid}`)
-            this.setState({leaderboard: result.data})
+            this.props.setFriendTrophyLeaderboard(result.data)
         } catch(error) {
             console.log(error)
         }
         console.log("Result ",result.data)
-        console.log("State", this.state.leaderboard)
+        console.log("State", this.props.leaderboard)
     } 
 
-    componentDidMount() {
-        this.getLeaderboard()
+    async componentWillMount() {
+        if(this.props.leaderboard.length == 0)
+            await this.getLeaderboard()
+        console.log("renderFTL")
+    }
+
+    async componentWillUpdate() {
+        if(this.props.leaderboard.length == 0)
+            await this.getLeaderboard()
+        console.log("renderFTL")
     }
     
     render() {
         return (
             <View>
-            { this.state.leaderboard.map((data, index) => {
+            { this.props.leaderboard.map((data, index) => {
                 return(
                     <UserCardComponent 
                         rank={ index+1 } 
@@ -54,7 +64,17 @@ class FriendExpLeaderboard extends Component {
     }
 }
 
-export default FriendExpLeaderboard
+const mapDispatchToProps = dispatch => ({
+    setFriendTrophyLeaderboard: (leaderboard) => {
+        dispatch(DishActions.setFriendTrophyLeaderboard(leaderboard))
+    }
+})
+
+const mapStateToProps = state => ({
+    leaderboard: state.dishReducer.FTleaderboard
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(FriendTrophyLeaderboard)
 
 const styles = StyleSheet.create({
     container: {

@@ -7,11 +7,12 @@ import { Actions } from 'react-native-router-flux'
 import UserCardComponent from 'src/components/sidepages/UserCardComponent'
 import CookLabAxios from '../../http/index'
 import BackHeader from '../header/BackHeader'
+import DishActions from 'src/redux/actions/dish'
+import { connect } from 'react-redux'
 
 class FriendExpLeaderboard extends Component {
 
     state = {
-        leaderboard: [],
         badgePic : [ImageFactory.consumer1,ImageFactory.consumer2,ImageFactory.consumer3,
             ImageFactory.homecook1,ImageFactory.homecook2,ImageFactory.homecook3,
             ImageFactory.juniorcook1,ImageFactory.juniorcook2,ImageFactory.juniorcook3,
@@ -23,22 +24,30 @@ class FriendExpLeaderboard extends Component {
         let userid = await AsyncStorage.getItem('userid')
         try{
             result = await CookLabAxios.get(`/get_most_rank?user_id=${userid}`)
-            this.setState({leaderboard: result.data})
+            this.props.setFriendExpLeaderboard(result.data)
         } catch(error) {
             console.log(error)
         }
         console.log("Result ",result.data)
-        console.log("State", this.state.leaderboard)
+        console.log("State", this.props.leaderboard)
     } 
 
-    componentDidMount() {
-        this.getLeaderboard()
+    async componentWillMount() {
+        if(this.props.leaderboard.length == 0)
+            await this.getLeaderboard()
+        console.log("renderFEL")
     }
-    
+
+    async componentWillUpdate() {
+        if(this.props.leaderboard.length == 0)
+            await this.getLeaderboard()
+        console.log("renderFEL")
+    }
+
     render() {
         return (
             <View>
-            { this.state.leaderboard.map((data, index) => {
+            { this.props.leaderboard.map((data, index) => {
                 return(
                     <UserCardComponent 
                         rank={ index+1 } 
@@ -54,7 +63,17 @@ class FriendExpLeaderboard extends Component {
     }
 }
 
-export default FriendExpLeaderboard
+const mapDispatchToProps = dispatch => ({
+    setFriendExpLeaderboard: (leaderboard) => {
+        dispatch(DishActions.setFriendExpLeaderboard(leaderboard))
+    }
+})
+
+const mapStateToProps = state => ({
+    leaderboard: state.dishReducer.FEleaderboard
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(FriendExpLeaderboard)
 
 const styles = StyleSheet.create({
     container: {
