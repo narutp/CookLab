@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Button, AsyncStorage } from 'react-native';
+import { ScrollView, RefreshControl, StyleSheet, Text, View, Image, Button, AsyncStorage } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -15,7 +15,8 @@ class TopfeedTab extends Component {
     super(props)
     this.state = {
         feedResponse: [],
-        user: ''
+        user: '',
+        refreshing: false,
     }
   }
 
@@ -41,11 +42,28 @@ class TopfeedTab extends Component {
     }
   }
 
+  _onRefresh() {
+    this.setState({
+        refreshing: true
+    })
+
+    this.fetchPost().then(() => {
+        this.setState({refreshing: false})
+    })
+  }
+
   render() {
       return (
         <Container style={styles.container}>
           <AppHeader onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll } />
-          <Content>
+          <View>
+            <ScrollView
+              refreshControl={
+                <RefreshControl
+                    refreshing={this.state.refreshing}
+                    onRefresh={this._onRefresh.bind(this)}
+                />
+            }>
               {this.state.feedResponse.map((data, index) => {
                   return (
                       <CardComponent 
@@ -62,12 +80,8 @@ class TopfeedTab extends Component {
                         />
                   )
               })}
-              {/* <CardComponent love='176' profilePic='1' foodPic='1' />
-              <CardComponent love='71' profilePic='2' foodPic='2' />
-              <CardComponent love='26' profilePic='1' foodPic='3' />
-              <CardComponent love='34' profilePic='2' foodPic='4' />
-              <CardComponent love='102' profilePic='2' foodPic='5' /> */}
-          </Content>
+            </ScrollView>
+          </View>
         </Container>
       )
   }
