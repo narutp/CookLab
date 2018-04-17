@@ -10,6 +10,7 @@ import CooklabAxios from '../../http/index'
 import ImagePicker from 'react-native-image-picker'
 import RNFetchBlob from 'react-native-fetch-blob'
 import firebase from '../../firebase'
+import { Actions } from 'react-native-router-flux'
 
 let images = [
     require('../../assets/image/Food/food1.jpg'),
@@ -66,7 +67,7 @@ class ProfileTab extends Component {
             picUrl: null,
             isModalVisible: false,
             uploadURL: null,
-            picCollection: []
+            picCollection: [],
         }
     }
     
@@ -156,7 +157,7 @@ class ProfileTab extends Component {
         }
         
         this.setState({
-            picCollection: userPostResponse.data
+            picCollection: userPostResponse.data,
         })
         console.log('user post response: ', this.state.picCollection)
         console.log('name: ' + this.state.name)
@@ -213,6 +214,18 @@ class ProfileTab extends Component {
                 .catch(error => console.log(error))
             }
         });
+    }
+
+    async openFollowList() {
+        let followResponse
+        let userid = await AsyncStorage.getItem('userid')
+        try {
+            followResponse = await CooklabAxios.get(`get_following_and_fan?user_id=${userid}`)
+            Actions.FollowList({ data: followResponse.data.following })
+        } catch (error) {
+            console.log(error)
+        }
+        console.log(followResponse.data)
     }
 
     render() {
@@ -278,10 +291,10 @@ class ProfileTab extends Component {
                         <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 5 }}></View>
                         {/* Following | Fans */}
                         <View style={ styles.followPanel }>
-                            <View onPress={ () => this.openFollowList() } style={{ alignItems: 'center' }}>
+                            <TouchableOpacity onPress={ () => this.openFollowList() } style={{ alignItems: 'center' }}>
                                 <Text style={{ fontSize: 12 }}>Following</Text>
                                 <Text style={{ color: 'gray', fontSize: 11 }}>53</Text>
-                            </View>
+                            </TouchableOpacity>
                             <View style={{ alignItems: 'center' }}>
                                 <Text style={{ fontSize: 12 }}>Followers</Text>
                                 <Text style={{ color: 'gray', fontSize: 11 }}>231</Text>
