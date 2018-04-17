@@ -278,7 +278,7 @@ class ProfileTab extends Component {
                         <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 5 }}></View>
                         {/* Following | Fans */}
                         <View style={ styles.followPanel }>
-                            <View style={{ alignItems: 'center' }}>
+                            <View onPress={ () => this.openFollowList() } style={{ alignItems: 'center' }}>
                                 <Text style={{ fontSize: 12 }}>Following</Text>
                                 <Text style={{ color: 'gray', fontSize: 11 }}>53</Text>
                             </View>
@@ -300,7 +300,7 @@ class ProfileTab extends Component {
 
 
 
-export default ProfileTab;
+export default ProfileTab
 
 const styles = StyleSheet.create({
   container: {
