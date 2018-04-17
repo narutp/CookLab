@@ -29,15 +29,15 @@ class CommentCard extends Component {
     render () {
         return (
             // TODO: profile pic
-            // TODO: click comment didn't re-render the page and show the new one 
             <View style={ styles.modal }>
                 <CardItem>
                     <Left>
-                        {/* <Thumbnail source={profileImage[this.props.profilePic]} style={{ width: 30, height: 30 }}/> */}
+                        <Thumbnail source={{ uri: this.props.image }} style={{ width: 30, height: 30 }}/>
                         <Body>
-                            <Text style={{ fontSize: 11, fontWeight: 'bold' }}>{this.state.name}</Text>
-                            <Text style={{ fontSize: 11 }}>{this.state.comment}</Text>
-                            <View style={{ marginTop: 3, borderBottomColor: 'black', borderBottomWidth: 1 }}></View>
+                            <Text style={{ fontSize: 11, fontWeight: 'bold' }}>{this.props.name}</Text>
+                            <Text style={{ fontSize: 11 }}>{this.props.comment}</Text>
+                            {/* Horizontal rule */}
+                            <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 3, marginBottom: 5, opacity: 0.6 }}></View>
                         </Body>
                     </Left>
                 </CardItem>

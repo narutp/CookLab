@@ -38,9 +38,9 @@ class CardComponent extends Component {
             shareLinkContent: shareLinkContent,
             isIncreaseTrophy: false,
             isModalVisible: false,
+            isSpinnerVisible: false,
             comment: '',
             commentArr: [],
-            isComment: true
         }
     }
 
@@ -177,7 +177,7 @@ class CardComponent extends Component {
 
     async comment() {
         this.setState({
-            isComment: false
+            isSpinnerVisible: true
         })
         let createCommentResponse
         let userid
@@ -207,8 +207,8 @@ class CardComponent extends Component {
 
         if (getCommentResponse.data != null) {
             this.setState({
-                isComment: true,
-                commentArr: getCommentResponse.data
+                commentArr: getCommentResponse.data,
+                isSpinnerVisible: false
             })
         }
     }
@@ -235,6 +235,7 @@ class CardComponent extends Component {
                         console.log('Modal closed')
                     }}>
                     <Container>
+                        <Spinner visible={this.state.isSpinnerVisible} />
                         <Header style={styles.headerModal}>
                             <Left style={{ flex: 1, justifyContent: 'center' }}>
                                 <IconIonicons name="ios-arrow-back" onPress={() => {
@@ -247,20 +248,18 @@ class CardComponent extends Component {
                             <Right />
                         </Header>
                         <ScrollView>
-                            { this.state.isComment === true &&
-                                <View>
-                                    {this.state.commentArr.map((data, index) => {
-                                        return (
-                                            <CommentCard 
-                                                name={data.name}
-                                                comment={data.text}
-                                                profilePic={data.image}
-                                                // idUser={data.id_user}
-                                            />
-                                        )
-                                    })}
-                                </View>
-                            }
+                            <View>
+                                {this.state.commentArr.map((data, index) => {
+                                    return (
+                                        <CommentCard 
+                                            name={data.name}
+                                            comment={data.text}
+                                            image={data.image}
+                                            // idUser={data.id_user}
+                                        />
+                                    )
+                                })}
+                            </View>
                         </ScrollView>
                         <Footer style={styles.footerModal}>
                             <Body style={{ paddingLeft: 5 }}>
