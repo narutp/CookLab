@@ -39,6 +39,8 @@ class CardComponent extends Component {
             isIncreaseTrophy: false,
             isModalVisible: false,
             comment: '',
+            commentArr: [],
+            isComment: true
         }
     }
 
@@ -174,13 +176,18 @@ class CardComponent extends Component {
     }
 
     async comment() {
+        this.setState({
+            isComment: false
+        })
         let createCommentResponse
         let userid
+        let isCreateComment = false
         try {
             userid = await AsyncStorage.getItem('userid')
         } catch (error) {
             console.log(error)
         }
+
         try {
             createCommentResponse = await CooklabAxios.post(`create_comment`, {
               id_post: this.props.postId,
@@ -190,10 +197,30 @@ class CardComponent extends Component {
         } catch (error) {
             console.log(error)
         }
+
+        let getCommentResponse
+        try {
+            getCommentResponse = await CooklabAxios.get(`get_comment_by_post?post_id=${this.props.postId}`)
+        } catch (error) {
+            console.log(error)
+        }
+
+        if (getCommentResponse.data != null) {
+            this.setState({
+                isComment: true,
+                commentArr: getCommentResponse.data
+            })
+        }
+    }
+
+    openModal() {
+        this.setState({
+            commentArr: this.props.comments,
+            isModalVisible: !this.state.isModalVisible
+        })
     }
 
     navigateDishDetail() {
-        console.log('ininininin')
         Actions.DishDetail({ idDish: this.props.idDish })
     }
 
@@ -205,7 +232,7 @@ class CardComponent extends Component {
                     transparent={false}
                     visible={this.state.isModalVisible}
                     onRequestClose={() => {
-                        alert('Modal has been closed.');
+                        console.log('Modal closed')
                     }}>
                     <Container>
                         <Header style={styles.headerModal}>
@@ -220,26 +247,20 @@ class CardComponent extends Component {
                             <Right />
                         </Header>
                         <ScrollView>
-                        {this.props.comments.map((data, index) => {
-                            return (
-                                <CommentCard 
-                                    name={data.name}
-                                    comment={data.text}
-                                    profilePic={this.props.profilePic}
-                                />
-                            )
-                        })}
-                            {/* <Card style={ styles.modal }>
-                                <CardItem>
-                                    <Left>
-                                        <Thumbnail source={profileImage[this.props.profilePic]} style={{ width: 30, height: 30 }}/>
-                                        <Body>
-                                            <Text>Natanon</Text>
-                                            <Text>Hello hello hello</Text>
-                                        </Body>
-                                    </Left>
-                                </CardItem>
-                            </Card> */}
+                            { this.state.isComment === true &&
+                                <View>
+                                    {this.state.commentArr.map((data, index) => {
+                                        return (
+                                            <CommentCard 
+                                                name={data.name}
+                                                comment={data.text}
+                                                profilePic={data.image}
+                                                // idUser={data.id_user}
+                                            />
+                                        )
+                                    })}
+                                </View>
+                            }
                         </ScrollView>
                         <Footer style={styles.footerModal}>
                             <Body style={{ paddingLeft: 5 }}>
@@ -253,7 +274,7 @@ class CardComponent extends Component {
                             </Body>
                             <Right style={{ paddingRight: 10 }}>
                                 <TouchableOpacity onPress={ () => this.comment() }>
-                                    <Text style={{ color: 'blue' }}>POST</Text>
+                                    <Text style={{ fontSize: 12, color: 'blue' }}>POST</Text>
                                 </TouchableOpacity>
                             </Right>
                         </Footer>
@@ -293,7 +314,7 @@ class CardComponent extends Component {
                                 <IconMaterialCommunityIcons name='trophy-outline' style={{ color: 'black' }} size={20}/>
                             </TouchableOpacity>
                             }
-                            <TouchableOpacity onPress={ () => this.setState({ isModalVisible: !this.state.isModalVisible}) } style={ styles.iconContainer }>
+                            <TouchableOpacity onPress={ () => this.openModal() } style={ styles.iconContainer }>
                                 <IconMaterialCommunityIcons name="comment-outline" style={{ color: 'black' }} size={20} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={ () => this.shareLinkWithShareDialog() } style={ styles.iconContainer }>
@@ -316,7 +337,7 @@ class CardComponent extends Component {
                                 { this.props.caption }
                             </Text>
                             <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Text onPress={ () => this.setState({ isModalVisible: !this.state.isModalVisible}) } style={{ fontSize: 12, fontWeight: 'bold' }} >more...</Text>
+                                <Text onPress={ () => this.openModal() } style={{ fontSize: 12, fontWeight: 'bold' }} >more...</Text>
                             </TouchableOpacity>
                             <TextInput style={ styles.commentInput } placeholder="comment.. " />
                         </Body>
