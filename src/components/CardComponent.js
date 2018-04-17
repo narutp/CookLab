@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { ScrollView, Modal, TextInput, Animated, AsyncStorage, TouchableHighlight, TouchableOpacity, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { Container, Card, CardItem, Thumbnail, Body, Left, Right, Button, Header, Footer,
-Icon } from 'native-base';
+Icon } from 'native-base'
+import { Text as TextNative } from 'native-base'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import IconSimpleLine from 'react-native-vector-icons/SimpleLineIcons'
@@ -213,9 +214,10 @@ class CardComponent extends Component {
                                     this.setState({ isModalVisible: !this.state.isModalVisible })
                                 }} color={'black'} size={25} style={ styles.backIcon } />
                             </Left>
-                            <Body style={{ justifyContent: 'center', alignItems: 'center', marginRight: 60 }}>
-                                <Text style={{ fontSize: 13 }}>Comment</Text>
+                            <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <TextNative style={{ fontSize: 13 }}>COMMENT</TextNative>
                             </Body>
+                            <Right />
                         </Header>
                         <ScrollView>
                         {this.props.comments.map((data, index) => {
