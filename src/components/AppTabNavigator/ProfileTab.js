@@ -257,10 +257,7 @@ class ProfileTab extends Component {
                     {/* Cover image */}
                     <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
                     {/* Profile image */}
-                    <View style={{ marginBottom: 5, marginTop: 5, shadowColor: "black",
-                        shadowOffset: { height: 20},
-                        shadowOpacity: 0.5, 
-                    }}>
+                    <View style={{ marginBottom: 5, marginTop: 5, }}>
                         { this.state.picUrl === null ? 
                             <TouchableOpacity onPress={ () => this.chooseImage()} style={{ alignItems: 'center' }}>
                                 <Image source={require('../../assets/image/Profile/profilePic.png')} style={ styles.profileImage }/>
@@ -274,7 +271,7 @@ class ProfileTab extends Component {
                         {/* User's name */}
                         {/* TODO: change name bug!!!! */}
                         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ textAlign: 'center', fontWeight: '600' }}>{ this.state.name }</Text>
+                            <Text style={{ textAlign: 'center', fontWeight: '300' }}>{ this.state.name }</Text>
                             <IconMaterial onPress={() => this.editName()} name="edit" style={{ textAlign: 'center', marginLeft: 5 }} /> 
                         </View>
                         {/* Horizontal rule */}
