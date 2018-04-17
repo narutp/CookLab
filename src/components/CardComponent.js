@@ -41,6 +41,7 @@ class CardComponent extends Component {
             isSpinnerVisible: false,
             comment: '',
             commentArr: [],
+            profilePic: ''
         }
     }
 
@@ -225,6 +226,7 @@ class CardComponent extends Component {
     }
 
     render() {
+        console.log('props', this.props)
         return (
             <View style={ styles.container }>
                 <Modal
@@ -283,7 +285,7 @@ class CardComponent extends Component {
                     <CardItem header style={styles.headerCard}>
                         <Left>
                             {/* TODO: Profile pic doesn't show when post a new post */}
-                            <Thumbnail source={{ uri: this.props.profilePic }} style={{ width: 35, height: 35 }}/>
+                            <Thumbnail source={{ uri: this.state.profilePic }} style={{ width: 35, height: 35 }}/>
                             <Body>
                                 <Text>{this.props.userName} </Text>
                                 <Text note style={{ fontSize: 9 }}>{this.props.date}</Text>

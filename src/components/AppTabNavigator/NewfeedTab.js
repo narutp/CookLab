@@ -23,7 +23,6 @@ class NewfeedTab extends Component {
         } catch (error) {
             console.log(error)
         }
-        console.log('newfeed' + userid)
         try {
             feedResponse = await CooklabAxios.get(`/feeds?userId=${userid}`)
             this.setState({feedResponse: feedResponse.data})

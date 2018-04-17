@@ -53,9 +53,9 @@ class SideMenu extends Component {
   render () {
     return (
       <View style={styles.container}>
-          <View style={styles.header}>
-              <IconEntypo name="menu" onPress={() =>  Actions.MainScreen() } size={25} style={{ marginLeft:10, marginTop: 25,color: '#fff' }} />
-          </View>
+        <View style={styles.header}>
+            <IconEntypo name="menu" onPress={() =>  Actions.MainScreen() } size={25} style={{ marginLeft:10, marginTop: 25,color: '#fff' }} />
+        </View>
         <ScrollView>
           <View>
             {/* Profile pic */}
@@ -148,7 +148,9 @@ const styles = StyleSheet.create ({
         flex: 1
     },
     header: {
-        backgroundColor: '#F44336'
+        backgroundColor: '#F44336',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     sideMenuTable: {
         width: Dimensions.get('window').width,

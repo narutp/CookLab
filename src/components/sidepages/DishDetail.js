@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     },
     dishImage: {
         width: Dimensions.get('window').width,
-        resizeMode: 'cover',
+        resizeMode: 'contain',
         height: 250,
         marginBottom: 5
     },
