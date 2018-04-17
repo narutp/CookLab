@@ -10,6 +10,7 @@ import CooklabAxios from '../../http/index'
 import ImagePicker from 'react-native-image-picker'
 import RNFetchBlob from 'react-native-fetch-blob'
 import firebase from '../../firebase'
+import { Actions } from 'react-native-router-flux'
 
 let images = [
     require('../../assets/image/Food/food1.jpg'),
@@ -66,7 +67,7 @@ class ProfileTab extends Component {
             picUrl: null,
             isModalVisible: false,
             uploadURL: null,
-            picCollection: []
+            picCollection: [],
         }
     }
     
@@ -156,7 +157,7 @@ class ProfileTab extends Component {
         }
         
         this.setState({
-            picCollection: userPostResponse.data
+            picCollection: userPostResponse.data,
         })
         console.log('user post response: ', this.state.picCollection)
         console.log('name: ' + this.state.name)
@@ -215,6 +216,18 @@ class ProfileTab extends Component {
         });
     }
 
+    async openFollowList() {
+        let followResponse
+        let userid = await AsyncStorage.getItem('userid')
+        try {
+            followResponse = await CooklabAxios.get(`get_following_and_fan?user_id=${userid}`)
+            Actions.FollowList({ data: followResponse.data.following })
+        } catch (error) {
+            console.log(error)
+        }
+        console.log(followResponse.data)
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -257,10 +270,7 @@ class ProfileTab extends Component {
                     {/* Cover image */}
                     <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
                     {/* Profile image */}
-                    <View style={{ marginBottom: 5, marginTop: 5, shadowColor: "black",
-                        shadowOffset: { height: 20},
-                        shadowOpacity: 0.5, 
-                    }}>
+                    <View style={{ marginBottom: 5, marginTop: 5, }}>
                         { this.state.picUrl === null ? 
                             <TouchableOpacity onPress={ () => this.chooseImage()} style={{ alignItems: 'center' }}>
                                 <Image source={require('../../assets/image/Profile/profilePic.png')} style={ styles.profileImage }/>
@@ -274,19 +284,19 @@ class ProfileTab extends Component {
                         {/* User's name */}
                         {/* TODO: change name bug!!!! */}
                         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ textAlign: 'center', fontWeight: '600' }}>{ this.state.name }</Text>
+                            <Text style={{ textAlign: 'center', fontWeight: '300' }}>{ this.state.name }</Text>
                             <IconMaterial onPress={() => this.editName()} name="edit" style={{ textAlign: 'center', marginLeft: 5 }} /> 
                         </View>
                         {/* Horizontal rule */}
                         <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 5 }}></View>
                         {/* Following | Fans */}
                         <View style={ styles.followPanel }>
-                            <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 12, fontWeight: '500' }}>Following</Text>
+                            <TouchableOpacity onPress={ () => this.openFollowList() } style={{ alignItems: 'center' }}>
+                                <Text style={{ fontSize: 12 }}>Following</Text>
                                 <Text style={{ color: 'gray', fontSize: 11 }}>53</Text>
-                            </View>
+                            </TouchableOpacity>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 12, fontWeight: '500' }}>Followers</Text>
+                                <Text style={{ fontSize: 12 }}>Followers</Text>
                                 <Text style={{ color: 'gray', fontSize: 11 }}>231</Text>
                             </View>
                         </View>
@@ -303,7 +313,7 @@ class ProfileTab extends Component {
 
 
 
-export default ProfileTab;
+export default ProfileTab
 
 const styles = StyleSheet.create({
   container: {

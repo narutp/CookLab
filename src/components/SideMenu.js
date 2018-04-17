@@ -53,23 +53,15 @@ class SideMenu extends Component {
   render () {
     return (
       <View style={styles.container}>
-          <View style={styles.header}>
-              <IconEntypo name="menu" onPress={() =>  Actions.MainScreen() } size={25} style={{ marginLeft:10, marginTop: 25,color: '#fff' }} />
-          </View>
+        <Header style={styles.header}>
+            <IconEntypo name="menu" onPress={() =>  Actions.MainScreen() } size={25} style={{ color: '#F44336' }} />
+        </Header>
         <ScrollView>
-          <View>
-            {/* Profile pic */}
-            <View style={{ height: 150, backgroundColor: '#F33336' }}>
-              {/* <View style={{ alignItems: 'center' }}>
-                <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
-              </View> */}
-            </View>
-          </View>
           <View style={ styles.sideMenuTable }>
             <TouchableOpacity onPress={() => Actions.MainScreen()}>
               <Card style={styles.navSectionStyle}>
                 <View style={styles.contentView}>
-                <IconFontAwesome style={styles.navIconStyle} name="home" />
+                <IconFontAwesome size={120} style={styles.navIconStyle} name="home" />
                 <Text style={styles.navItemStyle}>Home</Text>
                 </View>
               </Card>
@@ -77,33 +69,35 @@ class SideMenu extends Component {
             <TouchableOpacity onPress={() => Actions.Achievement()}>
               <Card style={styles.navSectionStyle}>
               <View style={styles.contentView}>
-                <IconFontAwesome style={styles.navIconStyle} name="flask" />
+                <IconFontAwesome size={120} style={styles.navIconStyle} name="flask" />
                 <Text style={styles.navItemStyle}>Achievement</Text>
-                </View>
-              </Card>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => Actions.CookingLevel()}>
-              <Card style={styles.navSectionStyle}>
-              <View style={styles.contentView}>
-                <IconFontAwesome style={styles.navIconStyle} name="rocket" />
-                <Text style={styles.navItemStyle}>Cooking Level</Text>
                 </View>
               </Card>
             </TouchableOpacity>
           </View>
           <View style={ styles.sideMenuTable }>
+            <TouchableOpacity onPress={() => Actions.CookingLevel()}>
+              <Card style={styles.navSectionStyle}>
+              <View style={styles.contentView}>
+                <IconFontAwesome size={120} style={styles.navIconStyle} name="rocket" />
+                <Text style={styles.navItemStyle}>Cooking Level</Text>
+                </View>
+              </Card>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => Actions.Leaderboard()}>
               <Card style={styles.navSectionStyle}>
               <View style={styles.contentView}>
-                <IconFontAwesome style={styles.navIconStyle} name="trello" />
+                <IconFontAwesome size={120} style={styles.navIconStyle} name="trello" />
                 <Text style={styles.navItemStyle}>Leaderboard</Text>
                 </View>
               </Card>
             </TouchableOpacity>
+          </View>
+          <View style={ styles.sideMenuTable }>
             <TouchableOpacity onPress={() => Actions.MyDish()}>
               <Card style={styles.navSectionStyle}>
               <View style={styles.contentView}>
-                <IconMaterialCommunityIcons style={styles.navIconStyle} name="food" /> 
+                <IconMaterialCommunityIcons size={120} style={styles.navIconStyle} name="food" /> 
                 <Text style={styles.navItemStyle}>My Dishes</Text>
                 </View>
               </Card>
@@ -111,15 +105,15 @@ class SideMenu extends Component {
             <TouchableOpacity onPress={() => Actions.Aboutus()}>
               <Card style={styles.navSectionStyle}>
               <View style={styles.contentView}>
-                <IconFontAwesome style={styles.navIconStyle} name="user" /> 
+                <IconFontAwesome size={120} style={styles.navIconStyle} name="user" /> 
                 <Text style={styles.navItemStyle}>About us</Text>
                 </View>
               </Card>
             </TouchableOpacity>
           </View>
         </ScrollView>
-        <View>
-          <Text style={styles.footerContainer}
+        <View style={ styles.footerWrapper }>
+          <Text style={ styles.footerText }
               onPress={() => Alert.alert(
                 'Log out',
                 'Log out from CookLab?',                
@@ -128,7 +122,8 @@ class SideMenu extends Component {
                   {text: 'Log out', onPress: () => this.logout()},
                 ],
                 { cancelable: false }
-              )}>Log out
+              )}>
+              <IconEntypo name="log-out" /> Log out
           </Text>
         </View>
       </View>
@@ -147,7 +142,10 @@ const styles = StyleSheet.create ({
         flex: 1
     },
     header: {
-        backgroundColor: '#F44336'
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // height: 30
     },
     sideMenuTable: {
         width: Dimensions.get('window').width,
@@ -155,8 +153,9 @@ const styles = StyleSheet.create ({
         flexDirection: 'row',
         alignItems: 'center',
         flexWrap: 'wrap',
-        height: 100,
-        marginTop: 10
+        height: 135,
+        marginTop: 10,
+        justifyContent: 'space-around'
     },
     contentView: {
         flex: 1,
@@ -165,26 +164,35 @@ const styles = StyleSheet.create ({
     },
     navItemStyle: {
         alignSelf: 'center',
-        fontSize: 16
+        fontSize: 13
     },
     navIconStyle: {
         alignSelf: 'center',
-        fontSize: 35
+        fontSize: 35,
+        color: '#4F504B'
     },
     navSectionStyle: {
-        width: (Dimensions.get('window').width*3)/10,
+        width: (Dimensions.get('window').width*4)/10,
         height: 40,
         alignItems: 'center',
-        backgroundColor: 'white',
-        marginLeft: 8
+        backgroundColor: '#fff',
+        marginLeft: 15,
+        marginRight: 15,
     },
     sectionHeadingStyle: {
-        paddingVertical: 10,
+        paddingVertical: 5,
         paddingHorizontal: 5
     },
-    footerContainer: {
+    footerText: {
         padding: 20,
-        backgroundColor: 'lightgrey'
+        backgroundColor: 'lightgrey',
+        fontSize: 13,
+    },
+    footerWrapper: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: Dimensions.get('window').width,
+      backgroundColor: 'lightgrey'
     },
     profileImage: {
       // position: 'absolute',

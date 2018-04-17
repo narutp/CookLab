@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { ScrollView, Modal, TextInput, Animated, AsyncStorage, TouchableHighlight, TouchableOpacity, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { Container, Card, CardItem, Thumbnail, Body, Left, Right, Button, Header, Footer,
-Icon } from 'native-base';
+Icon } from 'native-base'
+import { Text as TextNative } from 'native-base'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import IconSimpleLine from 'react-native-vector-icons/SimpleLineIcons'
@@ -37,7 +38,10 @@ class CardComponent extends Component {
             shareLinkContent: shareLinkContent,
             isIncreaseTrophy: false,
             isModalVisible: false,
+            isSpinnerVisible: false,
             comment: '',
+            commentArr: [],
+            profilePic: ''
         }
     }
 
@@ -114,7 +118,7 @@ class CardComponent extends Component {
             console.log(element)
         });
         // console.log('argaperogkapeorg' + this.props.comments)
-        this.setState({ status: this.props.status, trophy: this.props.trophy })
+        this.setState({ status: this.props.status, trophy: this.props.trophy, profilePic: this.props.profilePic })
     }
 
     
@@ -173,13 +177,18 @@ class CardComponent extends Component {
     }
 
     async comment() {
+        this.setState({
+            isSpinnerVisible: true
+        })
         let createCommentResponse
         let userid
+        let isCreateComment = false
         try {
             userid = await AsyncStorage.getItem('userid')
         } catch (error) {
             console.log(error)
         }
+
         try {
             createCommentResponse = await CooklabAxios.post(`create_comment`, {
               id_post: this.props.postId,
@@ -189,14 +198,35 @@ class CardComponent extends Component {
         } catch (error) {
             console.log(error)
         }
+
+        let getCommentResponse
+        try {
+            getCommentResponse = await CooklabAxios.get(`get_comment_by_post?post_id=${this.props.postId}`)
+        } catch (error) {
+            console.log(error)
+        }
+
+        if (getCommentResponse.data != null) {
+            this.setState({
+                commentArr: getCommentResponse.data,
+                isSpinnerVisible: false
+            })
+        }
+    }
+
+    openModal() {
+        this.setState({
+            commentArr: this.props.comments,
+            isModalVisible: !this.state.isModalVisible
+        })
     }
 
     navigateDishDetail() {
-        console.log('ininininin')
         Actions.DishDetail({ idDish: this.props.idDish })
     }
 
     render() {
+        console.log('props', this.props)
         return (
             <View style={ styles.container }>
                 <Modal
@@ -204,40 +234,34 @@ class CardComponent extends Component {
                     transparent={false}
                     visible={this.state.isModalVisible}
                     onRequestClose={() => {
-                        alert('Modal has been closed.');
+                        console.log('Modal closed')
                     }}>
                     <Container>
+                        <Spinner visible={this.state.isSpinnerVisible} />
                         <Header style={styles.headerModal}>
                             <Left style={{ flex: 1, justifyContent: 'center' }}>
                                 <IconIonicons name="ios-arrow-back" onPress={() => {
                                     this.setState({ isModalVisible: !this.state.isModalVisible })
                                 }} color={'black'} size={25} style={ styles.backIcon } />
                             </Left>
-                            <Body style={{ justifyContent: 'center', alignItems: 'center', marginRight: 60 }}>
-                                <Text style={{ fontSize: 13 }}>Comment</Text>
+                            <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <TextNative style={{ fontSize: 13 }}>COMMENT</TextNative>
                             </Body>
+                            <Right />
                         </Header>
                         <ScrollView>
-                        {this.props.comments.map((data, index) => {
-                            return (
-                                <CommentCard 
-                                    name={data.name}
-                                    comment={data.text}
-                                    profilePic={this.props.profilePic}
-                                />
-                            )
-                        })}
-                            {/* <Card style={ styles.modal }>
-                                <CardItem>
-                                    <Left>
-                                        <Thumbnail source={profileImage[this.props.profilePic]} style={{ width: 30, height: 30 }}/>
-                                        <Body>
-                                            <Text>Natanon</Text>
-                                            <Text>Hello hello hello</Text>
-                                        </Body>
-                                    </Left>
-                                </CardItem>
-                            </Card> */}
+                            <View>
+                                {this.state.commentArr.map((data, index) => {
+                                    return (
+                                        <CommentCard 
+                                            name={data.name}
+                                            comment={data.text}
+                                            image={data.image}
+                                            // idUser={data.id_user}
+                                        />
+                                    )
+                                })}
+                            </View>
                         </ScrollView>
                         <Footer style={styles.footerModal}>
                             <Body style={{ paddingLeft: 5 }}>
@@ -251,7 +275,7 @@ class CardComponent extends Component {
                             </Body>
                             <Right style={{ paddingRight: 10 }}>
                                 <TouchableOpacity onPress={ () => this.comment() }>
-                                    <Text style={{ color: 'blue' }}>POST</Text>
+                                    <Text style={{ fontSize: 12, color: 'blue' }}>POST</Text>
                                 </TouchableOpacity>
                             </Right>
                         </Footer>
@@ -260,7 +284,8 @@ class CardComponent extends Component {
                 <Card>
                     <CardItem header style={styles.headerCard}>
                         <Left>
-                            <Thumbnail source={{ uri: this.props.profilePic }} style={{ width: 35, height: 35 }}/>
+                            {/* TODO: Profile pic doesn't show when post a new post */}
+                            <Thumbnail source={{ uri: this.state.profilePic }} style={{ width: 35, height: 35 }}/>
                             <Body>
                                 <Text>{this.props.userName} </Text>
                                 <Text note style={{ fontSize: 9 }}>{this.props.date}</Text>
@@ -270,10 +295,7 @@ class CardComponent extends Component {
                     <CardItem cardBody>
                         {/* <Image source={foodImage[this.props.foodPic]} style={styles.imageCard}/> */}
                         <TouchableOpacity onPress={ () => this.navigateDishDetail() }>
-                            <Image source={{ uri: this.props.foodPic }} style={{ resizeMode: 'cover',
-                                height: 250,
-                                width: Dimensions.get('window').width
-                            }} />
+                            <Image source={{ uri: this.props.foodPic }} style={ styles.imageCard }/>
                         </TouchableOpacity>
                         { this.state.isIncreaseTrophy === true && 
                             <Animated.View style={{ position: 'absolute', left: '42%', transform: [{scale: this.iconAnimated}] }}>
@@ -291,7 +313,7 @@ class CardComponent extends Component {
                                 <IconMaterialCommunityIcons name='trophy-outline' style={{ color: 'black' }} size={20}/>
                             </TouchableOpacity>
                             }
-                            <TouchableOpacity onPress={ () => this.setState({ isModalVisible: !this.state.isModalVisible}) } style={ styles.iconContainer }>
+                            <TouchableOpacity onPress={ () => this.openModal() } style={ styles.iconContainer }>
                                 <IconMaterialCommunityIcons name="comment-outline" style={{ color: 'black' }} size={20} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={ () => this.shareLinkWithShareDialog() } style={ styles.iconContainer }>
@@ -314,7 +336,7 @@ class CardComponent extends Component {
                                 { this.props.caption }
                             </Text>
                             <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Text onPress={ () => this.setState({ isModalVisible: !this.state.isModalVisible}) } style={{ fontSize: 12, fontWeight: 'bold' }} >more...</Text>
+                                <Text onPress={ () => this.openModal() } style={{ fontSize: 12, fontWeight: 'bold' }} >more...</Text>
                             </TouchableOpacity>
                             <TextInput style={ styles.commentInput } placeholder="comment.. " />
                         </Body>
@@ -335,9 +357,9 @@ const styles = StyleSheet.create({
     height: 45
   },
   imageCard: {
-    resizeMode: 'cover',
-    height: 250,
-    width: '100%'
+    resizeMode: 'contain',
+    height: 300,
+    width: Dimensions.get('window').width
   },
   footerCard: {
     height: 35

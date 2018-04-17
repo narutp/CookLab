@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Picker, Modal, TouchableHighlight, AsyncStorage, Dimensions, Platform, StyleSheet, Text, TextInput, View, Image } from 'react-native'
+import { KeyboardAvoidingView, ScrollView, Picker, Modal, TouchableHighlight, AsyncStorage, Dimensions, Platform, StyleSheet, Text, TextInput, View, Image } from 'react-native'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
@@ -184,7 +184,7 @@ class StatusPosting extends Component {
     render() {
         return(
           <View style={{ flex: 1 }} >
-              <BackHeader title="Post" actions="mainscreen" />
+              <BackHeader title="POST" actions="mainscreen" />
               <Spinner visible={this.state.isSpinnerVisible} 
                 // textContent={"Loading..."} 
                 // textStyle={{color: 'white'}} 
@@ -265,12 +265,14 @@ class StatusPosting extends Component {
                   </ScrollView>
                 </View>
               </Modal>
-              <TextInput onChangeText={(text) => this.setState({caption: text})} 
-                multiline autoCapitalize='none'
-                underlineColorAndroid= "transparent"  
-                placeholder={"Write caption..."}
-                style = {styles.textInput} maxLength={150}>
-              </TextInput>
+              <KeyboardAvoidingView>
+                <TextInput onChangeText={(text) => this.setState({caption: text})} 
+                  multiline autoCapitalize='none'
+                  underlineColorAndroid= "transparent"  
+                  placeholder={"Write caption..."}
+                  style = {styles.textInput} maxLength={150}>
+                </TextInput>
+              </KeyboardAvoidingView>
               <Image source={{uri: this.props.imageSource}} style={styles.imageCard}/>
               <Button onPress={ () => this.openDishDetail() } style={styles.dishDetailButton}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -304,8 +306,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   imageCard: {
-    resizeMode: 'cover',
-    height: 250,
+    resizeMode: 'contain',
+    height: 300,
     width: '100%'
   },
   dishDetailButton: {

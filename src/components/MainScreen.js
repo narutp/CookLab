@@ -34,6 +34,8 @@ class MainScreen extends Component {
     showCameraRoll() {
       var options = {
         title: 'Select Avatar',
+        maxWidth: 500,
+        maxHeight: 500,
         storageOptions: {
           skipBackup: true,
           path: 'images'
@@ -68,7 +70,8 @@ class MainScreen extends Component {
                     renderIcon={() => <IconEntypo name="newsletter" size={16} />}
                     renderSelectedIcon={() => <IconEntypo name="newsletter" size={15} color="#F44336" />}
                     onPress={() => this.setState({ selectedTab: 'newfeed' })}>
-                    <NewfeedTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
+                    {/* url profile image get from status post  */}
+                    <NewfeedTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll } />
                 </TabNavigator.Item>
                 <TabNavigator.Item
                     selected={this.state.selectedTab === 'home'}

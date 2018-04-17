@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { Dimensions, StyleSheet, View, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native';
-import { Card, CardItem, Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
+import React, { Component } from 'react'
+import { Dimensions, StyleSheet, View, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native'
+import { Card, CardItem, Container, Header, Footer, Body, Item, Input, Icon, Button, Text } from 'native-base'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
-import SearchCardComponent from '../card/SearchCardComponent';
+import IconIonicons from 'react-native-vector-icons/Ionicons'
+import SearchCardComponent from '../card/SearchCardComponent'
 import CooklabAxios from '../../http/index'
 
 class SearchTab extends Component {
@@ -58,7 +59,7 @@ class SearchTab extends Component {
                         <TextInput>Search</TextInput>
                     </Button> */}
                 </Header>
-                {/* { this.state.isSearch === true && */}
+                { this.state.isSearch === true ?
                     <ScrollView>
                         { this.state.resultArr.map( (element) => {
                             console.log('render with: ' + element)
@@ -75,10 +76,15 @@ class SearchTab extends Component {
                             )
                         })}
                     </ScrollView>  
-                {/* } */}
-                
+                :
+                <Body style={{ flex: 1, justifyContent: 'center', alignItems: 'center', opacity: 0.9 }}>
+                    <IconIonicons name="ios-search" size={120} />
+                    <Text style={{ color: 'grey' }}>Search for users or dishes</Text>
+                </Body>
+                }
+                <Footer style={{ backgroundColor: 'white' }} />
             </View>
-        );
+        )
     }
 }
 
@@ -88,7 +94,7 @@ const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-    backgroundColor: '#fff',
+    backgroundColor: '#fbfbfb',
     // justifyContent: 'center',
   },
   searchBar: {
