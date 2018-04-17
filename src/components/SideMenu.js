@@ -118,8 +118,8 @@ class SideMenu extends Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
-        <View>
-          <Text style={styles.footerContainer}
+        <View style={ styles.footerWrapper }>
+          <Text style={ styles.footerText }
               onPress={() => Alert.alert(
                 'Log out',
                 'Log out from CookLab?',                
@@ -128,7 +128,8 @@ class SideMenu extends Component {
                   {text: 'Log out', onPress: () => this.logout()},
                 ],
                 { cancelable: false }
-              )}>Log out
+              )}>
+              <IconEntypo name="log-out" /> Log out
           </Text>
         </View>
       </View>
@@ -165,7 +166,7 @@ const styles = StyleSheet.create ({
     },
     navItemStyle: {
         alignSelf: 'center',
-        fontSize: 16
+        fontSize: 13
     },
     navIconStyle: {
         alignSelf: 'center',
@@ -182,9 +183,16 @@ const styles = StyleSheet.create ({
         paddingVertical: 10,
         paddingHorizontal: 5
     },
-    footerContainer: {
+    footerText: {
         padding: 20,
-        backgroundColor: 'lightgrey'
+        backgroundColor: 'lightgrey',
+        fontSize: 13,
+    },
+    footerWrapper: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: Dimensions.get('window').width,
+      backgroundColor: 'lightgrey'
     },
     profileImage: {
       // position: 'absolute',

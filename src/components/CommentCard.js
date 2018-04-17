@@ -28,7 +28,7 @@ class CommentCard extends Component {
 
     render () {
         return (
-            // TODO: profile pic
+            // TODO: time when comment
             <View style={ styles.modal }>
                 <CardItem>
                     <Left>
