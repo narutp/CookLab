@@ -6,15 +6,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
 import UserCardComponent from 'src/components/sidepages/UserCardComponent'
 import CookLabAxios from '../../http/index'
+import Constants from 'src/components/Constants'
 
 class LeaderboardCard extends Component {
 
     state = {
-        badgePic : [ImageFactory.consumer1,ImageFactory.consumer2,ImageFactory.consumer3,
-            ImageFactory.homecook1,ImageFactory.homecook2,ImageFactory.homecook3,
-            ImageFactory.juniorcook1,ImageFactory.juniorcook2,ImageFactory.juniorcook3,
-            ImageFactory.cook1,ImageFactory.cook2,ImageFactory.cook3,
-            ImageFactory.chef1,ImageFactory.chef2,ImageFactory.chef3 ]
+        badgePic : Constants.badgePic
     }
 
     render() {

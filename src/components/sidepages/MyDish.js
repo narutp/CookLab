@@ -8,19 +8,14 @@ import ProgressBarClassic from 'react-native-progress-bar-classic'
 import DishImageTable from './DishImageTable'
 import BackHeader from '../header/BackHeader'
 import CookLabAxios from 'src/http/index'
+import Constants from 'src/components/Constants'
 
 class MyDish extends Component {
     
     state = {
         userData : {},
-        badgePic : [ImageFactory.consumer1,ImageFactory.consumer2,ImageFactory.consumer3,
-                    ImageFactory.homecook1,ImageFactory.homecook2,ImageFactory.homecook3,
-                    ImageFactory.juniorcook1,ImageFactory.juniorcook2,ImageFactory.juniorcook3,
-                    ImageFactory.cook1,ImageFactory.cook2,ImageFactory.cook3,
-                    ImageFactory.chef1,ImageFactory.chef2,ImageFactory.chef3 ],
-        badgeName : ['Consumer I','Consumer II','Consumer III','Homecook I','Homecook II','Homecook III',
-                     'Juniorcook I','Juniorcook II','Juniorcook III','Cook I','Cook II','Cook III',
-                     'Chef I','Chef II','Chef III']
+        badgePic : Constants.badgePic,
+        badgeName : Constants.badgeName
     }
 
     async getUser(){
