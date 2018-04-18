@@ -34,8 +34,8 @@ class MainScreen extends Component {
     showCameraRoll() {
       var options = {
         title: 'Select Avatar',
-        maxWidth: 500,
-        maxHeight: 500,
+        maxWidth: 700,
+        maxHeight: 700,
         storageOptions: {
           skipBackup: true,
           path: 'images'

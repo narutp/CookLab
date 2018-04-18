@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { KeyboardAvoidingView, ScrollView, Picker, Modal, TouchableHighlight, AsyncStorage, Dimensions, Platform, StyleSheet, Text, TextInput, View, Image } from 'react-native'
+import { TouchableOpacity, KeyboardAvoidingView, ScrollView, Picker, Modal, TouchableHighlight, AsyncStorage, Dimensions, Platform, StyleSheet, Text, TextInput, View, Image } from 'react-native'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
+import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Input, Header, Container, Button, Content, Left, Right, Body, Footer } from 'native-base'
 import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
@@ -277,16 +278,15 @@ class StatusPosting extends Component {
               <Image source={{uri: this.props.imageSource}} style={styles.imageCard}/>
               <Button onPress={ () => this.openDishDetail() } style={styles.dishDetailButton}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                  <Text style={styles.whiteText}>CREATE MY DISH</Text>
+                  <IconMaterialCommunityIcons name="food" size={25} />
+                  <Text style={styles.whiteText}> CREATE MY DISH</Text>
                 </View>
               </Button>
             </Content>
             <Footer style={ styles.footer }>
-              <Button onPress={ () => this.pickImage() } style={styles.postButton}>
-                <View style={ styles.postWrapper }>
-                  <Text style={styles.postLabel}>POST</Text>
-                </View>
-              </Button>
+              <TouchableOpacity onPress={ () => this.pickImage() } style={styles.postWrapper}>
+                <Text style={styles.postLabel}>POST</Text>
+              </TouchableOpacity>
             </Footer>
           </View>
         )
@@ -305,14 +305,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   captionHeader: {
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    marginTop: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 90
   },
   textInput: {
     width: '100%',
     padding: 5,
-    marginBottom: 10,
-    marginTop: 2,
-    height: 70,
+    height: 80,
     fontSize: 13,
     backgroundColor: 'white',
   },
@@ -322,7 +324,6 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   dishDetailButton: {
-    borderWidth: 0.5,
     backgroundColor: 'white',
     width: '100%'
   },
@@ -340,18 +341,15 @@ const styles = StyleSheet.create({
     height: 150,
   },
   postLabel: {
-    color: 'grey',
-    fontSize: 12
+    color: 'white',
+    fontSize: 13
   },
   postWrapper: {
+    backgroundColor: '#F44336',
+    width: '100%',
     flex: 1, 
     justifyContent: 'center', 
     alignItems: 'center'
-  },
-  postButton: {
-    borderWidth: 0.5,
-    backgroundColor: 'lightgrey',
-    width: '100%'
   },
   cancelButton: {
     width: 100,
@@ -376,6 +374,6 @@ const styles = StyleSheet.create({
     padding: 30
   },
   footer: {
-    backgroundColor: 'lightgrey'
+    backgroundColor: '#F44336'
   }
 })
