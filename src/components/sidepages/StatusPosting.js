@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, ScrollView, Picker, Modal, TouchableHighlight, As
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
-import { Container, Button, Content, Left, Right, Body } from 'native-base'
+import { Input, Header, Container, Button, Content, Left, Right, Body, Footer } from 'native-base'
 import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import CooklabAxios from '../../http/index'
@@ -184,110 +184,112 @@ class StatusPosting extends Component {
     render() {
         return(
           <View style={{ flex: 1 }} >
-              <BackHeader title="POST" actions="mainscreen" />
-              <Spinner visible={this.state.isSpinnerVisible} 
-                // textContent={"Loading..."} 
-                // textStyle={{color: 'white'}} 
-              />
-              <Modal
-                animationType="slide"
-                transparent={false}
-                visible={this.state.isModalVisible}
-                onRequestClose={() => {
-                    // alert('Modal has been closed.');
-                }}>
-                <View style={ styles.modal }>
-                  <ScrollView>
-                    <View>
-                      <Text style={{ fontSize: 14 }}>Dish details</Text>
-                      <TextInput 
-                        autoCapitalize='none'
-                        value={this.state.dishName}
-                        onChangeText={ (text) => this.setState({dishName: text}) }
-                        style={styles.dishName} placeholder="Dish name..." />
-                      <TextInput 
-                        multiline={true}
-                        numberOfLines={3}
-                        value={this.state.dishDescription}
-                        onChangeText={ (text) => this.setState({dishDescription: text}) } 
-                        autoCapitalize='none'
-                        style={styles.dishDescription} placeholder="Dish description..." />
-                      <TextInput 
-                        multiline={true} 
-                        value={this.state.calories}
-                        onChangeText={ (text) => this.setState({calories: text}) }
-                        autoCapitalize='none'
-                        style={styles.dishName} placeholder="Calories..." />
-                      <Text style={{ fontSize: 14 }}>Ingredients</Text>
-                      <TextInput 
-                        multiline={true}
-                        numberOfLines={4}
-                        value={this.state.ingredients}
-                        onChangeText={ (text) => this.setState({ingredients: text}) }
-                        style={styles.dishRecipe} 
-                        placeholder="1 tablespoon oil" />
-                      <Text style={{ fontSize: 14 }}>Recipe (Step by step)</Text>
-                      <TextInput 
-                        multiline={true}
-                        numberOfLines={4}
-                        value={this.state.recipe}
-                        onChangeText={ (text) => this.setState({recipe: text}) }
-                        style={styles.dishRecipe} 
-                        placeholder="1. Cook the noodles in boiling water.." />
-                      <Text style={{ fontSize: 14 }}>Level of food</Text>
-                      <Picker
-                        selectedValue={this.state.level}
-                        style={{ height: 20, width: 50, marginBottom: 20 }}
-                        onValueChange={(itemValue, itemIndex) => this.setState({level: itemValue})}>
-                        <Picker.Item label="1" value="1" />
-                        <Picker.Item label="2" value="2" />
-                        <Picker.Item label="3" value="3" />
-                        <Picker.Item label="4" value="4" />
-                        <Picker.Item label="5" value="5" />
-                      </Picker>  
-                      <View style={{ flex: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center', }}>
-                        <Button style={ styles.cancelButton }
-                            onPress={() => {
-                                this.setState({ isModalVisible: !this.state.isModalVisible, isMyDish: false })
-                            }}>
-                            <Text>Cancel</Text>
-                        </Button>
+            <BackHeader title="POST" actions="mainscreen" />
+            <Spinner visible={this.state.isSpinnerVisible} 
+              // textContent={"Loading..."} 
+              // textStyle={{color: 'white'}} 
+            />
+            <Modal
+              animationType="slide"
+              transparent={false}
+              visible={this.state.isModalVisible}
+              onRequestClose={() => {
+                  // alert('Modal has been closed.');
+              }}>
+              <View style={ styles.modal }>
+                <ScrollView>
+                  <View>
+                    <Text style={{ fontSize: 14 }}>Dish details</Text>
+                    <TextInput 
+                      autoCapitalize='none'
+                      value={this.state.dishName}
+                      onChangeText={ (text) => this.setState({dishName: text}) }
+                      style={styles.dishName} placeholder="Dish name..." />
+                    <TextInput 
+                      multiline={true}
+                      numberOfLines={3}
+                      value={this.state.dishDescription}
+                      onChangeText={ (text) => this.setState({dishDescription: text}) } 
+                      autoCapitalize='none'
+                      style={styles.dishDescription} placeholder="Dish description..." />
+                    <TextInput 
+                      multiline={true} 
+                      value={this.state.calories}
+                      onChangeText={ (text) => this.setState({calories: text}) }
+                      autoCapitalize='none'
+                      style={styles.dishName} placeholder="Calories..." />
+                    <Text style={{ fontSize: 14 }}>Ingredients</Text>
+                    <TextInput 
+                      multiline={true}
+                      numberOfLines={4}
+                      value={this.state.ingredients}
+                      onChangeText={ (text) => this.setState({ingredients: text}) }
+                      style={styles.dishRecipe} 
+                      placeholder="1 tablespoon oil" />
+                    <Text style={{ fontSize: 14 }}>Recipe (Step by step)</Text>
+                    <TextInput 
+                      multiline={true}
+                      numberOfLines={4}
+                      value={this.state.recipe}
+                      onChangeText={ (text) => this.setState({recipe: text}) }
+                      style={styles.dishRecipe} 
+                      placeholder="1. Cook the noodles in boiling water.." />
+                    <Text style={{ fontSize: 14 }}>Level of food</Text>
+                    <Picker
+                      selectedValue={this.state.level}
+                      style={{ height: 20, width: 50, marginBottom: 20 }}
+                      onValueChange={(itemValue, itemIndex) => this.setState({level: itemValue})}>
+                      <Picker.Item label="1" value="1" />
+                      <Picker.Item label="2" value="2" />
+                      <Picker.Item label="3" value="3" />
+                      <Picker.Item label="4" value="4" />
+                      <Picker.Item label="5" value="5" />
+                    </Picker>  
+                    <View style={{ flex: 1,
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      alignItems: 'center', }}>
+                      <Button style={ styles.cancelButton }
+                          onPress={() => {
+                              this.setState({ isModalVisible: !this.state.isModalVisible, isMyDish: false })
+                          }}>
+                          <Text>Cancel</Text>
+                      </Button>
 
-                        <Button style={ styles.saveDishButton }
-                            onPress={() => this.saveDishDetail()}>
-                            <Text>Save</Text>
-                        </Button>
-                      </View>
+                      <Button style={ styles.saveDishButton }
+                          onPress={() => this.saveDishDetail()}>
+                          <Text>Save</Text>
+                      </Button>
                     </View>
-                  </ScrollView>
-                </View>
-              </Modal>
-              <KeyboardAvoidingView>
-                <TextInput onChangeText={(text) => this.setState({caption: text})} 
-                  multiline autoCapitalize='none'
-                  underlineColorAndroid= "transparent"  
-                  placeholder={"Write caption..."}
-                  style = {styles.textInput} maxLength={150}>
-                </TextInput>
-              </KeyboardAvoidingView>
+                  </View>
+                </ScrollView>
+              </View>
+            </Modal>
+            <Header style={ styles.captionHeader }>
+              <Input onChangeText={(text) => this.setState({caption: text})} 
+                multiline autoCapitalize='none'
+                underlineColorAndroid= "transparent"  
+                placeholder={"Write caption..."}
+                style = {styles.textInput} maxLength={150}>
+              </Input>
+            </Header>
+            <Content>
               <Image source={{uri: this.props.imageSource}} style={styles.imageCard}/>
               <Button onPress={ () => this.openDishDetail() } style={styles.dishDetailButton}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                  <Text style={styles.whiteText}>DISH DETAILS</Text>
+                  <Text style={styles.whiteText}>CREATE MY DISH</Text>
                 </View>
               </Button>
+            </Content>
+            <Footer style={ styles.footer }>
               <Button onPress={ () => this.pickImage() } style={styles.postButton}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={ styles.postWrapper }>
                   <Text style={styles.postLabel}>POST</Text>
                 </View>
               </Button>
-              {/* <Button title="Dish details" onPress={ () => this.openDishDetail() } style={styles.dishDetailButton}></Button>
-              <Button title="Post" onPress={ () => this.pickImage() } style={styles.postButton}></Button> */}
+            </Footer>
           </View>
-        );
+        )
     }
 }
 
@@ -299,11 +301,20 @@ export default connect(mapStateToProps, null)(StatusPosting)
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width
+    width: Dimensions.get('window').width,
+    backgroundColor: 'white'
+  },
+  captionHeader: {
+    backgroundColor: 'white'
   },
   textInput: {
+    width: '100%',
+    padding: 5,
+    marginBottom: 10,
+    marginTop: 2,
     height: 70,
-    backgroundColor: 'white'
+    fontSize: 13,
+    backgroundColor: 'white',
   },
   imageCard: {
     resizeMode: 'contain',
@@ -312,11 +323,12 @@ const styles = StyleSheet.create({
   },
   dishDetailButton: {
     borderWidth: 0.5,
-    backgroundColor: '#F2994A',
+    backgroundColor: 'white',
     width: '100%'
   },
   whiteText: {
-    color: 'white'
+    color: 'black',
+    fontSize: 12
   },
   dishName: {
     height: 40,
@@ -328,11 +340,17 @@ const styles = StyleSheet.create({
     height: 150,
   },
   postLabel: {
-    color: 'white'
+    color: 'grey',
+    fontSize: 12
+  },
+  postWrapper: {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center'
   },
   postButton: {
     borderWidth: 0.5,
-    backgroundColor: '#6FCF97',
+    backgroundColor: 'lightgrey',
     width: '100%'
   },
   cancelButton: {
@@ -356,5 +374,8 @@ const styles = StyleSheet.create({
   },
   modal: {
     padding: 30
+  },
+  footer: {
+    backgroundColor: 'lightgrey'
   }
 })
