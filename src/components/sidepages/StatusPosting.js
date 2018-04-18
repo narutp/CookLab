@@ -4,7 +4,10 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { Input, Header, Container, Button, Content, Left, Right, Body, Footer } from 'native-base'
+import { 
+  Text as TextNative, Itemm, Form, Input, Header, 
+  Container, Button, Content, Left, Right, Body, Footer 
+} from 'native-base'
 import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import CooklabAxios from '../../http/index'
@@ -200,20 +203,31 @@ class StatusPosting extends Component {
               <View style={ styles.modal }>
                 <ScrollView>
                   <View>
-                    <Text style={{ fontSize: 14 }}>Dish details</Text>
-                    <TextInput 
+                    <Form>
+                      <TextNative style={{ fontSize: 14 }}>Dish details</TextNative>
+                      <Item floatingLabel>
+                        <Label>Dish name</Label>
+                        <Input />
+                      </Item>
+                      <Item floatingLabel last>
+                        <Label>Dish description</Label>
+                        <Input />
+                      </Item>
+                    </Form>
+                    
+                    <Input 
                       autoCapitalize='none'
                       value={this.state.dishName}
                       onChangeText={ (text) => this.setState({dishName: text}) }
                       style={styles.dishName} placeholder="Dish name..." />
-                    <TextInput 
+                    <Input 
                       multiline={true}
                       numberOfLines={3}
                       value={this.state.dishDescription}
                       onChangeText={ (text) => this.setState({dishDescription: text}) } 
                       autoCapitalize='none'
                       style={styles.dishDescription} placeholder="Dish description..." />
-                    <TextInput 
+                    <Input 
                       multiline={true} 
                       value={this.state.calories}
                       onChangeText={ (text) => this.setState({calories: text}) }
@@ -315,7 +329,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 5,
     height: 80,
-    fontSize: 13,
+    fontSize: 14,
     backgroundColor: 'white',
   },
   imageCard: {
