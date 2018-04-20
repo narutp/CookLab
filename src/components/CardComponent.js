@@ -41,7 +41,8 @@ class CardComponent extends Component {
             isSpinnerVisible: false,
             comment: '',
             commentArr: [],
-            profilePic: ''
+            profilePic: '',
+            userid: ''
         }
     }
 
@@ -113,15 +114,20 @@ class CardComponent extends Component {
         );
     }
 
-    componentDidMount() {
-        this.props.comments.forEach(element => {
-            console.log(element)
-        });
-        // console.log('argaperogkapeorg' + this.props.comments)
+    async componentDidMount() {
+        let userid
+        try {
+            userid = await AsyncStorage.getItem('userid')
+        } catch (error) {
+            console.log(error)
+        }
+
         this.setState({ status: this.props.status, 
             trophy: this.props.trophy, 
             profilePic: this.props.profilePic,
-            commentArr: this.props.comments, })
+            commentArr: this.props.comments, 
+            userid: userid
+        })
     }
 
     
@@ -132,16 +138,11 @@ class CardComponent extends Component {
         })
         // Add animation when click add trophy
         this.springAnimation()
-        let userid
-        try {
-            userid = await AsyncStorage.getItem('userid')
-        } catch (error) {
-            console.log(error)
-        }
+        
         let trophyResponse
         try {
             trophyResponse = await CooklabAxios.put(`/increase_trophy`, {
-                userId: userid,
+                userId: this.state.userid,
                 postId: this.props.postId
             })
         } catch (error) {
@@ -161,16 +162,11 @@ class CardComponent extends Component {
             trophy: this.state.trophy-1, 
             isIncreaseTrophy: false  
         })
-        let userid
-        try {
-            userid = await AsyncStorage.getItem('userid')
-        } catch (error) {
-            console.log(error)
-        }
+
         let trophyResponse
         try {
             trophyResponse = await CooklabAxios.put(`/decrease_trophy`, {
-                userId: userid,
+                userId: this.state.userid,
                 postId: this.props.postId
             })
         } catch (error) {
@@ -184,18 +180,12 @@ class CardComponent extends Component {
             isSpinnerVisible: true
         })
         let createCommentResponse
-        let userid
         let isCreateComment = false
-        try {
-            userid = await AsyncStorage.getItem('userid')
-        } catch (error) {
-            console.log(error)
-        }
 
         try {
             createCommentResponse = await CooklabAxios.post(`create_comment`, {
               id_post: this.props.postId,
-              id_user: userid,
+              id_user: this.state.userid,
               text: this.state.comment
             })
         } catch (error) {
@@ -236,6 +226,10 @@ class CardComponent extends Component {
     }
 
     navigateToUserDetail() {
+        // Check if user that been clicked is your own account
+        if (this.props.userid === this.state.userid) {
+            Actions.MyDish()
+        }
         Actions.UserDetail({ idUser: this.props.userid })
     }
 
