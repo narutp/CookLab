@@ -15,6 +15,7 @@ import { Actions } from 'react-native-router-flux'
 import CommentCard from './CommentCard'
 import Timer from 'react-native-timer'
 import Spinner from 'react-native-loading-spinner-overlay'
+import moment from 'moment'
 
 class CardComponent extends Component {
 
@@ -215,6 +216,7 @@ class CardComponent extends Component {
             console.log(error)
         }
 
+        console.log('Get comment', getCommentResponse.data)
         this.setState({
             commentArr: getCommentResponse.data,
             isModalVisible: !this.state.isModalVisible
@@ -265,6 +267,8 @@ class CardComponent extends Component {
                                             name={data.name}
                                             comment={data.text}
                                             image={data.image}
+                                            // time={moment(data.timestamp).fromNow()}
+                                            time={moment(data.timestamp).fromNow()}
                                             // idUser={data.id_user}
                                         />
                                     )
@@ -293,7 +297,7 @@ class CardComponent extends Component {
                     <CardItem header style={styles.headerCard}>
                         <Left>
                             <TouchableOpacity onPress={ () => this.navigateToUserDetail() }>
-                                <Thumbnail source={{ uri: this.state.profilePic }} style={{ width: 35, height: 35 }}/>
+                                <Thumbnail source={{ uri: this.state.profilePic }} style={{ width: 40, height: 40 }}/>
                             </TouchableOpacity>   
                             <Body>
                                 <TouchableOpacity onPress={ () => this.navigateToUserDetail() }>

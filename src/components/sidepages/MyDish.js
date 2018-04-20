@@ -33,7 +33,7 @@ class MyDish extends Component {
         this.setState({ userData: result.data })
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getUser()
     }
 

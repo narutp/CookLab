@@ -222,8 +222,9 @@ class ProfileTab extends Component {
             
             if (type === 'following') {
                 Actions.FollowList({ data: response.data.following })
+            } else {
+                Actions.FanList({ data: response.data.fan })
             }
-            Actions.FanList({ data: response.data.fan })
         } catch (error) {
             console.log(error)
         }

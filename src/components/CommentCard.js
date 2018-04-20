@@ -11,6 +11,7 @@ import CooklabAxios from '../http/index'
 import { ShareDialog } from 'react-native-fbsdk'
 import { AccessToken, LoginManager } from 'react-native-fbsdk'
 import { Actions } from 'react-native-router-flux'
+import moment from 'moment'
 
 class CommentCard extends Component {
 
@@ -18,7 +19,7 @@ class CommentCard extends Component {
         super(props)
         this.state = {
             name: '',
-            comment: ''
+            comment: '',
         }
     }
 
@@ -40,6 +41,12 @@ class CommentCard extends Component {
                             <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 3, marginBottom: 5, opacity: 0.6 }}></View>
                         </Body>
                     </Left>
+                    <Body />
+                    <Right>
+                        <Text style={ styles.time }>
+                            { this.props.time }
+                        </Text>
+                    </Right>
                 </CardItem>
             </View>
         )
@@ -53,5 +60,9 @@ const styles = StyleSheet.create({
         padding: 5,
         margin: 0,
         height: 60
+    },
+    time: {
+        fontSize: 10,
+        color: 'grey'
     }
 })

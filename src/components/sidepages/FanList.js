@@ -9,8 +9,15 @@ class FanList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isFollow: true
+            status: this.props.data.status,
+            fanArr: []
         }
+    }
+
+    componentDidMount() {
+        this.setState({
+            fanArr: this.props.data
+        })
     }
 
     async followUser(targetId) {
@@ -20,25 +27,24 @@ class FanList extends Component {
         } catch (error) {
             console.log(error)
         }
-        let followResponse
+        let fanResponse
         try {
-            followResponse = await CooklabAxios.put(`follow`, {
+            fanResponse = await CooklabAxios.put(`follow`, {
                 userId: getUserId,
                 targetId: targetId
             })
         } catch (error) {
             console.log(error)
         }
-        console.log('Follow response: ', followResponse.data)
-        if (followResponse.data === 'follow') {
-            this.setState({
-                isFollow: true
-            })
-        } else {
-            this.setState({
-                isFollow: false
-            })
-        }
+        console.log('Follow response: ', fanResponse.data)
+
+        const newState = this.state.fanArr.map(element => {
+            if (element._id === targetId) {
+                element.status = fanResponse.data === 'follow'
+            }
+            return element
+        })
+        this.setState({ fanArr: newState })
     }
 
     render() {
@@ -46,11 +52,11 @@ class FanList extends Component {
         return (
             <Container style={ styles.container }>
                 <BackHeader title="FANS" actions="mainscreen" />
-                { this.props.data.map( (element) => {
+                { this.state.fanArr.map( (element, index) => {
                     return (
                         <Content style={ styles.listWrapper }>
                             <List>
-                                <ListItem avatar>
+                                <ListItem key={index} avatar>
                                     <Left>
                                         <Thumbnail style={{ width: 45, height: 40 }} source={{ uri: element.photo }} />
                                     </Left>
@@ -58,7 +64,7 @@ class FanList extends Component {
                                         <Text style={{ fontSize: 12 }}>{element.name}</Text>
                                     </Body>
                                     <Right>
-                                        { this.state.isFollow === true ? 
+                                        { element.status === true ? 
                                             <Button onPress={ () => this.followUser(element._id) } light style={ styles.button }>
                                                 <Text style={{ color: 'black', fontSize: 9 }}>Following</Text>
                                             </Button> :
