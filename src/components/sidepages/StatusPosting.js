@@ -6,7 +6,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo'
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { 
   Text as TextNative, Itemm, Form, Input, Header, 
-  Container, Button, Content, Left, Right, Body, Footer 
+  Container, Button, Content, Left, Right, Body, Footer, Item, Label 
 } from 'native-base'
 import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
