@@ -68,6 +68,7 @@ class ProfileTab extends Component {
             isModalVisible: false,
             uploadURL: null,
             picCollection: [],
+            userid: ''
         }
     }
     
@@ -83,7 +84,7 @@ class ProfileTab extends Component {
         })
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.fetchUser()
     }
 
@@ -96,10 +97,9 @@ class ProfileTab extends Component {
     async uploadProfilePic(url) {
         console.log('url' + url)
         let uploadResponse
-        let userid = await AsyncStorage.getItem('userid')
         try {
             uploadResponse = await CooklabAxios.put(`update_user`, {
-                userId: userid,
+                userId: this.state.userid,
                 photo: url
             })
         } catch (error) {
@@ -158,6 +158,7 @@ class ProfileTab extends Component {
         
         this.setState({
             picCollection: userPostResponse.data,
+            userid: userid
         })
         console.log('user post response: ', this.state.picCollection)
         console.log('name: ' + this.state.name)
@@ -173,13 +174,10 @@ class ProfileTab extends Component {
     async saveName () {
         console.log('Save name success')
         this.setState({ isModalVisible: !this.state.isModalVisible })
-        // let response = await CooklabAxios('')
-        let userid = await AsyncStorage.getItem('userid')
-        let temp = this.state.name
         let saveNameResponse
         try {
             saveNameResponse = await CooklabAxios.put(`/update_user`, {
-                userId: userid,
+                userId: this.state.userid,
                 name: this.state.name
             })
         } catch (error) {
@@ -216,16 +214,19 @@ class ProfileTab extends Component {
         });
     }
 
-    async openFollowList() {
-        let followResponse
-        let userid = await AsyncStorage.getItem('userid')
+    async openFollowFanList(type) {
+        let response
         try {
-            followResponse = await CooklabAxios.get(`get_following_and_fan?user_id=${userid}`)
-            Actions.FollowList({ data: followResponse.data.following })
+            response = await CooklabAxios.get(`get_following_and_fan?user_id=${this.state.userid}`)
+            console.log('get follow and fan: ', response.data)
+            
+            if (type === 'following') {
+                Actions.FollowList({ data: response.data.following })
+            }
+            Actions.FanList({ data: response.data.fan })
         } catch (error) {
             console.log(error)
         }
-        console.log(followResponse.data)
     }
 
     render() {
@@ -291,14 +292,14 @@ class ProfileTab extends Component {
                         <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 5 }}></View>
                         {/* Following | Fans */}
                         <View style={ styles.followPanel }>
-                            <TouchableOpacity onPress={ () => this.openFollowList() } style={{ alignItems: 'center' }}>
+                            <TouchableOpacity onPress={ () => this.openFollowFanList('following') } style={{ alignItems: 'center' }}>
                                 <Text style={{ fontSize: 12 }}>Following</Text>
                                 <Text style={{ color: 'gray', fontSize: 11 }}>53</Text>
                             </TouchableOpacity>
-                            <View style={{ alignItems: 'center' }}>
+                            <TouchableOpacity onPress={ () => this.openFollowFanList('fans') } style={{ alignItems: 'center' }}>
                                 <Text style={{ fontSize: 12 }}>Followers</Text>
                                 <Text style={{ color: 'gray', fontSize: 11 }}>231</Text>
-                            </View>
+                            </TouchableOpacity>
                         </View>
                         {/* Image */}
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>

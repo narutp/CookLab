@@ -41,7 +41,8 @@ class CardComponent extends Component {
             isSpinnerVisible: false,
             comment: '',
             commentArr: [],
-            profilePic: ''
+            profilePic: '',
+            userid: ''
         }
     }
 
@@ -113,12 +114,20 @@ class CardComponent extends Component {
         );
     }
 
-    componentDidMount() {
-        this.props.comments.forEach(element => {
-            console.log(element)
-        });
-        // console.log('argaperogkapeorg' + this.props.comments)
-        this.setState({ status: this.props.status, trophy: this.props.trophy, profilePic: this.props.profilePic })
+    async componentDidMount() {
+        let userid
+        try {
+            userid = await AsyncStorage.getItem('userid')
+        } catch (error) {
+            console.log(error)
+        }
+
+        this.setState({ status: this.props.status, 
+            trophy: this.props.trophy, 
+            profilePic: this.props.profilePic,
+            commentArr: this.props.comments, 
+            userid: userid
+        })
     }
 
     
@@ -129,16 +138,11 @@ class CardComponent extends Component {
         })
         // Add animation when click add trophy
         this.springAnimation()
-        let userid
-        try {
-            userid = await AsyncStorage.getItem('userid')
-        } catch (error) {
-            console.log(error)
-        }
+        
         let trophyResponse
         try {
             trophyResponse = await CooklabAxios.put(`/increase_trophy`, {
-                userId: userid,
+                userId: this.state.userid,
                 postId: this.props.postId
             })
         } catch (error) {
@@ -158,16 +162,11 @@ class CardComponent extends Component {
             trophy: this.state.trophy-1, 
             isIncreaseTrophy: false  
         })
-        let userid
-        try {
-            userid = await AsyncStorage.getItem('userid')
-        } catch (error) {
-            console.log(error)
-        }
+
         let trophyResponse
         try {
             trophyResponse = await CooklabAxios.put(`/decrease_trophy`, {
-                userId: userid,
+                userId: this.state.userid,
                 postId: this.props.postId
             })
         } catch (error) {
@@ -181,18 +180,12 @@ class CardComponent extends Component {
             isSpinnerVisible: true
         })
         let createCommentResponse
-        let userid
         let isCreateComment = false
-        try {
-            userid = await AsyncStorage.getItem('userid')
-        } catch (error) {
-            console.log(error)
-        }
 
         try {
             createCommentResponse = await CooklabAxios.post(`create_comment`, {
               id_post: this.props.postId,
-              id_user: userid,
+              id_user: this.state.userid,
               text: this.state.comment
             })
         } catch (error) {
@@ -214,15 +207,30 @@ class CardComponent extends Component {
         }
     }
 
-    openModal() {
+    async openModal() {
+        let getCommentResponse
+        try {
+            getCommentResponse = await CooklabAxios.get(`get_comment_by_post?post_id=${this.props.postId}`)
+        } catch (error) {
+            console.log(error)
+        }
+
         this.setState({
-            commentArr: this.props.comments,
+            commentArr: getCommentResponse.data,
             isModalVisible: !this.state.isModalVisible
         })
     }
 
-    navigateDishDetail() {
+    navigateToDishDetail() {
         Actions.DishDetail({ idDish: this.props.idDish })
+    }
+
+    navigateToUserDetail() {
+        // Check if user that been clicked is your own account
+        if (this.props.userid === this.state.userid) {
+            Actions.MyDish()
+        }
+        Actions.UserDetail({ idUser: this.props.userid })
     }
 
     render() {
@@ -284,17 +292,20 @@ class CardComponent extends Component {
                 <Card>
                     <CardItem header style={styles.headerCard}>
                         <Left>
-                            {/* TODO: Profile pic doesn't show when post a new post */}
-                            <Thumbnail source={{ uri: this.state.profilePic }} style={{ width: 35, height: 35 }}/>
+                            <TouchableOpacity onPress={ () => this.navigateToUserDetail() }>
+                                <Thumbnail source={{ uri: this.state.profilePic }} style={{ width: 35, height: 35 }}/>
+                            </TouchableOpacity>   
                             <Body>
-                                <Text>{this.props.userName} </Text>
+                                <TouchableOpacity onPress={ () => this.navigateToUserDetail() }>
+                                    <Text>{this.props.userName} </Text>
+                                </TouchableOpacity>
                                 <Text note style={{ fontSize: 9 }}>{this.props.date}</Text>
                             </Body>
                         </Left>
                     </CardItem>
                     <CardItem cardBody>
                         {/* <Image source={foodImage[this.props.foodPic]} style={styles.imageCard}/> */}
-                        <TouchableOpacity onPress={ () => this.navigateDishDetail() }>
+                        <TouchableOpacity onPress={ () => this.navigateToDishDetail() }>
                             <Image source={{ uri: this.props.foodPic }} style={ styles.imageCard }/>
                         </TouchableOpacity>
                         { this.state.isIncreaseTrophy === true && 
