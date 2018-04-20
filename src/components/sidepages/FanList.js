@@ -4,7 +4,7 @@ import { Container, Header, Content, List, ListItem, Left, Body, Button, Right, 
 import BackHeader from '../header/BackHeader'
 import CooklabAxios from '../../http/index'
 
-class FollowList extends Component {
+class FanList extends Component {
 
     constructor(props) {
         super(props)
@@ -42,10 +42,10 @@ class FollowList extends Component {
     }
 
     render() {
-        console.log('Follow list page: ', this.props.data)
+        console.log('Fan list page: ', this.props.data)
         return (
             <Container style={ styles.container }>
-                <BackHeader title="FOLLOWING" actions="mainscreen" />
+                <BackHeader title="FANS" actions="mainscreen" />
                 { this.props.data.map( (element) => {
                     return (
                         <Content style={ styles.listWrapper }>
@@ -77,7 +77,7 @@ class FollowList extends Component {
     }
 }
 
-export default FollowList
+export default FanList
 
 const styles = StyleSheet.create({
     container: {   
