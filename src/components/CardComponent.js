@@ -118,7 +118,10 @@ class CardComponent extends Component {
             console.log(element)
         });
         // console.log('argaperogkapeorg' + this.props.comments)
-        this.setState({ status: this.props.status, trophy: this.props.trophy, profilePic: this.props.profilePic })
+        this.setState({ status: this.props.status, 
+            trophy: this.props.trophy, 
+            profilePic: this.props.profilePic,
+            commentArr: this.props.comments, })
     }
 
     
@@ -214,9 +217,16 @@ class CardComponent extends Component {
         }
     }
 
-    openModal() {
+    async openModal() {
+        let getCommentResponse
+        try {
+            getCommentResponse = await CooklabAxios.get(`get_comment_by_post?post_id=${this.props.postId}`)
+        } catch (error) {
+            console.log(error)
+        }
+
         this.setState({
-            commentArr: this.props.comments,
+            commentArr: getCommentResponse.data,
             isModalVisible: !this.state.isModalVisible
         })
     }
