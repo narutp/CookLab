@@ -231,8 +231,12 @@ class CardComponent extends Component {
         })
     }
 
-    navigateDishDetail() {
+    navigateToDishDetail() {
         Actions.DishDetail({ idDish: this.props.idDish })
+    }
+
+    navigateToUserDetail() {
+        Actions.UserDetail({ idUser: this.props.userid })
     }
 
     render() {
@@ -294,17 +298,20 @@ class CardComponent extends Component {
                 <Card>
                     <CardItem header style={styles.headerCard}>
                         <Left>
-                            {/* TODO: Profile pic doesn't show when post a new post */}
-                            <Thumbnail source={{ uri: this.state.profilePic }} style={{ width: 35, height: 35 }}/>
+                            <TouchableOpacity onPress={ () => this.navigateToUserDetail() }>
+                                <Thumbnail source={{ uri: this.state.profilePic }} style={{ width: 35, height: 35 }}/>
+                            </TouchableOpacity>   
                             <Body>
-                                <Text>{this.props.userName} </Text>
+                                <TouchableOpacity onPress={ () => this.navigateToUserDetail() }>
+                                    <Text>{this.props.userName} </Text>
+                                </TouchableOpacity>
                                 <Text note style={{ fontSize: 9 }}>{this.props.date}</Text>
                             </Body>
                         </Left>
                     </CardItem>
                     <CardItem cardBody>
                         {/* <Image source={foodImage[this.props.foodPic]} style={styles.imageCard}/> */}
-                        <TouchableOpacity onPress={ () => this.navigateDishDetail() }>
+                        <TouchableOpacity onPress={ () => this.navigateToDishDetail() }>
                             <Image source={{ uri: this.props.foodPic }} style={ styles.imageCard }/>
                         </TouchableOpacity>
                         { this.state.isIncreaseTrophy === true && 

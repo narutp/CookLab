@@ -77,6 +77,7 @@ class TopfeedTab extends Component {
                           status={data.status}
                           comments={data.comments}
                           idDish={data.id_dish}
+                          userid={data.id_user}
                         />
                   )
               })}

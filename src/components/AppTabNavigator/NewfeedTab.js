@@ -55,6 +55,7 @@ class NewfeedTab extends Component {
     }
 
     render() {
+        console.log('sapefomapwoef', this.state.feedResponse)
         return (
             <Container style={styles.container}>
                 <AppHeader onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll } />
@@ -79,6 +80,7 @@ class NewfeedTab extends Component {
                                         status={data.status}
                                         comments={data.comments}
                                         idDish={data.id_dish}
+                                        userid={data.id_user}
                                     />
                                 )
                             })}

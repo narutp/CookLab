@@ -36,13 +36,6 @@ class SearchTab extends Component {
         return this.state.resultArr != nextState.resultArr
     }
 
-    // componentWillUpdate(nextProps, nextState) {
-    //     if (nextState) {
-    //        this.setState({ resultArr: this.state.resultArr.splice(0, this.state.resultArr.length) })
-    //     }
-    // }
-
-    // TODO: when search new things, old value doesn't gone!
     render () {
         console.log('log array', this.state.resultArr)
         return (
@@ -55,18 +48,12 @@ class SearchTab extends Component {
                             <Icon name="paper-plane" style={{ color: '#F44336' }} />
                         </TouchableOpacity>
                     </Item>
-                    {/* <Button transparent>
-                        <TextInput>Search</TextInput>
-                    </Button> */}
                 </Header>
                 { this.state.isSearch === true ?
                     <ScrollView>
                         { this.state.resultArr.map( (element) => {
                             console.log('render with: ' + element)
                             return (
-                                // <View>
-                                //     <Text>{element.name}</Text>
-                                // </View>
                                 <SearchCardComponent 
                                     name={element.name}
                                     image={element.image}
