@@ -46,7 +46,6 @@ class DishDetail extends Component{
         }
         console.log('Dish detail: ' + getDishResponse.data)
         this.setState({
-            // TODO: dish rate that send from back, type is string (need to change to int)
             dish_rate: getDishResponse.data.rate,
             dish_recipe: getDishResponse.data.recipe,
             dish_ingredients: getDishResponse.data.ingredients,
@@ -84,9 +83,6 @@ class DishDetail extends Component{
             <View style={{ flex: 1 }}>
                 <BackHeader title="DISH" actions="mainscreen" />
                 <ScrollView style={ styles.container }>
-                    {/* <View style={ styles.header }>
-                        <Ionicons name="ios-arrow-back" onPress={() =>  Actions.MyDish() } size={25} style={ styles.backIcon } />
-                    </View> */}
                     <Image source={{ uri: this.state.dish_imageUrl }} style={ styles.dishImage }/>
                     <View style={{ padding: 25 }}>
                         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>

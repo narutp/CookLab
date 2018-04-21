@@ -68,7 +68,9 @@ class ProfileTab extends Component {
             isModalVisible: false,
             uploadURL: null,
             picCollection: [],
-            userid: ''
+            userid: '',
+            followingCount: 0,
+            fansCount: 0
         }
     }
     
@@ -121,13 +123,14 @@ class ProfileTab extends Component {
             console.log(error)
         }
         
+        console.log('asdfasdfasdfasdfs', userPicUrlFB)
         // login normal
         let user_name
         let userResponse
         let userid = await AsyncStorage.getItem('userid')
         // check username by facebook is null
         // then, get user data that login normally
-        if (userNameFB == null) {
+        if (userNameFB === null) {
             // get profile picture
             try {
                 userResponse = await CooklabAxios.get(`/get_user?userId=${userid}`)
@@ -160,9 +163,17 @@ class ProfileTab extends Component {
             picCollection: userPostResponse.data,
             userid: userid
         })
-        console.log('user post response: ', this.state.picCollection)
-        console.log('name: ' + this.state.name)
-        console.log('pic url: ' + this.state.picUrl)
+
+        let followResponse
+        try {
+            followResponse = await CooklabAxios.get(`get_following_and_fan?user_id=${this.state.userid}`)
+            this.setState({
+                followingCount: followResponse.data.following.length,
+                fansCount: followResponse.data.fan.length
+            })
+        } catch (error) {
+            console.log(error)
+        }
 
     }
 
@@ -295,11 +306,11 @@ class ProfileTab extends Component {
                         <View style={ styles.followPanel }>
                             <TouchableOpacity onPress={ () => this.openFollowFanList('following') } style={{ alignItems: 'center' }}>
                                 <Text style={{ fontSize: 12 }}>Following</Text>
-                                <Text style={{ color: 'gray', fontSize: 11 }}>53</Text>
+                                <Text style={{ color: 'gray', fontSize: 11 }}>{ this.state.followingCount }</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={ () => this.openFollowFanList('fans') } style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 12 }}>Followers</Text>
-                                <Text style={{ color: 'gray', fontSize: 11 }}>231</Text>
+                                <Text style={{ fontSize: 12 }}>Fans</Text>
+                                <Text style={{ color: 'gray', fontSize: 11 }}>{ this.state.fansCount }</Text>
                             </TouchableOpacity>
                         </View>
                         {/* Image */}

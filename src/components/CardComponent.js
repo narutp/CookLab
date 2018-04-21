@@ -43,7 +43,8 @@ class CardComponent extends Component {
             comment: '',
             commentArr: [],
             profilePic: '',
-            userid: ''
+            userid: '',
+            isSpinnerVisible: true
         }
     }
 
@@ -127,7 +128,8 @@ class CardComponent extends Component {
             trophy: this.props.trophy, 
             profilePic: this.props.profilePic,
             commentArr: this.props.comments, 
-            userid: userid
+            userid: userid,
+            isSpinnerVisible: false
         })
     }
 
@@ -239,6 +241,10 @@ class CardComponent extends Component {
         console.log('props', this.props)
         return (
             <View style={ styles.container }>
+                <Spinner visible={this.state.isSpinnerVisible} 
+                // textContent={"Loading..."} 
+                // textStyle={{color: 'white'}} 
+                />
                 <Modal
                     animationType="slide"
                     transparent={false}
@@ -297,7 +303,7 @@ class CardComponent extends Component {
                     <CardItem header style={styles.headerCard}>
                         <Left>
                             <TouchableOpacity onPress={ () => this.navigateToUserDetail() }>
-                                <Thumbnail source={{ uri: this.state.profilePic }} style={{ width: 40, height: 40 }}/>
+                                <Thumbnail source={{ uri: this.state.profilePic }} style={{ width: 35, height: 35 }}/>
                             </TouchableOpacity>   
                             <Body>
                                 <TouchableOpacity onPress={ () => this.navigateToUserDetail() }>
