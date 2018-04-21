@@ -120,6 +120,9 @@ class UserDetail extends Component {
             <View style={ styles.container }>
                 <BackHeader title="USER ACCOUNT" actions="mainscreen" />
                 <ScrollView style={ styles.componentWrapper }>
+                    <View style={ styles.coverImageWrapper }>
+                        <Image style={ styles.coverImage } source={require('../../assets/image/CoverImage/coverImage1.jpg')} />
+                    </View>
                     <View style={ styles.imageWrapper }>
                         <Thumbnail source={{ uri: this.state.image }} style={ styles.profilePic }/>
                     </View>
@@ -168,13 +171,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     componentWrapper: {
-        marginTop: 20,
         padding: 0
     },
     imageWrapper: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 10
+        marginBottom: 10,
+        marginTop: 10
     },
     name: {
         fontWeight: '500'
@@ -184,20 +187,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 10
+        marginTop: 5
     },
     postWrapper: {
         flex: 1,
         flexDirection: 'row',
     },
     profilePic: {
-        width: 200,
-        height: 200,
+        width: 100,
+        height: 100,
         // resizeMode: 'cover'
     },
     addButton: {
-        // backgroundColor: 'grey', 
-        marginLeft: 5, 
         width: 75, 
         height: 25, 
         padding: 5, 
@@ -214,4 +215,10 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
     },
+    coverImage: {
+        // position: 'absolute',
+        // resizeMode: 'contain',
+        height: 170,
+        width: Dimensions.get('window').width
+    }
 })
