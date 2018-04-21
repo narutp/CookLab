@@ -297,7 +297,7 @@ class CardComponent extends Component {
                     <CardItem header style={styles.headerCard}>
                         <Left>
                             <TouchableOpacity onPress={ () => this.navigateToUserDetail() }>
-                                <Thumbnail source={{ uri: this.state.profilePic }} style={{ width: 40, height: 40 }}/>
+                                <Thumbnail source={{ uri: this.state.profilePic }} style={{ width: 35, height: 35 }}/>
                             </TouchableOpacity>   
                             <Body>
                                 <TouchableOpacity onPress={ () => this.navigateToUserDetail() }>
