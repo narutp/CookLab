@@ -9,8 +9,15 @@ class FollowList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isFollow: true
+            isFollow: true,
+            followArr: []
         }
+    }
+
+    componentDidMount() {
+        this.setState({
+            followArr: this.props.data
+        })
     }
 
     async followUser(targetId) {
@@ -29,16 +36,17 @@ class FollowList extends Component {
         } catch (error) {
             console.log(error)
         }
-        console.log('Follow response: ', followResponse.data)
-        if (followResponse.data === 'follow') {
-            this.setState({
-                isFollow: true
-            })
-        } else {
-            this.setState({
-                isFollow: false
-            })
-        }
+
+        const newState = this.state.followArr.map( (element) => {
+            if (element._id === targetId) {
+                element.status = followResponse.data === 'follow'
+            }
+            return element
+        })
+
+        this.setState({
+            followArr: newState
+        })
     }
 
     render() {
@@ -46,32 +54,32 @@ class FollowList extends Component {
         return (
             <Container style={ styles.container }>
                 <BackHeader title="FOLLOWING" actions="mainscreen" />
-                { this.props.data.map( (element) => {
+                <Content style={ styles.listWrapper }>
+                { this.state.followArr.map( (element, index) => {
                     return (
-                        <Content style={ styles.listWrapper }>
-                            <List>
-                                <ListItem avatar>
-                                    <Left>
-                                        <Thumbnail style={{ width: 45, height: 40 }} source={{ uri: element.photo }} />
-                                    </Left>
-                                    <Body>
-                                        <Text style={{ fontSize: 12 }}>{element.name}</Text>
-                                    </Body>
-                                    <Right>
-                                        { this.state.isFollow === true ? 
-                                            <Button onPress={ () => this.followUser(element._id) } light style={ styles.button }>
-                                                <Text style={{ color: 'black', fontSize: 9 }}>Following</Text>
-                                            </Button> :
-                                            <Button onPress={ () => this.followUser(element._id) } primary style={ styles.button }>
-                                                <Text style={{ color: 'white', fontSize: 9 }}>Follow</Text>
-                                            </Button>
-                                        }
-                                    </Right>
-                                </ListItem>
-                            </List>
-                        </Content>
+                        <List>
+                            <ListItem avatar key={index}>
+                                <Left>
+                                    <Thumbnail style={{ width: 45, height: 40 }} source={{ uri: element.photo }} />
+                                </Left>
+                                <Body>
+                                    <Text style={{ fontSize: 12 }}>{element.name}</Text>
+                                </Body>
+                                <Right>
+                                    { element.status === true ? 
+                                        <Button onPress={ () => this.followUser(element._id) } light style={ styles.button }>
+                                            <Text style={{ color: 'black', fontSize: 9 }}>Following</Text>
+                                        </Button> :
+                                        <Button onPress={ () => this.followUser(element._id) } primary style={ styles.button }>
+                                            <Text style={{ color: 'white', fontSize: 9 }}>Follow</Text>
+                                        </Button>
+                                    }
+                                </Right>
+                            </ListItem>
+                        </List>
                     )
                 })}
+                </Content>
             </Container>
         )
     }
