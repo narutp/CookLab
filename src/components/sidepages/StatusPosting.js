@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { TouchableOpacity, KeyboardAvoidingView, ScrollView, Picker, Modal, TouchableHighlight, AsyncStorage, Dimensions, Platform, StyleSheet, Text, TextInput, View, Image } from 'react-native'
+import { TouchableOpacity, KeyboardAvoidingView, ScrollView, Picker, Modal, 
+  TouchableHighlight, AsyncStorage, Dimensions, Platform, StyleSheet, Text, 
+  TextInput, View, Image, Switch } from 'react-native'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconIonicons from 'react-native-vector-icons/Ionicons'
 import IconEntypo from 'react-native-vector-icons/Entypo'
@@ -71,6 +73,7 @@ class StatusPosting extends Component {
         recipe: '',
         level: '',
         isMyDish: false,
+        privateDish: false
       }
     }
 
@@ -132,19 +135,39 @@ class StatusPosting extends Component {
         }
       } else {
         // My dish (include dish details)
-        try {
-          createResponse = await CooklabAxios.post(`/create_dish`, {
-            image: uploadURL,
-            type: 'mydish',
-            id_user: userid,
-            name: this.state.dishName,
-            description: this.state.dishDescription,
-            ingredient_str: this.state.ingredients,
-            recipe_str: this.state.recipe,
-            level: this.state.level
-          })
-        } catch (error) {
-          console.log(error)
+
+        // Check if user click private dish
+        if (this.state.privateDish) {
+          try {
+            createResponse = await CooklabAxios.post(`/create_dish`, {
+              image: uploadURL,
+              type: 'private',
+              id_user: userid,
+              name: this.state.dishName,
+              description: this.state.dishDescription,
+              ingredient_str: this.state.ingredients,
+              recipe_str: this.state.recipe,
+              level: this.state.level
+            })
+            alert('in')
+          } catch (error) {
+            console.log(error)
+          }
+        } else {
+          try {
+            createResponse = await CooklabAxios.post(`/create_dish`, {
+              image: uploadURL,
+              type: 'mydish',
+              id_user: userid,
+              name: this.state.dishName,
+              description: this.state.dishDescription,
+              ingredient_str: this.state.ingredients,
+              recipe_str: this.state.recipe,
+              level: this.state.level
+            })
+          } catch (error) {
+            console.log(error)
+          }
         }
       }
       console.log('create dish by sending pic url with id dish: ' + createResponse.data)
@@ -240,6 +263,19 @@ class StatusPosting extends Component {
                         autoCapitalize='none'
                         style={styles.dishName} />
                     </View>
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                      <Text style={ styles.modalTitle }>
+                        Private dish
+                      </Text>
+                      <View>
+                        <Switch
+                          onValueChange={(value) => this.setState({privateDish: !this.state.privateDish})}
+                          value={this.state.privateDish}
+                          onTintColor={'#F44336'} 
+                          style={{ marginLeft: 10 }}
+                        />
+                      </View>
+                    </View>
                     <View style={ styles.modalTitleWrapper }>
                       <Text style={ styles.modalTitle }>
                         Ingredients
@@ -273,7 +309,7 @@ class StatusPosting extends Component {
                       <Picker
                         selectedValue={this.state.level}
                         style={{ height: 20, width: 50, marginBottom: 20 }}
-                        itemStyle={{ fontSize: 13 }}
+                        itemStyle={{ fontSize: 12 }}
                         onValueChange={(itemValue, itemIndex) => this.setState({level: itemValue})}>
                         <Picker.Item label="1" value="1" />
                         <Picker.Item label="2" value="2" />
@@ -361,8 +397,8 @@ const styles = StyleSheet.create({
     fontSize: 13
   },
   modalTitleWrapper: {
-    marginTop: 5,
-    marginBottom: 5
+    marginTop: 10,
+    marginBottom: 10
   },
   imageCard: {
     resizeMode: 'contain',
