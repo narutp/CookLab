@@ -20,7 +20,10 @@ class UserDetail extends Component {
             name: '',
             image: '',
             picCollection: [],
-            isFollow: false
+            isFollow: false,
+            userid: '',
+            followingCount: 0,
+            fansCount: 0
         }
     }
 
@@ -44,6 +47,10 @@ class UserDetail extends Component {
             console.log(error)
         }
 
+        this.setState({
+            userid: getUserId
+        })
+
         let ourUserResponse
         try {
             ourUserResponse = await CooklabAxios.get(`/get_user?userId=${getUserId}`)
@@ -58,11 +65,6 @@ class UserDetail extends Component {
             })
         }
 
-        this.setState({
-            name: userResponse.data.name,
-            image: userResponse.data.photo
-        })
-
         let userPostResponse
         try {
             userPostResponse = await CooklabAxios.get(`get_user_post?user_id=${this.props.idUser}`)
@@ -70,8 +72,21 @@ class UserDetail extends Component {
             console.log(error)
         }    
         this.setState({
+            name: userResponse.data.name,
+            image: userResponse.data.photo,
             picCollection: userPostResponse.data
         })
+
+        let followResponse
+        try {
+            followResponse = await CooklabAxios.get(`get_following_and_fan?user_id=${this.props.idUser}`)
+            this.setState({
+                followingCount: followResponse.data.following.length,
+                fansCount: followResponse.data.fan.length
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     generateImage = () => {
@@ -88,16 +103,10 @@ class UserDetail extends Component {
     }
 
     async followUser() {
-        let getUserId
-        try {
-            getUserId = await AsyncStorage.getItem('userid')
-        } catch (error) {
-            console.log(error)
-        }
         let followResponse
         try {
             followResponse = await CooklabAxios.put(`follow`, {
-                userId: getUserId,
+                userId: this.state.userid,
                 targetId: this.props.idUser
             })
         } catch (error) {
@@ -145,12 +154,12 @@ class UserDetail extends Component {
                         {/* Following | Fans */}
                         <View style={ styles.followPanel }>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 12, fontWeight: '500' }}>Following</Text>
-                                <Text style={{ color: 'gray', fontSize: 11 }}>53</Text>
+                                <Text style={{ fontSize: 12 }}>Following</Text>
+                                <Text style={{ color: 'gray', fontSize: 11 }}>{ this.state.followingCount }</Text>
                             </View>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 12, fontWeight: '500' }}>Followers</Text>
-                                <Text style={{ color: 'gray', fontSize: 11 }}>231</Text>
+                                <Text style={{ fontSize: 12 }}>Fans</Text>
+                                <Text style={{ color: 'gray', fontSize: 11 }}>{ this.state.fansCount }</Text>
                             </View>
                         </View>
                         <View style={ styles.postWrapper }>
@@ -180,7 +189,7 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     name: {
-        fontWeight: '500'
+        fontWeight: '300'
     },
     nameWrapper: {
         flex: 1,

@@ -52,32 +52,32 @@ class FanList extends Component {
         return (
             <Container style={ styles.container }>
                 <BackHeader title="FANS" actions="mainscreen" />
+                <Content style={ styles.listWrapper }>
                 { this.state.fanArr.map( (element, index) => {
                     return (
-                        <Content style={ styles.listWrapper }>
-                            <List>
-                                <ListItem key={index} avatar>
-                                    <Left>
-                                        <Thumbnail style={{ width: 45, height: 40 }} source={{ uri: element.photo }} />
-                                    </Left>
-                                    <Body>
-                                        <Text style={{ fontSize: 12 }}>{element.name}</Text>
-                                    </Body>
-                                    <Right>
-                                        { element.status === true ? 
-                                            <Button onPress={ () => this.followUser(element._id) } light style={ styles.button }>
-                                                <Text style={{ color: 'black', fontSize: 9 }}>Following</Text>
-                                            </Button> :
-                                            <Button onPress={ () => this.followUser(element._id) } primary style={ styles.button }>
-                                                <Text style={{ color: 'white', fontSize: 9 }}>Follow</Text>
-                                            </Button>
-                                        }
-                                    </Right>
-                                </ListItem>
-                            </List>
-                        </Content>
+                        <List>
+                            <ListItem key={index} avatar>
+                                <Left>
+                                    <Thumbnail style={{ width: 45, height: 40 }} source={{ uri: element.photo }} />
+                                </Left>
+                                <Body>
+                                    <Text style={{ fontSize: 12 }}>{element.name}</Text>
+                                </Body>
+                                <Right>
+                                    { element.status === true ? 
+                                        <Button onPress={ () => this.followUser(element._id) } light style={ styles.button }>
+                                            <Text style={{ color: 'black', fontSize: 9 }}>Following</Text>
+                                        </Button> :
+                                        <Button onPress={ () => this.followUser(element._id) } primary style={ styles.button }>
+                                            <Text style={{ color: 'white', fontSize: 9 }}>Follow</Text>
+                                        </Button>
+                                    }
+                                </Right>
+                            </ListItem>
+                        </List>
                     )
                 })}
+                </Content>
             </Container>
         )
     }

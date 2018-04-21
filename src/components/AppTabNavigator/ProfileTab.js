@@ -308,7 +308,7 @@ class ProfileTab extends Component {
                                 <Text style={{ color: 'gray', fontSize: 11 }}>{ this.state.followingCount }</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={ () => this.openFollowFanList('fans') } style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 12 }}>Followers</Text>
+                                <Text style={{ fontSize: 12 }}>Fans</Text>
                                 <Text style={{ color: 'gray', fontSize: 11 }}>{ this.state.fansCount }</Text>
                             </TouchableOpacity>
                         </View>
