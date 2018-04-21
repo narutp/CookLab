@@ -96,14 +96,40 @@ class Login extends Component {
         }
         console.log('Update user ', uploadPicResponse.data)
         console.log("Create user on database" + createUserResponse)
-        // save name and id
-        try { 
-            await AsyncStorage.setItem('userName', userName) 
-            await AsyncStorage.setItem('userid', getUserResponse.data)
-            await AsyncStorage.setItem('userPic', userPicUrl)
+        
+        let getUser
+        try {
+            getUser = await CookLabAxios.get(`get_user?userId=${getUserResponse.data}`)
         } catch (error) {
             console.log(error)
         }
+        console.log('ggggggggggggggg', getUser.data)
+        // check if facebook user have change their name or pic
+        if (getUser.data.name != userName) {
+            if (getUser.data.photo != userPicUrl) {
+                try {
+                    await AsyncStorage.setItem('userPic', getUser.data.photo)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            try {
+                await AsyncStorage.setItem('userName', getUser.data.name)
+                await AsyncStorage.setItem('userid', getUserResponse.data)
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            // save name and id
+            try { 
+                await AsyncStorage.setItem('userName', userName) 
+                await AsyncStorage.setItem('userid', getUserResponse.data)
+                await AsyncStorage.setItem('userPic', userPicUrl)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        
 
     }
 

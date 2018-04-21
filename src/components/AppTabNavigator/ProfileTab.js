@@ -123,13 +123,14 @@ class ProfileTab extends Component {
             console.log(error)
         }
         
+        console.log('asdfasdfasdfasdfs', userPicUrlFB)
         // login normal
         let user_name
         let userResponse
         let userid = await AsyncStorage.getItem('userid')
         // check username by facebook is null
         // then, get user data that login normally
-        if (userNameFB == null) {
+        if (userNameFB === null) {
             // get profile picture
             try {
                 userResponse = await CooklabAxios.get(`/get_user?userId=${userid}`)
