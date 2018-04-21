@@ -85,17 +85,7 @@ class Login extends Component {
         } catch(error) {
             console.log(error)
         }
-        let uploadPicResponse
-        try {
-            uploadPicResponse = await CookLabAxios.put(`update_user`, {
-                userId: getUserResponse.data,
-                photo: userPicUrl
-            })
-        } catch (error) {
-            console.log(error)
-        }
-        console.log('Update user ', uploadPicResponse.data)
-        console.log("Create user on database" + createUserResponse)
+        
         
         let getUser
         try {
@@ -103,12 +93,24 @@ class Login extends Component {
         } catch (error) {
             console.log(error)
         }
+
+        let uploadPicResponse
+        
+
         console.log('ggggggggggggggg', getUser.data)
         // check if facebook user have change their name or pic
         if (getUser.data.name != userName) {
             if (getUser.data.photo != userPicUrl) {
                 try {
                     await AsyncStorage.setItem('userPic', getUser.data.photo)
+                } catch (error) {
+                    console.log(error)
+                }
+                try {
+                    uploadPicResponse = await CookLabAxios.put(`update_user`, {
+                        userId: getUserResponse.data,
+                        photo: getUser.data.photo
+                    })
                 } catch (error) {
                     console.log(error)
                 }
@@ -119,8 +121,19 @@ class Login extends Component {
             } catch (error) {
                 console.log(error)
             }
+
+            
         } else {
             // save name and id
+            try {
+                uploadPicResponse = await CookLabAxios.put(`update_user`, {
+                    userId: getUserResponse.data,
+                    photo: userPicUrl
+                })
+            } catch (error) {
+                console.log(error)
+            }
+
             try { 
                 await AsyncStorage.setItem('userName', userName) 
                 await AsyncStorage.setItem('userid', getUserResponse.data)
