@@ -14,8 +14,9 @@ export default class App extends React.Component {
   componentDidMount() {
     SplashScreen.hide()
     StatusBar.setHidden(true)
-    socket.on('notify', () => {
-      AsyncStorage.setItem('notification', true)
+    socket.on('notify', (date) => {
+      console.log('date', date)
+      AsyncStorage.setItem('notification', 'true')
     })
   }
 

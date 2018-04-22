@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, AsyncStorage, ScrollView } from 'react-native'
 import { Header, Left, Body, Right, Text as TextNative } from 'native-base'
 import AppHeader from '../header/AppHeader'
+import socket from '../../socket'
 
 class NotificationTab extends Component {
 
@@ -17,8 +18,20 @@ class NotificationTab extends Component {
     }
 
     async fetchNotification() {
+        let getUserId
+        try {
+            getUserId = await AsyncStorage.getItem('userid')
+        } catch (error) {
+            console.log(error)
+        }
+        // socket
+        socket.emit('notify',{
+            targetId: getUserId
+        })
+
         let fetchResponse
         try {
+            // fetchResponse = await CooklabAxios.get(``)
         } catch (error) {
             console.log(error)
         }
