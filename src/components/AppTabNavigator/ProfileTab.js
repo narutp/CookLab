@@ -322,7 +322,6 @@ class ProfileTab extends Component {
                     </View>
                     <View style={ styles.body }>
                         {/* User's name */}
-                        {/* TODO: change name bug!!!! */}
                         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ textAlign: 'center', fontWeight: '300' }}>{ this.state.name }</Text>
                             <IconMaterial onPress={() => this.editName()} name="edit" style={{ textAlign: 'center', marginLeft: 5 }} /> 
