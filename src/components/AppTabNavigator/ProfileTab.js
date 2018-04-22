@@ -65,9 +65,14 @@ class ProfileTab extends Component {
             name: '',
             id: '',
             picUrl: null,
+            coverPicUrl: null,
             isModalVisible: false,
             uploadURL: null,
+            uploadCoverURL: null,
             picCollection: [],
+            userid: '',
+            followingCount: 0,
+            fansCount: 0
         }
     }
     
@@ -83,7 +88,7 @@ class ProfileTab extends Component {
         })
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.fetchUser()
     }
 
@@ -91,15 +96,16 @@ class ProfileTab extends Component {
         if (this.state.uploadURL != nextState.uploadURL) {
             this.uploadProfilePic(nextState.uploadURL)
         }
+        if (this.state.uploadCoverURL != nextState.uploadCoverURL) {
+            this.uploadCoverPic(nextState.uploadCoverURL)
+        }
     }
 
     async uploadProfilePic(url) {
-        console.log('url' + url)
         let uploadResponse
-        let userid = await AsyncStorage.getItem('userid')
         try {
             uploadResponse = await CooklabAxios.put(`update_user`, {
-                userId: userid,
+                userId: this.state.userid,
                 photo: url
             })
         } catch (error) {
@@ -107,6 +113,21 @@ class ProfileTab extends Component {
         }
         this.setState({
             picUrl: url
+        })
+    }
+
+    async uploadCoverPic(url) {
+        let uploadResponse
+        try {
+            uploadResponse = await CooklabAxios.put(`update_user`, {
+                userId: this.state.userid,
+                cover: url
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        this.setState({
+            coverPicUrl: url
         })
     }
 
@@ -125,15 +146,15 @@ class ProfileTab extends Component {
         let user_name
         let userResponse
         let userid = await AsyncStorage.getItem('userid')
+        try {
+            userResponse = await CooklabAxios.get(`/get_user?userId=${userid}`)
+        } catch(error) {
+            console.log(error)
+        }
         // check username by facebook is null
         // then, get user data that login normally
-        if (userNameFB == null) {
-            // get profile picture
-            try {
-                userResponse = await CooklabAxios.get(`/get_user?userId=${userid}`)
-            } catch(error) {
-                console.log(error)
-            }
+        if (userNameFB === null) {
+            // get profile picture            
             try {
                 user_name = await AsyncStorage.getItem('name')
                 console.log('in' + user_name)
@@ -158,10 +179,20 @@ class ProfileTab extends Component {
         
         this.setState({
             picCollection: userPostResponse.data,
+            userid: userid,
+            coverPicUrl: userResponse.data.cover
         })
-        console.log('user post response: ', this.state.picCollection)
-        console.log('name: ' + this.state.name)
-        console.log('pic url: ' + this.state.picUrl)
+
+        let followResponse
+        try {
+            followResponse = await CooklabAxios.get(`get_following_and_fan?user_id=${this.state.userid}`)
+            this.setState({
+                followingCount: followResponse.data.following.length,
+                fansCount: followResponse.data.fan.length
+            })
+        } catch (error) {
+            console.log(error)
+        }
 
     }
 
@@ -173,13 +204,10 @@ class ProfileTab extends Component {
     async saveName () {
         console.log('Save name success')
         this.setState({ isModalVisible: !this.state.isModalVisible })
-        // let response = await CooklabAxios('')
-        let userid = await AsyncStorage.getItem('userid')
-        let temp = this.state.name
         let saveNameResponse
         try {
             saveNameResponse = await CooklabAxios.put(`/update_user`, {
-                userId: userid,
+                userId: this.state.userid,
                 name: this.state.name
             })
         } catch (error) {
@@ -187,7 +215,7 @@ class ProfileTab extends Component {
         }
     }
 
-    chooseImage() {
+    chooseImage(type) {
         var options = {
             title: 'Select Avatar',
             storageOptions: {
@@ -209,23 +237,33 @@ class ProfileTab extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                uploadImage(response.uri)
-                .then(url => this.setState({ uploadURL: url }))
-                .catch(error => console.log(error))
+                if (type === 'profile') {
+                    uploadImage(response.uri)
+                    .then(url => this.setState({ uploadURL: url }))
+                    .catch(error => console.log(error))
+                } else {
+                    uploadImage(response.uri)
+                    .then(url => this.setState({ uploadCoverURL: url }))
+                    .catch(error => console.log(error))
+                }
             }
         });
     }
 
-    async openFollowList() {
-        let followResponse
-        let userid = await AsyncStorage.getItem('userid')
+    async openFollowFanList(type) {
+        let response
         try {
-            followResponse = await CooklabAxios.get(`get_following_and_fan?user_id=${userid}`)
-            Actions.FollowList({ data: followResponse.data.following })
+            response = await CooklabAxios.get(`get_following_and_fan?user_id=${this.state.userid}`)
+            console.log('get follow and fan: ', response.data)
+            
+            if (type === 'following') {
+                Actions.FollowList({ data: response.data.following })
+            } else {
+                Actions.FanList({ data: response.data.fan })
+            }
         } catch (error) {
             console.log(error)
         }
-        console.log(followResponse.data)
     }
 
     render() {
@@ -268,21 +306,22 @@ class ProfileTab extends Component {
                 </View>
                 <ScrollView>
                     {/* Cover image */}
-                    <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
+                    <TouchableOpacity onPress={ () => this.chooseImage('cover') }>
+                        <Image source={{ uri: this.state.coverPicUrl }} style={styles.coverImage} />
+                    </TouchableOpacity>
                     {/* Profile image */}
                     <View style={{ marginBottom: 5, marginTop: 5, }}>
                         { this.state.picUrl === null ? 
-                            <TouchableOpacity onPress={ () => this.chooseImage()} style={{ alignItems: 'center' }}>
+                            <TouchableOpacity onPress={ () => this.chooseImage('profile')} style={{ alignItems: 'center' }}>
                                 <Image source={require('../../assets/image/Profile/profilePic.png')} style={ styles.profileImage }/>
                             </TouchableOpacity> : 
-                            <TouchableOpacity onPress={ () => this.chooseImage()} style={{ alignItems: 'center' }}>
+                            <TouchableOpacity onPress={ () => this.chooseImage('profile')} style={{ alignItems: 'center' }}>
                                 <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
                             </TouchableOpacity>
                         }
                     </View>
                     <View style={ styles.body }>
                         {/* User's name */}
-                        {/* TODO: change name bug!!!! */}
                         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ textAlign: 'center', fontWeight: '300' }}>{ this.state.name }</Text>
                             <IconMaterial onPress={() => this.editName()} name="edit" style={{ textAlign: 'center', marginLeft: 5 }} /> 
@@ -291,14 +330,14 @@ class ProfileTab extends Component {
                         <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 5 }}></View>
                         {/* Following | Fans */}
                         <View style={ styles.followPanel }>
-                            <TouchableOpacity onPress={ () => this.openFollowList() } style={{ alignItems: 'center' }}>
+                            <TouchableOpacity onPress={ () => this.openFollowFanList('following') } style={{ alignItems: 'center' }}>
                                 <Text style={{ fontSize: 12 }}>Following</Text>
-                                <Text style={{ color: 'gray', fontSize: 11 }}>53</Text>
+                                <Text style={{ color: 'gray', fontSize: 11 }}>{ this.state.followingCount }</Text>
                             </TouchableOpacity>
-                            <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 12 }}>Followers</Text>
-                                <Text style={{ color: 'gray', fontSize: 11 }}>231</Text>
-                            </View>
+                            <TouchableOpacity onPress={ () => this.openFollowFanList('fans') } style={{ alignItems: 'center' }}>
+                                <Text style={{ fontSize: 12 }}>Fans</Text>
+                                <Text style={{ color: 'gray', fontSize: 11 }}>{ this.state.fansCount }</Text>
+                            </TouchableOpacity>
                         </View>
                         {/* Image */}
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -331,7 +370,8 @@ const styles = StyleSheet.create({
     // position: 'absolute',
     // resizeMode: 'stretch',
     height: 170,
-    width: '100%'
+    width: '100%',
+    marginBottom: 5
   },
   followPanel: {
     flexDirection: 'row',

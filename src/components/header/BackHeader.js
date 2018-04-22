@@ -13,10 +13,10 @@ class BackHeader extends Component {
                     { this.props.actions === 'sidemenu' ? 
                         <IconIonicons name="ios-arrow-back" onPress={() => {
                             Actions.SideMenu()
-                        }} color={'black'} size={25} style={ styles.backIcon } /> :
+                        }} color={'black'} size={30} style={ styles.backIcon } /> :
                         <IconIonicons name="ios-arrow-back" onPress={() => {
                             Actions.MainScreen()
-                        }} color={'black'} size={25} style={ styles.backIcon } />
+                        }} color={'black'} size={30} style={ styles.backIcon } />
                     }
                 </Left>
                 <Body style={ styles.titleWrapper }>

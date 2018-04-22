@@ -55,6 +55,7 @@ class NewfeedTab extends Component {
     }
 
     render() {
+        console.log('sapefomapwoef', this.state.feedResponse)
         return (
             <Container style={styles.container}>
                 <AppHeader onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll } />
@@ -73,12 +74,13 @@ class NewfeedTab extends Component {
                                         profilePic={data.photo}
                                         foodPic={data.image} 
                                         caption={data.caption}
-                                        date={moment.utc(data.timestamp).format("MMMM Do YYYY, h:mm a")}
+                                        date={moment(data.timestamp).format("MMMM Do YYYY, h:mm a")}
                                         userName={data.user_name}
                                         postId={data._id}
                                         status={data.status}
                                         comments={data.comments}
                                         idDish={data.id_dish}
+                                        userid={data.id_user}
                                     />
                                 )
                             })}

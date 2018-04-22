@@ -4,19 +4,19 @@ import { Container, Header, Content, List, ListItem, Left, Body, Button, Right, 
 import BackHeader from '../header/BackHeader'
 import CooklabAxios from '../../http/index'
 
-class FollowList extends Component {
+class FanList extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            isFollow: true,
-            followArr: []
+            status: this.props.data.status,
+            fanArr: []
         }
     }
 
     componentDidMount() {
         this.setState({
-            followArr: this.props.data
+            fanArr: this.props.data
         })
     }
 
@@ -27,38 +27,36 @@ class FollowList extends Component {
         } catch (error) {
             console.log(error)
         }
-        let followResponse
+        let fanResponse
         try {
-            followResponse = await CooklabAxios.put(`follow`, {
+            fanResponse = await CooklabAxios.put(`follow`, {
                 userId: getUserId,
                 targetId: targetId
             })
         } catch (error) {
             console.log(error)
         }
+        console.log('Follow response: ', fanResponse.data)
 
-        const newState = this.state.followArr.map( (element) => {
+        const newState = this.state.fanArr.map(element => {
             if (element._id === targetId) {
-                element.status = followResponse.data === 'follow'
+                element.status = fanResponse.data === 'follow'
             }
             return element
         })
-
-        this.setState({
-            followArr: newState
-        })
+        this.setState({ fanArr: newState })
     }
 
     render() {
-        console.log('Follow list page: ', this.props.data)
+        console.log('Fan list page: ', this.props.data)
         return (
             <Container style={ styles.container }>
-                <BackHeader title="FOLLOWING" actions="mainscreen" />
+                <BackHeader title="FANS" actions="mainscreen" />
                 <Content style={ styles.listWrapper }>
-                { this.state.followArr.map( (element, index) => {
+                { this.state.fanArr.map( (element, index) => {
                     return (
                         <List>
-                            <ListItem avatar key={index}>
+                            <ListItem key={index} avatar>
                                 <Left>
                                     <Thumbnail style={{ width: 45, height: 40 }} source={{ uri: element.photo }} />
                                 </Left>
@@ -85,7 +83,7 @@ class FollowList extends Component {
     }
 }
 
-export default FollowList
+export default FanList
 
 const styles = StyleSheet.create({
     container: {   
