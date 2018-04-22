@@ -19,6 +19,7 @@ class UserDetail extends Component {
         this.state ={
             name: '',
             image: '',
+            coverImage: null,
             picCollection: [],
             isFollow: false,
             userid: '',
@@ -74,7 +75,8 @@ class UserDetail extends Component {
         this.setState({
             name: userResponse.data.name,
             image: userResponse.data.photo,
-            picCollection: userPostResponse.data
+            picCollection: userPostResponse.data,
+            coverImage: userResponse.data.cover
         })
 
         let followResponse
@@ -130,7 +132,7 @@ class UserDetail extends Component {
                 <BackHeader title="USER ACCOUNT" actions="mainscreen" />
                 <ScrollView style={ styles.componentWrapper }>
                     <View style={ styles.coverImageWrapper }>
-                        <Image style={ styles.coverImage } source={require('../../assets/image/CoverImage/coverImage1.jpg')} />
+                        <Image style={ styles.coverImage } source={{ uri: this.state.coverImage }} />
                     </View>
                     <View style={ styles.imageWrapper }>
                         <Thumbnail source={{ uri: this.state.image }} style={ styles.profilePic }/>
