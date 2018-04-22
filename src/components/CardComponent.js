@@ -184,12 +184,24 @@ class CardComponent extends Component {
         })
         let createCommentResponse
         let isCreateComment = false
+        let createNotiResponse
 
         try {
             createCommentResponse = await CooklabAxios.post(`create_comment`, {
               id_post: this.props.postId,
               id_user: this.state.userid,
               text: this.state.comment
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
+        // create notification
+        try {
+            createNotiResponse = await CooklabAxios.post(`create_notification`, {
+                id_post: this.props.postId,
+                id_user: this.state.userid,
+                type: 'comment'
             })
         } catch (error) {
             console.log(error)
