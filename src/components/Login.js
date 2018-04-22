@@ -177,7 +177,7 @@ class Login extends Component {
 
                 // socket
                 socket.emit('authenUser',{
-                    user: userid
+                    userId: userid
                 })
                 // navigate to main screen
                 Actions.MainScreen()

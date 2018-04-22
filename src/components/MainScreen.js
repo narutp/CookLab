@@ -7,6 +7,7 @@ import TabNavigator from 'react-native-tab-navigator'
 import NewfeedTab from './AppTabNavigator/NewfeedTab'
 import ProfileTab from './AppTabNavigator/ProfileTab'
 import SearchTab from './AppTabNavigator/SearchTab'
+import NotificationTab from './AppTabNavigator/NotificationTab'
 import TopfeedTab from './AppTabNavigator/TopfeedTab'
 import ImagePicker from 'react-native-image-picker'
 import StatusPosting from './sidepages/StatusPosting'
@@ -26,6 +27,7 @@ class MainScreen extends Component {
         this.showCameraRoll = this.showCameraRoll.bind(this)
     }
 
+    
     showDrawerMenu() {
         console.log(this.props)
         Actions.SideMenu()
@@ -84,10 +86,18 @@ class MainScreen extends Component {
                 <TabNavigator.Item
                     selected={this.state.selectedTab === 'search'}
                     selectedTitleStyle={{ color: "#FFBF00" }}
-                    renderIcon={() => <IconFontAwesome name="search" size={15} />}
-                    renderSelectedIcon={() => <IconFontAwesome name="search" size={15} color="#F44336" />}
+                    renderIcon={() => <IconFontAwesome name="search" size={20} />}
+                    renderSelectedIcon={() => <IconFontAwesome name="search" size={20} color="#F44336" />}
                     onPress={() => this.setState({ selectedTab: 'search' })}>
-                    <SearchTab />
+                    <SearchTab/>
+                </TabNavigator.Item>
+                <TabNavigator.Item
+                    selected={this.state.selectedTab === 'notification'}
+                    selectedTitleStyle={{ color: "#FFBF00" }}
+                    renderIcon={() => <IconEntypo name="notification" size={15} color="#666"/>}
+                    renderSelectedIcon={() => <IconEntypo name="notification" size={15} color="#F44336" />}
+                    onPress={() => this.setState({ selectedTab: 'notification' })}>
+                    <NotificationTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
                 </TabNavigator.Item>
                 <TabNavigator.Item
                     selected={this.state.selectedTab === 'profile'}

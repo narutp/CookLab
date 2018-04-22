@@ -8,18 +8,6 @@ class UserCardComponent extends Component {
         return(
             <Content>
                 <List style={ styles.card }>
-                    {/* <CardItem style={ styles.leftComp }>
-                        <Text>{ this.props.rank }</Text>
-                        <Thumbnail source={ this.props.userImage } style={ styles.userImage } />
-                    </CardItem>
-                    <CardItem style={ styles.centerComp }>
-                        <Text>{ this.props.userName }</Text>
-                    </CardItem>
-                    <CardItem style={ styles.rightComp }>
-                        <Text style={ styles.point }>{ this.props.point }</Text>
-                        <Image source={ this.props.badgeImage } style={ styles.badgeImage } />
-                    </CardItem> */}
-                    {/* TODO: line bug between list */}
                     <ListItem>
                         <Left style={{ flex: 1 }}>
                             <Text style={{ fontSize: 10 }}>{ this.props.rank }</Text>
