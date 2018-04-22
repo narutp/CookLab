@@ -106,7 +106,7 @@ class SideMenu extends Component {
               <Card style={styles.navSectionStyle}>
               <View style={styles.contentView}>
                 <IconFontAwesome size={120} style={styles.navIconStyle} name="user" /> 
-                <Text style={styles.navItemStyle}>About us</Text>
+                <Text style={styles.navItemStyle}>About CookLab</Text>
                 </View>
               </Card>
             </TouchableOpacity>

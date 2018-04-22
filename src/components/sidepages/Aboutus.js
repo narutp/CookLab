@@ -1,29 +1,55 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, Text, Image, View, Button } from 'react-native';
+import { Linking, StyleSheet, ScrollView, Dimensions, Text, Image, View, Button } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 import ImageFactory from 'src/components/ImageFactory';
 import BackHeader from '../header/BackHeader'
 
+const width = Dimensions.get('window').width
 class Aboutus extends Component {
     
     render(){
         return(
             <View style={{ flex: 1 }}>
-                <BackHeader title="ABOUT US" actions="sidemenu" />
+                <BackHeader title="ABOUT COOKLAB" actions="sidemenu" />
                 <ScrollView style={ styles.container }>
-                    <Text style={ styles.aboutus }>About us..</Text>
-                    <View style={ styles.logoWrapper }>
-                        <Image source={ ImageFactory.logo } style={ styles.logoImage }/>
-                        <Text style={ styles.cooklab }>CookLab</Text>
+                    <View style={{ marginTop: 15, justifyContent: 'center', alignItems: 'center' }}>
+                        <Ionicons name="ios-people" size={90} />
                     </View>
-                    <Text style={ styles.thanks }>Thanks for using our application.</Text>
-                    <Text style={ styles.collaborators }>Collaborators</Text>
-                    <View style={ styles.devWrapper }>
-                        <Text style={ styles.dev }>Narut Poovorakit</Text>
-                        <Text style={ styles.dev }>Natanon Poonawagul</Text>
-                        <Text style={ styles.dev }>Supanat Pokturng</Text>
+                    {/* Horizontal rule */}
+                    <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 5 }}></View>
+                    <View style={ styles.wrapper }>
+                        <Text style={ styles.collaborators }>Collaborators</Text>
+                        <View style={ styles.devWrapper }>
+                            <Text style={ styles.dev }>Narut Poovorakit</Text>
+                            <Text style={ styles.dev }>Natanon Poonawagul</Text>
+                            <Text style={ styles.dev }>Supanat Pokturng</Text>
+                        </View>
                     </View>
+                    
+                    <View style={ styles.wrapper }>
+                        <Text style={ styles.collaborators }>Credits</Text>
+                            <View style={ styles.devWrapper }>
+                                <View style={{ flex: 1, flexDirection: 'row' }}>
+                                    <Text style={ styles.dev }>
+                                        Icons made by 
+                                    </Text>
+                                    <Text style={{color: 'blue'}}
+                                        onPress={() => Linking.openURL("https://www.flaticon.com/authors/those-icons")}>
+                                        {' '}ThoseIcon, Flaticon
+                                    </Text>
+                                </View>
+                                <View>
+                                    <Text>
+                                        licensed by
+                                    </Text>
+                                    <Text style={{color: 'blue'}}
+                                        onPress={() => Linking.openURL("http://creativecommons.org/licenses/by/3.0/")}>
+                                        "http://creativecommons.org/licenses/by/3.0/"
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
                 </ScrollView>
             </View>
         )
@@ -35,43 +61,25 @@ export default Aboutus
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FF7F50'
-    },
-    header: {
-        backgroundColor: '#F44336'
-    },
-    backIcon: {
-        marginLeft: 10, 
-        marginTop: 6,
-        color: 'white' 
+        backgroundColor: 'white'
     },
     aboutus: {
         marginTop: 5,
         marginLeft: 10,
-        fontSize: 30,
-        color: 'white'
+        fontSize: 20,
+    },
+    wrapper: {
+        marginTop: 20
     },
     logoWrapper: {
         marginTop: 10,
         alignSelf: 'center'
     },
-    logoImage: {
-        width: 125,
-        height: 125,
-        alignSelf: 'center'
-    },
-    cooklab: {
-        fontSize: 44,
-        color: 'white',
-        alignSelf: 'center',
-        marginTop: 10,
-        fontWeight: 'bold'
-    },
     collaborators: {
         marginTop: 5,
         marginLeft: 20,
-        fontSize: 30,
-        color: 'white'
+        fontSize: 15,
+        fontWeight: '500'
     },
     devWrapper: {
         marginTop: 5,
@@ -79,14 +87,6 @@ const styles = StyleSheet.create({
     },
     dev: {
         marginBottom: 5,
-        fontSize: 27,
-        color: 'white'
+        fontSize: 14,
     },
-    thanks: {
-        marginTop: 5,
-        fontSize: 30,
-        color: 'white',
-        alignSelf: 'center',
-        marginBottom: 10
-    }
 })

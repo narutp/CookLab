@@ -10,6 +10,7 @@ import Register from './Register'
 import Axios from 'react-native-axios'
 import CookLabAxios from 'src/http/index'
 import { Actions } from 'react-native-router-flux'
+import socket from '../socket/index'
 
 const {
     LoginButton,
@@ -174,6 +175,10 @@ class Login extends Component {
                 // set all user data
                 await this.setUser(userid)
 
+                // socket
+                socket.emit('authenUser',{
+                    user: userid
+                })
                 // navigate to main screen
                 Actions.MainScreen()
             } else {
