@@ -27,10 +27,10 @@ class MainScreen extends Component {
         this.showCameraRoll = this.showCameraRoll.bind(this)
     }
 
-    
+
     showDrawerMenu() {
         console.log(this.props)
-        Actions.SideMenu()
+        Actions.drawerOpen()
     }
 
     showCameraRoll() {
