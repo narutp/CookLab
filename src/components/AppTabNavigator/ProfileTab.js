@@ -65,8 +65,10 @@ class ProfileTab extends Component {
             name: '',
             id: '',
             picUrl: null,
+            coverPicUrl: null,
             isModalVisible: false,
             uploadURL: null,
+            uploadCoverURL: null,
             picCollection: [],
             userid: '',
             followingCount: 0,
@@ -94,10 +96,12 @@ class ProfileTab extends Component {
         if (this.state.uploadURL != nextState.uploadURL) {
             this.uploadProfilePic(nextState.uploadURL)
         }
+        if (this.state.uploadCoverURL != nextState.uploadCoverURL) {
+            this.uploadCoverPic(nextState.uploadCoverURL)
+        }
     }
 
     async uploadProfilePic(url) {
-        console.log('url' + url)
         let uploadResponse
         try {
             uploadResponse = await CooklabAxios.put(`update_user`, {
@@ -112,6 +116,21 @@ class ProfileTab extends Component {
         })
     }
 
+    async uploadCoverPic(url) {
+        let uploadResponse
+        try {
+            uploadResponse = await CooklabAxios.put(`update_user`, {
+                userId: this.state.userid,
+                cover: url
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        this.setState({
+            coverPicUrl: url
+        })
+    }
+
     async fetchUser () {
         // login by facebook
         let userNameFB
@@ -123,20 +142,19 @@ class ProfileTab extends Component {
             console.log(error)
         }
         
-        console.log('asdfasdfasdfasdfs', userPicUrlFB)
         // login normal
         let user_name
         let userResponse
         let userid = await AsyncStorage.getItem('userid')
+        try {
+            userResponse = await CooklabAxios.get(`/get_user?userId=${userid}`)
+        } catch(error) {
+            console.log(error)
+        }
         // check username by facebook is null
         // then, get user data that login normally
         if (userNameFB === null) {
-            // get profile picture
-            try {
-                userResponse = await CooklabAxios.get(`/get_user?userId=${userid}`)
-            } catch(error) {
-                console.log(error)
-            }
+            // get profile picture            
             try {
                 user_name = await AsyncStorage.getItem('name')
                 console.log('in' + user_name)
@@ -161,7 +179,8 @@ class ProfileTab extends Component {
         
         this.setState({
             picCollection: userPostResponse.data,
-            userid: userid
+            userid: userid,
+            coverPicUrl: userResponse.data.cover
         })
 
         let followResponse
@@ -196,7 +215,7 @@ class ProfileTab extends Component {
         }
     }
 
-    chooseImage() {
+    chooseImage(type) {
         var options = {
             title: 'Select Avatar',
             storageOptions: {
@@ -218,9 +237,15 @@ class ProfileTab extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                uploadImage(response.uri)
-                .then(url => this.setState({ uploadURL: url }))
-                .catch(error => console.log(error))
+                if (type === 'profile') {
+                    uploadImage(response.uri)
+                    .then(url => this.setState({ uploadURL: url }))
+                    .catch(error => console.log(error))
+                } else {
+                    uploadImage(response.uri)
+                    .then(url => this.setState({ uploadCoverURL: url }))
+                    .catch(error => console.log(error))
+                }
             }
         });
     }
@@ -281,14 +306,16 @@ class ProfileTab extends Component {
                 </View>
                 <ScrollView>
                     {/* Cover image */}
-                    <Image source={require('../../assets/image/CoverImage/coverImage1.jpg')} style={styles.coverImage} />
+                    <TouchableOpacity onPress={ () => this.chooseImage('cover') }>
+                        <Image source={{ uri: this.state.coverPicUrl }} style={styles.coverImage} />
+                    </TouchableOpacity>
                     {/* Profile image */}
                     <View style={{ marginBottom: 5, marginTop: 5, }}>
                         { this.state.picUrl === null ? 
-                            <TouchableOpacity onPress={ () => this.chooseImage()} style={{ alignItems: 'center' }}>
+                            <TouchableOpacity onPress={ () => this.chooseImage('profile')} style={{ alignItems: 'center' }}>
                                 <Image source={require('../../assets/image/Profile/profilePic.png')} style={ styles.profileImage }/>
                             </TouchableOpacity> : 
-                            <TouchableOpacity onPress={ () => this.chooseImage()} style={{ alignItems: 'center' }}>
+                            <TouchableOpacity onPress={ () => this.chooseImage('profile')} style={{ alignItems: 'center' }}>
                                 <Image source={{ uri: this.state.picUrl }} style={styles.profileImage} />
                             </TouchableOpacity>
                         }
@@ -344,7 +371,8 @@ const styles = StyleSheet.create({
     // position: 'absolute',
     // resizeMode: 'stretch',
     height: 170,
-    width: '100%'
+    width: '100%',
+    marginBottom: 5
   },
   followPanel: {
     flexDirection: 'row',
