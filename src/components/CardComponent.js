@@ -123,7 +123,6 @@ class CardComponent extends Component {
         } catch (error) {
             console.log(error)
         }
-
         this.setState({ status: this.props.status, 
             trophy: this.props.trophy, 
             profilePic: this.props.profilePic,
