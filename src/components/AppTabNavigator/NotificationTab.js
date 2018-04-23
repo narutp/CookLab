@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, AsyncStorage, ScrollView } from 'react-native'
-import { List, Thumbnail, ListItem, Header, Left, Body, Right, Text as TextNative } from 'native-base'
+import { List, Content, Container, Thumbnail, ListItem, Header, Left, Body, Right, Text as TextNative } from 'native-base'
 import AppHeader from '../header/AppHeader'
 import socket from '../../socket'
 import CooklabAxios from '../../http/index'
+import moment from 'moment'
 
 class NotificationTab extends Component {
 
@@ -42,33 +43,48 @@ class NotificationTab extends Component {
 
     // image, name, type, id_post, timestamp
     render() {
+        console.log('notification: ', this.state.notificationArr)
         return (
-            <View style={ styles.container }>
+            <Container style={ styles.container }>
                 <AppHeader onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll }/>
-                <ScrollView>
-                    { this.state.notificationArr.map( (element, key) => {
-                    <List>
-                        <ListItem>
-                            <Left style={{ flex: 1 }}>
-                                <Thumbnail source={{ uri: element.image }}/>
-                            </Left>
-                            <Body style={{ flex: 2 }}>
-                                <Text>
-                                    { element.name }
-                                </Text>
-                                <Text>
-                                    { element.type }
-                                </Text>
-                            </Body>
-                            <Right style={{ flex: 1 }}>
-                                { element.timestamp }
-                            </Right>
-                        </ListItem>
-                    </List>        
-                   })
-                   } 
-                </ScrollView>
-            </View>
+                <View>
+                    <ScrollView>
+                        { this.state.notificationArr.map( (element, key) => {
+                            return (
+                                <Content>
+                                    <List>
+                                        <ListItem>
+                                            <Left style={{ flex: 1 }}>
+                                                <Thumbnail style={ styles.image } source={{ uri: element.image }}/>
+                                            </Left>
+                                            <Body style={{ flex: 2 }}>
+                                                <Text style={ styles.name }>
+                                                    { element.name }
+                                                </Text>
+                                                { element.type === 'comment' ?
+                                                    <Text style={ styles.type }>
+                                                        commented on your post
+                                                    </Text> :
+                                                    <Text style={ styles.type }>
+                                                        likes your post.
+                                                    </Text>
+                                                }
+                                                
+                                            </Body>
+                                            <Right style={{ flex: 1 }}>
+                                                <Text style={ styles.timestamp }>
+                                                    { moment(element.timestamp).fromNow() }
+                                                </Text>
+                                            </Right>
+                                        </ListItem>
+                                    </List>    
+                                </Content>
+                            )    
+                        })
+                        } 
+                    </ScrollView>
+                </View>
+            </Container>
         )
     }
 }
@@ -78,5 +94,19 @@ export default NotificationTab
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    image: {
+        width: 45,
+        height: 45
+    },
+    name: {
+        fontSize: 11,
+        fontWeight: '500'
+    },
+    type: {
+        fontSize: 11,
+    },
+    timestamp: {
+        fontSize: 10
     }
 })
