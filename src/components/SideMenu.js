@@ -55,6 +55,7 @@ class SideMenu extends Component {
       <View style={styles.container}>
         <Header style={styles.header}>
             <IconEntypo name="menu" onPress={() =>  Actions.MainScreen() } size={25} style={{ color: '#F44336' }} />
+            <Text style={styles.textCooklab}>COOKLAB</Text>
         </Header>
         <ScrollView>
           <View style={ styles.sideMenuTable }>
@@ -143,9 +144,15 @@ const styles = StyleSheet.create ({
     },
     header: {
         backgroundColor: '#fff',
-        justifyContent: 'center',
-        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'flex-start'
         // height: 30
+    },
+    textCooklab: { 
+        color: 'black', 
+        fontSize: 16, 
+        fontWeight: '100',  
+        alignSelf: 'center'
     },
     sideMenuTable: {
         width: Dimensions.get('window').width,
