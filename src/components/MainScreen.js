@@ -18,7 +18,8 @@ import DishActions from 'src/redux/actions/dish'
 // This is mainscreen
 class MainScreen extends Component {
     state = {
-        selectedTab: 'newfeed'
+        selectedTab: 'newfeed',
+        notification: ''
     };
 
     constructor(props) {
@@ -27,6 +28,29 @@ class MainScreen extends Component {
         this.showCameraRoll = this.showCameraRoll.bind(this)
     }
 
+    componentDidMount () {
+        this.checkNotification()
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (nextState.selectedTab === 'notification') {
+            if (this.state.selectedTab != nextState.selectedTab) {
+                this.setState({
+                    notification: 'false'
+                })
+            }
+        }
+    }
+
+    async checkNotification() {
+        let checkNoti
+        try {
+            checkNoti = await AsyncStorage.getItem('notification')
+        } catch (error) {
+            console.log(error)
+        }
+        this.setState({ notification: checkNoti })
+    }
 
     showDrawerMenu() {
         console.log(this.props)
@@ -91,14 +115,24 @@ class MainScreen extends Component {
                     onPress={() => this.setState({ selectedTab: 'search' })}>
                     <SearchTab/>
                 </TabNavigator.Item>
-                <TabNavigator.Item
-                    selected={this.state.selectedTab === 'notification'}
-                    selectedTitleStyle={{ color: "#FFBF00" }}
-                    renderIcon={() => <IconEntypo name="notification" size={15} color="#666"/>}
-                    renderSelectedIcon={() => <IconEntypo name="notification" size={15} color="#F44336" />}
-                    onPress={() => this.setState({ selectedTab: 'notification' })}>
-                    <NotificationTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
-                </TabNavigator.Item>
+                { this.state.notification === true ?
+                    <TabNavigator.Item
+                        selected={this.state.selectedTab === 'notification'}
+                        selectedTitleStyle={{ color: "#FFBF00" }}
+                        renderIcon={() => <IconEntypo name="notification" size={15} color="black"/>}
+                        renderSelectedIcon={() => <IconEntypo name="notification" size={15} color="#F44336" />}
+                        onPress={() => this.setState({ selectedTab: 'notification' })}>
+                        <NotificationTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
+                    </TabNavigator.Item> :
+                    <TabNavigator.Item
+                        selected={this.state.selectedTab === 'notification'}
+                        selectedTitleStyle={{ color: "#FFBF00" }}
+                        renderIcon={() => <IconEntypo name="notification" size={15} color="#666"/>}
+                        renderSelectedIcon={() => <IconEntypo name="notification" size={15} color="#F44336" />}
+                        onPress={() => this.setState({ selectedTab: 'notification' })}>
+                        <NotificationTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
+                    </TabNavigator.Item>
+                }
                 <TabNavigator.Item
                     selected={this.state.selectedTab === 'profile'}
                     selectedTitleStyle={{ color: "#FFBF00" }}
