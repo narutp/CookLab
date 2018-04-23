@@ -125,7 +125,7 @@ class MainScreen extends Component {
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'notification'}
                         selectedTitleStyle={{ color: "#FFBF00" }}
-                        renderIcon={() => <IconEntypo name="notification" size={15} color="black"/>}
+                        renderIcon={() => <IconEntypo name="notification" size={15} color="#666"/>}
                         renderSelectedIcon={() => <IconEntypo name="notification" size={15} color="#F44336" />}
                         onPress={() => this.setState({ selectedTab: 'notification' })}>
                         <NotificationTab readNotification={ this.readNotification } onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
@@ -133,8 +133,8 @@ class MainScreen extends Component {
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'notification'}
                         selectedTitleStyle={{ color: "#FFBF00" }}
-                        renderIcon={() => <IconEntypo name="notification" size={15} color="#666"/>}
-                        renderSelectedIcon={() => <IconEntypo name="notification" size={15} color="#F44336" />}
+                        renderIcon={() => <IconEntypo name="notifications-off" size={15} color="#666"/>}
+                        renderSelectedIcon={() => <IconEntypo name="notifications-off" size={15} color="#F44336" />}
                         onPress={() => this.setState({ selectedTab: 'notification' })}>
                         <NotificationTab readNotification={ this.readNotification } onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
                     </TabNavigator.Item>
