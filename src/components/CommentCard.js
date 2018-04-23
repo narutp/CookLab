@@ -29,20 +29,18 @@ class CommentCard extends Component {
 
     render () {
         return (
-            // TODO: time when comment
             <View style={ styles.modal }>
                 <CardItem>
-                    <Left>
-                        <Thumbnail source={{ uri: this.props.image }} style={{ width: 30, height: 30 }}/>
+                    <Left style={{ flex: 6 }}>
+                        <Thumbnail source={{ uri: this.props.image }} style={{ width: 35, height: 35 }}/>
                         <Body>
                             <Text style={{ fontSize: 11, fontWeight: 'bold' }}>{this.props.name}</Text>
                             <Text style={{ fontSize: 11 }}>{this.props.comment}</Text>
-                            {/* Horizontal rule */}
-                            <View style={{ borderBottomColor: 'gray', borderBottomWidth: 0.5, marginTop: 3, marginBottom: 5, opacity: 0.6 }}></View>
+                            
                         </Body>
                     </Left>
                     <Body />
-                    <Right>
+                    <Right style={{ flex: 2 }}>
                         <Text style={ styles.time }>
                             { this.props.time }
                         </Text>
@@ -57,7 +55,7 @@ export default CommentCard
 
 const styles = StyleSheet.create({
     modal: {
-        padding: 5,
+        padding: 3,
         margin: 0,
         height: 60
     },

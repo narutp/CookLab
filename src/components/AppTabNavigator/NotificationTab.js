@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, AsyncStorage, ScrollView } from 'react-native'
-import { Header, Left, Body, Right, Text as TextNative } from 'native-base'
+import { List, Thumbnail, ListItem, Header, Left, Body, Right, Text as TextNative } from 'native-base'
 import AppHeader from '../header/AppHeader'
 import socket from '../../socket'
+import CooklabAxios from '../../http/index'
 
 class NotificationTab extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            fetchArr: []
+            fetchArr: [],
+            userid: '',
+            notificationArr: []
         }
     }
 
@@ -24,24 +27,46 @@ class NotificationTab extends Component {
         } catch (error) {
             console.log(error)
         }
-        // socket
-        socket.emit('notify',{
-            targetId: getUserId
-        })
 
-        let fetchResponse
+        this.setState({ userid: getUserId })
+        
+        let getNotificationResponse
         try {
-            // fetchResponse = await CooklabAxios.get(``)
+            getNotificationResponse = await CooklabAxios.get(`get_noti_by_user?user_id=${getUserId}`)
         } catch (error) {
             console.log(error)
         }
+
+        this.setState({ notificationArr: getNotificationResponse.data })
     }
 
+    // image, name, type, id_post, timestamp
     render() {
         return (
             <View style={ styles.container }>
                 <AppHeader onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll }/>
                 <ScrollView>
+                    { this.state.notificationArr.map( (element, key) => {
+                    <List>
+                        <ListItem>
+                            <Left style={{ flex: 1 }}>
+                                <Thumbnail source={{ uri: element.image }}/>
+                            </Left>
+                            <Body style={{ flex: 2 }}>
+                                <Text>
+                                    { element.name }
+                                </Text>
+                                <Text>
+                                    { element.type }
+                                </Text>
+                            </Body>
+                            <Right style={{ flex: 1 }}>
+                                { element.timestamp }
+                            </Right>
+                        </ListItem>
+                    </List>        
+                   })
+                   } 
                 </ScrollView>
             </View>
         )
