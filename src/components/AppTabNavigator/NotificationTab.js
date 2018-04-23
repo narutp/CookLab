@@ -22,6 +22,7 @@ class NotificationTab extends Component {
     }
 
     async fetchNotification() {
+        this.props.readNotification()
         let getUserId
         try {
             getUserId = await AsyncStorage.getItem('userid')

@@ -19,7 +19,8 @@ import DishActions from 'src/redux/actions/dish'
 class MainScreen extends Component {
     state = {
         selectedTab: 'newfeed',
-        notification: ''
+        notification: '',
+        noti_status: ''
     };
 
     constructor(props) {
@@ -49,7 +50,8 @@ class MainScreen extends Component {
         } catch (error) {
             console.log(error)
         }
-        this.setState({ notification: checkNoti })
+        console.log('check notification', checkNoti)
+        this.setState({ notification: checkNoti, noti_status: this.props.noti_status })
     }
 
     showDrawerMenu() {
@@ -87,6 +89,10 @@ class MainScreen extends Component {
       });
     }
 
+    readNotification = () => {
+        this.setState({ notification: false, noti_status: true })
+    }
+
     render() {
         return (
             <TabNavigator style={styles.container}>
@@ -115,14 +121,14 @@ class MainScreen extends Component {
                     onPress={() => this.setState({ selectedTab: 'search' })}>
                     <SearchTab/>
                 </TabNavigator.Item>
-                { this.state.notification === true ?
+                { this.state.notification === true || this.state.noti_status === false ?
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'notification'}
                         selectedTitleStyle={{ color: "#FFBF00" }}
                         renderIcon={() => <IconEntypo name="notification" size={15} color="black"/>}
                         renderSelectedIcon={() => <IconEntypo name="notification" size={15} color="#F44336" />}
                         onPress={() => this.setState({ selectedTab: 'notification' })}>
-                        <NotificationTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
+                        <NotificationTab readNotification={ this.readNotification } onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
                     </TabNavigator.Item> :
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'notification'}
@@ -130,7 +136,7 @@ class MainScreen extends Component {
                         renderIcon={() => <IconEntypo name="notification" size={15} color="#666"/>}
                         renderSelectedIcon={() => <IconEntypo name="notification" size={15} color="#F44336" />}
                         onPress={() => this.setState({ selectedTab: 'notification' })}>
-                        <NotificationTab onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
+                        <NotificationTab readNotification={ this.readNotification } onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
                     </TabNavigator.Item>
                 }
                 <TabNavigator.Item

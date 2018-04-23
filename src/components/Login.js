@@ -37,8 +37,8 @@ class Login extends Component {
         }
         console.log('token' + data)
         if (data !== null) {
-            this.fetchFacebookUser()
-            Actions.MainScreen()
+            const noti_status= await this.fetchFacebookUser()
+            Actions.MainScreen({ noti_status })
         }
     }
 
@@ -57,8 +57,8 @@ class Login extends Component {
                     console.log(error)
                 }
                 // prepare data of user
-            await this.fetchFacebookUser()
-            Actions.MainScreen()
+            const noti_status = await this.fetchFacebookUser()
+            Actions.MainScreen({ noti_status })
         }
         // let result = await CooklabAxios.get('/posts')
         // console.log(result)
@@ -143,7 +143,7 @@ class Login extends Component {
                 console.log(error)
             }
         }
-        
+        return getUser.data.noti_status
 
     }
 
@@ -173,14 +173,15 @@ class Login extends Component {
                 console.log(userid)
                 
                 // set all user data
-                await this.setUser(userid)
+                const noti_status = await this.setUser(userid)
 
                 // socket
                 socket.emit('authenUser',{
                     userId: userid
                 })
                 // navigate to main screen
-                Actions.MainScreen()
+                console.log('notiiiiiiiiiiiiiiiiiiiiiii', noti_status)
+                Actions.MainScreen({ noti_status })
             } else {
                 // login failed
                 // TODO: add alert login fail
@@ -209,6 +210,8 @@ class Login extends Component {
         } catch (error) {
             console.log(error)
         }
+        console.log('xxxxxxxxxxxxxxx', userResponse.data.noti_status)
+        return userResponse.data.noti_status
     }
     render() {
         return (
