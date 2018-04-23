@@ -14,6 +14,8 @@ import StatusPosting from './sidepages/StatusPosting'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import DishActions from 'src/redux/actions/dish'
+import socket from '../socket'
+
 
 // This is mainscreen
 class MainScreen extends Component {
@@ -30,6 +32,13 @@ class MainScreen extends Component {
     }
 
     componentDidMount () {
+        socket.on('notify', (date) => {
+            console.log('date', date)
+            AsyncStorage.setItem('notification', 'true')
+            this.setState({
+                notification: true
+            })
+        })
         this.checkNotification()
     }
 
