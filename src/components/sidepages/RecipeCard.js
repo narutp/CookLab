@@ -11,37 +11,37 @@ import DishActions from 'src/redux/actions/dish'
 class RecipeCard extends Component{
 
     state = {
-        list : [],
+        r_list : [],
         _text : ''
     }
 
     componentDidMount(){
-        this.setState({list : this.props.list})
+        this.setState({r_list : this.props.r_list})
         this.setState({_text : this.props.text})
     }
 
     onEdit(text){
         this.setState({_text : text})
-        tempArray = this.state.list
+        tempArray = this.state.r_list
         tempArray[this.props.id].text = text
-        this.setState({list : tempArray}, () => {this.updateList()})
+        this.setState({r_list : tempArray}, () => {this.updateList()})
     }
 
     onCancel(){
-        tempArray = this.state.list
+        tempArray = this.state.r_list
         tempArray.splice(this.props.id,1)
-        this.setState({list : tempArray}, () => {this.updateList()})
+        this.setState({r_list : tempArray}, () => {this.updateList()})
     }
 
     updateList(){
-        this.props.setRecipeList(this.state.list) 
+        this.props.setRecipeList(this.state.r_list) 
         this.props.update()
     }
 
     render(){
         return(
             <Content>
-                <List style={styles.list}>
+                <List style={styles.r_list}>
                     <ListItem>
                     <Left style={{flex : 1}}>
                         <Text>{this.props.id+1}</Text>
@@ -70,21 +70,20 @@ class RecipeCard extends Component{
 }
 
 const mapStateToProps = state => ({
-    list : state.dishReducer.r_list
+    r_list : state.dishReducer.r_list
 })
 
 const mapDispatchToProps = dispatch => ({
-    setRecipeList: (list) => {
-        dispatch(DishActions.setRecipeList(list))
+    setRecipeList: (r_list) => {
+        dispatch(DishActions.setRecipeList(r_list))
     }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeCard)
 
 const styles = StyleSheet.create({
-    list: {
-        flex: 1,
-        marginBottom: 10
+    r_list: {
+        flex: 1
     },
     textinput: {
         fontSize: 13

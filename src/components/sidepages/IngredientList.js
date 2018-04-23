@@ -12,23 +12,23 @@ import DishActions from 'src/redux/actions/dish'
 class IngredientList extends Component{
     
     state = {
-        list : []
+        i_list : []
     }
 
     componentDidMount(){
-        this.setState({list : this.props.list})
+        this.setState({i_list : this.props.i_list})
     }
 
-    addDish(){
-        tempArray = this.state.list
+    addIngredient(){
+        tempArray = this.state.i_list
         tempArray.push({ text: '' })
-        this.setState({list : tempArray}, () => {this.props.setIngredientList(this.state.list)})
+        this.setState({i_list : tempArray}, () => {this.props.setIngredientList(this.state.i_list)})
     }
 
     render(){
         return(
-            <ScrollView style={styles.container}>
-                { this.props.list.map((data,index) => {
+            <View style={styles.container}>
+                { this.props.i_list.map((data,index) => {
                     return(
                         <IngredientCard 
                             id={ index }
@@ -37,10 +37,10 @@ class IngredientList extends Component{
                         />
                     )
                 })}
-                <Button onPress={() => this.addDish()} style={styles.addButton}>
+                <Button onPress={() => this.addIngredient()} style={styles.addButton}>
                     <Text style={{color : 'white'}}>Add</Text>
                 </Button>
-            </ScrollView>
+            </View>
         )
     }
 }
@@ -48,13 +48,13 @@ class IngredientList extends Component{
 const mapStateToProps = state => {
     console.log("STATE: ", state)
     return {
-        list : state.dishReducer.i_list
+        i_list : state.dishReducer.i_list
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    setIngredientList: (list) => {
-        dispatch(DishActions.setIngredientList(list))
+    setIngredientList: (i_list) => {
+        dispatch(DishActions.setIngredientList(i_list))
     }
 })
 
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         width: 40,
-        height: 25
+        height: 25,
+        marginTop: 10
     }
 })

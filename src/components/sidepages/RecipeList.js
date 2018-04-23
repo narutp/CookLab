@@ -12,23 +12,23 @@ import DishActions from 'src/redux/actions/dish'
 class RecipeList extends Component{
     
     state = {
-        list : []
+        r_list : []
     }
 
     componentDidMount(){
-        this.setState({list : this.props.list})
+        this.setState({r_list : this.props.r_list})
     }
 
-    addDish(){
-        tempArray = this.state.list
+    addRecipe(){
+        tempArray = this.state.r_list
         tempArray.push({ text: '' })
-        this.setState({list : tempArray}, () => {this.props.setRecipeList(this.state.list)})
+        this.setState({r_list : tempArray}, () => {this.props.setRecipeList(this.state.r_list)})
     }
 
     render(){
         return(
-            <ScrollView style={styles.container}>
-                { this.props.list.map((data,index) => {
+            <View style={styles.container}>
+                { this.props.r_list.map((data,index) => {
                     return(
                         <RecipeCard 
                             id={ index }
@@ -37,23 +37,23 @@ class RecipeList extends Component{
                         />
                     )
                 })}
-                <Button onPress={() => this.addDish()} style={styles.addButton}>
+                <Button onPress={() => this.addRecipe()} style={styles.addButton}>
                     <Text style={{color : 'white'}}>Add</Text>
                 </Button>
-            </ScrollView>
+            </View>
         )
     }
 }
 
 const mapStateToProps = state => {
     return {
-        list : state.dishReducer.r_list
+        r_list : state.dishReducer.r_list
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    setRecipeList: (list) => {
-        dispatch(DishActions.setRecipeList(list))
+    setRecipeList: (r_list) => {
+        dispatch(DishActions.setRecipeList(r_list))
     }
 })
 
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         width: 40,
-        height: 25
+        height: 25,
+        marginTop: 10
     }
 })

@@ -11,37 +11,37 @@ import DishActions from 'src/redux/actions/dish'
 class IngredientCard extends Component{
 
     state = {
-        list : [],
+        i_list : [],
         _text : ''
     }
 
     componentDidMount(){
-        this.setState({list : this.props.list})
+        this.setState({i_list : this.props.i_list})
         this.setState({_text : this.props.text})
     }
 
     onEdit(text){
         this.setState({_text : text})
-        tempArray = this.state.list
+        tempArray = this.state.i_list
         tempArray[this.props.id].text = text
-        this.setState({list : tempArray}, () => {this.updateList()})
+        this.setState({i_list : tempArray}, () => {this.updateList()})
     }
 
     onCancel(){
-        tempArray = this.state.list
+        tempArray = this.state.i_list
         tempArray.splice(this.props.id,1)
-        this.setState({list : tempArray}, () => {this.updateList()})
+        this.setState({i_list : tempArray}, () => {this.updateList()})
     }
 
     updateList(){
-        this.props.setIngredientList(this.state.list) 
+        this.props.setIngredientList(this.state.i_list) 
         this.props.update()
     }
 
     render(){
         return(
             <Content>
-                <List style={styles.list}>
+                <List style={styles.i_list}>
                     <ListItem>
                     <Left style={{flex : 1}}>
                         <Text>{this.props.id+1}</Text>
@@ -70,21 +70,20 @@ class IngredientCard extends Component{
 }
 
 const mapStateToProps = state => ({
-    list : state.dishReducer.i_list
+    i_list : state.dishReducer.i_list
 })
 
 const mapDispatchToProps = dispatch => ({
-    setIngredientList: (list) => {
-        dispatch(DishActions.setIngredientList(list))
+    setIngredientList: (i_list) => {
+        dispatch(DishActions.setIngredientList(i_list))
     }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(IngredientCard)
 
 const styles = StyleSheet.create({
-    list: {
-        flex: 1,
-        marginBottom: 10
+    i_list: {
+        flex: 1
     },
     textinput: {
         fontSize: 13
