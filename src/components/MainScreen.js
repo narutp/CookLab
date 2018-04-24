@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native'
 import { Body, Left, Right } from 'native-base'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconEntypo from 'react-native-vector-icons/Entypo'
+import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import TabNavigator from 'react-native-tab-navigator'
 import NewfeedTab from './AppTabNavigator/NewfeedTab'
 import ProfileTab from './AppTabNavigator/ProfileTab'
@@ -134,16 +135,16 @@ class MainScreen extends Component {
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'notification'}
                         selectedTitleStyle={{ color: "#FFBF00" }}
-                        renderIcon={() => <IconEntypo name="notification" size={15} color="#666"/>}
-                        renderSelectedIcon={() => <IconEntypo name="notification" size={15} color="#F44336" />}
+                        renderIcon={() => <IconMaterialIcons name="notifications-off" size={15} color="#666"/>}
+                        renderSelectedIcon={() => <IconMaterialIcons name="notifications-off" size={15} color="#F44336" />}
                         onPress={() => this.setState({ selectedTab: 'notification' })}>
                         <NotificationTab readNotification={ this.readNotification } onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
                     </TabNavigator.Item> :
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'notification'}
                         selectedTitleStyle={{ color: "#FFBF00" }}
-                        renderIcon={() => <IconEntypo name="notifications-off" size={15} color="#666"/>}
-                        renderSelectedIcon={() => <IconEntypo name="notifications-off" size={15} color="#F44336" />}
+                        renderIcon={() => <IconMaterialIcons name="notifications-active" size={15} color="#666"/>}
+                        renderSelectedIcon={() => <IconMaterialIcons name="notifications-active" size={15} color="#F44336" />}
                         onPress={() => this.setState({ selectedTab: 'notification' })}>
                         <NotificationTab readNotification={ this.readNotification } onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
                     </TabNavigator.Item>
