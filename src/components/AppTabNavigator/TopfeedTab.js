@@ -20,8 +20,8 @@ class TopfeedTab extends Component {
     }
   }
 
-  componentDidMount() {
-    this.fetchPost()
+  async componentDidMount() {
+    let fetch = await this.fetchPost()
   }
 
   async fetchPost() {

@@ -11,8 +11,8 @@ import moment from 'moment'
 
 class NewfeedTab extends Component {
 
-    componentDidMount() {
-        this.fetchPost()
+    async componentDidMount() {
+        let fetch = await this.fetchPost()
     }
 
     async fetchPost() {
