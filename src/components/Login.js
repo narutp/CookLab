@@ -143,6 +143,9 @@ class Login extends Component {
                 console.log(error)
             }
         }
+        socket.emit('authenUser',{
+            userId: getUserResponse.data
+        })
         return getUser.data.noti_status
 
     }
