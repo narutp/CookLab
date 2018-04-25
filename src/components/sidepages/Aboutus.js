@@ -11,7 +11,7 @@ class Aboutus extends Component {
     render(){
         return(
             <View style={{ flex: 1 }}>
-                <BackHeader title="ABOUT COOKLAB" actions="sidemenu" />
+                <BackHeader title="ABOUT" actions="sidemenu" />
                 <ScrollView style={ styles.container }>
                     <View style={{ marginTop: 15, justifyContent: 'center', alignItems: 'center' }}>
                         <Ionicons name="ios-people" size={90} />

@@ -54,7 +54,7 @@ class SideMenu extends Component {
     return (
       <View style={styles.container}>
         <Header style={styles.header}>
-            <IconEntypo name="menu" onPress={() =>  Actions.pop() } size={25} style={{ color: '#F44336' }} />
+            <IconEntypo name="menu" onPress={() =>  Actions.MainScreen() } size={25} style={{ color: '#F44336' }} />
             <Text style={styles.textCooklab}>COOKLAB</Text>
         </Header>
         <ScrollView>

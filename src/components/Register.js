@@ -49,7 +49,7 @@ class Register extends ValidationComponent {
             //     this.getErrorsInField('password') +
             //     this.getErrorsInField('rePassword')
             // )
-            alert('Please input all of the form')
+            alert('Please input all of the form in correct format')
         }
         console.log(registerResponse)
     }

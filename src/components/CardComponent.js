@@ -107,7 +107,14 @@ class CardComponent extends Component {
             if (result.isCancelled) {
                 console.log('Share cancelled');
             } else {
-                alert('Share success');
+                alert('Share success')
+                Alert.alert(
+                    'Facebook sharing',
+                    'Share success',                
+                    [
+                      {text: 'Ok', onPress: () => console.log('Cancel Pressed!')},
+                    ],
+                )
             }
             },
             function(error) {
