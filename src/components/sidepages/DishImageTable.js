@@ -1,11 +1,30 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, Text, Image, View, Button, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, ScrollView, Text, Image, View, Button, Dimensions, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import ImageFactory from 'src/components/ImageFactory'
 import DishActions from 'src/redux/actions/dish'
+import CookLabAxios from 'src/http/index'
 
 class DishImageTable extends Component {
+
+    state = {
+        dishes : []
+    }
+
+    async getUserDish(){
+        let userid = await AsyncStorage.getItem('userid')
+        try{
+            result = await CookLabAxios.get(`/get_user_dish?user_id=${userid}`)
+        } catch (error){
+            console.log(error)
+        }
+        this.setState({ dishes : result.data })
+    }
+
+    componentDidMount(){
+        this.getUserDish()
+    }
 
     showDetail(imageSource){
         console.log("In showDetail")
@@ -16,7 +35,14 @@ class DishImageTable extends Component {
     render(){
         return(
             <View style={ styles.foodImageTable }>
-                <TouchableOpacity style={ styles.foodImageWrapper } onPress={() => this.showDetail(ImageFactory.food1)}><Image source={ ImageFactory.food1 } style={ styles.foodImage }/></TouchableOpacity>
+                { this.state.dishes.map((data, index) => {
+                    <TouchableOpacity style={ styles.foodImageWrapper } 
+                        onPress={() => this.showDetail(ImageFactory.food1)}>
+                        <Image source={ ImageFactory.food1 } 
+                            style={ styles.foodImage }/>
+                        </TouchableOpacity>    
+                })}
+                
                 <TouchableOpacity style={ styles.foodImageWrapper } onPress={() => this.showDetail(ImageFactory.food2)}><Image source={ ImageFactory.food2 } style={ styles.foodImage }/></TouchableOpacity>
                 <TouchableOpacity style={ styles.foodImageWrapper } onPress={() => this.showDetail(ImageFactory.food3)}><Image source={ ImageFactory.food3 } style={ styles.foodImage }/></TouchableOpacity>
                 <TouchableOpacity style={ styles.foodImageWrapper } onPress={() => this.showDetail(ImageFactory.food4)}><Image source={ ImageFactory.food4 } style={ styles.foodImage }/></TouchableOpacity>
