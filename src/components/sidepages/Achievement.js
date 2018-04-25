@@ -9,29 +9,14 @@ import { Card, CardItem, Thumbnail } from 'native-base'
 import AchievementCard from './AchievementCard'
 import BackHeader from '../header/BackHeader'
 import CookLabAxios from '../../http/index'
+import Constants from 'src/components/Constants'
 
 class Achievement extends Component {
 
     state = {
         currentPlate: 0,
         currentTrophy: 0,
-        achievement: [
-                    {achImage: ImageFactory.plates1, achName: 'Plates maker I', achDetail:'Make 10 plates', needed:'10'},
-                    {achImage: ImageFactory.plates2, achName: 'Plates maker II', achDetail:'Make 25 plates', needed:'25'},
-                    {achImage: ImageFactory.plates3, achName: 'Plates maker III', achDetail:'Make 50 plates', needed:'50'},
-                    {achImage: ImageFactory.plates4, achName: 'Plates maker IV', achDetail:'Make 100 plates',  needed:'100'},
-                    {achImage: ImageFactory.plates5, achName: 'Plates maker V', achDetail:'Make 250 plates',  needed:'250'},
-                    {achImage: ImageFactory.plates6, achName: 'Plates maker VI', achDetail:'Make 500 plates',  needed:'500'},
-                    {achImage: ImageFactory.plates7, achName: 'Plates maker VII', achDetail:'Make 1000 plates',  needed:'1000'},
-                    {achImage: ImageFactory.plates8, achName: 'Plates maker VIII', achDetail:'Make 2500 plates',  needed:'2500'},
-                    {achImage: ImageFactory.plates9, achName: 'Plates maker IX', achDetail:'Make 5000 plates',  needed:'5000'},
-                    {achImage: ImageFactory.plates10, achName: 'Plates maker X', achDetail:'Make 10000 plates',  needed:'10000'},
-                    {achImage: ImageFactory.trophy1, achName: 'Trophies acquire I', achDetail:'Got 100 trophies',  needed:'100'},
-                    {achImage: ImageFactory.trophy2, achName: 'Trophies acquire II', achDetail:'Got 1000 trophies',  needed:'1000'},
-                    {achImage: ImageFactory.trophy3, achName: 'Trophies acquire III', achDetail:'Got 10000 trophies',  needed:'10000'},
-                    {achImage: ImageFactory.trophy4, achName: 'Trophies acquire IV', achDetail:'Got 100000 trophies',  needed:'100000'},
-                    {achImage: ImageFactory.trophy5, achName: 'Trophies acquire V', achDetail:'Got 1000000 trophies',  needed:'1000000'}
-        ]
+        achievement: Constants.achievement
     }
 
     async getUser(){

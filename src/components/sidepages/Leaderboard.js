@@ -7,12 +7,6 @@ import { Actions } from 'react-native-router-flux'
 import UserCardComponent from 'src/components/sidepages/UserCardComponent'
 import CookLabAxios from '../../http/index'
 import BackHeader from '../header/BackHeader'
-import FriendExpLeaderboard from 'src/components/sidepages/FriendExpLeaderboard'
-import GlobalExpLeaderboard from 'src/components/sidepages/GlobalExpLeaderboard'
-import FriendDishLeaderboard from 'src/components/sidepages/FriendDishLeaderboard'
-import GlobalDishLeaderboard from 'src/components/sidepages/GlobalDishLeaderboard'
-import FriendTrophyLeaderboard from 'src/components/sidepages/FriendTrophyLeaderboard'
-import GlobalTrophyLeaderboard from 'src/components/sidepages/GlobalTrophyLeaderboard'
 import LeaderboardCard from './LeaderboardCard';
 
 class Leaderboard extends Component {

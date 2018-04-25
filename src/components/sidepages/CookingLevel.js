@@ -10,6 +10,7 @@ import Timer from 'react-native-timer'
 import Axios from 'react-native-axios'
 import CookLabAxios from 'src/http/index'
 import BackHeader from '../header/BackHeader'
+import Constants from 'src/components/Constants'
 
 class CookingLevel extends Component {
 
@@ -19,21 +20,7 @@ class CookingLevel extends Component {
         MAX_PROGRESS: 0,
         userBadge: '',
         oldBadge: 0,
-        badgeDetail: [ {image: ImageFactory.consumer1 ,name:'Consumer I', point:40, progress:0}, 
-                       {image: ImageFactory.consumer2 ,name:'Consumer II', point:80, progress:0},
-                       {image: ImageFactory.consumer3 ,name:'Consumer III', point:150, progress:0},
-                       {image: ImageFactory.homecook1 ,name:'Homecook I', point:270, progress:0},
-                       {image: ImageFactory.homecook2 ,name:'Homecook II', point:400, progress:0},
-                       {image: ImageFactory.homecook3 ,name:'Homecook III', point:550, progress:0},
-                       {image: ImageFactory.juniorcook1 ,name:'Juniorcook I', point:720, progress:0},
-                       {image: ImageFactory.juniorcook2 ,name:'Juniorcook II', point:900, progress:0},
-                       {image: ImageFactory.juniorcook3 ,name:'Juniorcook III', point:1400, progress:0},
-                       {image: ImageFactory.cook1 ,name:'Cook I', point:2000, progress:0},
-                       {image: ImageFactory.cook2 ,name:'Cook II', point:2900, progress:0},
-                       {image: ImageFactory.cook3 ,name:'Cook III', point:4500, progress:0},
-                       {image: ImageFactory.chef1 ,name:'Chef I', point:6900, progress:0},
-                       {image: ImageFactory.chef2 ,name:'Chef II', point:10000, progress:0},
-                       {image: ImageFactory.chef3 ,name:'Chef III', point:10000000, progress:0} ]
+        badgeDetail: Constants.badgeDetail
     }
 
     async getUser(){

@@ -1,12 +1,8 @@
 import constants from 'src/redux/constants'
 const initialState = {
    imageSource: null,
-   FEleaderboard: [],
-   FDleaderboard: [],
-   FTleaderboard: [],
-   GEleaderboard: [],
-   GDleaderboard: [],
-   GTleaderboard: [],
+   i_list: [],
+   r_list: []
 }
 
 export default (state = initialState, action) => {
@@ -16,36 +12,16 @@ export default (state = initialState, action) => {
               ...state,
               imageSource: action.payload
           }
-      case constants.FRIEND_EXP_LEADERBOARD:
+      case constants.SET_INGREDIENT_LIST:
           return{
               ...state,
-              FEleaderboard: action.payload
+              i_list: action.payload
           }
-      case constants.FRIEND_DISH_LEADERBOARD:
+      case constants.SET_RECIPE_LIST:
           return{
               ...state,
-              FDleaderboard: action.payload
+              r_list: action.payload
           }
-      case constants.FRIEND_TROPHY_LEADERBOARD:
-          return{
-              ...state,
-              FTleaderboard: action.payload
-          }
-      case constants.GLOBAL_EXP_LEADERBOARD:
-          return{
-              ...state,
-              GEleaderboard: action.payload
-          } 
-      case constants.GLOBAL_DISH_LEADERBOARD:
-          return{
-              ...state,
-              GDleaderboard: action.payload
-          }  
-      case constants.GLOBAL_TROPHY_LEADERBOARD:
-          return{
-              ...state,
-              GTleaderboard: action.payload
-          }   
       default:
           return state
     }

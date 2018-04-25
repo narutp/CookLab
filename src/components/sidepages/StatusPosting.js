@@ -20,6 +20,9 @@ import BackHeader from '../header/BackHeader'
 import Spinner from 'react-native-loading-spinner-overlay'
 import Timer from 'react-native-timer'
 import { FormLabel, FormInput } from 'react-native-elements'
+import IngredientList from 'src/components/sidepages/IngredientList'
+import RecipeList from 'src/components/sidepages/RecipeList'
+import DishActions from 'src/redux/actions/dish'
 
 const storage = firebase.storage()
 
@@ -107,6 +110,9 @@ class StatusPosting extends Component {
       uploadImage(this.props.imageSource)
         .then(url => this.setState({ uploadURL: url }))
         .catch(error => console.log(error))
+
+      this.props.setIngredientList([])
+      this.props.setRecipeList([])
       // Timer.setTimeout(()=>Timer.clearInterval('Spinner'),3000)
       // clearInterval(interval)
       // setTimeout(() => {
@@ -280,27 +286,13 @@ class StatusPosting extends Component {
                       <Text style={ styles.modalTitle }>
                         Ingredients
                       </Text>
-                      <TextInput 
-                        multiline={true}
-                        underlineColorAndroid='lightgrey'
-                        numberOfLines={4}
-                        value={this.state.ingredients}
-                        onChangeText={ (text) => this.setState({ingredients: text}) }
-                        style={styles.dishRecipe} 
-                        placeholder="1 tablespoon oil" />
+                      <IngredientList />
                     </View>
                     <View style={ styles.modalTitleWrapper }>
                       <Text style={ styles.modalTitle }>
                         Recipe
                       </Text>
-                      <TextInput 
-                        multiline={true}
-                        underlineColorAndroid='lightgrey'
-                        numberOfLines={4}
-                        value={this.state.recipe}
-                        onChangeText={ (text) => this.setState({recipe: text}) }
-                        style={styles.dishRecipe} 
-                        placeholder="1. Cook the noodles in boiling water.." />
+                      <RecipeList />
                     </View>
                     <View style={ styles.modalTitleWrapper }>
                       <Text style={ styles.modalTitle }>
@@ -328,6 +320,8 @@ class StatusPosting extends Component {
                       <Button style={ styles.cancelButton }
                           onPress={() => {
                               this.setState({ isModalVisible: !this.state.isModalVisible, isMyDish: false })
+                              this.props.setIngredientList([])
+                              this.props.setRecipeList([])
                           }}>
                           <Text>Cancel</Text>
                       </Button>
@@ -372,7 +366,16 @@ const mapStateToProps = state => ({
     imageSource: state.dishReducer.imageSource
 })
 
-export default connect(mapStateToProps, null)(StatusPosting)
+const mapDispatchToProps = dispatch => ({
+  setRecipeList: (r_list) => {
+      dispatch(DishActions.setRecipeList(r_list))
+  },
+  setIngredientList: (i_list) => {
+      dispatch(DishActions.setIngredientList(i_list))
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(StatusPosting)
 
 const styles = StyleSheet.create({
   container: {
