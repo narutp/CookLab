@@ -15,7 +15,7 @@ class BackHeader extends Component {
                             Actions.SideMenu()
                         }} color={'black'} size={30} style={ styles.backIcon } /> :
                         <IconIonicons name="ios-arrow-back" onPress={() => {
-                            Actions.MainScreen()
+                            Actions.pop()
                         }} color={'black'} size={30} style={ styles.backIcon } />
                     }
                 </Left>

@@ -1,23 +1,29 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native'
 import { Body, Left, Right } from 'native-base'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconEntypo from 'react-native-vector-icons/Entypo'
+import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import TabNavigator from 'react-native-tab-navigator'
 import NewfeedTab from './AppTabNavigator/NewfeedTab'
 import ProfileTab from './AppTabNavigator/ProfileTab'
 import SearchTab from './AppTabNavigator/SearchTab'
+import NotificationTab from './AppTabNavigator/NotificationTab'
 import TopfeedTab from './AppTabNavigator/TopfeedTab'
 import ImagePicker from 'react-native-image-picker'
 import StatusPosting from './sidepages/StatusPosting'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import DishActions from 'src/redux/actions/dish'
+import socket from '../socket'
+
 
 // This is mainscreen
 class MainScreen extends Component {
     state = {
-        selectedTab: 'newfeed'
+        selectedTab: 'newfeed',
+        notification: '',
+        noti_status: ''
     };
 
     constructor(props) {
@@ -26,9 +32,41 @@ class MainScreen extends Component {
         this.showCameraRoll = this.showCameraRoll.bind(this)
     }
 
+    componentDidMount () {
+        socket.on('notify', (date) => {
+            console.log('date', date)
+            AsyncStorage.setItem('notification', 'true')
+            this.setState({
+                notification: true
+            })
+        })
+        this.checkNotification()
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (nextState.selectedTab === 'notification') {
+            if (this.state.selectedTab != nextState.selectedTab) {
+                this.setState({
+                    notification: 'false'
+                })
+            }
+        }
+    }
+
+    async checkNotification() {
+        let checkNoti
+        try {
+            checkNoti = await AsyncStorage.getItem('notification')
+        } catch (error) {
+            console.log(error)
+        }
+        console.log('check notification', checkNoti)
+        this.setState({ notification: checkNoti, noti_status: this.props.noti_status })
+    }
+
     showDrawerMenu() {
         console.log(this.props)
-        Actions.SideMenu()
+        Actions.drawerOpen()
     }
 
     showCameraRoll() {
@@ -61,6 +99,10 @@ class MainScreen extends Component {
       });
     }
 
+    readNotification = () => {
+        this.setState({ notification: false, noti_status: true })
+    }
+
     render() {
         return (
             <TabNavigator style={styles.container}>
@@ -84,11 +126,29 @@ class MainScreen extends Component {
                 <TabNavigator.Item
                     selected={this.state.selectedTab === 'search'}
                     selectedTitleStyle={{ color: "#FFBF00" }}
-                    renderIcon={() => <IconFontAwesome name="search" size={15} />}
-                    renderSelectedIcon={() => <IconFontAwesome name="search" size={15} color="#F44336" />}
+                    renderIcon={() => <IconFontAwesome name="search" size={20} />}
+                    renderSelectedIcon={() => <IconFontAwesome name="search" size={20} color="#F44336" />}
                     onPress={() => this.setState({ selectedTab: 'search' })}>
-                    <SearchTab />
+                    <SearchTab/>
                 </TabNavigator.Item>
+                { this.state.notification === true || this.state.noti_status === false ?
+                    <TabNavigator.Item
+                        selected={this.state.selectedTab === 'notification'}
+                        selectedTitleStyle={{ color: "#FFBF00" }}
+                        renderIcon={() => <IconMaterialIcons name="notifications-off" size={15} color="#666"/>}
+                        renderSelectedIcon={() => <IconMaterialIcons name="notifications-off" size={15} color="#F44336" />}
+                        onPress={() => this.setState({ selectedTab: 'notification' })}>
+                        <NotificationTab readNotification={ this.readNotification } onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
+                    </TabNavigator.Item> :
+                    <TabNavigator.Item
+                        selected={this.state.selectedTab === 'notification'}
+                        selectedTitleStyle={{ color: "#FFBF00" }}
+                        renderIcon={() => <IconMaterialIcons name="notifications-active" size={15} color="#666"/>}
+                        renderSelectedIcon={() => <IconMaterialIcons name="notifications-active" size={15} color="#F44336" />}
+                        onPress={() => this.setState({ selectedTab: 'notification' })}>
+                        <NotificationTab readNotification={ this.readNotification } onMenuPressed={ this.showDrawerMenuBinded } showCameraRoll={ this.showCameraRoll }/>
+                    </TabNavigator.Item>
+                }
                 <TabNavigator.Item
                     selected={this.state.selectedTab === 'profile'}
                     selectedTitleStyle={{ color: "#FFBF00" }}

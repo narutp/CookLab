@@ -107,7 +107,14 @@ class CardComponent extends Component {
             if (result.isCancelled) {
                 console.log('Share cancelled');
             } else {
-                alert('Share success');
+                alert('Share success')
+                Alert.alert(
+                    'Facebook sharing',
+                    'Share success',                
+                    [
+                      {text: 'Ok', onPress: () => console.log('Cancel Pressed!')},
+                    ],
+                )
             }
             },
             function(error) {
@@ -123,7 +130,6 @@ class CardComponent extends Component {
         } catch (error) {
             console.log(error)
         }
-
         this.setState({ status: this.props.status, 
             trophy: this.props.trophy, 
             profilePic: this.props.profilePic,
@@ -184,12 +190,25 @@ class CardComponent extends Component {
         })
         let createCommentResponse
         let isCreateComment = false
+        let createNotiResponse
 
         try {
             createCommentResponse = await CooklabAxios.post(`create_comment`, {
               id_post: this.props.postId,
               id_user: this.state.userid,
               text: this.state.comment
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
+        // create notification
+        try {
+            createNotiResponse = await CooklabAxios.post(`create_notification`, {
+                id_post: this.props.postId,
+                id_user: this.state.userid,
+                id_target: this.props.userid,
+                type: 'comment'
             })
         } catch (error) {
             console.log(error)
@@ -313,7 +332,7 @@ class CardComponent extends Component {
                             </Body>
                         </Left>
                     </CardItem>
-                    <CardItem cardBody>
+                    <CardItem cardBody style={{ marginBottom: 5, marginTop: 5}}>
                         {/* <Image source={foodImage[this.props.foodPic]} style={styles.imageCard}/> */}
                         <TouchableOpacity onPress={ () => this.navigateToDishDetail() }>
                             <Image source={{ uri: this.props.foodPic }} style={ styles.imageCard }/>
@@ -328,17 +347,17 @@ class CardComponent extends Component {
                         <Left>
                             { this.state.status === true ? 
                             <TouchableOpacity onPress={ () => this.decreaseTrophy() } style={ styles.iconContainer }>
-                                <IconMaterialCommunityIcons name='trophy' style={{ color: '#F44336' }} size={20}/>
+                                <IconMaterialCommunityIcons name='trophy' style={{ color: '#F44336' }} size={22}/>
                             </TouchableOpacity> : 
                             <TouchableOpacity onPress={ () => this.increaseTrophy() } style={ styles.iconContainer }>
-                                <IconMaterialCommunityIcons name='trophy-outline' style={{ color: 'black' }} size={20}/>
+                                <IconMaterialCommunityIcons name='trophy-outline' style={{ color: 'black' }} size={22}/>
                             </TouchableOpacity>
                             }
                             <TouchableOpacity onPress={ () => this.openModal() } style={ styles.iconContainer }>
-                                <IconMaterialCommunityIcons name="comment-outline" style={{ color: 'black' }} size={20} />
+                                <IconMaterialCommunityIcons name="comment-outline" style={{ color: 'black' }} size={22} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={ () => this.shareLinkWithShareDialog() } style={ styles.iconContainer }>
-                                <IconFeather name='share-2' style={{ color: 'black' }} size={20}/>
+                                <IconFeather name='share-2' style={{ color: 'black' }} size={22}/>
                             </TouchableOpacity>
                         </Left>
                     </CardItem>
@@ -359,7 +378,6 @@ class CardComponent extends Component {
                             <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Text onPress={ () => this.openModal() } style={{ fontSize: 12, fontWeight: 'bold' }} >more...</Text>
                             </TouchableOpacity>
-                            <TextInput style={ styles.commentInput } placeholder="comment.. " />
                         </Body>
                     </CardItem>
                 </Card>

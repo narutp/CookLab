@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import { ImageBackground, View, Text, StyleSheet, TextInput } from 'react-native'
+import { Modal, Dimensions, ImageBackground, View, Text, StyleSheet, TextInput } from 'react-native'
 import { Button } from 'native-base'
 import { NavigationActions } from 'react-navigation'
 import ConfigAxios from '../http/index'
+import { Container, Right, Left, Body } from 'native-base'
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
+import ValidationComponent from 'react-native-form-validator'
 
-class Register extends Component {
+class Register extends ValidationComponent {
 
     constructor (props) {
         super(props)
@@ -13,11 +16,20 @@ class Register extends Component {
             username: '',
             email: '',
             password: '',
-            rePassword: ''
+            rePassword: '',
+            isModalVisible: false
         }
     }
 
     async register () {
+        this.validate({
+            name: {minlength: 3, maxlength: 8, required: true},
+            email: {email: true},
+            username: {minlength: 3, maxlength: 3, required: true},
+            password: {numbers: true},
+            rePassword: {numbers: true}
+        })
+
         let registerResponse
         try {
             registerResponse = await ConfigAxios.post(`/create_user`, {
@@ -29,10 +41,15 @@ class Register extends Component {
         } catch (error) {
             console.log(error)
         }
-        if (registerResponse.data === true) {
+        if (registerResponse.data === true && this.isFormValid() != false) {
             this.props.navigation.dispatch(NavigationActions.back())
         } else {
-            // TODO: handle error fail request
+            // alert(this.getErrorsInField('name') + '\n' + this.getErrorsInField('email') +
+            //     this.getErrorsInField('username') +
+            //     this.getErrorsInField('password') +
+            //     this.getErrorsInField('rePassword')
+            // )
+            alert('Please input all of the form in correct format')
         }
         console.log(registerResponse)
     }
@@ -40,11 +57,37 @@ class Register extends Component {
     render() {
         return (
             <ImageBackground style={ styles.backgroundImage } source={ require('../assets/image/Background/registerBg.jpg') }>
+                {/* <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={this.state.isModalVisible}
+                    onRequestClose={() => {
+                        this.setState({ isModalVisible: !this.state.isModalVisible })
+                }}>
+                    <View style={{flex: 1,
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center'}}>
+                        <View style={{ padding: 15, backgroundColor: 'white', height: 300, width: 300 }}>
+                            <Container>
+                                <View style={{ }}>
+                                    <IconFontAwesome name="close" size={15} color={'red'}/>
+                                </View>
+                                <Text>{ this.getErrorsInField('name') + '\n'}</Text>
+                                <Text>{ this.getErrorsInField('email') + '\n'}</Text>
+                                <Text>{ this.getErrorsInField('username') + '\n'}</Text>
+                                <Text>{ this.getErrorsInField('password') + '\n'}</Text>
+                                <Text>{ this.getErrorsInField('rePassword') + '\n'}</Text>
+                                
+                            </Container>
+                        </View>
+                    </View>
+                </Modal> */}
                 <View style={ styles.titleContainer }>
                     <Text style={ styles.title }>REGISTRATION</Text>
                 </View>
                 <View style={ styles.formContainer }>
-                    <Text style={ styles.formContent }>Name</Text>
+                    <Text style={ styles.formContent }>Name* (3-8 Characters)</Text>
                     <TextInput style={ styles.formInput } 
                         underlineColorAndroid= "transparent"
                         onChangeText={(text) => this.setState({name: text})}
@@ -54,18 +97,18 @@ class Register extends Component {
                         underlineColorAndroid= "transparent"
                         onChangeText={(text) => this.setState({email: text})}
                     />
-                    <Text style={ styles.formContent }>Username</Text>
+                    <Text style={ styles.formContent }>Username* (3-8 Characters)</Text>
                     <TextInput style={ styles.formInput }
                         underlineColorAndroid= "transparent"
                         onChangeText={(text) => this.setState({username: text})}
                     />
-                    <Text style={ styles.formContent }>Password</Text>
+                    <Text style={ styles.formContent }>Password*</Text>
                     <TextInput style={ styles.formInput } 
                         secureTextEntry={true}
                         underlineColorAndroid= "transparent"
                         onChangeText={(text) => this.setState({password: text})}
                     />
-                    <Text style={ styles.formContent }>Re-password</Text>
+                    <Text style={ styles.formContent }>Re-password*</Text>
                     <TextInput style={ styles.formInput } 
                         secureTextEntry={true}
                         underlineColorAndroid= "transparent"
