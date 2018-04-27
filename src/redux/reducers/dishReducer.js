@@ -15,12 +15,19 @@ export default (state = initialState, action) => {
       case constants.SET_INGREDIENT_LIST:
           return{
               ...state,
-              i_list: action.payload
+              i_list: action.payload,
+              count: action.payload.length
           }
       case constants.SET_RECIPE_LIST:
           return{
               ...state,
-              r_list: action.payload
+              r_list: action.payload,
+              count: action.payload.length
+          }
+      case constants.SET_DISH_DETAIL:
+          return{
+              ...state,
+              dishdetail: action.payload
           }
       default:
           return state

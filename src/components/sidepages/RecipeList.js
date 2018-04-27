@@ -22,7 +22,12 @@ class RecipeList extends Component{
     addRecipe(){
         tempArray = this.state.r_list
         tempArray.push({ text: '' })
-        this.setState({r_list : tempArray}, () => {this.props.setRecipeList(this.state.r_list)})
+        this.setState({r_list : tempArray}, () => {this.updateList()})
+    }
+
+    updateList(){
+        this.props.setRecipeList(this.state.r_list)
+        this.props.update()
     }
 
     render(){

@@ -130,6 +130,7 @@ class StatusPosting extends Component {
 
     async createDish(uploadURL) {
       let createResponse
+      console.log("I list : ",this.props.i_list," R list : ",this.props.r_list)
       let userid = await AsyncStorage.getItem('userid')
       // Not my dish (normal post)
       if (this.state.isMyDish === false) {
@@ -154,8 +155,8 @@ class StatusPosting extends Component {
               id_user: userid,
               name: this.state.dishName,
               description: this.state.dishDescription,
-              ingredients: this.props.i_list,
-              recipe: this.props.r_list,
+              ingredient_str: this.props.i_list,
+              recipe_str: this.props.r_list,
               level: this.state.level
             })
             alert('in')
@@ -170,8 +171,8 @@ class StatusPosting extends Component {
               id_user: userid,
               name: this.state.dishName,
               description: this.state.dishDescription,
-              ingredients: this.props.i_list,
-              recipe: this.props.r_list,
+              ingredient_str: this.props.i_list,
+              recipe_str: this.props.r_list,
               level: this.state.level
             })
           } catch (error) {
@@ -181,8 +182,6 @@ class StatusPosting extends Component {
       }
       console.log('create dish by sending pic url with id dish: ' + createResponse.data)
       this.createPost(createResponse.data, uploadURL)
-      this.props.setIngredientList([])
-      this.props.setRecipeList([])
     }
 
     async createPost(idDish, url) {
@@ -203,6 +202,8 @@ class StatusPosting extends Component {
         isSpinnerVisible: false
       })
       this.navigateToMainScreen()
+      this.props.setIngredientList([])
+      this.props.setRecipeList([])
     }
 
     navigateToMainScreen() {
@@ -292,13 +293,13 @@ class StatusPosting extends Component {
                       <Text style={ styles.modalTitle }>
                         Ingredients
                       </Text>
-                      <IngredientList />
+                      <IngredientList update={ () => {this.forceUpdate()} }/>
                     </View>
                     <View style={ styles.modalTitleWrapper }>
                       <Text style={ styles.modalTitle }>
                         Recipe
                       </Text>
-                      <RecipeList />
+                      <RecipeList update={ () => {this.forceUpdate()} }/>
                     </View>
                     <View style={ styles.modalTitleWrapper }>
                       <Text style={ styles.modalTitle }>

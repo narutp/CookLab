@@ -22,7 +22,12 @@ class IngredientList extends Component{
     addIngredient(){
         tempArray = this.state.i_list
         tempArray.push({ text: '' })
-        this.setState({i_list : tempArray}, () => {this.props.setIngredientList(this.state.i_list)})
+        this.setState({i_list : tempArray},() => {this.updateList()})
+    }
+
+    updateList(){
+        this.props.setIngredientList(this.state.i_list)
+        this.props.update()
     }
 
     render(){

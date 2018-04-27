@@ -12,6 +12,10 @@ const DishActions = {
     setRecipeList: (list) => ({
         type: constants.SET_RECIPE_LIST,
         payload: list
+    }),
+    setDishDetail: (list) => ({
+        type: constants.SET_DISH_DETAIL,
+        payload: list
     })
 }
 
