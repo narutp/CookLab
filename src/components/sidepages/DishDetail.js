@@ -83,7 +83,7 @@ class DishDetail extends Component{
             <View style={{ flex: 1 }}>
                 <BackHeader title="DISH" actions="mainscreen" />
                 <ScrollView style={ styles.container }>
-                    <Image source={{ uri: this.state.dish_imageUrl }} style={ styles.dishImage }/>
+                    <Image source={{ uri: this.props.dishdetail.image }} style={ styles.dishImage }/>
                     <View style={{ padding: 25 }}>
                         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
                             <View style={{ marginBottom: 10 }}>
@@ -99,28 +99,28 @@ class DishDetail extends Component{
                                     fullStarColor={'#F4B706'}
                                     starStyle={{ marginRight: 5 }}
                                     starSize={30}
-                                    rating={this.state.dish_rate}
+                                    rating={this.props.dishdetail.rate}
                                     selectedStar={(rating) => this.onStarRatingPress(rating)}
                                 />
                             </View>
-                            <Text style={ styles.dishName }>{this.state.dish_name}</Text>
-                            <Text style={ styles.dishDescription }>{this.state.dish_description}</Text>
+                            <Text style={ styles.dishName }>{this.props.dishdetail.name}</Text>
+                            <Text style={ styles.dishDescription }>{this.props.dishdetail.description}</Text>
                         </View>
                         <View>
                             {/* <Text style={ styles.detailText }>Level: </Text> */}
                             <View style={ styles.subtitleWrapper }>
-                                <Text style={ styles.subtitle }>Dish level: {this.state.dish_level}</Text>
+                                <Text style={ styles.subtitle }>Dish level: {this.props.dishdetail.level}</Text>
                             </View>
                             <View style={ styles.subtitleWrapper }>
                                 <Text style={ styles.subtitle }>Ingredients</Text>
-                                { this.state.dish_ingredients.map(element => {
+                                { this.props.dishdetail.ingredients.map(element => {
                                     return <Text style={ styles.detailText }>{element}{"\n"}</Text>
                                 })}
                                 {/* <Text style={ styles.detailText }>{this.state.dish_ingredients}</Text> */}
                             </View>
                             <View style={ styles.subtitleWrapper }>
                                 <Text style={ styles.subtitle }>Recipes</Text>
-                                { this.state.dish_recipe.map(element => {
+                                { this.props.dishdetail.recipe.map(element => {
                                     return <Text style={ styles.detailText }>{element}{"\n"}</Text>
                                 })}
                             </View>
@@ -138,7 +138,8 @@ class DishDetail extends Component{
 }
 
 const mapStateToProps = state => ({
-    imageSource: state.dishReducer.imageSource
+    imageSource: state.dishReducer.imageSource,
+    dishdetail: state.dishReducer.dishdetail
 })
 
 export default connect(mapStateToProps, null)(DishDetail)

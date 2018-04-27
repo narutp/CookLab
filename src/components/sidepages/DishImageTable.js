@@ -16,19 +16,21 @@ class DishImageTable extends Component {
         let userid = await AsyncStorage.getItem('userid')
         try{
             result = await CookLabAxios.get(`/get_user_dish?user_id=${userid}`)
+            this.setState({ dishes : result.data })
+            console.log(this.state.dishes)
         } catch (error){
             console.log(error)
         }
-        this.setState({ dishes : result.data })
     }
 
     componentDidMount(){
         this.getUserDish()
     }
 
-    showDetail(imageSource){
+    showDetail(data){
         console.log("In showDetail")
-        this.props.setImageSource(imageSource)
+        this.props.setImageSource({uri: data.image})
+        this.props.setDishDetail(data)
         Actions.DishDetail()
     }
 
@@ -36,21 +38,14 @@ class DishImageTable extends Component {
         return(
             <View style={ styles.foodImageTable }>
                 { this.state.dishes.map((data, index) => {
-                    <TouchableOpacity style={ styles.foodImageWrapper } 
-                        onPress={() => this.showDetail(ImageFactory.food1)}>
-                        <Image source={ ImageFactory.food1 } 
-                            style={ styles.foodImage }/>
-                        </TouchableOpacity>    
+                    return(
+                        <TouchableOpacity style={ styles.foodImageWrapper } 
+                            onPress={() => this.showDetail(data)}>
+                            <Image source={ {uri : data.image} } 
+                                style={ styles.foodImage }/>
+                        </TouchableOpacity> 
+                    )  
                 })}
-                
-                <TouchableOpacity style={ styles.foodImageWrapper } onPress={() => this.showDetail(ImageFactory.food2)}><Image source={ ImageFactory.food2 } style={ styles.foodImage }/></TouchableOpacity>
-                <TouchableOpacity style={ styles.foodImageWrapper } onPress={() => this.showDetail(ImageFactory.food3)}><Image source={ ImageFactory.food3 } style={ styles.foodImage }/></TouchableOpacity>
-                <TouchableOpacity style={ styles.foodImageWrapper } onPress={() => this.showDetail(ImageFactory.food4)}><Image source={ ImageFactory.food4 } style={ styles.foodImage }/></TouchableOpacity>
-                <TouchableOpacity style={ styles.foodImageWrapper } onPress={() => this.showDetail(ImageFactory.food5)}><Image source={ ImageFactory.food5 } style={ styles.foodImage }/></TouchableOpacity>
-                <TouchableOpacity style={ styles.foodImageWrapper } onPress={() => this.showDetail(ImageFactory.food6)}><Image source={ ImageFactory.food6 } style={ styles.foodImage }/></TouchableOpacity>
-                <TouchableOpacity style={ styles.foodImageWrapper } onPress={() => this.showDetail(ImageFactory.food7)}><Image source={ ImageFactory.food7 } style={ styles.foodImage }/></TouchableOpacity>
-                <TouchableOpacity style={ styles.foodImageWrapper } onPress={() => this.showDetail(ImageFactory.food8)}><Image source={ ImageFactory.food8 } style={ styles.foodImage }/></TouchableOpacity>
-                <TouchableOpacity style={ styles.foodImageWrapper } onPress={() => this.showDetail(ImageFactory.food9)}><Image source={ ImageFactory.food9 } style={ styles.foodImage }/></TouchableOpacity>
             </View>
         )
     }
@@ -59,6 +54,9 @@ class DishImageTable extends Component {
 const mapDispatchToProps = dispatch => ({
     setImageSource: (imageSource) => {
         dispatch(DishActions.setImageSource(imageSource))
+    },
+    setDishDetail: (list) => {
+        dispatch(DishActions.setDishDetail(list))
     }
 })
 
