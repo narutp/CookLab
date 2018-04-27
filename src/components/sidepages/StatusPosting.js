@@ -72,8 +72,8 @@ class StatusPosting extends Component {
         dishName: '',
         dishDescription: '',
         calories: '',
-        ingredients: '',
-        recipe: '',
+        ingredients: [],
+        recipe: [],
         level: '',
         isMyDish: false,
         privateDish: false
@@ -84,6 +84,11 @@ class StatusPosting extends Component {
       if (this.state.uploadURL != nextState.uploadURL) {
         this.createDish(nextState.uploadURL)
       }
+    }
+
+    componentDidMount(){
+      this.setState({ingredients : this.props.i_list})
+      this.setState({recipe: this.props.r_list})
     }
 
     pickImage() {
@@ -111,8 +116,6 @@ class StatusPosting extends Component {
         .then(url => this.setState({ uploadURL: url }))
         .catch(error => console.log(error))
 
-      this.props.setIngredientList([])
-      this.props.setRecipeList([])
       // Timer.setTimeout(()=>Timer.clearInterval('Spinner'),3000)
       // clearInterval(interval)
       // setTimeout(() => {
@@ -151,8 +154,8 @@ class StatusPosting extends Component {
               id_user: userid,
               name: this.state.dishName,
               description: this.state.dishDescription,
-              ingredient_str: this.state.ingredients,
-              recipe_str: this.state.recipe,
+              ingredients: this.props.i_list,
+              recipe: this.props.r_list,
               level: this.state.level
             })
             alert('in')
@@ -167,8 +170,8 @@ class StatusPosting extends Component {
               id_user: userid,
               name: this.state.dishName,
               description: this.state.dishDescription,
-              ingredient_str: this.state.ingredients,
-              recipe_str: this.state.recipe,
+              ingredients: this.props.i_list,
+              recipe: this.props.r_list,
               level: this.state.level
             })
           } catch (error) {
@@ -178,6 +181,8 @@ class StatusPosting extends Component {
       }
       console.log('create dish by sending pic url with id dish: ' + createResponse.data)
       this.createPost(createResponse.data, uploadURL)
+      this.props.setIngredientList([])
+      this.props.setRecipeList([])
     }
 
     async createPost(idDish, url) {
@@ -206,9 +211,10 @@ class StatusPosting extends Component {
 
     saveDishDetail() {
       if (this.state.dishName != '' &&
+
         this.state.dishDescription != '' &&
-        this.state.ingredients != '' &&
-        this.state.recipe != '') {
+        this.props.i_list != [] &&
+        this.props.r_list != []) {
           this.setState({ isMyDish: true, isModalVisible: !this.state.isModalVisible })
         } else {
           this.setState({ isMyDish: false, isModalVisible: !this.state.isModalVisible })
@@ -363,7 +369,9 @@ class StatusPosting extends Component {
 }
 
 const mapStateToProps = state => ({
-    imageSource: state.dishReducer.imageSource
+    imageSource: state.dishReducer.imageSource,
+    i_list: state.dishReducer.i_list,
+    r_list: state.dishReducer.r_list
 })
 
 const mapDispatchToProps = dispatch => ({
