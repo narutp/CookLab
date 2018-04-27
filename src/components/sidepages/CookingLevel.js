@@ -51,7 +51,7 @@ class CookingLevel extends Component {
     assignProgressValue() {
         const tempArray = this.state.badgeDetail
         for (i = 0;i < this.state.badgeDetail.length;i++) {
-            if(this.state.badgeDetail[i].point >= this.state.userData.experience){
+            if(this.state.badgeDetail[i].point > this.state.userData.experience){
                 this.setState({userBadge: {
                     image: this.state.badgeDetail[i].image ,
                     name: this.state.badgeDetail[i].name ,
@@ -69,7 +69,7 @@ class CookingLevel extends Component {
             }
             else {
                 console.log("In else")
-                tempArray[i].progress = 100
+                tempArray[i].progress = 1
             }
         }
         this.setState({ badgeDetail: tempArray })
