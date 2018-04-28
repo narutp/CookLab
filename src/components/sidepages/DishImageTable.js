@@ -31,7 +31,7 @@ class DishImageTable extends Component {
         console.log("In showDetail")
         this.props.setImageSource({uri: data.image})
         this.props.setDishDetail(data)
-        Actions.DishDetail()
+        Actions.DishDetail({idDish : data._id})
     }
 
     render(){
