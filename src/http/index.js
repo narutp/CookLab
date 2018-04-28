@@ -1,7 +1,7 @@
 import Axios from 'react-native-axios'
 
 const axiosConfig = {
-    baseURL: 'http://localhost:3000'
+    baseURL: 'https://cooklab.online'
 }
 
 let instance = Axios.create(axiosConfig)
