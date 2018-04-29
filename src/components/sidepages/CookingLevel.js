@@ -20,7 +20,8 @@ class CookingLevel extends Component {
         MAX_PROGRESS: 0,
         userBadge: '',
         oldBadge: 0,
-        badgeDetail: Constants.badgeDetail
+        badgeDetail: Constants.badgeDetail,
+        index: 0
     }
 
     async getUser(){
@@ -65,12 +66,16 @@ class CookingLevel extends Component {
                     (this.state.userBadge.badgePoint-this.state.oldBadge)) * 100})
                 this.setState({ progress: this.state.MAX_PROGRESS / 100})
                 tempArray[i].progress = this.state.progress
+                this.setState({ index: i })
                 break
             }
             else {
                 console.log("In else")
                 tempArray[i].progress = 1
             }
+        }
+        for (i = this.state.index;i < this.state.badgeDetail.length;i++){
+            tempArray[i].progress = 0
         }
         this.setState({ badgeDetail: tempArray })
         console.log("tempArray",tempArray)
