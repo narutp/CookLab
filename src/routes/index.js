@@ -1,4 +1,4 @@
-import { Router, Scene, Drawer } from 'react-native-router-flux'
+import { Router, Scene, Drawer, ActionConst } from 'react-native-router-flux'
 
 import StatusPosting from 'src/components/sidepages/StatusPosting'
 import MainScreen from 'src/components/MainScreen'
@@ -28,7 +28,7 @@ const App = () => {
                     <Scene key="StatusPosting" component={StatusPosting} hideNavBar={1} />
                     <Scene key="Register" component={Register} hideNavBar={1} />
                     <Scene key="SideMenu" component={SideMenu} drawerWidth={300} drawerPosition={'left'} hideNavBar={1} />
-                    <Scene key="MainScreen" component={MainScreen} hideNavBar={1} />
+                    <Scene key="MainScreen" component={MainScreen} hideNavBar={1} type={ActionConst.RESET}/>
                     <Scene key="CookingLevel" component={CookingLevel} hideNavBar={1} />
                     <Scene key="Leaderboard" component={Leaderboard} hideNavBar={1} />
                     <Scene key="MyDish" component={MyDish} hideNavBar={1} />
