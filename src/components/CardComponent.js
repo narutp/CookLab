@@ -279,7 +279,7 @@ class CardComponent extends Component {
                             <Left style={{ flex: 1, justifyContent: 'center' }}>
                                 <IconIonicons name="ios-arrow-back" onPress={() => {
                                     this.setState({ isModalVisible: !this.state.isModalVisible })
-                                }} color={'black'} size={25} style={ styles.backIcon } />
+                                }} color={'black'} size={30} style={ styles.backIcon } />
                             </Left>
                             <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <TextNative style={{ fontSize: 13 }}>COMMENT</TextNative>

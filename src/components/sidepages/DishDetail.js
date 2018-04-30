@@ -84,7 +84,7 @@ class DishDetail extends Component{
                 <BackHeader title="DISH" actions="mainscreen" />
                 <ScrollView style={ styles.container }>
                     <Image source={{ uri: this.state.dish_imageUrl }} style={ styles.dishImage }/>
-                    <View style={{ padding: 25 }}>
+                    <View style={{ padding: 20 }}>
                         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
                             <View style={{ marginBottom: 10 }}>
                                 <StarRating
@@ -167,7 +167,6 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width,
         resizeMode: 'contain',
         height: 300,
-        marginBottom: 5
     },
     subtitle: {
         fontSize: 13,
