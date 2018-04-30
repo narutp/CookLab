@@ -16,13 +16,13 @@ class AppHeader extends Component {
                 {/* Add flex = 1 for centered the title */}
                 <Left style={{ flex: 1 }}>
                   {/* <IconEntypo name="menu" onPress={() => this.props.onMenuPressed() } size={25} style={{ marginLeft:10, color: '#F44336' }} /> */}
-                  <IconIonicons name="ios-apps" onPress={() => Actions.SideMenu() } size={25} style={{ marginLeft:10, color: '#F44336' }} />
+                  <IconIonicons name="ios-apps" onPress={() => Actions.SideMenu() } size={30} style={{ marginLeft:10, color: '#F44336' }} />
                 </Left>
                 <Body style={ styles.titleWrapper }>
                     <Text style={{ color: 'black', fontSize: 16, fontWeight: '100' }}>COOKLAB</Text>
                 </Body>
                 <Right>
-                  <IconFontAwesome name="camera" onPress={() => this.props.showCameraRoll() }size={20} style={{ marginRight:10, color: '#F44336' }} />
+                  <IconFontAwesome name="camera" onPress={() => this.props.showCameraRoll() }size={25} style={{ marginRight:10, color: '#F44336' }} />
                 </Right>
             </Header>
         )

@@ -249,11 +249,13 @@ class CardComponent extends Component {
     }
 
     navigateToUserDetail() {
+        console.log('check same user ', this.props.userid + this.state.userid)
         // Check if user that been clicked is your own account
         if (this.props.userid === this.state.userid) {
             Actions.MyDish()
+        } else {
+            Actions.UserDetail({ idUser: this.props.userid })
         }
-        Actions.UserDetail({ idUser: this.props.userid })
     }
 
     render() {

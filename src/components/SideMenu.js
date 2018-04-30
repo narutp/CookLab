@@ -55,7 +55,7 @@ class SideMenu extends Component {
       <View style={styles.container}>
         <Header style={styles.header}>
           <Left style={{ flex: 1 }}>
-            <IconEntypo name="menu" onPress={() =>  Actions.MainScreen() } size={25} style={{ color: '#F44336' }} />
+            <IconEntypo name="menu" onPress={() =>  Actions.MainScreen() } size={30} style={{ color: '#F44336', marginLeft: 10 }} />
           </Left>
           <Body>
             <TextNative style={styles.textCooklab}>COOKLAB</TextNative>
