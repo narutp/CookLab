@@ -81,6 +81,7 @@ class NewfeedTab extends Component {
                                         comments={data.comments}
                                         idDish={data.id_dish}
                                         userid={data.id_user}
+                                        type={data.type}
                                     />
                                 )
                             })}

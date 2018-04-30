@@ -245,7 +245,11 @@ class CardComponent extends Component {
     }
 
     navigateToDishDetail() {
-        Actions.DishDetail({ idDish: this.props.idDish })
+        if (this.props.type === 'mydish') {
+            Actions.DishDetail({ idDish: this.props.idDish })
+        } else {
+            // TODO: maybe enlarge the photo?
+        }
     }
 
     navigateToUserDetail() {
