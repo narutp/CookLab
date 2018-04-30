@@ -23,9 +23,9 @@ class Register extends ValidationComponent {
 
     async register () {
         this.validate({
-            name: {minlength: 3, maxlength: 8, required: true},
+            name: {minlength: 2, maxlength: 7, required: true},
             email: {email: true},
-            username: {minlength: 3, maxlength: 8, required: true},
+            username: {minlength: 2, maxlength: 7, required: true},
             password: {required: true},
             rePassword: {required: true}
         })
@@ -41,7 +41,8 @@ class Register extends ValidationComponent {
         } catch (error) {
             console.log(error)
         }
-        if (registerResponse.data === true && this.isFormValid() != false) {
+        console.log('aaaa', this.isFormValid())
+        if (registerResponse.data === true && this.isFormValid() === true) {
             Actions.Login()
         } else {
             // alert(this.getErrorsInField('name') + '\n' + this.getErrorsInField('email') +
