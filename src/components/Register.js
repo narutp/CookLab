@@ -91,28 +91,33 @@ class Register extends ValidationComponent {
                     <Text style={ styles.formContent }>Name* (3-8 Characters)</Text>
                     <TextInput style={ styles.formInput } 
                         underlineColorAndroid= "transparent"
+                        autoCapitalize='none'
                         onChangeText={(text) => this.setState({name: text})}
                     />
                     <Text style={ styles.formContent }>Email</Text>
                     <TextInput style={ styles.formInput } 
                         underlineColorAndroid= "transparent"
+                        autoCapitalize='none'
                         onChangeText={(text) => this.setState({email: text})}
                     />
                     <Text style={ styles.formContent }>Username* (3-8 Characters)</Text>
                     <TextInput style={ styles.formInput }
                         underlineColorAndroid= "transparent"
+                        autoCapitalize='none'
                         onChangeText={(text) => this.setState({username: text})}
                     />
                     <Text style={ styles.formContent }>Password*</Text>
                     <TextInput style={ styles.formInput } 
                         secureTextEntry={true}
                         underlineColorAndroid= "transparent"
+                        autoCapitalize='none'
                         onChangeText={(text) => this.setState({password: text})}
                     />
                     <Text style={ styles.formContent }>Re-password*</Text>
                     <TextInput style={ styles.formInput } 
                         secureTextEntry={true}
                         underlineColorAndroid= "transparent"
+                        autoCapitalize='none'
                         onChangeText={(text) => this.setState({rePassword: text})}
                     />
 
@@ -120,17 +125,17 @@ class Register extends ValidationComponent {
                         <Button style={{ 
                             width: 100, backgroundColor: '#EB5757', borderColor: 'white',
                             borderRadius: 5, borderWidth: 1, marginRight: 15
-                        }}>
+                        }} onPress={ () => Actions.Login() }>
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text onPress={ () => Actions.Login() }>BACK</Text>
+                                <Text>BACK</Text>
                             </View>
                         </Button>
                         <Button style={{ 
                             width: 100, backgroundColor: '#6FCF97', borderColor: 'white',
                             borderRadius: 5, borderWidth: 1 
-                        }}>
+                        }} onPress={ () => this.register() }>
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text onPress={ () => this.register() }>REGISTER</Text>
+                                <Text>REGISTER</Text>
                             </View>
                         </Button>
                     </View>

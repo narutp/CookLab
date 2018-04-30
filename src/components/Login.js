@@ -227,13 +227,13 @@ class Login extends Component {
                     <View style={{ marginBottom: 10 }}>
                         <KeyboardAvoidingView>
                             <TextInput onChangeText={(text) => this.setState({username: text})}
-                                multiline autoCapitalize='none' 
+                                autoCapitalize='none' 
                                 underlineColorAndroid= "transparent" 
                                 style={ styles.loginInput }
                                 placeholder="Name.." 
                             />
                             <TextInput onChangeText={(text) => this.setState({password: text})}
-                                multiline autoCapitalize='none' 
+                                autoCapitalize='none' 
                                 underlineColorAndroid= "transparent" 
                                 style={ styles.loginInput }
                                 secureTextEntry={true} 
@@ -272,9 +272,9 @@ class Login extends Component {
                         </View>
                     </View>
                     <View>
-                        <Button style={styles.registerButton}>
+                        <Button style={styles.registerButton} onPress={ () => Actions.Register() }>
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text onPress={ () => Actions.Register() } style={styles.textButton}>REGISTER</Text>
+                                <Text style={styles.textButton}>REGISTER</Text>
                             </View>
                         </Button>
                     </View>
