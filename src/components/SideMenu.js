@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import { NavigationActions } from 'react-navigation'
 import { StyleSheet, ScrollView, Text, Image, View, Button, Alert, AsyncStorage, TouchableOpacity, Dimensions } from 'react-native'
-import { Card } from 'native-base'
+import { Card, Left, Body, Right, Text as TextNative } from 'native-base'
 import FBSDK, { LoginManager } from 'react-native-fbsdk'
 import { Actions } from 'react-native-router-flux'
 import { Header } from 'native-base'
@@ -54,8 +54,13 @@ class SideMenu extends Component {
     return (
       <View style={styles.container}>
         <Header style={styles.header}>
-            <IconEntypo name="menu" onPress={() =>  Actions.MainScreen() } size={25} style={{ color: '#F44336' }} />
-            <Text style={styles.textCooklab}>COOKLAB</Text>
+          <Left style={{ flex: 1 }}>
+            <IconEntypo name="menu" onPress={() =>  Actions.MainScreen() } size={30} style={{ color: '#F44336', marginLeft: 10 }} />
+          </Left>
+          <Body>
+            <TextNative style={styles.textCooklab}>COOKLAB</TextNative>
+          </Body>
+          <Right/>
         </Header>
         <ScrollView>
           <View style={ styles.sideMenuTable }>
@@ -144,9 +149,6 @@ const styles = StyleSheet.create ({
     },
     header: {
         backgroundColor: '#fff',
-        flexDirection: 'row',
-        justifyContent: 'flex-start'
-        // height: 30
     },
     textCooklab: { 
         color: 'black', 

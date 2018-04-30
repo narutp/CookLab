@@ -35,7 +35,7 @@ class MyDish extends Component {
     render() {
         return (
             <View style={ styles.container }>
-                <BackHeader title="MY DISHES" actions="sidemenu" />
+                <BackHeader title="MY DISHES" actions="back" />
                 <ScrollView style={ styles.container }>
                     <Card style={ styles.profile }>
                         <CardItem style={ styles.profilePicWrapper }>

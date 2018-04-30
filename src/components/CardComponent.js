@@ -245,25 +245,31 @@ class CardComponent extends Component {
     }
 
     navigateToDishDetail() {
-        Actions.DishDetail({ idDish: this.props.idDish })
+        if (this.props.type === 'mydish') {
+            Actions.DishDetail({ idDish: this.props.idDish })
+        } else {
+            // TODO: maybe enlarge the photo?
+        }
     }
 
     navigateToUserDetail() {
+        console.log('check same user ', this.props.userid + this.state.userid)
         // Check if user that been clicked is your own account
         if (this.props.userid === this.state.userid) {
             Actions.MyDish()
+        } else {
+            Actions.UserDetail({ idUser: this.props.userid })
         }
-        Actions.UserDetail({ idUser: this.props.userid })
     }
 
     render() {
         console.log('props', this.props)
         return (
             <View style={ styles.container }>
-                <Spinner visible={this.state.isSpinnerVisible} 
+                {/* <Spinner visible={this.state.isSpinnerVisible} 
                 // textContent={"Loading..."} 
                 // textStyle={{color: 'white'}} 
-                />
+                /> */}
                 <Modal
                     animationType="slide"
                     transparent={false}
@@ -277,7 +283,7 @@ class CardComponent extends Component {
                             <Left style={{ flex: 1, justifyContent: 'center' }}>
                                 <IconIonicons name="ios-arrow-back" onPress={() => {
                                     this.setState({ isModalVisible: !this.state.isModalVisible })
-                                }} color={'black'} size={25} style={ styles.backIcon } />
+                                }} color={'black'} size={30} style={ styles.backIcon } />
                             </Left>
                             <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <TextNative style={{ fontSize: 13 }}>COMMENT</TextNative>
@@ -311,7 +317,7 @@ class CardComponent extends Component {
                                 />
                             </Body>
                             <Right style={{ paddingRight: 10 }}>
-                                <TouchableOpacity onPress={ () => this.comment() }>
+                                <TouchableOpacity onPress={ async() => this.comment() }>
                                     <Text style={{ fontSize: 12, color: 'blue' }}>POST</Text>
                                 </TouchableOpacity>
                             </Right>
@@ -353,7 +359,7 @@ class CardComponent extends Component {
                                 <IconMaterialCommunityIcons name='trophy-outline' style={{ color: 'black' }} size={22}/>
                             </TouchableOpacity>
                             }
-                            <TouchableOpacity onPress={ () => this.openModal() } style={ styles.iconContainer }>
+                            <TouchableOpacity onPress={ async() => await this.openModal() } style={ styles.iconContainer }>
                                 <IconMaterialCommunityIcons name="comment-outline" style={{ color: 'black' }} size={22} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={ () => this.shareLinkWithShareDialog() } style={ styles.iconContainer }>

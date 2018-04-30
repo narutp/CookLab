@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, TouchableOpacity, Text, View, Image } from 'react-native'
+import { StyleSheet, TouchableOpacity, Text, View, Image, AsyncStorage } from 'react-native'
 import { Card, CardItem, Left, Body, Right, Thumbnail } from 'native-base'
 import CooklabAxios from '../../http/index'
 import { Actions } from 'react-native-router-flux'
@@ -12,6 +12,7 @@ class SearchCardComponent extends Component {
         this.state = {
             level: '',
             rating: '',
+            userid: ''
         }
     }
 
@@ -39,12 +40,22 @@ class SearchCardComponent extends Component {
     }
 
     async fetchUser() {
+        let getUserId
+        try {
+            getUserId = await AsyncStorage.getItem('userid')
+        } catch (error) {
+            console.log(error)
+        }
+
         let userResponse
         try {
             userResponse = await CooklabAxios.get(`get_user?userId=${this.props.id}`)
         } catch (error) {
             console.log(error)
         }
+        this.setState({
+            userid: getUserId 
+        })
     }
 
     navigateToDishDetail() {
@@ -52,7 +63,12 @@ class SearchCardComponent extends Component {
     }
 
     navigateToUserDetail() {
-        Actions.UserDetail({ idUser: this.props.id })
+        // check same user
+        if (this.state.userid === this.props.id) {
+            Actions.MyDish()
+        } else {       
+            Actions.UserDetail({ idUser: this.props.id })
+        }
     }
 
     render() {
