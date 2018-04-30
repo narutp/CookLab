@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, Dimensions, ImageBackground, View, Text, StyleSheet, TextInput } from 'react-native'
 import { Button } from 'native-base'
-import { NavigationActions } from 'react-navigation'
+import { Actions } from 'react-native-router-flux'
 import ConfigAxios from '../http/index'
 import { Container, Right, Left, Body } from 'native-base'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -25,9 +25,9 @@ class Register extends ValidationComponent {
         this.validate({
             name: {minlength: 3, maxlength: 8, required: true},
             email: {email: true},
-            username: {minlength: 3, maxlength: 3, required: true},
-            password: {numbers: true},
-            rePassword: {numbers: true}
+            username: {minlength: 3, maxlength: 8, required: true},
+            password: {required: true},
+            rePassword: {required: true}
         })
 
         let registerResponse
@@ -42,7 +42,7 @@ class Register extends ValidationComponent {
             console.log(error)
         }
         if (registerResponse.data === true && this.isFormValid() != false) {
-            this.props.navigation.dispatch(NavigationActions.back())
+            Actions.Login()
         } else {
             // alert(this.getErrorsInField('name') + '\n' + this.getErrorsInField('email') +
             //     this.getErrorsInField('username') +
@@ -121,7 +121,7 @@ class Register extends ValidationComponent {
                             borderRadius: 5, borderWidth: 1, marginRight: 15
                         }}>
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text onPress={ () => this.props.navigation.dispatch(NavigationActions.back()) }>BACK</Text>
+                                <Text onPress={ () => Actions.Login() }>BACK</Text>
                             </View>
                         </Button>
                         <Button style={{ 
