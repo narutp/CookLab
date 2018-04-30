@@ -313,7 +313,7 @@ class CardComponent extends Component {
                                 />
                             </Body>
                             <Right style={{ paddingRight: 10 }}>
-                                <TouchableOpacity onPress={ () => this.comment() }>
+                                <TouchableOpacity onPress={ async() => this.comment() }>
                                     <Text style={{ fontSize: 12, color: 'blue' }}>POST</Text>
                                 </TouchableOpacity>
                             </Right>
@@ -355,7 +355,7 @@ class CardComponent extends Component {
                                 <IconMaterialCommunityIcons name='trophy-outline' style={{ color: 'black' }} size={22}/>
                             </TouchableOpacity>
                             }
-                            <TouchableOpacity onPress={ () => this.openModal() } style={ styles.iconContainer }>
+                            <TouchableOpacity onPress={ async() => await this.openModal() } style={ styles.iconContainer }>
                                 <IconMaterialCommunityIcons name="comment-outline" style={{ color: 'black' }} size={22} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={ () => this.shareLinkWithShareDialog() } style={ styles.iconContainer }>

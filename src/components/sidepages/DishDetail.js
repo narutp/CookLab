@@ -76,6 +76,7 @@ class DishDetail extends Component{
         } catch (error) {
             console.log(error)
         }
+        Actions.MainScreen()
     }
 
     render(){
@@ -127,7 +128,7 @@ class DishDetail extends Component{
                         </View>
                     </View>
                     <View>
-                        <Button onPress={ () => this.rateDish() } style={ styles.rateButton }>
+                        <Button onPress={ async() => await this.rateDish() } style={ styles.rateButton }>
                             <Text style={{ color: 'black' }}>RATE THE DISH</Text>
                         </Button>
                     </View>

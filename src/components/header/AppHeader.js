@@ -3,7 +3,7 @@ import { StyleSheet, View, Image, Button } from 'react-native';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
-import { Container, Content, Left, Right, Body, Header, Text } from 'native-base';
+import { Container, Content, Left, Right, Body, Header, Text } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 
 // props
