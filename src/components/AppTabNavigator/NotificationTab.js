@@ -17,8 +17,8 @@ class NotificationTab extends Component {
         }
     }
 
-    componentDidMount() {
-        this.fetchNotification()
+    async componentDidMount() {
+        const res = await this.fetchNotification()
     }
 
     async fetchNotification() {

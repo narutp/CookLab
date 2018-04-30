@@ -8,6 +8,7 @@ import CardComponent from '../CardComponent'
 import AppHeader from '../header/AppHeader'
 import CooklabAxios from '../../http/index'
 import moment from 'moment'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 class TopfeedTab extends Component {
 
@@ -17,10 +18,14 @@ class TopfeedTab extends Component {
         feedResponse: [],
         user: '',
         refreshing: false,
+        isSpinnerVisible: false
     }
   }
 
   async componentDidMount() {
+    this.setState({
+      isSpinnerVisible: true
+    })
     let fetch = await this.fetchPost()
   }
 
@@ -40,6 +45,9 @@ class TopfeedTab extends Component {
     } catch (error) {
         console.log(error)
     }
+    this.setState({
+      isSpinnerVisible: false
+    })
   }
 
   _onRefresh() {
@@ -55,6 +63,10 @@ class TopfeedTab extends Component {
   render() {
       return (
         <Container style={styles.container}>
+          <Spinner visible={this.state.isSpinnerVisible}
+                // textContent={"Loading..."} 
+                // textStyle={{color: 'white'}} 
+          />
           <AppHeader onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll } />
           <View>
             <ScrollView

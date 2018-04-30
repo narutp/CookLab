@@ -42,10 +42,10 @@ class SearchTab extends Component {
             <View style={styles.container}>
                 <Header searchBar rounded style={styles.searchBar}>
                     <Item>
-                        <Icon name="ios-search" style={{ color: '#F44336' }} />
+                        <Icon name="ios-search" size={25} style={{ color: '#F44336' }} />
                         <Input onChangeText={ (text) => this.setState({searchText: text}) } placeholder="Search..." />
-                        <TouchableOpacity onPress={ () => this.searchDish() }>
-                            <Icon name="paper-plane" style={{ color: '#F44336' }} />
+                        <TouchableOpacity onPress={ async() => await this.searchDish() }>
+                            <Icon name="paper-plane" size={25} style={{ color: '#F44336' }} />
                         </TouchableOpacity>
                     </Item>
                 </Header>

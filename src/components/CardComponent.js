@@ -266,10 +266,10 @@ class CardComponent extends Component {
         console.log('props', this.props)
         return (
             <View style={ styles.container }>
-                <Spinner visible={this.state.isSpinnerVisible} 
+                {/* <Spinner visible={this.state.isSpinnerVisible} 
                 // textContent={"Loading..."} 
                 // textStyle={{color: 'white'}} 
-                />
+                /> */}
                 <Modal
                     animationType="slide"
                     transparent={false}

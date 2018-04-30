@@ -8,10 +8,23 @@ import { Container, Content, Left, Right, Body } from 'native-base'
 import CardComponent from '../CardComponent.js'
 import CooklabAxios from '../../http/index'
 import moment from 'moment'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 class NewfeedTab extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            feedResponse: [],
+            user: '',
+            refreshing: false,
+            isSpinnerVisible: false,
+        }
+    }
 
     async componentDidMount() {
+        this.setState({
+            isSpinnerVisible: true
+        })
         let fetch = await this.fetchPost()
     }
 
@@ -33,15 +46,9 @@ class NewfeedTab extends Component {
         } catch (error) {
             console.log(error)
         }
-    }
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            feedResponse: [],
-            user: '',
-            refreshing: false
-        }
+        this.setState({
+            isSpinnerVisible: false
+        })
     }
 
     _onRefresh() {
@@ -58,6 +65,10 @@ class NewfeedTab extends Component {
         console.log('sapefomapwoef', this.state.feedResponse)
         return (
             <Container style={styles.container}>
+                <Spinner visible={this.state.isSpinnerVisible}
+                // textContent={"Loading..."} 
+                // textStyle={{color: 'white'}} 
+                />
                 <AppHeader onMenuPressed={ this.props.onMenuPressed } showCameraRoll={ this.props.showCameraRoll } />
                     <View>
                         <ScrollView

@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 90,
         padding: 10,
-        opacity: 0.15
+        opacity: 0.3
     },
     detail: {
         flex: 1,
