@@ -25,7 +25,7 @@ const App = () => {
         <Provider store={store}>
             <Router>
                 <Scene key="root">
-                    <Scene key="Login" component={Login} hideNavBar={1} initial />
+                    <Scene key="Login" component={Login} hideNavBar={1} initial type={ActionConst.RESET}/>
                     <Scene key="StatusPosting" component={StatusPosting} hideNavBar={1} />
                     <Scene key="Register" component={Register} hideNavBar={1} />
                     <Scene key="SideMenu" component={SideMenu} drawerWidth={300} drawerPosition={'left'} hideNavBar={1} />
