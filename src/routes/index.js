@@ -18,6 +18,7 @@ import Aboutus from 'src/components/sidepages/Aboutus'
 import UserDetail from '../components/sidepages/UserDetail'
 import FollowList from '../components/sidepages/FollowList'
 import FanList from '../components/sidepages/FanList'
+import CommentPage from '../components/CommentPage'
 
 const App = () => {
     return (
@@ -38,6 +39,7 @@ const App = () => {
                     <Scene key="UserDetail" component={UserDetail} hideNavBar={1} />
                     <Scene key="FollowList" component={FollowList} hideNavBar={1} />
                     <Scene key="FanList" component={FanList} hideNavBar={1} />
+                    <Scene key="CommentPage" component={CommentPage} hideNavBar={1} />
                 </Scene>
             </Router>
         </Provider>
