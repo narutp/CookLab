@@ -25,13 +25,14 @@ class CardComponent extends Component {
         this.iconAnimated = new Animated.Value(1)
         // Build up a shareable link.
         const shareLinkContent = {
-            contentType: 'photo',
-            photos: [{
-                imageUrl: this.props.foodPic,
-                userGenerated: false, 
-                hashtag: '#cooklab',
-                quote: '#cooklab',
-            }]
+            contentType: 'link',
+            contentUrl: this.props.foodPic
+            // photos: [{
+            //     imageUrl: this.props.foodPic,
+            //     userGenerated: false, 
+            //     hashtag: '#cooklab',
+            //     quote: '#cooklab',
+            // }]
         };
         this.state = {
             trophy: '',
@@ -362,7 +363,7 @@ class CardComponent extends Component {
                             <TouchableOpacity onPress={ async() => await this.openModal() } style={ styles.iconContainer }>
                                 <IconMaterialCommunityIcons name="comment-outline" style={{ color: 'black' }} size={22} />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={ () => this.shareLinkWithShareDialog() } style={ styles.iconContainer }>
+                            <TouchableOpacity onPress={ async() => await this.shareLinkWithShareDialog() } style={ styles.iconContainer }>
                                 <IconFeather name='share-2' style={{ color: 'black' }} size={22}/>
                             </TouchableOpacity>
                         </Left>

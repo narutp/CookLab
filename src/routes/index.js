@@ -18,13 +18,14 @@ import Aboutus from 'src/components/sidepages/Aboutus'
 import UserDetail from '../components/sidepages/UserDetail'
 import FollowList from '../components/sidepages/FollowList'
 import FanList from '../components/sidepages/FanList'
+import CommentPage from '../components/CommentPage'
 
 const App = () => {
     return (
         <Provider store={store}>
             <Router>
                 <Scene key="root">
-                    <Scene key="Login" component={Login} hideNavBar={1} initial />
+                    <Scene key="Login" component={Login} hideNavBar={1} initial type={ActionConst.RESET}/>
                     <Scene key="StatusPosting" component={StatusPosting} hideNavBar={1} />
                     <Scene key="Register" component={Register} hideNavBar={1} />
                     <Scene key="SideMenu" component={SideMenu} drawerWidth={300} drawerPosition={'left'} hideNavBar={1} />
@@ -38,6 +39,7 @@ const App = () => {
                     <Scene key="UserDetail" component={UserDetail} hideNavBar={1} />
                     <Scene key="FollowList" component={FollowList} hideNavBar={1} />
                     <Scene key="FanList" component={FanList} hideNavBar={1} />
+                    <Scene key="CommentPage" component={CommentPage} hideNavBar={1} />
                 </Scene>
             </Router>
         </Provider>
