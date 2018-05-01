@@ -74,7 +74,7 @@ class CookingLevel extends Component {
                 tempArray[i].progress = 1
             }
         }
-        for (i = this.state.index;i < this.state.badgeDetail.length;i++){
+        for (i = this.state.index+1;i < this.state.badgeDetail.length;i++){
             tempArray[i].progress = 0
         }
         this.setState({ badgeDetail: tempArray })
