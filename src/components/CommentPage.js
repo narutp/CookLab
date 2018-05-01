@@ -14,7 +14,8 @@ class CommentPage extends Component {
         this.state = {
             isSpinnerVisible: false,
             commentArr: [],
-            comment: ''
+            comment: '',
+            userid: ''
         }
     }
 
@@ -27,6 +28,14 @@ class CommentPage extends Component {
     }
 
     async fetchComment() {
+        let userid
+        try {
+            userid = await AsyncStorage.getItem('userid')
+        } catch (error) {
+            console.log(error)
+        }
+
+        this.setState({ userid: userid })
         let getCommentResponse
         try {
             getCommentResponse = await CooklabAxios.get(`get_comment_by_post?post_id=${this.props.postid}`)
@@ -43,6 +52,48 @@ class CommentPage extends Component {
     }
 
     async comment() {
+        this.setState({
+            isSpinnerVisible: true
+        })
+        let createCommentResponse
+        let isCreateComment = false
+        let createNotiResponse
+
+        try {
+            createCommentResponse = await CooklabAxios.post(`create_comment`, {
+              id_post: this.props.postid,
+              id_user: this.state.userid,
+              text: this.state.comment
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
+        // create notification
+        // try {
+        //     createNotiResponse = await CooklabAxios.post(`create_notification`, {
+        //         id_post: this.props.postid,
+        //         id_user: this.state.userid,
+        //         id_target: this.props.userid,
+        //         type: 'comment'
+        //     })
+        // } catch (error) {
+        //     console.log(error)
+        // }
+
+        let getCommentResponse
+        try {
+            getCommentResponse = await CooklabAxios.get(`get_comment_by_post?post_id=${this.props.postid}`)
+        } catch (error) {
+            console.log(error)
+        }
+
+        if (getCommentResponse.data != null) {
+            this.setState({
+                commentArr: getCommentResponse.data,
+                isSpinnerVisible: false
+            })
+        }
     }
 
     render() {

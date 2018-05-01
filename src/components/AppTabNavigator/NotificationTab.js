@@ -61,34 +61,35 @@ class NotificationTab extends Component {
                         { this.state.notificationArr.map( (element, key) => {
                             return (
                                 <Content>
-                                        <List>
-                                            <ListItem>
-                                                <TouchableOpacity onPress={ async() => await this.navigateToComment(element.id_post) }>
-                                                    <Left style={{ flex: 1 }}>
-                                                        <Thumbnail style={ styles.image } source={{ uri: element.image }}/>
-                                                    </Left>
-                                                    <Body style={{ flex: 2 }}>
-                                                        <Text style={ styles.name }>
-                                                            { element.name }
+                                    <List>
+                                        <ListItem>
+                                            <TouchableOpacity style={{ flex: 1, flexDirection: "row" }}
+                                                onPress={ async() => await this.navigateToComment(element.id_post) }>
+                                                <Left style={{ flex: 1 }}>
+                                                    <Thumbnail style={ styles.image } source={{ uri: element.image }}/>
+                                                </Left>
+                                                <Body style={{ flex: 2 }}>
+                                                    <Text style={ styles.name }>
+                                                        { element.name }
+                                                    </Text>
+                                                    { element.type === 'comment' ?
+                                                        <Text style={ styles.type }>
+                                                            commented on your post
+                                                        </Text> :
+                                                        <Text style={ styles.type }>
+                                                            likes your post.
                                                         </Text>
-                                                        { element.type === 'comment' ?
-                                                            <Text style={ styles.type }>
-                                                                commented on your post
-                                                            </Text> :
-                                                            <Text style={ styles.type }>
-                                                                likes your post.
-                                                            </Text>
-                                                        }
-                                                        
-                                                    </Body>
-                                                    <Right style={{ flex: 1 }}>
-                                                        <Text style={ styles.timestamp }>
-                                                            { moment(element.timestamp).fromNow() }
-                                                        </Text>
-                                                    </Right>
-                                                </TouchableOpacity>
-                                            </ListItem>
-                                        </List> 
+                                                    }
+                                                    
+                                                </Body>
+                                                <Right style={{ flex: 1 }}>
+                                                    <Text style={ styles.timestamp }>
+                                                        { moment(element.timestamp).fromNow() }
+                                                    </Text>
+                                                </Right>
+                                            </TouchableOpacity>
+                                        </ListItem>
+                                    </List> 
                                 </Content>
                             )    
                         })
