@@ -59,6 +59,8 @@
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow camera roll</string>
+  <key>NSCameraUsageDescription</key>
+  <string>Allow camera usage</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
